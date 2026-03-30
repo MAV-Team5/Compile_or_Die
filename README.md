@@ -15,8 +15,11 @@ main (안정 버전)
 # 커밋
 
 [Add] 기능 추가
+
 [Fix] 버그 수정
+
 [Refactor] 코드 정리
+
 [Remove] 삭제
 
 
