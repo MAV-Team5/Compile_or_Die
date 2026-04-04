@@ -17,7 +17,7 @@ public class PoolManager : MonoBehaviour
             pools[index] = new List<GameObject>();
         }
 
-        Debug.Log(pools.Length);
+        //Debug.Log(pools.Length);
     }
 
 
@@ -27,7 +27,7 @@ public class PoolManager : MonoBehaviour
 
         foreach(GameObject item in pools[index])
         {
-            if (item.activeSelf)
+            if (!item.activeSelf)
             {
                 select = item;
                 select.SetActive(true);
