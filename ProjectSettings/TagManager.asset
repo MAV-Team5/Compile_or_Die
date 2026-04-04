@@ -4,8 +4,6 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Ground
-  - Area
   - Bullet
   layers:
   - Default
