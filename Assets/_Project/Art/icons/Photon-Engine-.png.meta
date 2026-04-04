@@ -1,0 +1,1105 @@
+fileFormatVersion: 2
+guid: 4e76b189bb9094c21b7ed901c1b3319c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5163471629188407471
+    second: Photon-Engine-_0
+  - first:
+      213: 4127710170399534230
+    second: Photon-Engine-_1
+  - first:
+      213: 6933672807931554921
+    second: Photon-Engine-_2
+  - first:
+      213: -7813174213662491735
+    second: Photon-Engine-_3
+  - first:
+      213: -1649431039124668201
+    second: Photon-Engine-_4
+  - first:
+      213: -9053693390713881175
+    second: Photon-Engine-_5
+  - first:
+      213: -1155816869102566184
+    second: Photon-Engine-_6
+  - first:
+      213: -5186450161040129750
+    second: Photon-Engine-_7
+  - first:
+      213: -7500996723804837046
+    second: Photon-Engine-_8
+  - first:
+      213: 5753619056555551393
+    second: Photon-Engine-_9
+  - first:
+      213: -6159394150377225892
+    second: Photon-Engine-_10
+  - first:
+      213: -3417419302229749431
+    second: Photon-Engine-_11
+  - first:
+      213: -3474611300668562069
+    second: Photon-Engine-_12
+  - first:
+      213: -230384213297134368
+    second: Photon-Engine-_13
+  - first:
+      213: 304918339345515772
+    second: Photon-Engine-_14
+  - first:
+      213: 8969864767508800140
+    second: Photon-Engine-_15
+  - first:
+      213: 6888113276739705875
+    second: Photon-Engine-_16
+  - first:
+      213: -4463883845221094532
+    second: Photon-Engine-_17
+  - first:
+      213: -6547110100597031384
+    second: Photon-Engine-_18
+  - first:
+      213: 1068297842886536073
+    second: Photon-Engine-_19
+  - first:
+      213: 1798378318133660931
+    second: Photon-Engine-_20
+  - first:
+      213: 4473614609074938225
+    second: Photon-Engine-_21
+  - first:
+      213: -6864950902834961496
+    second: Photon-Engine-_22
+  - first:
+      213: 5310776387336134908
+    second: Photon-Engine-_23
+  - first:
+      213: 70886565331002357
+    second: Photon-Engine-_24
+  - first:
+      213: 8703033946755264945
+    second: Photon-Engine-_25
+  - first:
+      213: 5248260426214249472
+    second: Photon-Engine-_26
+  - first:
+      213: 7085955414424616661
+    second: Photon-Engine-_27
+  - first:
+      213: 7464356921935571444
+    second: Photon-Engine-_28
+  - first:
+      213: 2903098227578680915
+    second: Photon-Engine-_29
+  - first:
+      213: 8596946013808066145
+    second: Photon-Engine-_30
+  - first:
+      213: -3256750898994037169
+    second: Photon-Engine-_31
+  - first:
+      213: -8053864511888775457
+    second: Photon-Engine-_32
+  - first:
+      213: -1526138564764201012
+    second: Photon-Engine-_33
+  - first:
+      213: 9157055403472422344
+    second: Photon-Engine-_34
+  - first:
+      213: 3181199013069299390
+    second: Photon-Engine-_35
+  - first:
+      213: -8278611888151782668
+    second: Photon-Engine-_36
+  - first:
+      213: 586740662762846083
+    second: Photon-Engine-_37
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Photon-Engine-_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 275
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15fda6619e9a758b0800000000000000
+      internalID: -5163471629188407471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 281
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69c6e6ac782984930800000000000000
+      internalID: 4127710170399534230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_2
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 286
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96cab81ceaa593060800000000000000
+      internalID: 6933672807931554921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_3
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 290
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9abb76ad277029390800000000000000
+      internalID: -7813174213662491735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_4
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 292
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d0887f753b0c19e0800000000000000
+      internalID: -1649431039124668201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 293
+        width: 11
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ad723564d1da5280800000000000000
+      internalID: -9053693390713881175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_6
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 292
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d4ccbb6ea6b5ffe0800000000000000
+      internalID: -1155816869102566184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_7
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 290
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a218fe9be070608b0800000000000000
+      internalID: -5186450161040129750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_8
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 286
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4b6e30c83b17e790800000000000000
+      internalID: -7500996723804837046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_9
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 281
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aa69e64c06f8df40800000000000000
+      internalID: 5753619056555551393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_10
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 275
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c51852377af658aa0800000000000000
+      internalID: -6159394150377225892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_11
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 225
+        width: 55
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 941580a3043e290d0800000000000000
+      internalID: -3417419302229749431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_12
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 224
+        width: 40
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b65a71b6e63b7cfc0800000000000000
+      internalID: -3474611300668562069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 261
+        width: 33
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e4019457c28dccf0800000000000000
+      internalID: -230384213297134368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_14
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 268
+        width: 34
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf401363d994b3400800000000000000
+      internalID: 304918339345515772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_15
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 268
+        width: 33
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8267ae4b7c5b7c70800000000000000
+      internalID: 8969864767508800140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_16
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 261
+        width: 34
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31cd8b8c78e779f50800000000000000
+      internalID: 6888113276739705875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_17
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 200
+        width: 55
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7bedfe1b491d02c0800000000000000
+      internalID: -4463883845221094532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_18
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 224
+        width: 58
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82eba843d0ef325a0800000000000000
+      internalID: -6547110100597031384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_19
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 224
+        width: 58
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98b619f5a3b53de00800000000000000
+      internalID: 1068297842886536073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_20
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 225
+        width: 53
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30d0f185d8f15f810800000000000000
+      internalID: 1798378318133660931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 250
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 171e8e3e8c8751e30800000000000000
+      internalID: 4473614609074938225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 237
+        width: 33
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a36604a68bcab0a0800000000000000
+      internalID: -6864950902834961496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_23
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 237
+        width: 34
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf0e3b09cfaa3b940800000000000000
+      internalID: 5310776387336134908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_24
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 250
+        width: 34
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f3e6e1a4f6dbf000800000000000000
+      internalID: 70886565331002357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_25
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 224
+        width: 34
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b17380934367c870800000000000000
+      internalID: 8703033946755264945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_26
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 212
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0049d391d0195d840800000000000000
+      internalID: 5248260426214249472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_27
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 202
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5def80b08ee565260800000000000000
+      internalID: 7085955414424616661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_28
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 194
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f9a2b89219b69760800000000000000
+      internalID: 7464356921935571444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_29
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 194
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 356b4eae470e94820800000000000000
+      internalID: 2903098227578680915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_30
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 202
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16e7d3ad9dc7e4770800000000000000
+      internalID: 8596946013808066145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_31
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 212
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4eb687ff42bdc2d0800000000000000
+      internalID: -3256750898994037169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_32
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 224
+        width: 33
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd6aebbc5ecea3090800000000000000
+      internalID: -8053864511888775457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_33
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 189
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccf8439af0112dae0800000000000000
+      internalID: -1526138564764201012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_34
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 186
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c58b809f55641f70800000000000000
+      internalID: 9157055403472422344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_35
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 185
+        width: 11
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebe91ddc5a3e52c20800000000000000
+      internalID: 3181199013069299390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_36
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 185
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fa136589567c1d80800000000000000
+      internalID: -8278611888151782668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Photon-Engine-_37
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 189
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 387b14b2685842800800000000000000
+      internalID: 586740662762846083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Photon-Engine-_0: -5163471629188407471
+      Photon-Engine-_1: 4127710170399534230
+      Photon-Engine-_10: -6159394150377225892
+      Photon-Engine-_11: -3417419302229749431
+      Photon-Engine-_12: -3474611300668562069
+      Photon-Engine-_13: -230384213297134368
+      Photon-Engine-_14: 304918339345515772
+      Photon-Engine-_15: 8969864767508800140
+      Photon-Engine-_16: 6888113276739705875
+      Photon-Engine-_17: -4463883845221094532
+      Photon-Engine-_18: -6547110100597031384
+      Photon-Engine-_19: 1068297842886536073
+      Photon-Engine-_2: 6933672807931554921
+      Photon-Engine-_20: 1798378318133660931
+      Photon-Engine-_21: 4473614609074938225
+      Photon-Engine-_22: -6864950902834961496
+      Photon-Engine-_23: 5310776387336134908
+      Photon-Engine-_24: 70886565331002357
+      Photon-Engine-_25: 8703033946755264945
+      Photon-Engine-_26: 5248260426214249472
+      Photon-Engine-_27: 7085955414424616661
+      Photon-Engine-_28: 7464356921935571444
+      Photon-Engine-_29: 2903098227578680915
+      Photon-Engine-_3: -7813174213662491735
+      Photon-Engine-_30: 8596946013808066145
+      Photon-Engine-_31: -3256750898994037169
+      Photon-Engine-_32: -8053864511888775457
+      Photon-Engine-_33: -1526138564764201012
+      Photon-Engine-_34: 9157055403472422344
+      Photon-Engine-_35: 3181199013069299390
+      Photon-Engine-_36: -8278611888151782668
+      Photon-Engine-_37: 586740662762846083
+      Photon-Engine-_4: -1649431039124668201
+      Photon-Engine-_5: -9053693390713881175
+      Photon-Engine-_6: -1155816869102566184
+      Photon-Engine-_7: -5186450161040129750
+      Photon-Engine-_8: -7500996723804837046
+      Photon-Engine-_9: 5753619056555551393
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

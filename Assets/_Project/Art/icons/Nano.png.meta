@@ -1,0 +1,5967 @@
+fileFormatVersion: 2
+guid: d5b17587f8eb640e1894542de29c3021
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7312326276025600588
+    second: Nano_0
+  - first:
+      213: -5443636216572817676
+    second: Nano_1
+  - first:
+      213: -2926405200539628278
+    second: Nano_2
+  - first:
+      213: 1143606993713271237
+    second: Nano_3
+  - first:
+      213: -1008275575350736901
+    second: Nano_4
+  - first:
+      213: 2441498643978516391
+    second: Nano_5
+  - first:
+      213: 7888638441074331129
+    second: Nano_6
+  - first:
+      213: -5466550651148610344
+    second: Nano_7
+  - first:
+      213: -7655406654669493655
+    second: Nano_8
+  - first:
+      213: 7138045237591010047
+    second: Nano_9
+  - first:
+      213: 1621691910311918513
+    second: Nano_10
+  - first:
+      213: 8032113821781511126
+    second: Nano_11
+  - first:
+      213: -8833066969849356979
+    second: Nano_12
+  - first:
+      213: -5132584520672098989
+    second: Nano_13
+  - first:
+      213: -953179170235346234
+    second: Nano_14
+  - first:
+      213: -6137777038445855462
+    second: Nano_15
+  - first:
+      213: 7883665106999147071
+    second: Nano_16
+  - first:
+      213: -3110439214328054006
+    second: Nano_17
+  - first:
+      213: 5233641377962526752
+    second: Nano_18
+  - first:
+      213: 5531978734624436844
+    second: Nano_19
+  - first:
+      213: -7774550355098614586
+    second: Nano_20
+  - first:
+      213: 4893481153977885790
+    second: Nano_21
+  - first:
+      213: -1969230943936591575
+    second: Nano_22
+  - first:
+      213: -625403683804483761
+    second: Nano_23
+  - first:
+      213: 2766164747919514125
+    second: Nano_24
+  - first:
+      213: 3667288276713153676
+    second: Nano_25
+  - first:
+      213: -6463442487670260742
+    second: Nano_26
+  - first:
+      213: -3469581376806788216
+    second: Nano_27
+  - first:
+      213: 2539188559996949316
+    second: Nano_28
+  - first:
+      213: -5271632214446969835
+    second: Nano_29
+  - first:
+      213: -3567960415612854979
+    second: Nano_30
+  - first:
+      213: -8211818049214870801
+    second: Nano_31
+  - first:
+      213: 7032115988229156682
+    second: Nano_32
+  - first:
+      213: 4678980482420598457
+    second: Nano_33
+  - first:
+      213: 827197065242582841
+    second: Nano_34
+  - first:
+      213: 3217475017615892425
+    second: Nano_35
+  - first:
+      213: -8343201650999128236
+    second: Nano_36
+  - first:
+      213: 4021879762989467107
+    second: Nano_37
+  - first:
+      213: -6489812750042690506
+    second: Nano_38
+  - first:
+      213: -3694030662706605757
+    second: Nano_39
+  - first:
+      213: 1755234287594670305
+    second: Nano_40
+  - first:
+      213: -418128620465978250
+    second: Nano_41
+  - first:
+      213: 6488441663175268977
+    second: Nano_42
+  - first:
+      213: -5514513946348522124
+    second: Nano_43
+  - first:
+      213: 6684902724108463463
+    second: Nano_44
+  - first:
+      213: -3300897452605533496
+    second: Nano_45
+  - first:
+      213: 912979464067359243
+    second: Nano_46
+  - first:
+      213: -3476732830990346047
+    second: Nano_47
+  - first:
+      213: 460438555729526267
+    second: Nano_48
+  - first:
+      213: -2759954374185552363
+    second: Nano_49
+  - first:
+      213: -2398074729125170382
+    second: Nano_50
+  - first:
+      213: -719972671686874676
+    second: Nano_51
+  - first:
+      213: -6137443168798708195
+    second: Nano_52
+  - first:
+      213: 5894425885952160900
+    second: Nano_53
+  - first:
+      213: -8225255041705570894
+    second: Nano_54
+  - first:
+      213: -913703861003214037
+    second: Nano_55
+  - first:
+      213: -4067981466152174834
+    second: Nano_56
+  - first:
+      213: 4851662567044586391
+    second: Nano_57
+  - first:
+      213: 4776549964745326222
+    second: Nano_58
+  - first:
+      213: 7092169212846752882
+    second: Nano_59
+  - first:
+      213: -1474125803675629024
+    second: Nano_60
+  - first:
+      213: 6634000338402592018
+    second: Nano_61
+  - first:
+      213: 3577523629625005819
+    second: Nano_62
+  - first:
+      213: 3071114626356933276
+    second: Nano_63
+  - first:
+      213: 825938467231172684
+    second: Nano_64
+  - first:
+      213: -6263864020443481763
+    second: Nano_65
+  - first:
+      213: 6927236437097211064
+    second: Nano_66
+  - first:
+      213: -1750549198753484364
+    second: Nano_67
+  - first:
+      213: -4213421977456733646
+    second: Nano_68
+  - first:
+      213: 6986480015726086084
+    second: Nano_69
+  - first:
+      213: 405273016008801798
+    second: Nano_70
+  - first:
+      213: 4115344211540086383
+    second: Nano_71
+  - first:
+      213: -3424659655954604904
+    second: Nano_72
+  - first:
+      213: 5869028499486414392
+    second: Nano_73
+  - first:
+      213: -6981014278680588462
+    second: Nano_74
+  - first:
+      213: -2844045780859364607
+    second: Nano_75
+  - first:
+      213: -1884116445842660309
+    second: Nano_76
+  - first:
+      213: -7090973270749399059
+    second: Nano_77
+  - first:
+      213: 7223362602553884286
+    second: Nano_78
+  - first:
+      213: -5946814761466487143
+    second: Nano_79
+  - first:
+      213: -14607273183285738
+    second: Nano_80
+  - first:
+      213: 8537387477391828987
+    second: Nano_81
+  - first:
+      213: 2208012536976915570
+    second: Nano_82
+  - first:
+      213: -2047921750609498798
+    second: Nano_83
+  - first:
+      213: 1922433658204186102
+    second: Nano_84
+  - first:
+      213: -8201506129149130357
+    second: Nano_85
+  - first:
+      213: -2435840543312364847
+    second: Nano_86
+  - first:
+      213: 5573990404187210532
+    second: Nano_87
+  - first:
+      213: 6417280127107065966
+    second: Nano_88
+  - first:
+      213: -5815665496351746192
+    second: Nano_89
+  - first:
+      213: -6087461858450583544
+    second: Nano_90
+  - first:
+      213: -6227642536225987216
+    second: Nano_91
+  - first:
+      213: -5790339037348646278
+    second: Nano_92
+  - first:
+      213: -5619811284883464011
+    second: Nano_93
+  - first:
+      213: 2379174207003219253
+    second: Nano_94
+  - first:
+      213: -1164142679666484338
+    second: Nano_95
+  - first:
+      213: 2556669728245000834
+    second: Nano_96
+  - first:
+      213: -7777111141096080166
+    second: Nano_97
+  - first:
+      213: -7885666894270909704
+    second: Nano_98
+  - first:
+      213: -472210016075469291
+    second: Nano_99
+  - first:
+      213: -7518849882015525330
+    second: Nano_100
+  - first:
+      213: -5052859485287760623
+    second: Nano_101
+  - first:
+      213: 7940603394656820059
+    second: Nano_102
+  - first:
+      213: 554045628741769232
+    second: Nano_103
+  - first:
+      213: -7955624046455275545
+    second: Nano_104
+  - first:
+      213: -4161749665205861942
+    second: Nano_105
+  - first:
+      213: -1629913093618866744
+    second: Nano_106
+  - first:
+      213: 8556203745530498780
+    second: Nano_107
+  - first:
+      213: 6230530677728799541
+    second: Nano_108
+  - first:
+      213: 6887359322612950333
+    second: Nano_109
+  - first:
+      213: -2183128640426719432
+    second: Nano_110
+  - first:
+      213: 6309576457234715587
+    second: Nano_111
+  - first:
+      213: 614904980328085165
+    second: Nano_112
+  - first:
+      213: -7849496013476424805
+    second: Nano_113
+  - first:
+      213: 8208519223799530569
+    second: Nano_114
+  - first:
+      213: -1441534839267870967
+    second: Nano_115
+  - first:
+      213: 954743163845918770
+    second: Nano_116
+  - first:
+      213: -3382326956842154757
+    second: Nano_117
+  - first:
+      213: 2778784846402735076
+    second: Nano_118
+  - first:
+      213: 2575375170069297471
+    second: Nano_119
+  - first:
+      213: 8334562507995965258
+    second: Nano_120
+  - first:
+      213: 2790856571435611200
+    second: Nano_121
+  - first:
+      213: -6309280431858064859
+    second: Nano_122
+  - first:
+      213: 7230236732875210805
+    second: Nano_123
+  - first:
+      213: -2089301951886928510
+    second: Nano_124
+  - first:
+      213: 8790281149814174803
+    second: Nano_125
+  - first:
+      213: -7870799841914415277
+    second: Nano_126
+  - first:
+      213: -6904371032318352958
+    second: Nano_127
+  - first:
+      213: 8146409453345354203
+    second: Nano_128
+  - first:
+      213: -2315607843518749789
+    second: Nano_129
+  - first:
+      213: -2199271588487619110
+    second: Nano_130
+  - first:
+      213: -1205925593875911281
+    second: Nano_131
+  - first:
+      213: 2981311779914630897
+    second: Nano_132
+  - first:
+      213: 6339773964257897750
+    second: Nano_133
+  - first:
+      213: 5928810878401964781
+    second: Nano_134
+  - first:
+      213: 6423328711351719193
+    second: Nano_135
+  - first:
+      213: 3060628914644176588
+    second: Nano_136
+  - first:
+      213: -6252786698578011042
+    second: Nano_137
+  - first:
+      213: -5369503921076703490
+    second: Nano_138
+  - first:
+      213: 7129871416746462205
+    second: Nano_139
+  - first:
+      213: -2807625763219791494
+    second: Nano_140
+  - first:
+      213: -6805805505117126143
+    second: Nano_141
+  - first:
+      213: -4162478000429201116
+    second: Nano_142
+  - first:
+      213: -4041681665666462288
+    second: Nano_143
+  - first:
+      213: -2643065893045029546
+    second: Nano_144
+  - first:
+      213: 3615724621857677890
+    second: Nano_145
+  - first:
+      213: 8638259532590083417
+    second: Nano_146
+  - first:
+      213: -902028567509414834
+    second: Nano_147
+  - first:
+      213: 6914677967508680237
+    second: Nano_148
+  - first:
+      213: -2370305076548824367
+    second: Nano_149
+  - first:
+      213: -693189766236308363
+    second: Nano_150
+  - first:
+      213: -656129161422560109
+    second: Nano_151
+  - first:
+      213: 2187072622419115462
+    second: Nano_152
+  - first:
+      213: -5083596822131021905
+    second: Nano_153
+  - first:
+      213: 8495994483915388296
+    second: Nano_154
+  - first:
+      213: -2215358061205336233
+    second: Nano_155
+  - first:
+      213: -7121669904580636044
+    second: Nano_156
+  - first:
+      213: -1998060978052872256
+    second: Nano_157
+  - first:
+      213: 3428152172847525458
+    second: Nano_158
+  - first:
+      213: 8185055619789974565
+    second: Nano_159
+  - first:
+      213: 7373949167525785805
+    second: Nano_160
+  - first:
+      213: -2342974376388975392
+    second: Nano_161
+  - first:
+      213: -6661388226583657086
+    second: Nano_162
+  - first:
+      213: -4076217803495585612
+    second: Nano_163
+  - first:
+      213: 1328080954515710141
+    second: Nano_164
+  - first:
+      213: -8489387041058927996
+    second: Nano_165
+  - first:
+      213: -7684542713705240061
+    second: Nano_166
+  - first:
+      213: 709289994276955907
+    second: Nano_167
+  - first:
+      213: -1773802259801687084
+    second: Nano_168
+  - first:
+      213: 1196341275303960691
+    second: Nano_169
+  - first:
+      213: -3859983234545790295
+    second: Nano_170
+  - first:
+      213: -9049896404545482101
+    second: Nano_171
+  - first:
+      213: -1549004361752557001
+    second: Nano_172
+  - first:
+      213: 3393236202956312436
+    second: Nano_173
+  - first:
+      213: -7829595160424645111
+    second: Nano_174
+  - first:
+      213: -5599866782723796959
+    second: Nano_175
+  - first:
+      213: 5855156641439129936
+    second: Nano_176
+  - first:
+      213: -7512134109055740042
+    second: Nano_177
+  - first:
+      213: -204053642669434293
+    second: Nano_178
+  - first:
+      213: -146220882016719012
+    second: Nano_179
+  - first:
+      213: -7174754319008583801
+    second: Nano_180
+  - first:
+      213: 8630600646628784368
+    second: Nano_181
+  - first:
+      213: 8919593418502770771
+    second: Nano_182
+  - first:
+      213: 5559633025341404613
+    second: Nano_183
+  - first:
+      213: -8820241085144554518
+    second: Nano_184
+  - first:
+      213: -4341932117357615434
+    second: Nano_185
+  - first:
+      213: -563726531757169992
+    second: Nano_186
+  - first:
+      213: 945195005943399041
+    second: Nano_187
+  - first:
+      213: 3816935495784301672
+    second: Nano_188
+  - first:
+      213: -3966266524441906295
+    second: Nano_189
+  - first:
+      213: 8131469182490834897
+    second: Nano_190
+  - first:
+      213: -4640326889296041507
+    second: Nano_191
+  - first:
+      213: -1656458034610780272
+    second: Nano_192
+  - first:
+      213: 206609461801097950
+    second: Nano_193
+  - first:
+      213: 5852529165271617273
+    second: Nano_194
+  - first:
+      213: -5001284460537759942
+    second: Nano_195
+  - first:
+      213: -7663223915494531784
+    second: Nano_196
+  - first:
+      213: 3333888530250520817
+    second: Nano_197
+  - first:
+      213: 367075997147273
+    second: Nano_198
+  - first:
+      213: 3632487560920135504
+    second: Nano_199
+  - first:
+      213: 6420973205587052670
+    second: Nano_200
+  - first:
+      213: 1091548639736539253
+    second: Nano_201
+  - first:
+      213: 3072373225736597429
+    second: Nano_202
+  - first:
+      213: -7248856412694042072
+    second: Nano_203
+  - first:
+      213: -7819979840078753597
+    second: Nano_204
+  - first:
+      213: 9219309670551431274
+    second: Nano_205
+  - first:
+      213: -556600099227231196
+    second: Nano_206
+  - first:
+      213: -2212768962451984234
+    second: Nano_207
+  - first:
+      213: 4715797908225725599
+    second: Nano_208
+  - first:
+      213: -725133086376107298
+    second: Nano_209
+  - first:
+      213: -386208474500532614
+    second: Nano_210
+  - first:
+      213: 577586165710695517
+    second: Nano_211
+  - first:
+      213: 1593119650379134651
+    second: Nano_212
+  - first:
+      213: -4645415843650315202
+    second: Nano_213
+  - first:
+      213: 3182503598665343832
+    second: Nano_214
+  - first:
+      213: 7742411476315063924
+    second: Nano_215
+  - first:
+      213: 9136152824033386450
+    second: Nano_216
+  - first:
+      213: 8251234206731461186
+    second: Nano_217
+  - first:
+      213: -1655110506839055625
+    second: Nano_218
+  - first:
+      213: -1437523438693415305
+    second: Nano_219
+  - first:
+      213: 1192512302441740507
+    second: Nano_220
+  - first:
+      213: 109949556178980069
+    second: Nano_221
+  - first:
+      213: -3104510501937923765
+    second: Nano_222
+  - first:
+      213: -8397641244728693785
+    second: Nano_223
+  - first:
+      213: 206611843850761841
+    second: Nano_224
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Nano_0
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 498
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4ac244710a9a7560800000000000000
+      internalID: 7312326276025600588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_1
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 492
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fec9b0e3b15474b0800000000000000
+      internalID: -5443636216572817676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_2
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 498
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0dcaf099f15367d0800000000000000
+      internalID: -2926405200539628278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_3
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 492
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c19eee6088eedf00800000000000000
+      internalID: 1143606993713271237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_4
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 498
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf7448fc4b2e102f0800000000000000
+      internalID: -1008275575350736901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_5
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 492
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a7ffe1c412f1e120800000000000000
+      internalID: 2441498643978516391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_6
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 464
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd0ab9cdd21a7d60800000000000000
+      internalID: 7888638441074331129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_7
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 464
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d45b935529e224b0800000000000000
+      internalID: -5466550651148610344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_8
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 464
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96a6349253882c590800000000000000
+      internalID: -7655406654669493655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_9
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 463
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffae749135e6f0360800000000000000
+      internalID: 7138045237591010047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_10
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 463
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bb34494338618610800000000000000
+      internalID: 1621691910311918513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_11
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 464
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dbcac607fcc77f60800000000000000
+      internalID: 8032113821781511126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_12
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 459
+        width: 10
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4d94e8f364aa6580800000000000000
+      internalID: -8833066969849356979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_13
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 464
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 355cba1729565c8b0800000000000000
+      internalID: -5132584520672098989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_14
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 470
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c212d64890a5c2f0800000000000000
+      internalID: -953179170235346234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_15
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 464
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1db2e88d4c32daa0800000000000000
+      internalID: -6137777038445855462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_16
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 459
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3a73d635a7686d60800000000000000
+      internalID: 7883665106999147071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_17
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 464
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0ff78ea30085d4d0800000000000000
+      internalID: -3110439214328054006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_18
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 463
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0280e3faa11a1a840800000000000000
+      internalID: 5233641377962526752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_19
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 463
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c62fd46795985cc40800000000000000
+      internalID: 5531978734624436844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_20
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 463
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4c5f3b4af3b1490800000000000000
+      internalID: -7774550355098614586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_21
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 463
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e54abe9ce2329e340800000000000000
+      internalID: 4893481153977885790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_22
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 463
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929c3f1d3e2eba4e0800000000000000
+      internalID: -1969230943936591575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_23
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 464
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4fec91c9ae1257f0800000000000000
+      internalID: -625403683804483761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_24
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 459
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0a53f5be24636620800000000000000
+      internalID: 2766164747919514125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_25
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 470
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c84217ee143d4e230800000000000000
+      internalID: 3667288276713153676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_26
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 464
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afb3f306d4d3d46a0800000000000000
+      internalID: -6463442487670260742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_27
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 435
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 883ee14de1299dfc0800000000000000
+      internalID: -3469581376806788216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_28
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 435
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4439a58ca820d3320800000000000000
+      internalID: 2539188559996949316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_29
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 435
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51ce1676e6667d6b0800000000000000
+      internalID: -5271632214446969835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_30
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 435
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3d9db6e7ee0c7ec0800000000000000
+      internalID: -3567960415612854979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_31
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 435
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fea08680ef2c90e80800000000000000
+      internalID: -8211818049214870801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_32
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 435
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4f6eb9cb38179160800000000000000
+      internalID: 7032115988229156682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_33
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 435
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b66aad55f31fe040800000000000000
+      internalID: 4678980482420598457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_34
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 435
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f9701295bca7b00800000000000000
+      internalID: 827197065242582841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_35
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 435
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cf50ba4b74c6ac20800000000000000
+      internalID: 3217475017615892425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_36
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 435
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45f8eb67d4ef63c80800000000000000
+      internalID: -8343201650999128236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_37
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 435
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e5c15ae55690d730800000000000000
+      internalID: 4021879762989467107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_38
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 435
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c87e630bd8fe5a0800000000000000
+      internalID: -6489812750042690506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_39
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 431
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 341d8ff1faa2cbcc0800000000000000
+      internalID: -3694030662706605757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_40
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 431
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e88aa1f848db5810800000000000000
+      internalID: 1755234287594670305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_41
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 448
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67483ba2c32823af0800000000000000
+      internalID: -418128620465978250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_42
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 431
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17a186fb0539b0a50800000000000000
+      internalID: 6488441663175268977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_43
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 435
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47575fe68c28873b0800000000000000
+      internalID: -5514513946348522124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_44
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 435
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76da6840c9b85cc50800000000000000
+      internalID: 6684902724108463463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_45
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 435
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c29479714bd032d0800000000000000
+      internalID: -3300897452605533496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_46
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 435
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0226f24cfd8bac00800000000000000
+      internalID: 912979464067359243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_47
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 435
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c8d1e529e920cfc0800000000000000
+      internalID: -3476732830990346047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_48
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 435
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfdf62b4d6ec36600800000000000000
+      internalID: 460438555729526267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_49
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 441
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 516726a9e1ca2b9d0800000000000000
+      internalID: -2759954374185552363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_50
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 435
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23337a94db358bed0800000000000000
+      internalID: -2398074729125170382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_51
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 435
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc96d107ba42206f0800000000000000
+      internalID: -719972671686874676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_52
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 431
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1eea9e94fb63daa0800000000000000
+      internalID: -6137443168798708195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_53
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 407
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 484bb0ffc153dc150800000000000000
+      internalID: 5894425885952160900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_54
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 407
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bd062c6e160add80800000000000000
+      internalID: -8225255041705570894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_55
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 413
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b23200fed2fd153f0800000000000000
+      internalID: -913703861003214037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_56
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 406
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0b702dd860ab87c0800000000000000
+      internalID: -4067981466152174834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_57
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 406
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79b90c64661945340800000000000000
+      internalID: 4851662567044586391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_58
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 406
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8ebc8cb2e6b94240800000000000000
+      internalID: 4776549964745326222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_59
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 406
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27441bab2527c6260800000000000000
+      internalID: 7092169212846752882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_60
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 406
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02a4dad446ada8be0800000000000000
+      internalID: -1474125803675629024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_61
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 407
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 215ce4ac824b01c50800000000000000
+      internalID: 6634000338402592018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_62
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 406
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf65d5f59cae5a130800000000000000
+      internalID: 3577523629625005819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_63
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 406
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92f2803b7ace9a20800000000000000
+      internalID: 3071114626356933276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_64
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 406
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4805a1f8a2567b00800000000000000
+      internalID: 825938467231172684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_65
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 406
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d59bd1c5cd84219a0800000000000000
+      internalID: -6263864020443481763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_66
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 406
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b4625466dc722060800000000000000
+      internalID: 6927236437097211064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_67
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 406
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b1347e47ccc4b7e0800000000000000
+      internalID: -1750549198753484364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_68
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 406
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2321ed0090be685c0800000000000000
+      internalID: -4213421977456733646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_69
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 406
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c708bfee86f4f060800000000000000
+      internalID: 6986480015726086084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_70
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 406
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60e714c29a1df9500800000000000000
+      internalID: 405273016008801798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_71
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 374
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6e8e41a1c3ac1930800000000000000
+      internalID: 4115344211540086383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_72
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 384
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89cd632003a2970d0800000000000000
+      internalID: -3424659655954604904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_73
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 378
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8361888235af27150800000000000000
+      internalID: 5869028499486414392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_74
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 378
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25f405320847e1f90800000000000000
+      internalID: -6981014278680588462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_75
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 378
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10bdde24e6be788d0800000000000000
+      internalID: -2844045780859364607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_76
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 378
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b24a31233164ad5e0800000000000000
+      internalID: -1884116445842660309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_77
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 378
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de7313d316dc79d90800000000000000
+      internalID: -7090973270749399059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_78
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 374
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7eb019140a8e3460800000000000000
+      internalID: 7223362602553884286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_79
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 374
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99e9db56b7ba87da0800000000000000
+      internalID: -5946814761466487143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_80
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 378
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ee5ce23ca1ccff0800000000000000
+      internalID: -14607273183285738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_81
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 378
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf7eecb7da4ea7670800000000000000
+      internalID: 8537387477391828987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_82
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 378
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27c3e1e24bf64ae10800000000000000
+      internalID: 2208012536976915570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_83
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 378
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25def17a4025493e0800000000000000
+      internalID: -2047921750609498798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_84
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 374
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f5e3850a3bddaa10800000000000000
+      internalID: 1922433658204186102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_85
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 349
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8980e401a56e2e80800000000000000
+      internalID: -8201506129149130357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_86
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 349
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1da3f567ee7223ed0800000000000000
+      internalID: -2435840543312364847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_87
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 349
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 423c3078dbaca5d40800000000000000
+      internalID: 5573990404187210532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_88
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 349
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e68e3608642ce0950800000000000000
+      internalID: 6417280127107065966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_89
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 346
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07755753b0b9a4fa0800000000000000
+      internalID: -5815665496351746192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_90
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 356
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 800505741bdf48ba0800000000000000
+      internalID: -6087461858450583544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_91
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 349
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0752328db18f299a0800000000000000
+      internalID: -6227642536225987216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_92
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 349
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a72b1c5f25594afa0800000000000000
+      internalID: -5790339037348646278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_93
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 349
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b02ac3596b6202b0800000000000000
+      internalID: -5619811284883464011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_94
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 349
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 535d23bf556840120800000000000000
+      internalID: 2379174207003219253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_95
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 349
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8b9b96966228dfe0800000000000000
+      internalID: -1164142679666484338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_96
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 356
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28aa900729d1b7320800000000000000
+      internalID: 2556669728245000834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_97
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 349
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adc3c304f96221490800000000000000
+      internalID: -7777111141096080166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_98
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 321
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f2bced5dbb709290800000000000000
+      internalID: -7885666894270909704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_99
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 321
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51ea0740e7f5279f0800000000000000
+      internalID: -472210016075469291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_100
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 321
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e261afe6edda7a790800000000000000
+      internalID: -7518849882015525330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_101
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 321
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11db57fb113a0e9b0800000000000000
+      internalID: -5052859485287760623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_102
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 317
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5bd7c067b0b23e60800000000000000
+      internalID: 7940603394656820059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_103
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 327
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 018d28a509d50b700800000000000000
+      internalID: 554045628741769232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_104
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 321
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ef3a789412f79190800000000000000
+      internalID: -7955624046455275545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_105
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 321
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac1cd49babe7e36c0800000000000000
+      internalID: -4161749665205861942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_106
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 321
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c5e6105da26169e0800000000000000
+      internalID: -1629913093618866744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_107
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 321
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cde463e49fdbdb670800000000000000
+      internalID: 8556203745530498780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_108
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 321
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53be23004aa477650800000000000000
+      internalID: 6230530677728799541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_109
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 327
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35e1d820d0d49f50800000000000000
+      internalID: 6887359322612950333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_110
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 321
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83742687118f3b1e0800000000000000
+      internalID: -2183128640426719432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_111
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 292
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c394a8bb5e109750800000000000000
+      internalID: 6309576457234715587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_112
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 292
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da6f21b52d4988800800000000000000
+      internalID: 614904980328085165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_113
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 292
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9394e2d6fcf01390800000000000000
+      internalID: -7849496013476424805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_114
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 292
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94449825eb48ae170800000000000000
+      internalID: 8208519223799530569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_115
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 289
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 907b61683b3aefbe0800000000000000
+      internalID: -1441534839267870967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_116
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 299
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 230c4cc59ddef3d00800000000000000
+      internalID: 954743163845918770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_117
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 292
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf402379d8f8f01d0800000000000000
+      internalID: -3382326956842154757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_118
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 292
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ebc21d581a309620800000000000000
+      internalID: 2778784846402735076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_119
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 292
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f39775f72129db320800000000000000
+      internalID: 2575375170069297471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_120
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 292
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a47636f41705aa370800000000000000
+      internalID: 8334562507995965258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_121
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 292
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 044fb7fd34d1bb620800000000000000
+      internalID: 2790856571435611200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_122
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 299
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 522e6ce00eee078a0800000000000000
+      internalID: -6309280431858064859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_123
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 292
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53002094006f65460800000000000000
+      internalID: 7230236732875210805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_124
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 264
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 285df31c1fe4103e0800000000000000
+      internalID: -2089301951886928510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_125
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 264
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3547c72022a5df970800000000000000
+      internalID: 8790281149814174803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_126
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 264
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3579d7cbe3d45c290800000000000000
+      internalID: -7870799841914415277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_127
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 264
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c1ea25802fbe20a0800000000000000
+      internalID: -6904371032318352958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_128
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 260
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd1b88d7c3cdd0170800000000000000
+      internalID: 8146409453345354203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_129
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 270
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a3e4f75fee4ddfd0800000000000000
+      internalID: -2315607843518749789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_130
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 264
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: add169b742e9a71e0800000000000000
+      internalID: -2199271588487619110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_131
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 264
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8d6977cf01b34fe0800000000000000
+      internalID: -1205925593875911281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_132
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 264
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f6cf76a44fbf5920800000000000000
+      internalID: 2981311779914630897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_133
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 264
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61dacd7b4d66bf750800000000000000
+      internalID: 6339773964257897750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_134
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 264
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deaee9be41e574250800000000000000
+      internalID: 5928810878401964781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_135
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 270
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 915dfa34e6f342950800000000000000
+      internalID: 6423328711351719193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_136
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 264
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccec7ae28c9897a20800000000000000
+      internalID: 3060628914644176588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_137
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 235
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5c58f650a3a939a0800000000000000
+      internalID: -6252786698578011042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_138
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 235
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efee724f1a0bb75b0800000000000000
+      internalID: -5369503921076703490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_139
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 235
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfb4261274462f260800000000000000
+      internalID: 7129871416746462205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_140
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 235
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a71ac096e3f4909d0800000000000000
+      internalID: -2807625763219791494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_141
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 232
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1028819a3fbec81a0800000000000000
+      internalID: -6805805505117126143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_142
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 242
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4290a07ff48eb36c0800000000000000
+      internalID: -4162478000429201116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_143
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 235
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bdcdb650ff09e7c0800000000000000
+      internalID: -4041681665666462288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_144
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 235
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 655b917e291f15bd0800000000000000
+      internalID: -2643065893045029546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_145
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 235
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 242e57bf262ad2230800000000000000
+      internalID: 3615724621857677890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_146
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 235
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95de9a5074341e770800000000000000
+      internalID: 8638259532590083417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_147
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 235
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4cc8580cc95b73f0800000000000000
+      internalID: -902028567509414834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_148
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 242
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2e2395d9fed5ff50800000000000000
+      internalID: 6914677967508680237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_149
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 235
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d2900f571cfa1fd0800000000000000
+      internalID: -2370305076548824367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_150
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 207
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57c7c8d849b4166f0800000000000000
+      internalID: -693189766236308363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_151
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 206
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39422a60106f4e6f0800000000000000
+      internalID: -656129161422560109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_152
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 206
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cdf54566fa0a5e10800000000000000
+      internalID: 2187072622419115462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_153
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 207
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa76393df9f6379b0800000000000000
+      internalID: -5083596822131021905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_154
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 203
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 885747b28f5d7e570800000000000000
+      internalID: 8495994483915388296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_155
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 213
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75fce8fa4977141e0800000000000000
+      internalID: -2215358061205336233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_156
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 207
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47291e934feba2d90800000000000000
+      internalID: -7121669904580636044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_157
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 206
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c7c69b60267544e0800000000000000
+      internalID: -1998060978052872256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_158
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 206
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25e6f82fc3e339f20800000000000000
+      internalID: 3428152172847525458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_159
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 206
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52c656c48b8279170800000000000000
+      internalID: 8185055619789974565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_160
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 206
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc07922f2b7855660800000000000000
+      internalID: 7373949167525785805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_161
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 213
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e42e71e7351c7fd0800000000000000
+      internalID: -2342974376388975392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_162
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 207
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 285038393befd83a0800000000000000
+      internalID: -6661388226583657086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_163
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 178
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b8c583218d5e67c0800000000000000
+      internalID: -4076217803495585612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_164
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 178
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db0eed6779a4e6210800000000000000
+      internalID: 1328080954515710141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_165
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 178
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48ac0e00773af2a80800000000000000
+      internalID: -8489387041058927996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_166
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 178
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30a6848cd150b5590800000000000000
+      internalID: -7684542713705240061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_167
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 185
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 307ed97ed77e7d900800000000000000
+      internalID: 709289994276955907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_168
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 178
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4db3cb22e303267e0800000000000000
+      internalID: -1773802259801687084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_169
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 185
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37061a82d024a9010800000000000000
+      internalID: 1196341275303960691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_170
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 178
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a25fe103b59e6ac0800000000000000
+      internalID: -3859983234545790295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_171
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 178
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b825bf02b2f486280800000000000000
+      internalID: -9049896404545482101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_172
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 178
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73a453e6db4d08ae0800000000000000
+      internalID: -1549004361752557001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_173
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 178
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47fc4343952371f20800000000000000
+      internalID: 3393236202956312436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_174
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 178
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90e75cf3fa0b75390800000000000000
+      internalID: -7829595160424645111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_175
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 185
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1201d3a94d64942b0800000000000000
+      internalID: -5599866782723796959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_176
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 178
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 051af3581f1b14150800000000000000
+      internalID: 5855156641439129936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_177
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 150
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67713ac24d98fb790800000000000000
+      internalID: -7512134109055740042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_178
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 149
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4a50990b4e0b2df0800000000000000
+      internalID: -204053642669434293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_179
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 149
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5f26ace1e488fdf0800000000000000
+      internalID: -146220882016719012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_180
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 150
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78f2bc8d5f62e6c90800000000000000
+      internalID: -7174754319008583801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_181
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 156
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f8b09caf8d06c770800000000000000
+      internalID: 8630600646628784368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_182
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 150
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35015c2c4f2c8cb70800000000000000
+      internalID: 8919593418502770771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_183
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 156
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c53105c7c8c72d40800000000000000
+      internalID: 5559633025341404613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_184
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 150
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae327a6f675389580800000000000000
+      internalID: -8820241085144554518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_185
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 149
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b62a0a6ebb5eb3c0800000000000000
+      internalID: -4341932117357615434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_186
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 149
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b2a624c4bd3d28f0800000000000000
+      internalID: -563726531757169992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_187
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 149
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 182cabc99d10e1d00800000000000000
+      internalID: 945195005943399041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_188
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 149
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8648dc44c9a78f430800000000000000
+      internalID: 3816935495784301672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_189
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 156
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 983fd163c9df4f8c0800000000000000
+      internalID: -3966266524441906295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_190
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 150
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d7f66c9328c8d070800000000000000
+      internalID: 8131469182490834897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_191
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 127
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd9e0d9974f3a9fb0800000000000000
+      internalID: -4640326889296041507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_192
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 121
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 097cead91341309e0800000000000000
+      internalID: -1656458034610780272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_193
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 121
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eda93e9f5360ed200800000000000000
+      internalID: 206609461801097950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_194
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 121
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fec0ad844c583150800000000000000
+      internalID: 5852529165271617273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_195
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 121
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3737f4f74ed79ab0800000000000000
+      internalID: -5001284460537759942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_196
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 121
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83d9baa4372c6a590800000000000000
+      internalID: -7663223915494531784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_197
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 127
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f8d45e54f9544e20800000000000000
+      internalID: 3333888530250520817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_198
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 121
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9806a6a8add410000800000000000000
+      internalID: 367075997147273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_199
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 99
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0577bafd030396230800000000000000
+      internalID: 3632487560920135504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_200
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 92
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7841575c11eb1950800000000000000
+      internalID: 6420973205587052670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_201
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 93
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 578ae8e54b5f52f00800000000000000
+      internalID: 1091548639736539253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_202
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 92
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bf6371bb2343aa20800000000000000
+      internalID: 3072373225736597429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_203
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 92
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82a2f8daf73e66b90800000000000000
+      internalID: -7248856412694042072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_204
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 92
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c0d36974c9d97390800000000000000
+      internalID: -7819979840078753597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_205
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 99
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a68aa83ac4191ff70800000000000000
+      internalID: 9219309670551431274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_206
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 92
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42c1d93a82f8648f0800000000000000
+      internalID: -556600099227231196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_207
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 70
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6903a073a5aaa41e0800000000000000
+      internalID: -2212768962451984234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_208
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 64
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9413505631e17140800000000000000
+      internalID: 4715797908225725599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_209
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 64
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed26ba3cc4fcfe5f0800000000000000
+      internalID: -725133086376107298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_210
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 64
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a76762c4079e3aaf0800000000000000
+      internalID: -386208474500532614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_211
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 64
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5cad5abe8ff30800800000000000000
+      internalID: 577586165710695517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_212
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 64
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb6fa8d91e5eb1610800000000000000
+      internalID: 1593119650379134651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_213
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 70
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3c504517ea288fb0800000000000000
+      internalID: -4645415843650315202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_214
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 64
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 853a9de49268a2c20800000000000000
+      internalID: 3182503598665343832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_215
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 36
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 476caa67732927b60800000000000000
+      internalID: 7742411476315063924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_216
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 35
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2df113a86922ace70800000000000000
+      internalID: 9136152824033386450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_217
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 35
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 242e7ca4bc5428270800000000000000
+      internalID: 8251234206731461186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_218
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 35
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f267df53cdd709e0800000000000000
+      internalID: -1655110506839055625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_219
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 36
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77681608c04ec0ce0800000000000000
+      internalID: -1437523438693415305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_220
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 7
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd8b251fe97ac8010800000000000000
+      internalID: 1192512302441740507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_221
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 7
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ec824fe98e968100800000000000000
+      internalID: 109949556178980069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_222
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 7
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b49358a95209ae4d0800000000000000
+      internalID: -3104510501937923765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_223
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 7
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ebe6c0d7c5957b80800000000000000
+      internalID: -8397641244728693785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nano_224
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 7
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 176fc1790680ed200800000000000000
+      internalID: 206611843850761841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Nano_0: 7312326276025600588
+      Nano_1: -5443636216572817676
+      Nano_10: 1621691910311918513
+      Nano_100: -7518849882015525330
+      Nano_101: -5052859485287760623
+      Nano_102: 7940603394656820059
+      Nano_103: 554045628741769232
+      Nano_104: -7955624046455275545
+      Nano_105: -4161749665205861942
+      Nano_106: -1629913093618866744
+      Nano_107: 8556203745530498780
+      Nano_108: 6230530677728799541
+      Nano_109: 6887359322612950333
+      Nano_11: 8032113821781511126
+      Nano_110: -2183128640426719432
+      Nano_111: 6309576457234715587
+      Nano_112: 614904980328085165
+      Nano_113: -7849496013476424805
+      Nano_114: 8208519223799530569
+      Nano_115: -1441534839267870967
+      Nano_116: 954743163845918770
+      Nano_117: -3382326956842154757
+      Nano_118: 2778784846402735076
+      Nano_119: 2575375170069297471
+      Nano_12: -8833066969849356979
+      Nano_120: 8334562507995965258
+      Nano_121: 2790856571435611200
+      Nano_122: -6309280431858064859
+      Nano_123: 7230236732875210805
+      Nano_124: -2089301951886928510
+      Nano_125: 8790281149814174803
+      Nano_126: -7870799841914415277
+      Nano_127: -6904371032318352958
+      Nano_128: 8146409453345354203
+      Nano_129: -2315607843518749789
+      Nano_13: -5132584520672098989
+      Nano_130: -2199271588487619110
+      Nano_131: -1205925593875911281
+      Nano_132: 2981311779914630897
+      Nano_133: 6339773964257897750
+      Nano_134: 5928810878401964781
+      Nano_135: 6423328711351719193
+      Nano_136: 3060628914644176588
+      Nano_137: -6252786698578011042
+      Nano_138: -5369503921076703490
+      Nano_139: 7129871416746462205
+      Nano_14: -953179170235346234
+      Nano_140: -2807625763219791494
+      Nano_141: -6805805505117126143
+      Nano_142: -4162478000429201116
+      Nano_143: -4041681665666462288
+      Nano_144: -2643065893045029546
+      Nano_145: 3615724621857677890
+      Nano_146: 8638259532590083417
+      Nano_147: -902028567509414834
+      Nano_148: 6914677967508680237
+      Nano_149: -2370305076548824367
+      Nano_15: -6137777038445855462
+      Nano_150: -693189766236308363
+      Nano_151: -656129161422560109
+      Nano_152: 2187072622419115462
+      Nano_153: -5083596822131021905
+      Nano_154: 8495994483915388296
+      Nano_155: -2215358061205336233
+      Nano_156: -7121669904580636044
+      Nano_157: -1998060978052872256
+      Nano_158: 3428152172847525458
+      Nano_159: 8185055619789974565
+      Nano_16: 7883665106999147071
+      Nano_160: 7373949167525785805
+      Nano_161: -2342974376388975392
+      Nano_162: -6661388226583657086
+      Nano_163: -4076217803495585612
+      Nano_164: 1328080954515710141
+      Nano_165: -8489387041058927996
+      Nano_166: -7684542713705240061
+      Nano_167: 709289994276955907
+      Nano_168: -1773802259801687084
+      Nano_169: 1196341275303960691
+      Nano_17: -3110439214328054006
+      Nano_170: -3859983234545790295
+      Nano_171: -9049896404545482101
+      Nano_172: -1549004361752557001
+      Nano_173: 3393236202956312436
+      Nano_174: -7829595160424645111
+      Nano_175: -5599866782723796959
+      Nano_176: 5855156641439129936
+      Nano_177: -7512134109055740042
+      Nano_178: -204053642669434293
+      Nano_179: -146220882016719012
+      Nano_18: 5233641377962526752
+      Nano_180: -7174754319008583801
+      Nano_181: 8630600646628784368
+      Nano_182: 8919593418502770771
+      Nano_183: 5559633025341404613
+      Nano_184: -8820241085144554518
+      Nano_185: -4341932117357615434
+      Nano_186: -563726531757169992
+      Nano_187: 945195005943399041
+      Nano_188: 3816935495784301672
+      Nano_189: -3966266524441906295
+      Nano_19: 5531978734624436844
+      Nano_190: 8131469182490834897
+      Nano_191: -4640326889296041507
+      Nano_192: -1656458034610780272
+      Nano_193: 206609461801097950
+      Nano_194: 5852529165271617273
+      Nano_195: -5001284460537759942
+      Nano_196: -7663223915494531784
+      Nano_197: 3333888530250520817
+      Nano_198: 367075997147273
+      Nano_199: 3632487560920135504
+      Nano_2: -2926405200539628278
+      Nano_20: -7774550355098614586
+      Nano_200: 6420973205587052670
+      Nano_201: 1091548639736539253
+      Nano_202: 3072373225736597429
+      Nano_203: -7248856412694042072
+      Nano_204: -7819979840078753597
+      Nano_205: 9219309670551431274
+      Nano_206: -556600099227231196
+      Nano_207: -2212768962451984234
+      Nano_208: 4715797908225725599
+      Nano_209: -725133086376107298
+      Nano_21: 4893481153977885790
+      Nano_210: -386208474500532614
+      Nano_211: 577586165710695517
+      Nano_212: 1593119650379134651
+      Nano_213: -4645415843650315202
+      Nano_214: 3182503598665343832
+      Nano_215: 7742411476315063924
+      Nano_216: 9136152824033386450
+      Nano_217: 8251234206731461186
+      Nano_218: -1655110506839055625
+      Nano_219: -1437523438693415305
+      Nano_22: -1969230943936591575
+      Nano_220: 1192512302441740507
+      Nano_221: 109949556178980069
+      Nano_222: -3104510501937923765
+      Nano_223: -8397641244728693785
+      Nano_224: 206611843850761841
+      Nano_23: -625403683804483761
+      Nano_24: 2766164747919514125
+      Nano_25: 3667288276713153676
+      Nano_26: -6463442487670260742
+      Nano_27: -3469581376806788216
+      Nano_28: 2539188559996949316
+      Nano_29: -5271632214446969835
+      Nano_3: 1143606993713271237
+      Nano_30: -3567960415612854979
+      Nano_31: -8211818049214870801
+      Nano_32: 7032115988229156682
+      Nano_33: 4678980482420598457
+      Nano_34: 827197065242582841
+      Nano_35: 3217475017615892425
+      Nano_36: -8343201650999128236
+      Nano_37: 4021879762989467107
+      Nano_38: -6489812750042690506
+      Nano_39: -3694030662706605757
+      Nano_4: -1008275575350736901
+      Nano_40: 1755234287594670305
+      Nano_41: -418128620465978250
+      Nano_42: 6488441663175268977
+      Nano_43: -5514513946348522124
+      Nano_44: 6684902724108463463
+      Nano_45: -3300897452605533496
+      Nano_46: 912979464067359243
+      Nano_47: -3476732830990346047
+      Nano_48: 460438555729526267
+      Nano_49: -2759954374185552363
+      Nano_5: 2441498643978516391
+      Nano_50: -2398074729125170382
+      Nano_51: -719972671686874676
+      Nano_52: -6137443168798708195
+      Nano_53: 5894425885952160900
+      Nano_54: -8225255041705570894
+      Nano_55: -913703861003214037
+      Nano_56: -4067981466152174834
+      Nano_57: 4851662567044586391
+      Nano_58: 4776549964745326222
+      Nano_59: 7092169212846752882
+      Nano_6: 7888638441074331129
+      Nano_60: -1474125803675629024
+      Nano_61: 6634000338402592018
+      Nano_62: 3577523629625005819
+      Nano_63: 3071114626356933276
+      Nano_64: 825938467231172684
+      Nano_65: -6263864020443481763
+      Nano_66: 6927236437097211064
+      Nano_67: -1750549198753484364
+      Nano_68: -4213421977456733646
+      Nano_69: 6986480015726086084
+      Nano_7: -5466550651148610344
+      Nano_70: 405273016008801798
+      Nano_71: 4115344211540086383
+      Nano_72: -3424659655954604904
+      Nano_73: 5869028499486414392
+      Nano_74: -6981014278680588462
+      Nano_75: -2844045780859364607
+      Nano_76: -1884116445842660309
+      Nano_77: -7090973270749399059
+      Nano_78: 7223362602553884286
+      Nano_79: -5946814761466487143
+      Nano_8: -7655406654669493655
+      Nano_80: -14607273183285738
+      Nano_81: 8537387477391828987
+      Nano_82: 2208012536976915570
+      Nano_83: -2047921750609498798
+      Nano_84: 1922433658204186102
+      Nano_85: -8201506129149130357
+      Nano_86: -2435840543312364847
+      Nano_87: 5573990404187210532
+      Nano_88: 6417280127107065966
+      Nano_89: -5815665496351746192
+      Nano_9: 7138045237591010047
+      Nano_90: -6087461858450583544
+      Nano_91: -6227642536225987216
+      Nano_92: -5790339037348646278
+      Nano_93: -5619811284883464011
+      Nano_94: 2379174207003219253
+      Nano_95: -1164142679666484338
+      Nano_96: 2556669728245000834
+      Nano_97: -7777111141096080166
+      Nano_98: -7885666894270909704
+      Nano_99: -472210016075469291
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

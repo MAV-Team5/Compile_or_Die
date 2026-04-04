@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: 906e8861540194ae9b87a6110122e042
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7616090981263192180
+    second: Django-REST_0
+  - first:
+      213: -8928070400928268161
+    second: Django-REST_1
+  - first:
+      213: 8074783466255295586
+    second: Django-REST_2
+  - first:
+      213: 6819576955696690786
+    second: Django-REST_3
+  - first:
+      213: 7370397266219101714
+    second: Django-REST_4
+  - first:
+      213: -2835692892440784955
+    second: Django-REST_5
+  - first:
+      213: 1570077064192195936
+    second: Django-REST_6
+  - first:
+      213: -6502364502682005985
+    second: Django-REST_7
+  - first:
+      213: 2022555367578185677
+    second: Django-REST_8
+  - first:
+      213: 4932016706347940260
+    second: Django-REST_9
+  - first:
+      213: 8944397662015409085
+    second: Django-REST_10
+  - first:
+      213: 2800462172192720918
+    second: Django-REST_11
+  - first:
+      213: -6731087099540316574
+    second: Django-REST_12
+  - first:
+      213: 5651515119911716863
+    second: Django-REST_13
+  - first:
+      213: -6450713564091504905
+    second: Django-REST_14
+  - first:
+      213: -2837126108455986677
+    second: Django-REST_15
+  - first:
+      213: -4642172621617597003
+    second: Django-REST_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Django-REST_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 356
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8f40c4ba953e4690800000000000000
+      internalID: -7616090981263192180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 389
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f70cdf6f54f191480800000000000000
+      internalID: -8928070400928268161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_2
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 357
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2642850d7c46f0070800000000000000
+      internalID: 8074783466255295586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 357
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 266bdba0c1104ae50800000000000000
+      internalID: 6819576955696690786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_4
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 345
+        width: 31
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21eef7a7349e84660800000000000000
+      internalID: 7370397266219101714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_5
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 356
+        width: 30
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cf87f5a65895a8d0800000000000000
+      internalID: -2835692892440784955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 140
+        width: 510
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06df92175c80ac510800000000000000
+      internalID: 1570077064192195936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_7
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 345
+        width: 16
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1e87819fe5f2c5a0800000000000000
+      internalID: -6502364502682005985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_8
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 112
+        width: 23
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcfae0f046f811c10800000000000000
+      internalID: 2022555367578185677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_9
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 112
+        width: 20
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a93920401b027440800000000000000
+      internalID: 4932016706347940260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_10
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 112
+        width: 27
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbb434eb842e02c70800000000000000
+      internalID: 8944397662015409085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_11
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 112
+        width: 45
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6184774128d3dd620800000000000000
+      internalID: 2800462172192720918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_12
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 112
+        width: 28
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26e5faf12ff5692a0800000000000000
+      internalID: -6731087099540316574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_13
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 112
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff7461dfe073e6e40800000000000000
+      internalID: 5651515119911716863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_14
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 112
+        width: 30
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f62888d0367a76a0800000000000000
+      internalID: -6450713564091504905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_15
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 112
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0a9e7a06d080a8d0800000000000000
+      internalID: -2837126108455986677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Django-REST_16
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 112
+        width: 27
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b5707e8890b39fb0800000000000000
+      internalID: -4642172621617597003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Django-REST_0: -7616090981263192180
+      Django-REST_1: -8928070400928268161
+      Django-REST_10: 8944397662015409085
+      Django-REST_11: 2800462172192720918
+      Django-REST_12: -6731087099540316574
+      Django-REST_13: 5651515119911716863
+      Django-REST_14: -6450713564091504905
+      Django-REST_15: -2837126108455986677
+      Django-REST_16: -4642172621617597003
+      Django-REST_2: 8074783466255295586
+      Django-REST_3: 6819576955696690786
+      Django-REST_4: 7370397266219101714
+      Django-REST_5: -2835692892440784955
+      Django-REST_6: 1570077064192195936
+      Django-REST_7: -6502364502682005985
+      Django-REST_8: 2022555367578185677
+      Django-REST_9: 4932016706347940260
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

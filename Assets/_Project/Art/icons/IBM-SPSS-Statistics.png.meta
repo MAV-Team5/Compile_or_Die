@@ -1,0 +1,1131 @@
+fileFormatVersion: 2
+guid: 9be7247fce1284538a2bb979bbd2b01d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6591562422609003083
+    second: IBM-SPSS-Statistics_0
+  - first:
+      213: -4118828999790670688
+    second: IBM-SPSS-Statistics_1
+  - first:
+      213: -2839322367804707539
+    second: IBM-SPSS-Statistics_2
+  - first:
+      213: -2111934374594293006
+    second: IBM-SPSS-Statistics_3
+  - first:
+      213: 4101726543263323820
+    second: IBM-SPSS-Statistics_4
+  - first:
+      213: 1716666140371368128
+    second: IBM-SPSS-Statistics_5
+  - first:
+      213: -2644430371836090578
+    second: IBM-SPSS-Statistics_6
+  - first:
+      213: 1258505977965438817
+    second: IBM-SPSS-Statistics_7
+  - first:
+      213: -407654338791379346
+    second: IBM-SPSS-Statistics_8
+  - first:
+      213: -4329176577922270422
+    second: IBM-SPSS-Statistics_9
+  - first:
+      213: 2894790701145687797
+    second: IBM-SPSS-Statistics_10
+  - first:
+      213: 339613182497116546
+    second: IBM-SPSS-Statistics_11
+  - first:
+      213: -1615503500306076067
+    second: IBM-SPSS-Statistics_12
+  - first:
+      213: -1663706687139295660
+    second: IBM-SPSS-Statistics_13
+  - first:
+      213: -7651209696084941065
+    second: IBM-SPSS-Statistics_14
+  - first:
+      213: 7330112930647592502
+    second: IBM-SPSS-Statistics_15
+  - first:
+      213: 3391622505060365543
+    second: IBM-SPSS-Statistics_16
+  - first:
+      213: 3282331085309511749
+    second: IBM-SPSS-Statistics_17
+  - first:
+      213: 4087189558178094007
+    second: IBM-SPSS-Statistics_18
+  - first:
+      213: -2536001263301407826
+    second: IBM-SPSS-Statistics_19
+  - first:
+      213: -8433020106937756951
+    second: IBM-SPSS-Statistics_20
+  - first:
+      213: -150434285645802348
+    second: IBM-SPSS-Statistics_21
+  - first:
+      213: -7101054091961578788
+    second: IBM-SPSS-Statistics_22
+  - first:
+      213: -5375382651339246534
+    second: IBM-SPSS-Statistics_23
+  - first:
+      213: 4160843592334028093
+    second: IBM-SPSS-Statistics_24
+  - first:
+      213: -547691138886345264
+    second: IBM-SPSS-Statistics_25
+  - first:
+      213: -4369296327929326698
+    second: IBM-SPSS-Statistics_26
+  - first:
+      213: -788844828248023372
+    second: IBM-SPSS-Statistics_27
+  - first:
+      213: -3892267782296537691
+    second: IBM-SPSS-Statistics_28
+  - first:
+      213: 184580012308083678
+    second: IBM-SPSS-Statistics_29
+  - first:
+      213: 6345390167383618003
+    second: IBM-SPSS-Statistics_30
+  - first:
+      213: 5335457413743983790
+    second: IBM-SPSS-Statistics_31
+  - first:
+      213: 2970331175244404760
+    second: IBM-SPSS-Statistics_32
+  - first:
+      213: 6241126962697183578
+    second: IBM-SPSS-Statistics_33
+  - first:
+      213: -4067517832705141469
+    second: IBM-SPSS-Statistics_34
+  - first:
+      213: -3861999571474331615
+    second: IBM-SPSS-Statistics_35
+  - first:
+      213: -1712976016422309598
+    second: IBM-SPSS-Statistics_36
+  - first:
+      213: -4998825043172405389
+    second: IBM-SPSS-Statistics_37
+  - first:
+      213: -2536583841060122907
+    second: IBM-SPSS-Statistics_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 454
+        width: 101
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b424c6a891fe97b50800000000000000
+      internalID: 6591562422609003083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_1
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 454
+        width: 145
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ac46e0e8daf6d6c0800000000000000
+      internalID: -4118828999790670688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_2
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 454
+        width: 89
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2ded209953b898d0800000000000000
+      internalID: -2839322367804707539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_3
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 454
+        width: 87
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f2de5530e6e0b2e0800000000000000
+      internalID: -2111934374594293006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 427
+        width: 101
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca650092f824ce830800000000000000
+      internalID: 4101726543263323820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_5
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 427
+        width: 161
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c8b6c662c2d2d710800000000000000
+      internalID: 1716666140371368128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_6
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 427
+        width: 98
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e27a47d66981d4bd0800000000000000
+      internalID: -2644430371836090578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_7
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 427
+        width: 97
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 167e554e48c177110800000000000000
+      internalID: 1258505977965438817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_8
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 399
+        width: 46
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6e6139e988b75af0800000000000000
+      internalID: -407654338791379346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_9
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 399
+        width: 46
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b700fd6dcabe3c0800000000000000
+      internalID: -4329176577922270422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_10
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 399
+        width: 50
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f684e03ecc5c2820800000000000000
+      internalID: 2894790701145687797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_11
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 399
+        width: 79
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 281d7cfd36c86b400800000000000000
+      internalID: 339613182497116546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_12
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 399
+        width: 80
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5e2bd230249499e0800000000000000
+      internalID: -1615503500306076067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_13
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 372
+        width: 46
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45ece9e259359e8e0800000000000000
+      internalID: -1663706687139295660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_14
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 372
+        width: 125
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f625dab15171d590800000000000000
+      internalID: -7651209696084941065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_15
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 372
+        width: 174
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e4fb2bfdac9b560800000000000000
+      internalID: 7330112930647592502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_16
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 345
+        width: 46
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e4f752e2b6711f20800000000000000
+      internalID: 3391622505060365543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_17
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 345
+        width: 125
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54888174bbe2d8d20800000000000000
+      internalID: 3282331085309511749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_18
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 345
+        width: 46
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bb14e09f3d98b830800000000000000
+      internalID: 4087189558178094007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_19
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 345
+        width: 72
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eab4afe89405eccd0800000000000000
+      internalID: -2536001263301407826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_20
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 345
+        width: 46
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e29f3e84e4e7fa80800000000000000
+      internalID: -8433020106937756951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_21
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 317
+        width: 46
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 494da0270dc89edf0800000000000000
+      internalID: -150434285645802348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_22
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 317
+        width: 46
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdacbc52decf37d90800000000000000
+      internalID: -7101054091961578788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_23
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 317
+        width: 49
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a34702765fdc665b0800000000000000
+      internalID: -5375382651339246534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_24
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 317
+        width: 46
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3da70fb3394eb930800000000000000
+      internalID: 4160843592334028093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_25
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 317
+        width: 53
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dddc0c9fc53668f0800000000000000
+      internalID: -547691138886345264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_26
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 317
+        width: 46
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6939a57a3242d53c0800000000000000
+      internalID: -4369296327929326698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 290
+        width: 102
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4be5f55eec57d05f0800000000000000
+      internalID: -788844828248023372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_28
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 290
+        width: 162
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a57489f213ebf9c0800000000000000
+      internalID: -3892267782296537691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_29
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 290
+        width: 74
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed3b2421b82cf8200800000000000000
+      internalID: 184580012308083678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_30
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 290
+        width: 34
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d13828ecba5f0850800000000000000
+      internalID: 6345390167383618003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_31
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 290
+        width: 73
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eac3f64df3a5b0a40800000000000000
+      internalID: 5335457413743983790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 263
+        width: 102
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81816b5677cb83920800000000000000
+      internalID: 2970331175244404760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_33
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 263
+        width: 145
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a51ada9d7efec9650800000000000000
+      internalID: 6241126962697183578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_34
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 263
+        width: 74
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3251b00f4164d87c0800000000000000
+      internalID: -4067517832705141469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_35
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 263
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 128cf8bf9db676ac0800000000000000
+      internalID: -3861999571474331615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_36
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 263
+        width: 73
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 221726883694a38e0800000000000000
+      internalID: -1712976016422309598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_37
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 45
+        width: 496
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37fc16fab1b90aab0800000000000000
+      internalID: -4998825043172405389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IBM-SPSS-Statistics_38
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 167
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ee8d9a9f6e3cccd0800000000000000
+      internalID: -2536583841060122907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      IBM-SPSS-Statistics_0: 6591562422609003083
+      IBM-SPSS-Statistics_1: -4118828999790670688
+      IBM-SPSS-Statistics_10: 2894790701145687797
+      IBM-SPSS-Statistics_11: 339613182497116546
+      IBM-SPSS-Statistics_12: -1615503500306076067
+      IBM-SPSS-Statistics_13: -1663706687139295660
+      IBM-SPSS-Statistics_14: -7651209696084941065
+      IBM-SPSS-Statistics_15: 7330112930647592502
+      IBM-SPSS-Statistics_16: 3391622505060365543
+      IBM-SPSS-Statistics_17: 3282331085309511749
+      IBM-SPSS-Statistics_18: 4087189558178094007
+      IBM-SPSS-Statistics_19: -2536001263301407826
+      IBM-SPSS-Statistics_2: -2839322367804707539
+      IBM-SPSS-Statistics_20: -8433020106937756951
+      IBM-SPSS-Statistics_21: -150434285645802348
+      IBM-SPSS-Statistics_22: -7101054091961578788
+      IBM-SPSS-Statistics_23: -5375382651339246534
+      IBM-SPSS-Statistics_24: 4160843592334028093
+      IBM-SPSS-Statistics_25: -547691138886345264
+      IBM-SPSS-Statistics_26: -4369296327929326698
+      IBM-SPSS-Statistics_27: -788844828248023372
+      IBM-SPSS-Statistics_28: -3892267782296537691
+      IBM-SPSS-Statistics_29: 184580012308083678
+      IBM-SPSS-Statistics_3: -2111934374594293006
+      IBM-SPSS-Statistics_30: 6345390167383618003
+      IBM-SPSS-Statistics_31: 5335457413743983790
+      IBM-SPSS-Statistics_32: 2970331175244404760
+      IBM-SPSS-Statistics_33: 6241126962697183578
+      IBM-SPSS-Statistics_34: -4067517832705141469
+      IBM-SPSS-Statistics_35: -3861999571474331615
+      IBM-SPSS-Statistics_36: -1712976016422309598
+      IBM-SPSS-Statistics_37: -4998825043172405389
+      IBM-SPSS-Statistics_38: -2536583841060122907
+      IBM-SPSS-Statistics_4: 4101726543263323820
+      IBM-SPSS-Statistics_5: 1716666140371368128
+      IBM-SPSS-Statistics_6: -2644430371836090578
+      IBM-SPSS-Statistics_7: 1258505977965438817
+      IBM-SPSS-Statistics_8: -407654338791379346
+      IBM-SPSS-Statistics_9: -4329176577922270422
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
