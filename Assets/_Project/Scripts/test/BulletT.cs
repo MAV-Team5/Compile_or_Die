@@ -1,22 +1,22 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class BulletT : MonoBehaviour
 {
     public float speed = 10f;
     public float lifeTime = 2f;
 
     void Start()
     {
-        // Rigidbody2D ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì™€ì„œ ì†ë„ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.
+        // Rigidbody2D ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Í¼­ ¼Óµµ¸¦ ¼³Á¤ÇÕ´Ï´Ù.
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         
         if (rb != null)
         {
-            // ì—¬ê¸°ì„œ velocityë¡œ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤! 
+            // ¿©±â¼­ velocity·Î ¼öÁ¤Çß½À´Ï´Ù! 
             rb.linearVelocity = transform.right * speed;
         }
 
-        // ì§€ì •ëœ ì‹œê°„ ë’¤ì— íˆ¬ì‚¬ì²´ ì‚­ì œ
+        // ÁöÁ¤µÈ ½Ã°£ µÚ¿¡ Åõ»çÃ¼ »èÁ¦        
         Destroy(gameObject, lifeTime);
     }
 }
