@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Compile-or-Die.slnx",
+    "dotnet.defaultSolution": "Compile_or_Die.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
