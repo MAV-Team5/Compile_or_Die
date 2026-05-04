@@ -1,29 +1,46 @@
 using UnityEngine;
 
-// 씬에 오브젝트로 배치 불필요 - static 클래스로 어디서든 접근
+// MonoBehaviour 미상속 — 씬에 배치 불필요
+// GameManager.instance가 null이면 속성값 기본 1 반환
 public class Character
 {
-    // 이동 속도 배율
+    // 이동 속도 배율 (캐릭터 0: 10% 증가)
     public static float Speed
     {
-        get { return GameManager.instance.playerId == 0 ? 1.1f : 1f; }
+        get
+        {
+            if (GameManager.instance == null) return 1f;
+            return GameManager.instance.playerId == 0 ? 1.1f : 1f;
+        }
     }
 
-    // 원거리 무기 발사 간격 배율 (낮을수록 빠름)
+    // 원거리 무기 발사 간격 배율 (캐릭터 1: 10% 단축)
     public static float WeaponSpeed
     {
-        get { return GameManager.instance.playerId == 1 ? 0.9f : 1f; }
+        get
+        {
+            if (GameManager.instance == null) return 1f;
+            return GameManager.instance.playerId == 1 ? 0.9f : 1f;
+        }
     }
 
-    // 무기 데미지 배율
+    // 무기 데미지 배율 (캐릭터 2: 20% 증가)
     public static float WeaponDamage
     {
-        get { return GameManager.instance.playerId == 2 ? 1.2f : 1f; }
+        get
+        {
+            if (GameManager.instance == null) return 1f;
+            return GameManager.instance.playerId == 2 ? 1.2f : 1f;
+        }
     }
 
-    // 무기 카운트 보정 (더하기)
+    // 무기 카운트 보정 — 곱하기 아닌 더하기 (캐릭터 3: +1)
     public static int WeaponCount
     {
-        get { return GameManager.instance.playerId == 3 ? 1 : 0; }
+        get
+        {
+            if (GameManager.instance == null) return 0;
+            return GameManager.instance.playerId == 3 ? 1 : 0;
+        }
     }
 }

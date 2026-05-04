@@ -11,15 +11,7 @@ public class Weapon : MonoBehaviour
     float timer;
     Player player;
 
-    void Awake()
-    {
-        player = GetComponentInParent<Player>();
-    }
-
-    void Start()
-    {
-        Init();
-    }
+    // Start 제거 — Init(ItemData)로만 초기화, 자동 호출 없음
 
     void Update()
     {
@@ -41,13 +33,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    // Item.OnClick()에서 호출. 부모(Player) 설정 후 초기화
     public void Init(ItemData data)
     {
-        // 이름, 프리팹 ID 설정
-        name      = "Weapon " + data.itemId;
+        // 부모를 Player로 설정 (Awake보다 먼저 player 참조를 직접 받아야 함)
+        player = GameManager.instance.player;
         transform.parent = player.transform;
         transform.localPosition = Vector3.zero;
 
+        name     = "Weapon " + data.itemId;
         id       = data.itemId;
         prefabId = data.prefabId;
         damage   = data.damages[0] * Character.WeaponDamage;
@@ -68,11 +62,6 @@ public class Weapon : MonoBehaviour
         Hand hand = GameManager.instance.player.hands[(int)data.itemType];
         hand.spriter.sprite = data.hand;
         hand.gameObject.SetActive(true);
-    }
-
-    void Init()
-    {
-        // Start에서 호출되는 기본 초기화 (테스트용, 실제는 Init(ItemData) 사용)
     }
 
     public void LevelUp(float damage, int count)
