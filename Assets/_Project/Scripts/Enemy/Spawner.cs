@@ -5,7 +5,9 @@ public class Spawner : MonoBehaviour
 {
 
     public Transform[] spawnPoint;
-    public int enemyIndex;
+    public SpawnData[] spawnData;
+    // public int enemyIndex;
+    int level;
     float timer;
 
     void Awake()
@@ -14,33 +16,50 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
-        SpawnSet(enemyIndex);
+        timer += Time.deltaTime;
+        level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.gameTime / 10f), spawnData.Length - 1);
+
+        if (timer > spawnData[level].spawnTime)
+        {
+            timer = 0;
+            Spawn();
+        }
     }
 
     void Spawn()
     {
-        GameObject enemy = GameManager.instance.pool.Get(Random.Range(0,1));
+        GameObject enemy = GameManager.instance.pool.Get(0);
         enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
+        enemy.GetComponent<Enemy>().Init(spawnData[level]);
 
     }
 
-    void SpawnByIndex(int index, int points = 0)
-    {
-        GameObject enemy = GameManager.instance.pool.Get(index);
-        if(points == 0)
-        {
-            enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
-        }
+    // void SpawnByIndex(int index, int points = 0)
+    // {
+    //     GameObject enemy = GameManager.instance.pool.Get(index);
+    //     if(points == 0)
+    //     {
+    //         enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
+    //     }
 
-    }
+    // }
 
-    void SpawnSet(int enemyIndex = 0, int setPoints = 0, float cycle = 0.3f)
-    {
-        timer += Time.deltaTime;
-        if(timer > cycle)
-        {
-            timer = 0;
-            SpawnByIndex(enemyIndex, setPoints);
-        }
-    }
+    // void SpawnSet(int enemyIndex = 0, int setPoints = 0, float cycle = 0.3f)
+    // {
+    //     timer += Time.deltaTime;
+    //     if(timer > cycle)
+    //     {
+    //         timer = 0;
+    //         SpawnByIndex(enemyIndex, setPoints);
+    //     }
+    // }
+}
+
+[System.Serializable]
+public class SpawnData
+{
+    public int spriteType;
+    public float spawnTime;
+    public int health;
+    public float speed;
 }
