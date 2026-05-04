@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 712973590}
   - component: {fileID: 712973589}
   - component: {fileID: 712973591}
-  - component: {fileID: 712973592}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -234,20 +233,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &712973592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 712973588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a65a39351ac8b498d833b6e177798ba4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  test_Bullet: {fileID: 6069981777930834193, guid: 70de07ff3d1024df4989f60215d4483d, type: 3}
-  firePoint: {fileID: 0}
 --- !u!1 &1834111473
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +339,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
