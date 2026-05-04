@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 레벨업 창 제어 스크립트
+/// </summary>
 public class LevelUp : MonoBehaviour
 {
     RectTransform rect;
@@ -16,16 +19,16 @@ public class LevelUp : MonoBehaviour
         Next();
         rect.localScale = Vector3.one;
         GameManager.instance.Stop();
-        AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
-        AudioManager.instance.EffectBgm(true);
+        PlaySfxSafe(AudioManager.Sfx.LevelUp);
+        EffectBgmSafe(true);
     }
 
     public void Hide()
     {
         rect.localScale = Vector3.zero;
         GameManager.instance.Resume();
-        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
-        AudioManager.instance.EffectBgm(false);
+        PlaySfxSafe(AudioManager.Sfx.Select);
+        EffectBgmSafe(false);
     }
 
     public void Select(int index)
@@ -35,11 +38,9 @@ public class LevelUp : MonoBehaviour
 
     void Next()
     {
-        // 1. 모든 아이템 비활성화
         foreach (Item item in items)
             item.gameObject.SetActive(false);
 
-        // 2. 중복 없는 랜덤 인덱스 3개 생성
         int[] randomIndex = new int[3];
         while (true)
         {
@@ -53,14 +54,31 @@ public class LevelUp : MonoBehaviour
                 break;
         }
 
-        // 3. 선택된 3개 활성화 (만렙 시 마지막 소비 아이템으로 대체)
         for (int i = 0; i < randomIndex.Length; i++)
         {
             Item randomItem = items[randomIndex[i]];
-            if (randomItem.level == randomItem.data.damages.Length)
+
+            bool isMaxLevel = randomItem.data != null
+                           && randomItem.data.damages != null
+                           && randomItem.level >= randomItem.data.damages.Length;
+
+            if (isMaxLevel)
                 items[items.Length - 1].gameObject.SetActive(true);
             else
                 randomItem.gameObject.SetActive(true);
         }
+    }
+
+    // ─── 오디오 null 안전 헬퍼 ──────────────────────────────────────────
+    void PlaySfxSafe(AudioManager.Sfx sfx)
+    {
+        if (AudioManager.instance != null)
+            AudioManager.instance.PlaySfx(sfx);
+    }
+
+    void EffectBgmSafe(bool isPlay)
+    {
+        if (AudioManager.instance != null)
+            AudioManager.instance.EffectBgm(isPlay);
     }
 }
