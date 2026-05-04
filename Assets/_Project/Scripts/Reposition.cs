@@ -1,8 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Reposition : MonoBehaviour
 {
-    private void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("Area"))
             return;
@@ -19,15 +21,19 @@ public class Reposition : MonoBehaviour
         switch (transform.tag)
         {
             case "Ground":
-                if (diffX < diffY)
+                if (diffX > diffY)
                 {
                     transform.Translate(Vector3.right * dirX * 40);
                 }
-                else if (diffX > diffY)
+                else if (diffX < diffY)
                 {
                     transform.Translate(Vector3.up * dirY * 40);
                 }
                 break;
+            case "Enemy":
+
+                break;
         }
     }
 }
+
