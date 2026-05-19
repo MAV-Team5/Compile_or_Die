@@ -4733,6 +4733,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2352877313294390021, guid: 7ead53e9dd263d345ab07de84a5beb8a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1072928173}
+    - targetCorrespondingSourceObject: {fileID: 2352877313294390021, guid: 7ead53e9dd263d345ab07de84a5beb8a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 255685266}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7938628752895060369, guid: 7ead53e9dd263d345ab07de84a5beb8a, type: 3}
       insertIndex: -1
@@ -4746,6 +4749,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2352877313294390021, guid: 7ead53e9dd263d345ab07de84a5beb8a, type: 3}
   m_PrefabInstance: {fileID: 246192526}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &255685265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255685266}
+  - component: {fileID: 255685267}
+  m_Layer: 0
+  m_Name: Weapon0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &255685266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255685265}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 246192527}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &255685267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255685265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e15eb27413c8a254c86006b00d59b6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  id: 0
+  prefabId: 1
+  damage: 11
+  count: 2
+  speed: 0
 --- !u!1 &269439772
 GameObject:
   m_ObjectHideFlags: 0
@@ -9920,6 +9972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PoolManager
   enemyPrefabs:
   - {fileID: 3469445803652378370, guid: 1d812709218d34f4597ef12367253a2a, type: 3}
+  - {fileID: 2928715476336936295, guid: c7da8c015f27bea4a895b95f3d5613b2, type: 3}
 --- !u!1 &1526556611
 GameObject:
   m_ObjectHideFlags: 0

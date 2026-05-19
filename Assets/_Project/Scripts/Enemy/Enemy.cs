@@ -12,13 +12,14 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriter;
-
+    Collider2D coll;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
+        coll = GetComponent<Collider2D>();
     }
 
     void FixedUpdate()
@@ -33,12 +34,19 @@ public class Enemy : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
         rigid.linearVelocity = Vector2.zero;
     }
+    void LateUpdate()
+    {
+        if (!isLive)
+            return;
+        spriter.flipX = target.position.x < rigid.position.x;
+    }
 
     void OnEnable()
     {
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isLive = true;
         health = maxHealth;
+        coll.enabled = true;
     }
 
     public void Init(SpawnData data)
@@ -47,5 +55,27 @@ public class Enemy : MonoBehaviour
         speed = data.speed;
         maxHealth = data.health;
         health = data.health;
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Bullet"))
+            return;
+
+        health -= collision.GetComponent<Bullet>().damage;
+
+        if (health > 0)
+        {
+            //Live, Hit Action
+
+        }
+        else
+        {
+            //Die
+            Dead();
+        }
+    }
+    void Dead()
+    {
+        gameObject.SetActive(false);
     }
 }
