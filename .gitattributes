@@ -1,0 +1,39 @@
+# Unity
+* text=auto
+*.unity text eol=lf
+*.asset text eol=lf
+*.prefab text eol=lf
+*.mat text eol=lf
+*.meta text eol=lf
+*.controller text eol=lf
+*.anim text eol=lf
+*.playable text eol=lf
+*.overrideController text eol=lf
+*.physicsMaterial2D text eol=lf
+*.guiskin text eol=lf
+*.fontsettings text eol=lf
+*.renderTexture text eol=lf
+*.flare text eol=lf
+*.shader text eol=lf
+*.compute text eol=lf
+*.cginc text eol=lf
+*.hlsl text eol=lf
+
+# C#
+*.cs text eol=lf
+
+# Binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.tga binary
+*.psd binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.fbx binary
+*.obj binary
+*.dll binary
+*.exe binary
