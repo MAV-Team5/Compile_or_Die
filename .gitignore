@@ -103,4 +103,3 @@ InitTestScene*.unity*
 
 # .gitignore
 Assets/TextMesh Pro/Resources/Fonts & Materials/*.asset
-Assets/TextMesh Pro/Resources/Fonts & Materials/*.asset.meta
