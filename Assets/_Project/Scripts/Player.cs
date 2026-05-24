@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     public float pickupRange;
     Rigidbody2D rigid;
+    SpriteRenderer spriter;
+    Animator anim;
 
     public float exp;
 
