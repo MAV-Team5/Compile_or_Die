@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_EDITOR
+    using UnityEditor;
+    #endif
+
 public class MenuManager : MonoBehaviour
 {
+    public GameObject settingPanel;
 
     public void OnClickCharacterMenu()
     {
@@ -21,12 +26,12 @@ public class MenuManager : MonoBehaviour
 
     public void OnClickSettingMenu()
     {
-        //settingsPanel.SetActive(true);
+        settingPanel.SetActive(true);
     }
 
-    public void CloseSetting()
+    public void CloseSettingMenu()
     {
-        //settingsPanel.SetActive(false);
+        settingPanel.SetActive(false);
     }
     public void OnClickConnect()
     {
@@ -36,8 +41,14 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainA");
     }
+
+    
     public void OnClickExit()
     {
-        Application.Quit();
+        #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
     }
 }
