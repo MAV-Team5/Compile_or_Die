@@ -5592,6 +5592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   inputVec: {x: 0, y: 0}
   speed: 5
+  scanner: {fileID: 0}
 --- !u!1 &609402494
 GameObject:
   m_ObjectHideFlags: 0
