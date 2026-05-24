@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10595e82b9e80754e9f8f20f319cef0b, type: 3}
+  m_Name: Item 4
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemType: 4
+  itemId: 4
+  itemName: Coffee
+  itemDesc: 
+  itemIcon: {fileID: 1564412202231830240, guid: 0f02154447b184230bcaca8d6d394fab, type: 3}
+  baseDamage: 0
+  baseCount: 0
+  damages:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  counts: 0000000000000000000000000000000000000000
+  projectile: {fileID: 0}
