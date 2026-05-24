@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
     public float speed;
     public Scanner scanner;
 
+    public float pickupRange;
     Rigidbody2D rigid;
-    SpriteRenderer spriter;
-    Animator anim;
+
+    public float exp;
+
     
     void Awake()
     {

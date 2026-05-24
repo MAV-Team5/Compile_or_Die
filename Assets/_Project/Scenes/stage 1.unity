@@ -4724,6 +4724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Windows
       objectReference: {fileID: 0}
+    - target: {fileID: 7938628752895060369, guid: 7ead53e9dd263d345ab07de84a5beb8a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5197,24 +5201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   inputVec: {x: 0, y: 0}
   speed: 5
-  scanner: {fileID: 0}
---- !u!114 &606662467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 606662464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d54ba64958f03245a3ec9c58d20ed32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Scanner
-  scanRange: 7
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  nearestTarget: {fileID: 0}
+  pickupRange: 4
+  exp: 0
 --- !u!1 &617362596
 GameObject:
   m_ObjectHideFlags: 0
