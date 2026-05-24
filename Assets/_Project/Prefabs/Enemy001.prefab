@@ -211,6 +211,7 @@ MonoBehaviour:
   - {fileID: 9100000, guid: b1ec1df822c21e5419b066d8807165bd, type: 2}
   - {fileID: 9100000, guid: b1ec1df822c21e5419b066d8807165bd, type: 2}
   target: {fileID: 0}
+  expPrefab: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
 --- !u!114 &1074948371870676141
 MonoBehaviour:
   m_ObjectHideFlags: 0

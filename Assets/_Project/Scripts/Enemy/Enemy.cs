@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -7,6 +8,8 @@ public class Enemy : MonoBehaviour
     public float maxHealth;
     public RuntimeAnimatorController[] animCon;
     public Rigidbody2D target;
+
+    public GameObject expPrefab;
     bool isLive;
 
     Rigidbody2D rigid;
@@ -76,6 +79,7 @@ public class Enemy : MonoBehaviour
     }
     void Dead()
     {
+        Instantiate(expPrefab, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
     }
 }

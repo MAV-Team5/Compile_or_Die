@@ -4724,6 +4724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Windows
       objectReference: {fileID: 0}
+    - target: {fileID: 7938628752895060369, guid: 7ead53e9dd263d345ab07de84a5beb8a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5142,6 +5146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   inputVec: {x: 0, y: 0}
   speed: 5
+  pickupRange: 4
+  exp: 0
 --- !u!1 &617362596
 GameObject:
   m_ObjectHideFlags: 0

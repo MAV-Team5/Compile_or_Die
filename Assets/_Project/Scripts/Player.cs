@@ -8,7 +8,11 @@ public class Player : MonoBehaviour
     public Vector2 inputVec;
     public float speed;
 
+    public float pickupRange;
     Rigidbody2D rigid;
+
+    public float exp;
+
     
     void Awake()
     {
