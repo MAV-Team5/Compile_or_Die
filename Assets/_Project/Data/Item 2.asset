@@ -16,7 +16,7 @@ MonoBehaviour:
   itemId: 2
   itemName: Bash
   itemDesc: 
-  itemIcon: {fileID: -7186194909302163070, guid: 5707f96afda134a17b072fd155347b9d, type: 3}
+  itemIcon: {fileID: 21300000, guid: 4e15f3fec3a28439db18141eaeeb3a27, type: 3}
   baseDamage: 5
   baseCount: 3
   damages:

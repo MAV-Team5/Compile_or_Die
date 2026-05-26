@@ -16,7 +16,7 @@ MonoBehaviour:
   itemId: 1
   itemName: DFS
   itemDesc: 
-  itemIcon: {fileID: -8049523819539094344, guid: dac39bcdf7d2b43d6b0dea3d21918977, type: 3}
+  itemIcon: {fileID: 21300000, guid: ed7810b86e0fb4adb9da4d19b526db95, type: 3}
   baseDamage: 0
   baseCount: 3
   damages:

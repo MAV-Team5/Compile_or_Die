@@ -16,7 +16,7 @@ MonoBehaviour:
   itemId: 0
   itemName: Bubble Sort
   itemDesc: 
-  itemIcon: {fileID: 4545232639499647230, guid: 966f5024edc48433bbb7e52c55e7c37e, type: 3}
+  itemIcon: {fileID: 21300000, guid: dac39bcdf7d2b43d6b0dea3d21918977, type: 3}
   baseDamage: 4
   baseCount: 1
   damages:
