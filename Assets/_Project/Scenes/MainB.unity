@@ -2971,6 +2971,8 @@ MonoBehaviour:
   stagePanel: {fileID: 201602095}
   characterPanel: {fileID: 1379470043}
   upgardePanel: {fileID: 1240989645}
+  pausePanel: {fileID: 0}
+  logPanel: {fileID: 0}
 --- !u!4 &1062884573
 Transform:
   m_ObjectHideFlags: 0
@@ -4329,7 +4331,7 @@ GameObject:
   - component: {fileID: 1486902197}
   - component: {fileID: 1486902196}
   m_Layer: 5
-  m_Name: MainCanvas
+  m_Name: UICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
