@@ -12,6 +12,8 @@ public class MenuManager : MonoBehaviour
     public UIPanel stagePanel;
     public UIPanel characterPanel;
     public UIPanel upgardePanel;
+    public UIPanel pausePanel;
+    public UIPanel logPanel;
 
     public void OnClickCharacterMenu()
     {
@@ -33,6 +35,21 @@ public class MenuManager : MonoBehaviour
         settingPanel.Open();
     }
 
+    public void OnClickStage(int stageId)
+    {
+        SceneManager.LoadScene("stage " + stageId);
+    }
+
+    public void OnClickPause()
+    {
+        pausePanel.Open();
+    }
+
+    public void OnClickLog()
+    {
+        logPanel.Open();
+    }
+
 
 
     public void OnClickConnect()
@@ -42,6 +59,10 @@ public class MenuManager : MonoBehaviour
     public void OnClickDisconnect()
     {
         SceneManager.LoadScene("MainA");
+    }
+    public void OnClickStageExit()
+    {
+        SceneManager.LoadScene("StageResult");
     }
 
     
