@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
     public float maxHealth;
     public RuntimeAnimatorController[] animCon;
     public Rigidbody2D target;
-
     public GameObject expPrefab;
     bool isLive;
 
@@ -64,7 +63,15 @@ public class Enemy : MonoBehaviour
         if (!collision.CompareTag("Bullet"))
             return;
 
-        health -= collision.GetComponent<Bullet>().damage;
+        float damage = collision.GetComponent<Bullet>().damage;
+
+        health -= damage;
+
+        DamageTextManager.Instance.ShowDamage(
+            damage,
+            transform
+        );
+        
 
         if (health > 0)
         {
