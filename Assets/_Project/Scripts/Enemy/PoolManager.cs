@@ -24,7 +24,7 @@ public class PoolManager : MonoBehaviour
 
     void Awake()
     {
-        enemyPools = CreatePools(effectPrefabs.Length);
+        enemyPools = CreatePools(enemyPrefabs.Length);
         bulletPools = CreatePools(bulletPrefabs.Length);
         effectPools = CreatePools(effectPrefabs.Length);
     }
@@ -88,7 +88,7 @@ public class PoolManager : MonoBehaviour
         }
         if(select == null)
         {
-            select = Instantiate(enemyPrefabs[index], transform);
+            select = Instantiate(prefabs[index], transform);
             pools[index].Add(select);
         }
 

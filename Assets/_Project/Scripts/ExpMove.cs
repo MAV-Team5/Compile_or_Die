@@ -50,7 +50,7 @@ public class ExpMove : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        Debug.Log(exp);
+        //        Debug.Log(exp);
 
         Destroy(gameObject);
     }
