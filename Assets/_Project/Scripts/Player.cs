@@ -5,24 +5,28 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    public GameObject characterPrefab;
+    Transform visualRoot;
+
     public Vector2 inputVec;
     public float speed;
     public Scanner scanner;
 
+
     public float pickupRange;
     Rigidbody2D rigid;
-    SpriteRenderer spriter;
-    Animator anim;
-
+    
     public float exp;
 
     
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        spriter = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+        visualRoot = GetComponent<Transform>();
+        
         scanner = GetComponent<Scanner>();
+
+        SelectCharacter();
     }
 
     private void FixedUpdate()
@@ -34,5 +38,12 @@ public class Player : MonoBehaviour
     void OnMove(InputValue value)
     {
         inputVec = value.Get<Vector2>();
+    }
+
+    public void SelectCharacter()
+    {
+        GameObject visual = Instantiate(characterPrefab);
+        visual.transform.SetParent(visualRoot,false);
+
     }
 }
