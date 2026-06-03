@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Area
   - Enemy
+  - Effect
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,24 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 524256511
+    locked: 0
+  - name: Enemy
+    uniqueID: 3703761765
+    locked: 0
+  - name: Bullet
+    uniqueID: 3860363853
+    locked: 0
+  - name: Player
+    uniqueID: 1157944801
+    locked: 0
+  - name: Effect
+    uniqueID: 4094227181
+    locked: 0
+  - name: UI
+    uniqueID: 3982754593
     locked: 0
   m_RenderingLayers:
   - Default

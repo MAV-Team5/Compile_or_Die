@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 728772100}
   - component: {fileID: 728772099}
   m_Layer: 5
-  m_Name: Image
+  m_Name: LeftEdge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2145,7 +2145,7 @@ GameObject:
   - component: {fileID: 1486902197}
   - component: {fileID: 1486902196}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MainCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2228,10 +2228,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1692801541}
-  - {fileID: 796808176}
-  - {fileID: 2043778769}
   - {fileID: 728772098}
   - {fileID: 1796803772}
+  - {fileID: 796808176}
+  - {fileID: 2043778769}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2844,7 +2844,7 @@ GameObject:
   - component: {fileID: 1796803774}
   - component: {fileID: 1796803773}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: RightEdge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2988,6 +2988,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1337327521}
-  - {fileID: 1486902199}
-  - {fileID: 1192415045}
   - {fileID: 980167473}
+  - {fileID: 1192415045}
+  - {fileID: 1486902199}

@@ -5,34 +5,36 @@ using UnityEngine.SceneManagement;
     using UnityEditor;
     #endif
 
+// 메뉴매니저는 씬 이동 및 선택메뉴 활성화(열기)만 담당.
 public class MenuManager : MonoBehaviour
 {
-    public GameObject settingPanel;
+    public UIPanel settingPanel;
+    public UIPanel stagePanel;
+    public UIPanel characterPanel;
+    public UIPanel upgardePanel;
 
     public void OnClickCharacterMenu()
     {
-        Debug.Log("character");
+        characterPanel.Open();
     }
 
     public void OnClickUpgradeMenu()
     {
-        Debug.Log("upgrade");
+        upgardePanel.Open();
     }
 
     public void OnClickStageMenu()
     {
-        SceneManager.LoadScene("stage 1");
+        stagePanel.Open();
     }
 
     public void OnClickSettingMenu()
     {
-        settingPanel.SetActive(true);
+        settingPanel.Open();
     }
 
-    public void CloseSettingMenu()
-    {
-        settingPanel.SetActive(false);
-    }
+
+
     public void OnClickConnect()
     {
         SceneManager.LoadScene("MainB");
