@@ -645,7 +645,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 25.602036
+    OrthographicSize: 25
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1179,7 +1179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d54ba64958f03245a3ec9c58d20ed32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scanner
-  scanRange: 500
+  scanRange: 300
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1198,7 +1198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   characterPrefab: {fileID: 7938628752895060369, guid: 7ead53e9dd263d345ab07de84a5beb8a, type: 3}
   inputVec: {x: 0, y: 0}
-  speed: 5
+  speed: 10
   scanner: {fileID: 0}
   pickupRange: 4
   exp: 0
@@ -1541,7 +1541,7 @@ Camera:
   m_GameObject: {fileID: 1178571355}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1567,7 +1567,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25.602036
+  orthographic size: 16.875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1655,9 +1655,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.PixelPerfectCamera
   m_ComponentVersion: 1
-  m_AssetsPPU: 16
-  m_RefResolutionX: 135
-  m_RefResolutionY: 270
+  m_AssetsPPU: 32
+  m_RefResolutionX: 1024
+  m_RefResolutionY: 576
   m_CropFrame: 0
   m_GridSnapping: 0
   m_FilterMode: 0

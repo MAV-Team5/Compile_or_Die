@@ -1,6 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// 몬스터 스탯.
+/// </summary>
 public class Enemy : MonoBehaviour
 {
     public float speed;

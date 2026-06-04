@@ -26,7 +26,7 @@ public class DamageTextManager : MonoBehaviour
     {
         Vector3 pos = target.position;
 
-        pos += Vector3.up * 1.5f;
+        pos += Vector3.up * 1.0f;
 
         pos.x += Random.Range(-0.3f, 0.3f);
         pos.y += Random.Range(-0.2f, 0.2f);

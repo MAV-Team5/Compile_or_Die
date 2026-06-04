@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Reposition : MonoBehaviour
 {
-    Collider2D coll;
+    Collider2D collider2d;
     
     private void Awake()
     {
-        coll = GetComponent<Collider2D>();
+        collider2d = GetComponent<Collider2D>();
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -44,10 +44,19 @@ public class Reposition : MonoBehaviour
                     transform.Translate(Vector3.up * dirY * 80);
                 }
                 break;
+            //일정거리 멀어지면 원래 방향에서 상대 위치 보정.
             case "Enemy":
-                if (coll.enabled)
+                if (collider2d.enabled)
                 {
-                    transform.Translate(playerDir * 20 + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0f));
+                    float distance = Vector3.Distance(transform.position, playerPos);
+
+                    if (distance > 50f)
+                    {
+                        Vector3 dir = (transform.position - playerPos).normalized;
+
+                        transform.position =
+                            playerPos + dir * 40f;
+                    }
                 }
                 break;
         }
