@@ -3,7 +3,7 @@ using UnityEngine;
 public class ExpMove : MonoBehaviour
 {
 
-    public float exp = 1;
+    public int exp = 1;
     public float baseSpeed = 1f;
     public float accel = 5f;
 
@@ -54,7 +54,7 @@ public class ExpMove : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        LogManager.Instance.Exp($"EXP GAINED ({exp})");
+        GameManager.instance.player.GetExp(exp);
 
         gameObject.SetActive(false);
     }

@@ -19,7 +19,7 @@ public class DamageTextManager : MonoBehaviour
     {
         Vector3 spawnPos = GetSpawnPosition(target);
 
-        GameObject textObject = GameManager.instance.pool.Get(PoolType.Effect, 0);
+        GameObject textObject = GameManager.instance.poolManager.Get(PoolType.Effect, 0);
 
         textObject.transform.position = spawnPos;
 

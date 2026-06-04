@@ -46,4 +46,11 @@ public class Player : MonoBehaviour
         visual.transform.SetParent(visualRoot,false);
 
     }
+
+    public void GetExp(int amount)
+    {
+        exp += amount;
+
+        GameManager.instance.expManager.AddExpLog(amount);
+    }
 }

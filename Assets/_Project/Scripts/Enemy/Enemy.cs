@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour
     }
     void Dead()
     {
-        GameObject exp = GameManager.instance.pool.Get(PoolType.Exp, 0);
+        GameObject exp = GameManager.instance.poolManager.Get(PoolType.Exp, 0);
         exp.transform.position = transform.position;
 
         LogManager.Instance.Combat($"Clear {name}");

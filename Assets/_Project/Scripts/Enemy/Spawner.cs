@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
 
     void Spawn()
     {
-        GameObject enemy = GameManager.instance.pool.Get(PoolType.Enemy,prefabId);
+        GameObject enemy = GameManager.instance.poolManager.Get(PoolType.Enemy,prefabId);
         enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
         enemy.GetComponent<Enemy>().Init(spawnData[level]);
 

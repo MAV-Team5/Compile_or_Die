@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public float maxGameTime = 2 * 10f;
 
     public Player player;
-    public PoolManager pool;
+    public PoolManager poolManager;
+    public ExpManager expManager;
 
     [SerializeField]
     private GameObject backgroundPrefab;
