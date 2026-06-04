@@ -91,6 +91,8 @@ public class Enemy : MonoBehaviour
     {
         GameObject exp = GameManager.instance.pool.Get(PoolType.Exp, 0);
         exp.transform.position = transform.position;
+
+        LogManager.Instance.Combat($"Clear {name}");
         gameObject.SetActive(false);
     }
 }

@@ -17,6 +17,7 @@ public class LogEntry
 {
     public LogType Type;
     public string Message;
+    public int Count = 1;
 
     public LogEntry(LogType type, string message)
     {
@@ -47,6 +48,20 @@ public class LogManager : MonoBehaviour
 
     public void AddLog(LogType type, string message)
     {
+        if (logs.Count > 0)
+        {
+            LogEntry[] temp = logs.ToArray();
+
+            LogEntry lastLog = temp[temp.Length - 1];
+
+            if ( lastLog.Type == type && lastLog.Message == message)
+            {
+                lastLog.Count++;
+
+                RefreshUI();
+                return;
+            }
+        }
         logs.Enqueue(new LogEntry(type, message));
 
         while (logs.Count > maxLines)
@@ -61,15 +76,19 @@ public class LogManager : MonoBehaviour
     {
         System.Text.StringBuilder sb = new();
 
-        foreach (var log in logs)
+        LogEntry[] logArray = logs.ToArray();
+
+        for(int i = 0; i < logArray.Length; i++)
         {
-            sb.AppendLine(FormatLog(log));
+            float t = logArray.Length <= 1 ? 1f : (float)i /(logArray.Length - 1);
+            float alpha = Mathf.Lerp(0.1f, 1f, t);
+            sb.AppendLine(FormatLog(logArray[i], alpha));
         }
 
         logText.text = sb.ToString();
     }
 
-    private string FormatLog(LogEntry log)
+    private string FormatLog(LogEntry log, float alpha)
     {
         string color = log.Type switch
         {
@@ -84,7 +103,21 @@ public class LogManager : MonoBehaviour
             _               => "#FFFFFF"
         };
 
-        return $"<color={color}>[{log.Type}]</color> {log.Message}";
+        Color c;
+
+        ColorUtility.TryParseHtmlString(color, out c);
+
+        c.a = alpha;
+
+        string hex =
+            ColorUtility.ToHtmlStringRGBA(c);
+
+        string message = log.Message;
+
+        if (log.Count > 1)
+            message += $" x{log.Count}";
+
+        return $"<color=#{hex}>[{log.Type}] {message}</color>";
     }
 
     /// <summary>

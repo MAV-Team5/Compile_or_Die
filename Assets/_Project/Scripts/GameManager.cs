@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         LogManager.Instance.System("SYSTEM BOOT COMPLETE");
         LogManager.Instance.DebugLog("POOL INITIALIZED");
         LogManager.Instance.Combat("ENEMY DETECTED");
-        LogManager.Instance.Exp("EXP GAINED (+5)");
+        
         LogManager.Instance.Skill("FIREWALL READY");
     }
 
