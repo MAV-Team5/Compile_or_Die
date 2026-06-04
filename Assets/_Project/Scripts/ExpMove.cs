@@ -46,11 +46,15 @@ public class ExpMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 겸험치 획득
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
 
-        //        Debug.Log(exp);
+        LogManager.Instance.Exp($"EXP GAINED ({exp})");
 
         gameObject.SetActive(false);
     }

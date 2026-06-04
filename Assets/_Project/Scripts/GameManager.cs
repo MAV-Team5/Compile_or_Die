@@ -21,7 +21,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        GameObject background = Instantiate(backgroundPrefab, Vector3.zero, quaternion.identity);       
+        GameObject background = Instantiate(backgroundPrefab, Vector3.zero, quaternion.identity);
+
+        LogManager.Instance.System("SYSTEM BOOT COMPLETE");
+        LogManager.Instance.DebugLog("POOL INITIALIZED");
+        LogManager.Instance.Combat("ENEMY DETECTED");
+        LogManager.Instance.Exp("EXP GAINED (+5)");
+        LogManager.Instance.Skill("FIREWALL READY");
     }
 
     void Update()
