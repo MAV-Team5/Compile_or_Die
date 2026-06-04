@@ -79,9 +79,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GridRender
   cam: {fileID: 0}
   linePrefab: {fileID: 3946886807988801656, guid: 8b88acd936472474db856628a76a650b, type: 3}
-  cellSize: 1
-  step: 4
-  range: 20
 --- !u!1 &1162270668860362012
 GameObject:
   m_ObjectHideFlags: 0
@@ -4172,7 +4169,7 @@ Tilemap:
     m_Data: {r: 0.7840831, g: 0.43783653, b: 0.47744113, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.33149394, g: 0.45472726, b: 0.6981132, a: 1}
+  m_Color: {r: 0.019607844, g: 0.03137255, b: 0.05882353, a: 1}
   m_Origin: {x: -10, y: -10, z: 0}
   m_Size: {x: 20, y: 20, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -8476,7 +8473,7 @@ Tilemap:
     m_Data: {r: 0.7840831, g: 0.43783653, b: 0.47744113, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.33149394, g: 0.45472726, b: 0.6981132, a: 1}
+  m_Color: {r: 0.019607844, g: 0.03137255, b: 0.05882353, a: 1}
   m_Origin: {x: -10, y: -10, z: 0}
   m_Size: {x: 20, y: 20, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -12780,7 +12777,7 @@ Tilemap:
     m_Data: {r: 0.7840831, g: 0.43783653, b: 0.47744113, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.33149394, g: 0.45472726, b: 0.6981132, a: 1}
+  m_Color: {r: 0.019607844, g: 0.03137255, b: 0.05882353, a: 1}
   m_Origin: {x: -10, y: -10, z: 0}
   m_Size: {x: 20, y: 20, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -17084,7 +17081,7 @@ Tilemap:
     m_Data: {r: 0.7840831, g: 0.43783653, b: 0.47744113, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.33149394, g: 0.45472726, b: 0.6981132, a: 1}
+  m_Color: {r: 0.019607844, g: 0.03137255, b: 0.05882353, a: 1}
   m_Origin: {x: -10, y: -10, z: 0}
   m_Size: {x: 20, y: 20, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}

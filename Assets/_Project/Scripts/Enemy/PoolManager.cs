@@ -5,28 +5,50 @@ public enum PoolType
 {
     Enemy,
     Bullet,
-    Effect
+    Effect,
+    Exp,
+    Item
 }
 //오브젝트 풀링을 위한 풀 매니저, 각각의 풀 리스트를 사용.
 public class PoolManager : MonoBehaviour
 {
+    [Header("Pool Parents")]
+    [SerializeField] 
+    private Transform enemyParent;
+    [SerializeField] 
+    private Transform bulletParent;
+    [SerializeField] 
+    private Transform effectParent;
+    [SerializeField] 
+    private Transform expParent;
+    [SerializeField] 
+    private Transform itemParent;
+
     [Header("Enemy")]
     public GameObject[] enemyPrefabs;
     [Header("Bullet")]
     public GameObject[] bulletPrefabs;
     [Header("Effect")]
     public GameObject[] effectPrefabs;
+    [Header("EXP")]
+    public GameObject[] expPrefabs;
+    [Header("Item")]
+    public GameObject[] itemPrefabs;
 
 
     List<GameObject>[] enemyPools;
     List<GameObject>[] bulletPools;
     List<GameObject>[] effectPools;
+    List<GameObject>[] expPools;
+    List<GameObject>[] itemPools;
 
     void Awake()
     {
         enemyPools = CreatePools(enemyPrefabs.Length);
         bulletPools = CreatePools(bulletPrefabs.Length);
         effectPools = CreatePools(effectPrefabs.Length);
+        expPools = CreatePools(expPrefabs.Length);
+        itemPools = CreatePools(itemPrefabs.Length);
     }
 
     /// <summary>
@@ -56,11 +78,15 @@ public class PoolManager : MonoBehaviour
         switch (type)
         {
             case PoolType.Enemy:
-                return GetObject(enemyPools, enemyPrefabs, index);
+                return GetObject(enemyPools, enemyPrefabs, index, enemyParent);
             case PoolType.Bullet:
-                return GetObject(bulletPools, bulletPrefabs, index);
+                return GetObject(bulletPools, bulletPrefabs, index, bulletParent);
             case PoolType.Effect:
-                return GetObject(effectPools, effectPrefabs, index);
+                return GetObject(effectPools, effectPrefabs, index, effectParent);
+            case PoolType.Exp:
+                return GetObject(expPools, expPrefabs, index, expParent);
+            case PoolType.Item:
+                return GetObject(itemPools, itemPrefabs, index, itemParent);
             default:
                 return null;
         }
@@ -73,7 +99,7 @@ public class PoolManager : MonoBehaviour
     /// <param name="prefabs"></param>
     /// <param name="index"></param>
     /// <returns></returns>
-    public GameObject GetObject(List<GameObject>[] pools, GameObject[] prefabs, int index)
+    public GameObject GetObject(List<GameObject>[] pools, GameObject[] prefabs, int index, Transform parent)
     {
         GameObject select = null;
 
@@ -88,7 +114,7 @@ public class PoolManager : MonoBehaviour
         }
         if(select == null)
         {
-            select = Instantiate(prefabs[index], transform);
+            select = Instantiate(prefabs[index], parent);
             pools[index].Add(select);
         }
 

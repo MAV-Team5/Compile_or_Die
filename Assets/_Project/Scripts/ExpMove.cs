@@ -52,7 +52,7 @@ public class ExpMove : MonoBehaviour
 
         //        Debug.Log(exp);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
 

@@ -9,7 +9,8 @@ public class DamageText : MonoBehaviour
     [SerializeField] private TextMeshPro damageText;
     [SerializeField] private CanvasGroup canvasGroup;
 
-    float lifeTime = 0.8f;
+    private const float MAX_LIFETIME = 1.0f;
+    float lifeTime;
 
     Vector3 moveDirection;
     float moveSpeed;
@@ -20,10 +21,14 @@ public class DamageText : MonoBehaviour
     /// <param name="damage"></param>
     public void Initialize(float damage)
     {
-        damageText.text = damage.ToString();
+        damageText.text = damage.ToString("F0");
 
+        lifeTime = MAX_LIFETIME;
         moveDirection = Vector3.up;
         moveSpeed = 1.5f;
+
+        transform.localScale = Vector3.one;
+        canvasGroup.alpha = 1.0f;
     }
 
     /// <summary>
@@ -35,14 +40,14 @@ public class DamageText : MonoBehaviour
 
         lifeTime -= Time.deltaTime;
 
-        float ratio = lifeTime / 0.8f;
+        float ratio = lifeTime / MAX_LIFETIME;
 
         transform.localScale = Vector3.one * ratio;
         canvasGroup.alpha = ratio;
 
         if (lifeTime <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -6,10 +6,6 @@ using UnityEngine;
 public class DamageTextManager : MonoBehaviour
 {
     public static DamageTextManager Instance;
-
-    [SerializeField]
-    private DamageText damageTextPrefab;
-
     private void Awake()
     {
         Instance = this;
@@ -23,10 +19,12 @@ public class DamageTextManager : MonoBehaviour
     {
         Vector3 spawnPos = GetSpawnPosition(target);
 
-        DamageText text =
-            Instantiate(damageTextPrefab, spawnPos, Quaternion.identity);
+        GameObject textObject = GameManager.instance.pool.Get(PoolType.Effect, 0);
 
-        text.Initialize(damage);
+        textObject.transform.position = spawnPos;
+
+        DamageText damageText = textObject.GetComponent<DamageText>();
+        damageText.Initialize(damage);
     }
     /// <summary>
     /// 생성 위치 조정.

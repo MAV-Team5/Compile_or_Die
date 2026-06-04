@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 public class GridRender : MonoBehaviour
 {
-    public Camera cam;
-    public GameObject linePrefab;
+    private Camera cam;
+    [SerializeField]
+    private GameObject linePrefab;
 
-    float cellSize = 1f;
+    //float cellSize = 1f;
     int step = 8;
 
     int range = 64; // 화면 밖 여유 범위
@@ -15,6 +16,7 @@ public class GridRender : MonoBehaviour
 
     void Start()
     {
+        cam = Camera.main;
         int maxLines = range * 4;
 
         for (int i = 0; i < maxLines; i++)

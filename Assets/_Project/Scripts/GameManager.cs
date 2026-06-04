@@ -1,4 +1,7 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,9 +11,17 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public PoolManager pool;
+
+    [SerializeField]
+    private GameObject backgroundPrefab;
     private void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
+        GameObject background = Instantiate(backgroundPrefab, Vector3.zero, quaternion.identity);       
     }
 
     void Update()

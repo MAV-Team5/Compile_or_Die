@@ -89,7 +89,8 @@ public class Enemy : MonoBehaviour
     }
     void Dead()
     {
-        Instantiate(expPrefab, transform.position, Quaternion.identity);
+        GameObject exp = GameManager.instance.pool.Get(PoolType.Exp, 0);
+        exp.transform.position = transform.position;
         gameObject.SetActive(false);
     }
 }
