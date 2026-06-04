@@ -11,7 +11,8 @@ public enum LogType
     Loot,
     Warning,
     Error,
-    Debug
+    Debug,
+    None
 }
 public class LogEntry
 {
@@ -34,7 +35,7 @@ public class LogManager : MonoBehaviour
     [SerializeField] private TMP_Text logText;
 
     [Header("Settings")]
-    [SerializeField] private int maxLines = 6;
+    [SerializeField] private int maxLines = 10;
 
     private readonly Queue<LogEntry> logs = new();
 
@@ -100,24 +101,29 @@ public class LogManager : MonoBehaviour
             LogType.Warning => "#FFFF00",
             LogType.Error   => "#FF4444",
             LogType.Debug   => "#888888",
+            LogType.None    => "#888888",
             _               => "#FFFFFF"
         };
 
         Color c;
-
+        
         ColorUtility.TryParseHtmlString(color, out c);
 
         c.a = alpha;
 
-        string hex =
-            ColorUtility.ToHtmlStringRGBA(c);
+        string hex = ColorUtility.ToHtmlStringRGBA(c);
 
         string message = log.Message;
 
         if (log.Count > 1)
             message += $" x{log.Count}";
 
+        if(log.Type == LogType.None)
+        {
+            return $"<color=#{hex}> {message}</color>";
+        }
         return $"<color=#{hex}>[{log.Type}] {message}</color>";
+        
     }
 
     /// <summary>
@@ -160,6 +166,11 @@ public class LogManager : MonoBehaviour
     public void DebugLog(string msg)
     {
         AddLog(LogType.Debug, msg);
+    }
+
+    public void NoneLog(string msg)
+    {
+        AddLog(LogType.None, msg);
     }
 
     #endregion

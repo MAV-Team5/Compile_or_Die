@@ -24,11 +24,16 @@ public class GameManager : MonoBehaviour
     {
         GameObject background = Instantiate(backgroundPrefab, Vector3.zero, quaternion.identity);
 
-        LogManager.Instance.System("SYSTEM BOOT COMPLETE");
-        LogManager.Instance.DebugLog("POOL INITIALIZED");
-        LogManager.Instance.Combat("ENEMY DETECTED");
-        
-        LogManager.Instance.Skill("FIREWALL READY");
+        LogManager.Instance.NoneLog("SYSTEM BOOT COMPLETE");
+        LogManager.Instance.NoneLog("> boot --safe-mode");
+        LogManager.Instance.NoneLog("> kernel loaded");
+        LogManager.Instance.NoneLog("> process attached : PLAYER_01");
+        LogManager.Instance.NoneLog("> loading modules...");
+        LogManager.Instance.NoneLog("> firewall.dll initialized");
+        LogManager.Instance.NoneLog("> threat scanner online");
+        LogManager.Instance.NoneLog("> stage=01");
+        LogManager.Instance.NoneLog("> objective=\"stabilize memory sector\"");
+
     }
 
     void Update()
