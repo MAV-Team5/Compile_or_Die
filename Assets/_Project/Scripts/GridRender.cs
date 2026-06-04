@@ -6,10 +6,10 @@ public class GridRender : MonoBehaviour
     public Camera cam;
     public GameObject linePrefab;
 
-    public float cellSize = 1f;
-    public int step = 6;
+    float cellSize = 1f;
+    int step = 8;
 
-    public int range = 60; // 화면 밖 여유 범위
+    int range = 64; // 화면 밖 여유 범위
 
     private List<LineRenderer> lines = new List<LineRenderer>();
 

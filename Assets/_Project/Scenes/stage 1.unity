@@ -350,7 +350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4906524729434050410, guid: 8ac44f1dafcc4834aba41f2c32b9f582, type: 3}
       propertyPath: range
-      value: 60
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 4906524729434050410, guid: 8ac44f1dafcc4834aba41f2c32b9f582, type: 3}
       propertyPath: cellSize
@@ -1270,7 +1270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d54ba64958f03245a3ec9c58d20ed32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scanner
-  scanRange: 40
+  scanRange: 8
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
