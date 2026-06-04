@@ -1,7 +1,9 @@
 using System;
 using TMPro;
 using UnityEngine;
-
+/// <summary>
+/// 데미지 텍스트 클래스.
+/// </summary>
 public class DamageText : MonoBehaviour
 {
     [SerializeField] private TextMeshPro damageText;
@@ -12,6 +14,10 @@ public class DamageText : MonoBehaviour
     Vector3 moveDirection;
     float moveSpeed;
 
+    /// <summary>
+    /// 텍스트를 받은 데미지로 수정하고 위로 이동.
+    /// </summary>
+    /// <param name="damage"></param>
     public void Initialize(float damage)
     {
         damageText.text = damage.ToString();
@@ -20,6 +26,9 @@ public class DamageText : MonoBehaviour
         moveSpeed = 1.5f;
     }
 
+    /// <summary>
+    /// 시간이 지나면 투명해지다 사라지게
+    /// </summary>
     private void Update()
     {
         transform.position += moveDirection * moveSpeed * Time.deltaTime;

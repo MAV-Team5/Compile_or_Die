@@ -7,9 +7,9 @@ public class GridRender : MonoBehaviour
     public GameObject linePrefab;
 
     public float cellSize = 1f;
-    public int step = 4;
+    public int step = 6;
 
-    public int range = 20; // 화면 밖 여유 범위
+    public int range = 60; // 화면 밖 여유 범위
 
     private List<LineRenderer> lines = new List<LineRenderer>();
 

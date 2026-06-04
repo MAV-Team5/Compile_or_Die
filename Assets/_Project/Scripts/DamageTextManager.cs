@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 데미지 표시 관리 싱글톤.
+/// </summary>
 public class DamageTextManager : MonoBehaviour
 {
     public static DamageTextManager Instance;
@@ -11,7 +14,11 @@ public class DamageTextManager : MonoBehaviour
     {
         Instance = this;
     }
-
+    /// <summary>
+    /// 텍스트 프리팹 생성
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="target"></param>
     public void ShowDamage(float damage, Transform target)
     {
         Vector3 spawnPos = GetSpawnPosition(target);
@@ -21,7 +28,11 @@ public class DamageTextManager : MonoBehaviour
 
         text.Initialize(damage);
     }
-
+    /// <summary>
+    /// 생성 위치 조정.
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
     private Vector3 GetSpawnPosition(Transform target)
     {
         Vector3 pos = target.position;
