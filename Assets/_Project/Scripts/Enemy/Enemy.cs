@@ -1,6 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// 몬스터 스탯.
+/// </summary>
 public class Enemy : MonoBehaviour
 {
     public float speed;
@@ -8,7 +11,6 @@ public class Enemy : MonoBehaviour
     public float maxHealth;
     public RuntimeAnimatorController[] animCon;
     public Rigidbody2D target;
-
     public GameObject expPrefab;
     bool isLive;
 
@@ -64,7 +66,15 @@ public class Enemy : MonoBehaviour
         if (!collision.CompareTag("Bullet"))
             return;
 
-        health -= collision.GetComponent<Bullet>().damage;
+        float damage = collision.GetComponent<Bullet>().damage;
+
+        health -= damage;
+
+        DamageTextManager.Instance.ShowDamage(
+            damage,
+            transform
+        );
+        
 
         if (health > 0)
         {
@@ -79,7 +89,10 @@ public class Enemy : MonoBehaviour
     }
     void Dead()
     {
-        Instantiate(expPrefab, transform.position, Quaternion.identity);
+        GameObject exp = GameManager.instance.poolManager.Get(PoolType.Exp, 0);
+        exp.transform.position = transform.position;
+
+        LogManager.Instance.Combat($"Clear {name}");
         gameObject.SetActive(false);
     }
 }

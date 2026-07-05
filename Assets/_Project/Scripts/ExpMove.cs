@@ -3,7 +3,7 @@ using UnityEngine;
 public class ExpMove : MonoBehaviour
 {
 
-    public float exp = 1;
+    public int exp = 1;
     public float baseSpeed = 1f;
     public float accel = 5f;
 
@@ -46,13 +46,17 @@ public class ExpMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 겸험치 획득
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
 
-        Debug.Log(exp);
+        GameManager.instance.player.GetExp(exp);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
 

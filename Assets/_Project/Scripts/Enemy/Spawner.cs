@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     // public int enemyIndex;
     int level;
     float timer;
+    public int prefabId;
 
     void Awake()
     {
@@ -28,7 +29,7 @@ public class Spawner : MonoBehaviour
 
     void Spawn()
     {
-        GameObject enemy = GameManager.instance.pool.Get(0);
+        GameObject enemy = GameManager.instance.poolManager.Get(PoolType.Enemy,prefabId);
         enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
         enemy.GetComponent<Enemy>().Init(spawnData[level]);
 
