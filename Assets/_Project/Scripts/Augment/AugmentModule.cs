@@ -7,6 +7,11 @@
 /// CooldownTrigger, PassiveTrigger
 /// </summary>
 [System.Serializable] public abstract class TriggerModule   : AugmentModule { }
+[System.Serializable]
+public class CooldownTrigger : TriggerModule
+{
+    public float extraDelay;
+}
 /// <summary>
 /// 목표 대상 - 누구를 / 어디를
 /// NearestTargeting, RandomTargeting, PointTargeting
