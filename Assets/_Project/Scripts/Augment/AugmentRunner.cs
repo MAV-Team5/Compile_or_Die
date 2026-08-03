@@ -23,11 +23,19 @@ public class AugmentRunner : MonoBehaviour
 
         ctx.Begin(transform, Instance);
 
+        // ① 발동 판정
         if (!data.trigger.Evaluate(ctx, deltaTime)) return;
 
-        if (logTrigger)
-            Debug.Log($"[{data.displayName}] Lv.{Instance.Level} 발동", this);
+        // ② 타겟팅
+        if (data.targeting == null) return;
 
-        // TODO: Targeting → Delivery → Effect
+        data.targeting.Resolve(ctx);
+
+        if (ctx.Targets.IsEmpty) return;
+
+        if (logTrigger)
+            Debug.Log($"[{data.displayName}] Lv.{Instance.Level} → 대상 {ctx.Targets.Enemies.Count}개", this);
+
+        // ③④ 아직
     }
 }

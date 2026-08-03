@@ -7,9 +7,17 @@ public class AugmentManager : MonoBehaviour
     [Header("시작 시 지급 (테스트용)")]
     [SerializeField] List<AugmentData> startingAugments = new();
 
+    [Header("Targeting Layer")]
+    [SerializeField] LayerMask enemyLayer;
+
     readonly List<AugmentRunner> runners = new();
 
     public IReadOnlyList<AugmentRunner> Runners => runners;
+
+    void Awake()
+    {
+        TargetQuery.SetLayer(enemyLayer);
+    }
 
     void Start()
     {
