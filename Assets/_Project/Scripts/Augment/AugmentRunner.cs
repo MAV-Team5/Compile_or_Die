@@ -5,7 +5,12 @@ public class AugmentRunner : MonoBehaviour
 {
     [SerializeField] bool logTrigger = true;
 
+    /// <summary>쿨타임이 막 찬 순간 1회. 대기 중에는 다시 울리지 않는다.</summary>
+    public event System.Action BecameReady;
+
     public AugmentInstance Instance { get; private set; }
+
+    bool wasReady;
 
     public void Setup(AugmentInstance instance)
     {
@@ -37,7 +42,13 @@ public class AugmentRunner : MonoBehaviour
         if(data.trigger == null || data.targeting == null) return;
 
         // 1. 발동 판정 — 주문서 없이 인스턴스만
-        if(!data.trigger.Evaluate(Instance, deltaTime)) return;
+        bool ready = data.trigger.Evaluate(Instance, deltaTime);
+
+        // 준비 완료로 "전환된" 프레임에만 알림
+        if(ready && !wasReady) BecameReady?.Invoke();
+        wasReady = ready;
+
+        if(!ready) return;
 
         // 발동 확정 — 이번 발사 전용 주문서
         var ctx = new AugmentContext();

@@ -22,14 +22,14 @@ MonoBehaviour:
   levelStats:
   - damage: 1
     effectDamage: 0
-    cooldown: 5
+    cooldown: 1
     range: 10
-    count: 1
+    count: 2
     duration: 1
     depth: 0
   - damage: 3
     effectDamage: 0
-    cooldown: 4
+    cooldown: 0.8
     range: 10
     count: 1
     duration: 0
@@ -38,11 +38,12 @@ MonoBehaviour:
     rid: 980039868589277256
   targeting:
     rid: 980039868893364296
+  noTargetPolicy: 0
   deliveries:
-  - rid: -2
+  - rid: 980039868893364297
   effects:
   - rid: -2
-  projectilePrefab: {fileID: 8528441172613760969, guid: 1f6fb960bea8e6a49a4d0a21e36d4175, type: 3}
+  projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
   vfxPrefab: {fileID: 0}
   references:
     version: 2
@@ -51,8 +52,13 @@ MonoBehaviour:
       type: {class: , ns: , asm: }
     - rid: 980039868589277256
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
-      data:
-        extraDelay: 2
+      data: 
     - rid: 980039868893364296
       type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
       data: 
+    - rid: 980039868893364297
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        speed: 12
+        lifetime: 3
+        pierce: 1
