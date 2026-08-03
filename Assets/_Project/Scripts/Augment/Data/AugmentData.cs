@@ -12,11 +12,11 @@ public class AugmentData : ScriptableObject
 
     [Header("description")]
     [TextArea(2,4)]
-    public string description;
+    public string descriptionTemplate;
 
     [Header("Inner Augment")]
     public AugmentData rootAugment;
-    public int requireRootLevel;
+    public int requiredRootLevel;
 
     [Header("Level Stat")]
     public AugmentLevelData[] levelStats;

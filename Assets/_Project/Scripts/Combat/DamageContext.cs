@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageContext : MonoBehaviour
+public class DamageContext
 {
     public GameObject Source;
     public IDamageReceiver Target;

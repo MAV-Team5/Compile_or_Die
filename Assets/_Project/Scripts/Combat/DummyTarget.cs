@@ -37,6 +37,8 @@ public class DummyTarget : MonoBehaviour, IDamageReceiver
 
     void ResetHealth() => CurrentHealth = maxHealth;
 
+    void OnEnable() => ResetHealth();
+
     [ContextMenu("피해 10 주기")]
     void TestDamage10() => TakeDamage(10f);
 
