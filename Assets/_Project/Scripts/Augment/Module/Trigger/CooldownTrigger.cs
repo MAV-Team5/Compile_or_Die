@@ -1,26 +1,26 @@
-using System.Threading;
-using Unity.VisualScripting;
-
+using UnityEngine;
 [System.Serializable]
 public class CooldownTrigger : TriggerModule
 {
-    public float extraDelay;
-
     class State { public float timer; }
 
-    public override bool Evaluate(AugmentContext ctx, float deltaTime)
+    public override bool Evaluate(AugmentInstance instance, float deltaTime)
     {
-        var s = ctx.GetState<State>(this);
-        s.timer += deltaTime;
-        if(ctx.Stat.cooldown > s.timer)
-        {
-            return false;
-        }
-        else
-        {
-            s.timer -= ctx.Stat.cooldown;   // 초과분을 다음 사이클로 이월
-            return true;
-        }
-        
+        var s = instance.GetState<State>(this);
+        float cd = instance.Stat.cooldown;
+
+        s.timer = Mathf.Min(s.timer + deltaTime, cd);
+        return s.timer >= cd;
+    }
+
+    public override void Consume(AugmentInstance instance)
+        => instance.GetState<State>(this).timer = 0f;
+
+    public override float Progress(AugmentInstance instance)
+    {
+        float cd = instance.Stat.cooldown;
+        if (cd <= 0f) return 1f;
+
+        return Mathf.Clamp01(instance.GetState<State>(this).timer / cd);
     }
 }

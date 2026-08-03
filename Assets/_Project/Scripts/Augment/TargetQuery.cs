@@ -6,10 +6,12 @@ public static class TargetQuery
 {
     static ContactFilter2D filter;
     static readonly List<Collider2D> buffer = new();
+    public static LayerMask Mask { get; private set; }
     static bool ready;
 
     public static void SetLayer(LayerMask mask)
     {
+        Mask = mask;
         filter = new ContactFilter2D
         {
             useLayerMask = true,

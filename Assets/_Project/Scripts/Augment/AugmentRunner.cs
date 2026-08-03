@@ -7,35 +7,67 @@ public class AugmentRunner : MonoBehaviour
 
     public AugmentInstance Instance { get; private set; }
 
-    readonly AugmentContext ctx = new();
-
     public void Setup(AugmentInstance instance)
     {
         Instance = instance;
+
+        AugmentData d = instance.Data;
+        if(d.trigger == null)
+        {
+            Debug.LogWarning($"[{d.name}] Trigger error", this);
+        }
+
+        if(d.targeting == null)
+        {
+            Debug.LogWarning($"[{d.name}] Targeting error", this);
+        }
+
+        if(d.deliveries == null)
+        {
+            Debug.LogWarning($"[{d.name}] Deliveries error", this);
+        }
+
     }
 
     public void Tick(float deltaTime)
     {
-        if (Instance == null) return;
+        if(Instance == null) return;
 
         AugmentData data = Instance.Data;
-        if (data.trigger == null) return;
+        if(data.trigger == null || data.targeting == null) return;
 
+        // 1. 발동 판정 — 주문서 없이 인스턴스만
+        if(!data.trigger.Evaluate(Instance, deltaTime)) return;
+
+        // 발동 확정 — 이번 발사 전용 주문서
+        var ctx = new AugmentContext();
         ctx.Begin(transform, Instance);
 
-        // ① 발동 판정
-        if (!data.trigger.Evaluate(ctx, deltaTime)) return;
-
-        // ② 타겟팅
-        if (data.targeting == null) return;
-
+        // 2. 타겟팅
         data.targeting.Resolve(ctx);
 
-        if (ctx.Targets.IsEmpty) return;
+        if(ctx.Targets.IsEmpty)
+        {
+            if(data.noTargetPolicy == NoTargetPolicy.Consume)
+            {
+                data.trigger.Consume(Instance);
+            }
+            
 
-        if (logTrigger)
-            Debug.Log($"[{data.displayName}] Lv.{Instance.Level} → 대상 {ctx.Targets.Enemies.Count}개", this);
+            return;
+        }
 
-        // ③④ 아직
+        data.trigger.Consume(Instance);
+        // 3. 전달
+        for(int i = 0; i < data.deliveries.Count; i++)
+            data.deliveries[i]?.Execute(ctx, hit => OnHit(ctx, hit));
+    }
+
+    void OnHit(AugmentContext ctx, HitInfo hit)
+    {
+        if(logTrigger)
+            Debug.Log($"[{ctx.Instance.Data.displayName}] 적중 #{hit.Index} → {hit.Target.name}", this);
+
+        // ④ Effect 는 다음 단계
     }
 }

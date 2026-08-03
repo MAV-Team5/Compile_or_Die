@@ -10,7 +10,14 @@
 /// </summary>
 [System.Serializable] public abstract class TriggerModule : AugmentModule
 {
-    public abstract bool Evaluate(AugmentContext ctx, float deltaTime);
+    /// <summary>발동 준비 여부. 상태를 소비하지 않는다.</summary>
+    public abstract bool Evaluate(AugmentInstance instance, float deltaTime);
+
+    /// <summary>발동 성사 시 호출. 쿨타임을 소비한다.</summary>
+    public virtual void Consume(AugmentInstance instance) { }
+
+    /// <summary>0~1 진행률. HUD 표시용.</summary>
+    public virtual float Progress(AugmentInstance instance) => 1f;
 }
 
 /// <summary>

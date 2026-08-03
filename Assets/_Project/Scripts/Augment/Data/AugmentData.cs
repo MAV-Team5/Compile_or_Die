@@ -24,6 +24,7 @@ public class AugmentData : ScriptableObject
     [Header("Module")]
     [SerializeReference] public TriggerModule trigger;
     [SerializeReference] public TargetingModule targeting;
+    public NoTargetPolicy noTargetPolicy = NoTargetPolicy.Hold;
     [SerializeReference] public List<DeliveryModule> deliveries = new();
     [SerializeReference] public List<EffectModule> effects = new();
 
