@@ -7,14 +7,16 @@ public class AugmentProjectile : MonoBehaviour
     LayerMask targetMask;
     Vector2 velocity;
     float lifeRemain;
+    float travelRemain;
     int pierceRemain;
     int hitIndex;
 
-    public void Launch(Vector2 direction, float speed, float lifetime, int pierce,
-                       LayerMask mask, System.Action<HitInfo> callback)
+    public void Launch(Vector2 direction, float speed, float lifetime, float maxDistance,
+                       int pierce, LayerMask mask, System.Action<HitInfo> callback)
     {
         velocity     = direction.normalized * speed;
         lifeRemain   = lifetime;
+        travelRemain = maxDistance;
         pierceRemain = Mathf.Max(1, pierce);
         targetMask   = mask;
         onHit        = callback;
@@ -27,8 +29,11 @@ public class AugmentProjectile : MonoBehaviour
     {
         transform.position += (Vector3)(velocity * Time.deltaTime);
 
-        lifeRemain -= Time.deltaTime;
-        if (lifeRemain <= 0f) Destroy(gameObject);
+        // 사거리와 수명 중 먼저 닿는 쪽에서 소멸
+        travelRemain -= velocity.magnitude * Time.deltaTime;
+        lifeRemain   -= Time.deltaTime;
+
+        if (travelRemain <= 0f || lifeRemain <= 0f) Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D other)

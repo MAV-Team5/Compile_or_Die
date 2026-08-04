@@ -9,6 +9,9 @@ public class CooldownTrigger : TriggerModule
         var s = instance.GetState<State>(this);
         float cd = instance.Stat.cooldown;
 
+        // 쿨타임 미입력(0)은 매 프레임 발동이 되므로 차단
+        if (cd <= 0f) return false;
+
         s.timer = Mathf.Min(s.timer + deltaTime, cd);
         return s.timer >= cd;
     }

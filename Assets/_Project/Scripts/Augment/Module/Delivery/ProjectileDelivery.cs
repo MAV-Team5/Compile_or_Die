@@ -7,6 +7,9 @@ public class ProjectileDelivery : DeliveryModule
     public float lifetime = 3f;
     public int pierce = 1;
 
+    // 사거리 대비 투사체 도달 거리 배수 (조준 후 적이 움직이는 여유분)
+    public float rangeMultiplier = 1.2f;
+
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
         GameObject prefab = ctx.Instance.Data.projectilePrefab;
@@ -28,7 +31,8 @@ public class ProjectileDelivery : DeliveryModule
 
             GameObject go = Object.Instantiate(prefab, origin, Quaternion.identity);
             go.GetComponent<AugmentProjectile>()
-              .Launch(dir, speed, lifetime, pierce, TargetQuery.Mask, onHit);
+              .Launch(dir, speed, lifetime, ctx.Stat.range * rangeMultiplier,
+                      pierce, TargetQuery.Mask, onHit);
         }
     }
 }
