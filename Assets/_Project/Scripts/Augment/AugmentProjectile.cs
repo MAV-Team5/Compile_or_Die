@@ -40,7 +40,7 @@ public class AugmentProjectile : MonoBehaviour
         travelRemain -= speed * Time.deltaTime;
         lifeRemain   -= Time.deltaTime;
 
-        if (travelRemain <= 0f || lifeRemain <= 0f) Destroy(gameObject);
+        if (travelRemain <= 0f || lifeRemain <= 0f) Despawn();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -58,6 +58,16 @@ public class AugmentProjectile : MonoBehaviour
         });
 
         pierceRemain--;
-        if (pierceRemain <= 0) Destroy(gameObject);
+        if (pierceRemain <= 0) Despawn();
+    }
+
+    /// <summary>풀에 반납한다. 콜백 참조를 끊어야 이전 발동의 ctx가 살아남지 않는다.</summary>
+    void Despawn()
+    {
+        onHit = null;
+        excluded = null;
+        velocity = Vector2.zero;
+
+        gameObject.SetActive(false);
     }
 }

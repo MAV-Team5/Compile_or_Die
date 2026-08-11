@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 public enum PoolType
 {
@@ -35,6 +34,9 @@ public class PoolManager : MonoBehaviour
     [Header("Item")]
     public GameObject[] itemPrefabs;
 
+
+    // 프리팹 참조를 키로 쓰는 풀. 인덱스 등록 없이 증강 투사체를 담는다
+    readonly Dictionary<GameObject, List<GameObject>> prefabPools = new();
 
     List<GameObject>[] enemyPools;
     List<GameObject>[] bulletPools;
@@ -90,6 +92,33 @@ public class PoolManager : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    /// <summary>
+    /// 프리팹을 직접 넘겨 받아온다. 인덱스 등록이 필요 없어 증강처럼 프리팹이 많은 쪽에 쓴다.
+    /// </summary>
+    public GameObject Get(GameObject prefab)
+    {
+        if (prefab == null) return null;
+
+        if (!prefabPools.TryGetValue(prefab, out List<GameObject> pool))
+        {
+            pool = new List<GameObject>();
+            prefabPools[prefab] = pool;
+        }
+
+        foreach (GameObject item in pool)
+        {
+            if (!item.activeSelf)
+            {
+                item.SetActive(true);
+                return item;
+            }
+        }
+
+        GameObject created = Instantiate(prefab, bulletParent);
+        pool.Add(created);
+        return created;
     }
 
     /// <summary>

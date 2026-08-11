@@ -9,7 +9,11 @@ public class DamageEffect : EffectModule
 
     public override void Apply(AugmentContext ctx, HitInfo hit)
     {
-        if (!hit.Target.TryGetComponent(out IDamageReceiver receiver)) return;
+        // 콜라이더가 자식에 있는 프리팹도 있어서 부모까지 훑는다
+        if (!hit.Target.TryGetComponent(out IDamageReceiver receiver))
+            receiver = hit.Target.GetComponentInParent<IDamageReceiver>();
+
+        if (receiver == null) return;
 
         float amount = ctx.Stat.damage * scale * ctx.DamageMultiplier;
 

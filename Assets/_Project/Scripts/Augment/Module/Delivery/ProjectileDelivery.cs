@@ -40,11 +40,22 @@ public class ProjectileDelivery : DeliveryModule
 
             Vector2 dir = delta.normalized;
 
-            GameObject go = Object.Instantiate(prefab, origin, Quaternion.identity);
+            GameObject go = Spawn(prefab, origin);
 
             go.GetComponent<AugmentProjectile>()
               .Launch(dir, speed, lifetime, ctx.Stat.range * rangeMultiplier,
                       pierce, TargetQuery.Mask, ctx.Excluded, onHit);
         }
+    }
+
+    /// <summary>풀이 있으면 재사용하고, 없는 씬(테스트용)에서는 직접 생성한다.</summary>
+    static GameObject Spawn(GameObject prefab, Vector2 position)
+    {
+        PoolManager pool = GameManager.instance != null ? GameManager.instance.poolManager : null;
+
+        GameObject go = pool != null ? pool.Get(prefab) : Object.Instantiate(prefab);
+
+        go.transform.SetPositionAndRotation(position, Quaternion.identity);
+        return go;
     }
 }

@@ -1,10 +1,9 @@
-using UnityEditor;
 using UnityEngine;
 
 /// <summary>
 /// 몬스터 스탯.
 /// </summary>
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageReceiver
 {
     public float speed;
     public float health;
@@ -61,34 +60,37 @@ public class Enemy : MonoBehaviour
         maxHealth = data.health;
         health = data.health;
     }
+    /// <summary>피해 진입점. 기존 무기와 증강이 모두 여기로 들어온다.</summary>
+    public void TakeDamage(float amount)
+    {
+        // 같은 프레임에 여러 발이 맞아도 Dead가 두 번 돌지 않게 막는다
+        if (!isLive || amount <= 0f)
+            return;
+
+        health -= amount;
+
+        DamageTextManager.Instance.ShowDamage(amount, transform);
+
+        if (health <= 0f)
+            Dead();
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Bullet"))
             return;
 
-        float damage = collision.GetComponent<Bullet>().damage;
+        // 태그만 Bullet 이고 컴포넌트가 없는 오브젝트가 섞여도 죽지 않게
+        if (!collision.TryGetComponent(out Bullet bullet))
+            return;
 
-        health -= damage;
-
-        DamageTextManager.Instance.ShowDamage(
-            damage,
-            transform
-        );
-        
-
-        if (health > 0)
-        {
-            //Live, Hit Action
-
-        }
-        else
-        {
-            //Die
-            Dead();
-        }
+        TakeDamage(bullet.damage);
     }
+
     void Dead()
     {
+        isLive = false;
+
         GameObject exp = GameManager.instance.poolManager.Get(PoolType.Exp, 0);
         exp.transform.position = transform.position;
 

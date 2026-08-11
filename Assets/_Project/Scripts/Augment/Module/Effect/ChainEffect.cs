@@ -14,6 +14,8 @@ public class ChainEffect : EffectModule
     [Header("연쇄 단계에서 실행할 파이프라인")]
     [SerializeReference] public TargetingModule targeting;
     [SerializeReference] public List<DeliveryModule> deliveries = new();
+
+    /// <summary>단계마다 적용할 효과. ChainEffect 자신은 자동으로 이어지므로 넣지 말 것.</summary>
     [SerializeReference] public List<EffectModule> effects = new();
 
     [Header("깊이")]
@@ -36,6 +38,9 @@ public class ChainEffect : EffectModule
         var sub = new AugmentContext();
         sub.BeginChild(hit.Target, ctx, ctx.DamageMultiplier * (1f + amplifyPerDepth));
 
-        AugmentPipeline.Run(sub, targeting, deliveries, effects);
+        // 하위 효과에 자기 자신을 붙여야 다음 단계로 이어진다. 깊이 가드가 종료를 보장한다.
+        var chained = new List<EffectModule>(effects) { this };
+
+        AugmentPipeline.Run(sub, targeting, deliveries, chained);
     }
 }
