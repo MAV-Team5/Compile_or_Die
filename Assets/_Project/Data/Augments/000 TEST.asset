@@ -12,77 +12,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 000 TEST
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  id: 001
-  displayName: Bash
-  category: 3
+  id: 000
+  displayName: Test
+  category: 0
   icon: {fileID: 21300000, guid: e6b6d8bdfc34b4a9f8df3e9e07367708, type: 3}
-  descriptionTemplate: "Bash \uBC30\uC26C "
+  descriptionTemplate: 'Test '
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   levelStats:
-  - damage: 3
-    effectDamage: 0
-    cooldown: 0.8
-    range: 8
-    count: 6
+  - damage: 5
+    effectDamage: 2
+    cooldown: 1
+    range: 6
+    count: 2
     duration: 0
-    depth: 1
+    depth: 0
   trigger:
-    rid: 980040056421220425
+    rid: 980040056421220447
   targeting:
-    rid: 980040056421220426
-  noTargetPolicy: 0
+    rid: 980040056421220463
+  noTargetPolicy: 1
   deliveries:
-  - rid: 980040056421220427
+  - rid: 980040056421220461
   effects:
-  - rid: 980040056421220434
-  - rid: 980040056421220435
+  - rid: 980040056421220455
+  - rid: 980040056421220464
   projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
   vfxPrefab: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 980040056421220425
+    - rid: 980040056421220447
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 980040056421220426
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 980040056421220427
-      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
-      data:
-        speed: 5
-        lifetime: 3
-        pierce: 1
-        rangeMultiplier: 1.2
-        prefabOverride: {fileID: 0}
-    - rid: 980040056421220434
+    - rid: 980040056421220455
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        scale: 1
-    - rid: 980040056421220435
+        damageScale: 1
+    - rid: 980040056421220461
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        speed: 12
+        lifetime: 3
+        pierce: 1
+        travelRangeMultiplier: 1.2
+        projectileOverride: {fileID: 0}
+    - rid: 980040056421220463
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 980040056421220464
       type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
       data:
         targeting:
-          rid: 980040056421220436
+          rid: 980040056421220465
         deliveries:
-        - rid: 980040056421220437
+        - rid: 980040056421220466
         effects:
-        - rid: 980040056421220438
+        - rid: 980040056421220467
         maxDepthOverride: 0
         amplifyPerDepth: 0.2
-    - rid: 980040056421220436
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 980040056421220437
-      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+    - rid: 980040056421220465
+      type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
       data:
-        speed: 5
-        lifetime: 3
-        pierce: 1
-        rangeMultiplier: 1.2
-        prefabOverride: {fileID: 0}
-    - rid: 980040056421220438
+        pickCount: 1
+    - rid: 980040056421220466
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        blastRadius: 2
+        useAugmentRange: 0
+        includeCenterTarget: 1
+        blastVfx: {fileID: 0}
+    - rid: 980040056421220467
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        scale: 1
+        damageScale: 1

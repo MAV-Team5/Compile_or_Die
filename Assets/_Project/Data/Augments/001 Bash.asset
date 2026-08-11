@@ -54,12 +54,12 @@ MonoBehaviour:
         speed: 5
         lifetime: 3
         pierce: 1
-        rangeMultiplier: 1.2
-        prefabOverride: {fileID: 0}
+        travelRangeMultiplier: 1.2
+        projectileOverride: {fileID: 0}
     - rid: 980040056421220434
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        scale: 1
+        damageScale: 1
     - rid: 980040056421220435
       type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -80,9 +80,9 @@ MonoBehaviour:
         speed: 5
         lifetime: 3
         pierce: 1
-        rangeMultiplier: 1.2
-        prefabOverride: {fileID: 0}
+        travelRangeMultiplier: 1.2
+        projectileOverride: {fileID: 0}
     - rid: 980040056421220438
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        scale: 1
+        damageScale: 1
