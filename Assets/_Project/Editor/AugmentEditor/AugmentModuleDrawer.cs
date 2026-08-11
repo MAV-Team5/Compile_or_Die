@@ -3,22 +3,45 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-/// <summary>SerializeReference 모듈 필드에 타입 선택 드롭다운을 그린다.</summary>
+/// <summary>
+/// SerializeReference 모듈 필드에 타입 선택 드롭다운을 그린다.
+/// 축마다 색 띠를 붙이고 이름에서 축 접미사를 떼어 중첩 파이프라인을 읽기 쉽게 한다.
+/// </summary>
 [CustomPropertyDrawer(typeof(AugmentModule), true)]
 public class AugmentModuleDrawer : PropertyDrawer
 {
     const float Gap = 2f;
+    const float StripeWidth = 3f;
+    const float StripeGap = 4f;
+
+    // 축별 색. 중첩이 깊어져도 지금 보는 게 어느 축인지 바로 알 수 있게 한다
+    static readonly Color TriggerColor   = new(0.95f, 0.55f, 0.25f);
+    static readonly Color TargetingColor = new(0.35f, 0.65f, 0.95f);
+    static readonly Color DeliveryColor  = new(0.70f, 0.50f, 0.95f);
+    static readonly Color EffectColor    = new(0.35f, 0.80f, 0.45f);
+    static readonly Color UnknownColor   = new(0.55f, 0.55f, 0.55f);
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);
 
-        float line = EditorGUIUtility.singleLineHeight;
-        var labelRect  = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, line);
-        var buttonRect = new Rect(position.x + EditorGUIUtility.labelWidth, position.y,
-                                  position.width - EditorGUIUtility.labelWidth, line);
-
         bool hasValue = !string.IsNullOrEmpty(property.managedReferenceFullTypename);
+        float line = EditorGUIUtility.singleLineHeight;
+
+        if (hasValue)
+        {
+            var stripe = new Rect(position.x, position.y, StripeWidth, position.height);
+            EditorGUI.DrawRect(stripe, AxisColor(property));
+        }
+
+        // 색 띠만큼 본문을 오른쪽으로 밀어 겹치지 않게 한다
+        float indent = hasValue ? StripeWidth + StripeGap : 0f;
+        float bodyX = position.x + indent;
+        float bodyWidth = position.width - indent;
+
+        var labelRect  = new Rect(bodyX, position.y, EditorGUIUtility.labelWidth - indent, line);
+        var buttonRect = new Rect(bodyX + labelRect.width, position.y,
+                                  bodyWidth - labelRect.width, line);
 
         if (hasValue)
             property.isExpanded = EditorGUI.Foldout(labelRect, property.isExpanded, label, true);
@@ -31,7 +54,7 @@ public class AugmentModuleDrawer : PropertyDrawer
         if (hasValue && property.isExpanded)
         {
             EditorGUI.indentLevel++;
-            DrawChildren(new Rect(position.x, position.y + line + Gap, position.width, 0), property);
+            DrawChildren(new Rect(bodyX, position.y + line + Gap, bodyWidth, 0), property);
             EditorGUI.indentLevel--;
         }
 
@@ -93,7 +116,7 @@ public class AugmentModuleDrawer : PropertyDrawer
             foreach (var type in types)
             {
                 var captured = type;
-                menu.AddItem(new GUIContent(ObjectNames.NicifyVariableName(captured.Name)), false,
+                menu.AddItem(new GUIContent(ShortName(captured.Name)), false,
                              () => Assign(so, path, Activator.CreateInstance(captured)));
             }
         }
@@ -117,14 +140,44 @@ public class AugmentModuleDrawer : PropertyDrawer
         return Type.GetType($"{typename.Substring(space + 1)}, {typename.Substring(0, space)}");
     }
 
+    /// <summary>필드 위치가 이미 축을 말해주므로 접미사는 빼서 줄을 짧게 만든다.</summary>
+    static string ShortName(string className)
+    {
+        foreach (string suffix in new[] { "Targeting", "Delivery", "Effect", "Trigger" })
+        {
+            if (className.Length > suffix.Length && className.EndsWith(suffix))
+                return ObjectNames.NicifyVariableName(className[..^suffix.Length]);
+        }
+        return ObjectNames.NicifyVariableName(className);
+    }
+
     static string DisplayName(SerializedProperty property)
     {
-        string full = property.managedReferenceFullTypename;
-        if (string.IsNullOrEmpty(full)) return "None";
+        string cls = ClassName(property.managedReferenceFullTypename);
+        return cls == null ? "None" : ShortName(cls);
+    }
 
-        int space = full.IndexOf(' ');
-        string cls = space < 0 ? full : full.Substring(space + 1);
+    static Color AxisColor(SerializedProperty property)
+    {
+        string cls = ClassName(property.managedReferenceFullTypename);
+        if (cls == null) return UnknownColor;
+
+        if (cls.EndsWith("Trigger"))   return TriggerColor;
+        if (cls.EndsWith("Targeting")) return TargetingColor;
+        if (cls.EndsWith("Delivery"))  return DeliveryColor;
+        if (cls.EndsWith("Effect"))    return EffectColor;
+
+        return UnknownColor;
+    }
+
+    static string ClassName(string fullTypename)
+    {
+        if (string.IsNullOrEmpty(fullTypename)) return null;
+
+        int space = fullTypename.IndexOf(' ');
+        string cls = space < 0 ? fullTypename : fullTypename[(space + 1)..];
+
         int dot = cls.LastIndexOf('.');
-        return ObjectNames.NicifyVariableName(dot >= 0 ? cls.Substring(dot + 1) : cls);
+        return dot >= 0 ? cls[(dot + 1)..] : cls;
     }
 }
