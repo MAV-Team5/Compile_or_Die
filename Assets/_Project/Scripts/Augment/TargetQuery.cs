@@ -33,6 +33,16 @@ public static class TargetQuery
         }
 
         Physics2D.OverlapCircle(center, radius, filter, buffer);
+
+        // 스폰 직후처럼 물리 좌표가 transform 을 아직 따라오지 못한 대상이 섞여 들어온다
+        float sqrLimit = radius * radius;
+
+        for (int i = buffer.Count - 1; i >= 0; i--)
+        {
+            if (((Vector2)buffer[i].transform.position - center).sqrMagnitude > sqrLimit)
+                buffer.RemoveAt(i);
+        }
+
         return buffer;
     }
 

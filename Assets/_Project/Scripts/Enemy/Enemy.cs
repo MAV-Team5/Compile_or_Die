@@ -3,8 +3,11 @@ using UnityEngine;
 /// <summary>
 /// 몬스터 스탯.
 /// </summary>
-public class Enemy : MonoBehaviour, IDamageReceiver
+public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 {
+    // 넉백 직후 스스로 못 움직이는 시간
+    float moveSuppressRemain;
+
     public float speed;
     public float health;
     public float maxHealth;
@@ -33,10 +36,24 @@ public class Enemy : MonoBehaviour, IDamageReceiver
             return;
         }
 
+        // 넉백 중에는 추적을 멈춘다. 안 그러면 밀어낸 만큼 즉시 되돌아온다
+        if (moveSuppressRemain > 0f)
+        {
+            moveSuppressRemain -= Time.fixedDeltaTime;
+            rigid.linearVelocity = Vector2.zero;
+            return;
+        }
+
         Vector2 dirVec = target.position - rigid.position;
         Vector2 nextVec = dirVec.normalized * speed * Time.deltaTime;
         rigid.MovePosition(rigid.position + nextVec);
         rigid.linearVelocity = Vector2.zero;
+    }
+
+    public void Displace(Vector2 delta, float suppressDuration)
+    {
+        rigid.MovePosition(rigid.position + delta);
+        moveSuppressRemain = Mathf.Max(moveSuppressRemain, suppressDuration);
     }
     void LateUpdate()
     {
@@ -51,6 +68,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver
         isLive = true;
         health = maxHealth;
         coll.enabled = true;
+        moveSuppressRemain = 0f;
     }
 
     public void Init(SpawnData data)

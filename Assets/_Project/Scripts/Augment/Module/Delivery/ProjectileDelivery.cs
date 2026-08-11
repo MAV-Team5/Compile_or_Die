@@ -1,61 +1,54 @@
 using UnityEngine;
 
-/// <summary>대상마다 투사체를 1발씩 발사한다. 연쇄는 ChainEffect가 담당한다.</summary>
+/// <summary>타겟마다 투사체를 1발씩 발사한다. 좌표 타겟이면 그 방향으로 쏜다.</summary>
 [System.Serializable]
 public class ProjectileDelivery : DeliveryModule
 {
+    [Tooltip("초당 이동 거리(유닛).")]
     public float speed = 12f;
+
+    [Tooltip("최대 생존 시간(초). 사거리보다 먼저 끝나면 여기서 사라진다. 안전장치.")]
     public float lifetime = 3f;
+
+    [Tooltip("몇 명을 뚫고 지나갈지. 1이면 첫 적중에서 소멸.")]
     public int pierce = 1;
 
-    /// <summary>사거리 대비 투사체 도달 거리 배수. 조준 후 적이 움직이는 여유분.</summary>
-    public float rangeMultiplier = 1.2f;
+    [Tooltip("증강 사거리 대비 비행 거리 배수. 1.2 면 사거리의 120% 까지 날아간다.")]
+    public float travelRangeMultiplier = 1.2f;
 
-    /// <summary>비우면 AugmentData.projectilePrefab 을 쓴다. 연쇄 단계별로 다른 투사체를 쓸 때 지정.</summary>
-    public GameObject prefabOverride;
+    [Tooltip("비우면 증강 데이터의 기본 투사체를 쓴다. 연쇄 단계마다 다른 투사체를 쓸 때만 지정.")]
+    public GameObject projectileOverride;
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
-        GameObject prefab = prefabOverride != null
-            ? prefabOverride
+        GameObject prefab = projectileOverride != null
+            ? projectileOverride
             : ctx.Instance.Data.projectilePrefab;
 
         if (prefab == null)
         {
-            Debug.LogWarning($"[{ctx.Instance.Data.name}] projectilePrefab 미지정");
+            Debug.LogWarning($"[{ctx.Instance.Data.name}] 투사체 프리팹이 없습니다");
             return;
         }
 
         Vector2 origin = ctx.Owner.position;
 
-        for (int i = 0; i < ctx.Targets.Enemies.Count; i++)
+        for (int i = 0; i < ctx.Targets.Count; i++)
         {
-            Transform target = ctx.Targets.Enemies[i];
-            if (target == null || !target.gameObject.activeInHierarchy) continue;
+            TargetRef target = ctx.Targets.Items[i];
+            if (!target.IsAlive) continue;
 
-            Vector2 delta = (Vector2)target.position - origin;
+            Vector2 delta = target.Position - origin;
 
-            // 원점과 대상이 겹치면 방향이 0이 되어 투사체가 제자리에 선다
+            // 원점과 목표가 겹치면 방향이 0이 되어 제자리에 선다
             if (delta.sqrMagnitude < 0.0001f) continue;
 
-            Vector2 dir = delta.normalized;
-
-            GameObject go = Spawn(prefab, origin);
+            GameObject go = ProjectileSpawner.Spawn(prefab, origin);
 
             go.GetComponent<AugmentProjectile>()
-              .Launch(dir, speed, lifetime, ctx.Stat.range * rangeMultiplier,
+              .Launch(delta.normalized, speed, lifetime,
+                      ctx.Stat.range * travelRangeMultiplier,
                       pierce, TargetQuery.Mask, ctx.Excluded, onHit);
         }
-    }
-
-    /// <summary>풀이 있으면 재사용하고, 없는 씬(테스트용)에서는 직접 생성한다.</summary>
-    static GameObject Spawn(GameObject prefab, Vector2 position)
-    {
-        PoolManager pool = GameManager.instance != null ? GameManager.instance.poolManager : null;
-
-        GameObject go = pool != null ? pool.Get(prefab) : Object.Instantiate(prefab);
-
-        go.transform.SetPositionAndRotation(position, Quaternion.identity);
-        return go;
     }
 }

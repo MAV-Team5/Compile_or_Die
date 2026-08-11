@@ -1,21 +1,27 @@
 using UnityEngine;
 
-/// <summary>적중 대상에 피해를 준다.</summary>
+/// <summary>
+/// 적중 대상에 피해를 준다.
+/// 최종 피해 = 레벨 수치의 damage × damageScale × 연쇄 증폭
+/// </summary>
 [System.Serializable]
 public class DamageEffect : EffectModule
 {
-    /// <summary>LevelStat.damage 에 곱해지는 고정 배율. 같은 증강에서 효과별 강약을 줄 때.</summary>
-    public float scale = 1f;
+    [Tooltip("레벨 수치의 damage 에 곱하는 배율. 1이면 그대로, 0.5면 절반. " +
+             "한 증강 안에서 효과마다 강약을 줄 때 쓴다. 추가 피해가 아니라 배율이다.")]
+    public float damageScale = 1f;
 
     public override void Apply(AugmentContext ctx, HitInfo hit)
     {
+        if (hit.Target == null) return;
+
         // 콜라이더가 자식에 있는 프리팹도 있어서 부모까지 훑는다
         if (!hit.Target.TryGetComponent(out IDamageReceiver receiver))
             receiver = hit.Target.GetComponentInParent<IDamageReceiver>();
 
         if (receiver == null) return;
 
-        float amount = ctx.Stat.damage * scale * ctx.DamageMultiplier;
+        float amount = ctx.Stat.damage * damageScale * ctx.DamageMultiplier;
 
         DamagePipeline.Process(
             new DamageContext(ctx.Owner.gameObject, receiver, amount));

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
-  m_Name: 001 Bash
+  m_Name: 000 TEST
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   id: 001
   displayName: Bash
