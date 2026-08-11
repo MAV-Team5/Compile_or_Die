@@ -14,8 +14,14 @@ public class AreaDelivery : DeliveryModule
     [Tooltip("중심에 있는 적도 포함할지. 끄면 주변만 맞는다.")]
     public bool includeCenterTarget = true;
 
+    [Header("폭발 연출")]
     [Tooltip("폭발 지점에 띄울 이펙트. 비워도 된다.")]
     public GameObject blastVfx;
+
+    public float blastVfxScale = 1f;
+
+    [Tooltip("폭발 효과음.")]
+    public AudioClip blastSfx;
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
@@ -29,8 +35,8 @@ public class AreaDelivery : DeliveryModule
         {
             Vector2 center = centers[c].Position;
 
-            if (blastVfx != null)
-                Object.Destroy(Object.Instantiate(blastVfx, center, Quaternion.identity), 2f);
+            VfxSpawner.SpawnAt(blastVfx, center, blastVfxScale);
+            SfxPlayer.Play(blastSfx);
 
             List<Collider2D> hits = TargetQuery.Overlap(center, radius);
 

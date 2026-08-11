@@ -47,12 +47,12 @@ public class AugmentRunner : MonoBehaviour
         {
             // 대상이 없을 때 쿨타임을 버릴지 유지할지는 증강마다 다르다
             if (data.noTargetPolicy == NoTargetPolicy.Consume)
-                data.trigger.Consume(Instance);
+                data.trigger.Consume(ctx);
 
             return;
         }
 
-        data.trigger.Consume(Instance);
+        data.trigger.Consume(ctx);
 
         if (logTrigger)
             Debug.Log($"[{data.displayName}] Lv.{Instance.Level} 발동", this);

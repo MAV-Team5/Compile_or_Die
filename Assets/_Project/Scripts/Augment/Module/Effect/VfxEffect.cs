@@ -1,30 +1,24 @@
 using UnityEngine;
 
-/// <summary>적중 지점에 이펙트를 띄운다. 게임 상태는 바꾸지 않는다.</summary>
+/// <summary>적중 시 이펙트를 띄운다. 게임 상태는 바꾸지 않는다.</summary>
 [System.Serializable]
 public class VfxEffect : EffectModule
 {
-    /// <summary>비우면 AugmentData.vfxPrefab 을 쓴다.</summary>
-    public GameObject prefabOverride;
+    [Tooltip("비우면 증강 데이터의 기본 이펙트를 쓴다.")]
+    public GameObject vfxOverride;
 
-    public float lifetime = 1f;
+    [Tooltip("이펙트가 나타날 위치.")]
+    public VfxAnchor anchor = VfxAnchor.HitPoint;
 
-    /// <summary>켜면 대상을 따라다닌다. 끄면 적중 지점에 고정.</summary>
-    public bool attachToTarget = false;
+    [Tooltip("이펙트 크기 배수. 1이면 프리팹 그대로.")]
+    public float scale = 1f;
 
     public override void Apply(AugmentContext ctx, HitInfo hit)
     {
-        GameObject prefab = prefabOverride != null
-            ? prefabOverride
+        GameObject prefab = vfxOverride != null
+            ? vfxOverride
             : ctx.Instance.Data.vfxPrefab;
 
-        if (prefab == null) return;
-
-        GameObject go = Object.Instantiate(prefab, hit.Point, Quaternion.identity);
-
-        if (attachToTarget && hit.Target != null)
-            go.transform.SetParent(hit.Target, true);
-
-        Object.Destroy(go, lifetime);
+        VfxSpawner.Spawn(prefab, anchor, scale, ctx, hit);
     }
 }

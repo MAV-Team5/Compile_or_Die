@@ -25,6 +25,15 @@ public class RadialDelivery : DeliveryModule
     [Tooltip("비우면 증강 데이터의 기본 투사체를 쓴다.")]
     public GameObject projectileOverride;
 
+    [Header("발사 연출")]
+    [Tooltip("발사 원점에 띄울 이펙트.")]
+    public GameObject launchVfx;
+
+    public float launchVfxScale = 1f;
+
+    [Tooltip("발사 순간 효과음.")]
+    public AudioClip launchSfx;
+
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
         GameObject prefab = projectileOverride != null
@@ -41,6 +50,10 @@ public class RadialDelivery : DeliveryModule
         if (count <= 0) count = 1;
 
         Vector2 origin = ctx.Owner.position;
+
+        VfxSpawner.SpawnAt(launchVfx, origin, launchVfxScale);
+        SfxPlayer.Play(launchSfx);
+
         float step = 360f / count;
         float start = randomizeStartAngle ? Random.Range(0f, 360f) : 0f;
 

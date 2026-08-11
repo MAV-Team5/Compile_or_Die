@@ -4,12 +4,18 @@ using UnityEngine;
 [System.Serializable]
 public class NearestTargeting : TargetingModule
 {
+    [Tooltip("탐색 반경. 0이면 증강 사거리(레벨 수치의 range)를 쓴다.")]
+    public float rangeOverride = 0f;
+
     public override void Resolve(AugmentContext ctx)
     {
         Transform target = TargetQuery.Nearest(
-            ctx.Owner.position, ctx.Stat.range, ctx.Excluded);
+            ctx.Owner.position, Range(ctx), ctx.Excluded);
 
         if (target != null)
             ctx.Targets.Add(target);
     }
+
+    /// <summary>오버라이드가 있으면 그걸, 없으면 증강 사거리를 쓴다.</summary>
+    float Range(AugmentContext ctx) => rangeOverride > 0f ? rangeOverride : ctx.Stat.range;
 }

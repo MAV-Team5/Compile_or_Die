@@ -19,7 +19,8 @@ public class ChainEffect : EffectModule
     [SerializeReference] public List<EffectModule> effects = new();
 
     [Header("깊이")]
-    /// <summary>0이면 LevelStat.count 를 쓴다. 레벨업으로 연쇄가 늘어나는 증강은 0으로 둘 것.</summary>
+    [Tooltip("최대 연쇄 단계. 0이면 레벨 수치의 depth 를 쓴다. " +
+             "count 는 '몇 개'고 depth 가 '몇 단계'다.")]
     public int maxDepthOverride = 0;
 
     /// <summary>단계마다 누적되는 피해 증폭. 0.2 면 2단계에서 1.2배, 3단계에서 1.44배.</summary>
@@ -29,7 +30,7 @@ public class ChainEffect : EffectModule
     {
         if (hit.Target == null) return;
 
-        int limit = maxDepthOverride > 0 ? maxDepthOverride : ctx.Stat.count;
+        int limit = maxDepthOverride > 0 ? maxDepthOverride : ctx.Stat.depth;
         limit = Mathf.Min(limit, HardLimit);
 
         if (ctx.Depth + 1 >= limit) return;

@@ -11,8 +11,14 @@ public class InstantDelivery : DeliveryModule
     [Tooltip("좌표 타겟일 때 그 자리에서 적을 찾을 반경. 적 타겟에는 영향 없음.")]
     public float pointSearchRadius = 1f;
 
+    [Header("적중 연출")]
     [Tooltip("적중 지점에 띄울 이펙트. 비워도 된다.")]
     public GameObject hitVfx;
+
+    public float hitVfxScale = 1f;
+
+    [Tooltip("적중 효과음.")]
+    public AudioClip hitSfx;
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
@@ -45,8 +51,8 @@ public class InstantDelivery : DeliveryModule
 
     void Emit(Transform target, Vector2 point, ref int index, System.Action<HitInfo> onHit)
     {
-        if (hitVfx != null)
-            Object.Destroy(Object.Instantiate(hitVfx, point, Quaternion.identity), 2f);
+        VfxSpawner.SpawnAt(hitVfx, point, hitVfxScale);
+        SfxPlayer.Play(hitSfx);
 
         onHit(new HitInfo { Target = target, Point = point, Index = index++ });
     }

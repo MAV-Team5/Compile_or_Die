@@ -4,6 +4,9 @@ using UnityEngine;
 [System.Serializable]
 public class RandomPointTargeting : TargetingModule
 {
+    [Tooltip("탐색 반경. 0이면 증강 사거리(레벨 수치의 range)를 쓴다.")]
+    public float rangeOverride = 0f;
+
     [Tooltip("찍을 좌표 수. 0이면 레벨 수치의 count 를 쓴다. 그것도 0이면 1곳.")]
     public int pointCount = 1;
 
@@ -16,7 +19,7 @@ public class RandomPointTargeting : TargetingModule
     public override void Resolve(AugmentContext ctx)
     {
         Vector2 from = ctx.Owner.position;
-        float range = ctx.Stat.range;
+        float range = Range(ctx);
 
         int count = pointCount > 0 ? pointCount : ctx.Stat.count;
         if (count <= 0) count = 1;
@@ -40,4 +43,7 @@ public class RandomPointTargeting : TargetingModule
             ctx.Targets.Add(from + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * dist);
         }
     }
+
+    /// <summary>오버라이드가 있으면 그걸, 없으면 증강 사거리를 쓴다.</summary>
+    float Range(AugmentContext ctx) => rangeOverride > 0f ? rangeOverride : ctx.Stat.range;
 }

@@ -1,4 +1,6 @@
 using UnityEngine;
+
+/// <summary>일정 주기마다 발동. 대부분의 증강이 쓴다.</summary>
 [System.Serializable]
 public class CooldownTrigger : TriggerModule
 {
@@ -16,8 +18,13 @@ public class CooldownTrigger : TriggerModule
         return s.timer >= cd;
     }
 
-    public override void Consume(AugmentInstance instance)
-        => instance.GetState<State>(this).timer = 0f;
+    public override void Consume(AugmentContext ctx)
+    {
+        ctx.Instance.GetState<State>(this).timer = 0f;
+
+        // 시전 연출은 부모가 처리한다
+        base.Consume(ctx);
+    }
 
     public override float Progress(AugmentInstance instance)
     {

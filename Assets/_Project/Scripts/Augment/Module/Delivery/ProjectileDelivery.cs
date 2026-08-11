@@ -19,6 +19,15 @@ public class ProjectileDelivery : DeliveryModule
     [Tooltip("비우면 증강 데이터의 기본 투사체를 쓴다. 연쇄 단계마다 다른 투사체를 쓸 때만 지정.")]
     public GameObject projectileOverride;
 
+    [Header("발사 연출")]
+    [Tooltip("발사 원점에 띄울 이펙트.")]
+    public GameObject launchVfx;
+
+    public float launchVfxScale = 1f;
+
+    [Tooltip("발사 순간 효과음.")]
+    public AudioClip launchSfx;
+
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
         GameObject prefab = projectileOverride != null
@@ -32,6 +41,9 @@ public class ProjectileDelivery : DeliveryModule
         }
 
         Vector2 origin = ctx.Owner.position;
+
+        VfxSpawner.SpawnAt(launchVfx, origin, launchVfxScale);
+        SfxPlayer.Play(launchSfx);
 
         for (int i = 0; i < ctx.Targets.Count; i++)
         {
