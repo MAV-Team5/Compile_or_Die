@@ -1,24 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>증강 투사체. 적중 시 콜백을 쏘고 스스로 정리한다.</summary>
 public class AugmentProjectile : MonoBehaviour
 {
     System.Action<HitInfo> onHit;
+    HashSet<Transform> excluded;
     LayerMask targetMask;
+
     Vector2 velocity;
+    float speed;
     float lifeRemain;
     float travelRemain;
     int pierceRemain;
     int hitIndex;
 
     public void Launch(Vector2 direction, float speed, float lifetime, float maxDistance,
-                       int pierce, LayerMask mask, System.Action<HitInfo> callback)
+                       int pierce, LayerMask mask, HashSet<Transform> exclude,
+                       System.Action<HitInfo> callback)
     {
+        this.speed   = speed;
         velocity     = direction.normalized * speed;
         lifeRemain   = lifetime;
         travelRemain = maxDistance;
         pierceRemain = Mathf.Max(1, pierce);
         targetMask   = mask;
+        excluded     = exclude;
         onHit        = callback;
         hitIndex     = 0;
 
@@ -30,7 +37,7 @@ public class AugmentProjectile : MonoBehaviour
         transform.position += (Vector3)(velocity * Time.deltaTime);
 
         // 사거리와 수명 중 먼저 닿는 쪽에서 소멸
-        travelRemain -= velocity.magnitude * Time.deltaTime;
+        travelRemain -= speed * Time.deltaTime;
         lifeRemain   -= Time.deltaTime;
 
         if (travelRemain <= 0f || lifeRemain <= 0f) Destroy(gameObject);
@@ -39,6 +46,9 @@ public class AugmentProjectile : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if ((targetMask.value & (1 << other.gameObject.layer)) == 0) return;
+
+        // 이미 맞은 대상은 관통 소모 없이 통과시킨다
+        if (excluded != null && excluded.Contains(other.transform)) return;
 
         onHit?.Invoke(new HitInfo
         {

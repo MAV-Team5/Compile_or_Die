@@ -17,9 +17,14 @@ public class DummyTarget : MonoBehaviour, IDamageReceiver
         }
 
         CurrentHealth -= amount;
+
+        // 테스트 씬에는 LogManager가 없을 수 있다
         if (logDamage)
         {
-            LogManager.Instance.AddLog(LogType.Combat, $"[{name}] -{amount:0.#}  →  {CurrentHealth:0.#}/{maxHealth:0.#}");
+            string msg = $"[{name}] -{amount:0.#}  →  {CurrentHealth:0.#}/{maxHealth:0.#}";
+
+            if (LogManager.Instance != null) LogManager.Instance.AddLog(LogType.Combat, msg);
+            else Debug.Log(msg, this);
         }
 
         if(CurrentHealth <= 0f)
@@ -30,7 +35,9 @@ public class DummyTarget : MonoBehaviour, IDamageReceiver
 
     void Die()
     {
-        LogManager.Instance.AddLog(LogType.Combat, $"[{name}] die");
+        if (LogManager.Instance != null) LogManager.Instance.AddLog(LogType.Combat, $"[{name}] die");
+        else Debug.Log($"[{name}] die", this);
+
         if (autoRespawn) ResetHealth();
         else gameObject.SetActive(false);
     }

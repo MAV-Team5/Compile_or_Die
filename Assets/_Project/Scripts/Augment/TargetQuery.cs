@@ -36,7 +36,8 @@ public static class TargetQuery
         return buffer;
     }
 
-    public static Transform Nearest(Vector2 center, float radius)
+    /// <summary>가장 가까운 1체. exclude에 든 대상은 건너뛴다.</summary>
+    public static Transform Nearest(Vector2 center, float radius, HashSet<Transform> exclude = null)
     {
         Transform best = null;
         float bestSqr = float.MaxValue;
@@ -45,12 +46,15 @@ public static class TargetQuery
 
         for (int i = 0; i < hits.Count; i++)
         {
-            float sqr = ((Vector2)hits[i].transform.position - center).sqrMagnitude;
+            Transform t = hits[i].transform;
+            if (exclude != null && exclude.Contains(t)) continue;
+
+            float sqr = ((Vector2)t.position - center).sqrMagnitude;
 
             if (sqr < bestSqr)
             {
                 bestSqr = sqr;
-                best = hits[i].transform;
+                best = t;
             }
         }
 

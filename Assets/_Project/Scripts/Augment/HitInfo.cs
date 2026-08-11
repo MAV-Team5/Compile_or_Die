@@ -5,5 +5,7 @@ public struct HitInfo
 {
     public Transform Target;
     public Vector2 Point;
-    public int Index;      // 체인 몇 번째 / 투사체 몇 번째
+
+    /// <summary>이 Delivery 실행 1회 안에서 몇 번째 적중인가. 관통 순번.</summary>
+    public int Index;
 }

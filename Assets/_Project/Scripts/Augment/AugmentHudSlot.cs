@@ -16,6 +16,9 @@ public class AugmentHudSlot : MonoBehaviour
     AugmentRunner runner;
     float flashRemain;
 
+    // 매 프레임 ToString() 하면 초당 수십 개 문자열이 GC로 간다
+    int shownLevel = -1;
+
     public void Bind(AugmentRunner target)
     {
         // 다른 Runner로 갈아탈 때 옛 구독을 남기지 않는다
@@ -48,7 +51,12 @@ public class AugmentHudSlot : MonoBehaviour
         float progress = trigger != null ? trigger.Progress(inst) : 1f;
 
         cooldownFill.fillAmount = 1f - progress;
-        levelText.text = inst.Level.ToString();
+
+        if (shownLevel != inst.Level)
+        {
+            shownLevel = inst.Level;
+            levelText.text = shownLevel.ToString();
+        }
 
         UpdateFlash();
     }

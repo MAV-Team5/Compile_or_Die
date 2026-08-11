@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>증강 1개를 실행한다. Tick은 AugmentManager가 호출한다.</summary>
 public class AugmentRunner : MonoBehaviour
 {
-    [SerializeField] bool logTrigger = true;
+    [SerializeField] bool logTrigger = false;
 
     /// <summary>쿨타임이 막 찬 순간 1회. 대기 중에는 다시 울리지 않는다.</summary>
     public event System.Action BecameReady;
@@ -17,68 +17,54 @@ public class AugmentRunner : MonoBehaviour
         Instance = instance;
 
         AugmentData d = instance.Data;
-        if(d.trigger == null)
-        {
-            Debug.LogWarning($"[{d.name}] Trigger error", this);
-        }
-
-        if(d.targeting == null)
-        {
-            Debug.LogWarning($"[{d.name}] Targeting error", this);
-        }
-
-        if(d.deliveries == null)
-        {
-            Debug.LogWarning($"[{d.name}] Deliveries error", this);
-        }
-
+        if (d.trigger == null)   Debug.LogWarning($"[{d.name}] trigger 미조립", this);
+        if (d.targeting == null) Debug.LogWarning($"[{d.name}] targeting 미조립", this);
     }
 
     public void Tick(float deltaTime)
     {
-        if(Instance == null) return;
+        if (Instance == null) return;
 
         AugmentData data = Instance.Data;
-        if(data.trigger == null || data.targeting == null) return;
+        if (data.trigger == null || data.targeting == null) return;
 
-        // 1. 발동 판정 — 주문서 없이 인스턴스만
+        // ① 발동 판정. 쿨타임은 아직 소비하지 않는다
         bool ready = data.trigger.Evaluate(Instance, deltaTime);
 
-        // 준비 완료로 "전환된" 프레임에만 알림
-        if(ready && !wasReady) BecameReady?.Invoke();
+        // 준비 완료로 전환된 프레임에만 알림
+        if (ready && !wasReady) BecameReady?.Invoke();
         wasReady = ready;
 
-        if(!ready) return;
+        if (!ready) return;
 
-        // 발동 확정 — 이번 발사 전용 주문서
         var ctx = new AugmentContext();
         ctx.Begin(transform, Instance);
 
-        // 2. 타겟팅
-        data.targeting.Resolve(ctx);
+        // ②③④ 타겟팅 → 전달 → 효과
+        bool fired = AugmentPipeline.Run(ctx, data.targeting, data.deliveries, data.effects);
 
-        if(ctx.Targets.IsEmpty)
+        if (!fired)
         {
-            if(data.noTargetPolicy == NoTargetPolicy.Consume)
-            {
+            // 대상이 없을 때 쿨타임을 버릴지 유지할지는 증강마다 다르다
+            if (data.noTargetPolicy == NoTargetPolicy.Consume)
                 data.trigger.Consume(Instance);
-            }
-            
 
             return;
         }
 
         data.trigger.Consume(Instance);
-        // 3. 전달
-        for(int i = 0; i < data.deliveries.Count; i++)
-            data.deliveries[i]?.Execute(ctx, hit => OnHit(ctx, hit));
+
+        if (logTrigger)
+            Debug.Log($"[{data.displayName}] Lv.{Instance.Level} 발동", this);
     }
 
-    void OnHit(AugmentContext ctx, HitInfo hit)
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
     {
-        if(logTrigger)
-            Debug.Log($"[{ctx.Instance.Data.displayName}] 적중 #{hit.Index} → {hit.Target.name}", this);
+        if (Instance == null) return;
 
-        // ④ Effect 는 다음 단계
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, Instance.Stat.range);
     }
+#endif
 }
