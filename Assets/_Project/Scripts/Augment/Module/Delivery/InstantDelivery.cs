@@ -22,11 +22,15 @@ public class InstantDelivery : DeliveryModule
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
+        // 타겟 목록을 먼저 복사한다. 아래 질의가 공용 버퍼를 덮어쓰기 때문
+        List<TargetRef> targets = new(ctx.Targets.Items);
+        List<Transform> hits = new();
+
         int index = 0;
 
-        for (int i = 0; i < ctx.Targets.Count; i++)
+        for (int i = 0; i < targets.Count; i++)
         {
-            TargetRef target = ctx.Targets.Items[i];
+            TargetRef target = targets[i];
             if (!target.IsAlive) continue;
 
             if (target.IsEnemy)
@@ -36,16 +40,10 @@ public class InstantDelivery : DeliveryModule
             }
 
             // 좌표 타겟은 그 자리에 있는 적을 찾아서 때린다
-            List<Collider2D> hits = TargetQuery.Overlap(target.Point, pointSearchRadius);
+            TargetQuery.OverlapInto(target.Point, pointSearchRadius, ctx.Owner, hits);
 
-            Transform[] snapshot = new Transform[hits.Count];
-            for (int h = 0; h < hits.Count; h++) snapshot[h] = hits[h].transform;
-
-            for (int h = 0; h < snapshot.Length; h++)
-            {
-                if (ctx.Excluded.Contains(snapshot[h])) continue;
-                Emit(snapshot[h], target.Point, ref index, onHit);
-            }
+            for (int h = 0; h < hits.Count; h++)
+                Emit(hits[h], target.Point, ref index, onHit);
         }
     }
 

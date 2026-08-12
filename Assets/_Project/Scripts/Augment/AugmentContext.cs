@@ -12,8 +12,11 @@ public class AugmentContext
 
     public readonly TargetSet Targets = new();
 
-    /// <summary>이번 발동에서 이미 맞은 대상. 연쇄가 같은 적을 재타격하는 것을 막는다.</summary>
-    public HashSet<Transform> Excluded { get; private set; } = new();
+    /// <summary>
+    /// 이번 발동에서 이미 효과를 받은 대상. 연쇄가 같은 적을 되짚는 것만 막는다.
+    /// 타겟팅 단계에서만 참조할 것 — 전달 단계에서 보면 동시 발사끼리 서로 방해한다.
+    /// </summary>
+    public HashSet<Transform> ChainVisited { get; private set; } = new();
 
     /// <summary>연쇄 깊이. 최초 발동은 0.</summary>
     public int Depth { get; private set; }
@@ -31,7 +34,7 @@ public class AugmentContext
         Depth = 0;
         DamageMultiplier = 1f;
 
-        Excluded = new HashSet<Transform>();
+        ChainVisited = new HashSet<Transform>();
         Targets.Clear();
     }
 
@@ -45,7 +48,7 @@ public class AugmentContext
         Depth = parent.Depth + 1;
         DamageMultiplier = damageMultiplier;
 
-        Excluded = parent.Excluded;
+        ChainVisited = parent.ChainVisited;
         Targets.Clear();
     }
 

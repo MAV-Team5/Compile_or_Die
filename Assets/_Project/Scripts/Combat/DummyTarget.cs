@@ -23,7 +23,7 @@ public class DummyTarget : MonoBehaviour, IDamageReceiver
         {
             string msg = $"[{name}] -{amount:0.#}  →  {CurrentHealth:0.#}/{maxHealth:0.#}";
 
-            if (LogManager.Instance != null) LogManager.Instance.AddLog(LogType.Combat, msg);
+            if (LogManager.Instance != null) LogManager.Instance.AddLog(GameLogType.Combat, msg);
             else Debug.Log(msg, this);
         }
 
@@ -35,7 +35,7 @@ public class DummyTarget : MonoBehaviour, IDamageReceiver
 
     void Die()
     {
-        if (LogManager.Instance != null) LogManager.Instance.AddLog(LogType.Combat, $"[{name}] die");
+        if (LogManager.Instance != null) LogManager.Instance.AddLog(GameLogType.Combat, $"[{name}] die");
         else Debug.Log($"[{name}] die", this);
 
         if (autoRespawn) ResetHealth();

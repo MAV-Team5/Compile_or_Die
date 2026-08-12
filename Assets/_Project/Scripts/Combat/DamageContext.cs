@@ -6,6 +6,9 @@ public class DamageContext
     public GameObject Source;
     public IDamageReceiver Target;
 
+    /// <summary>표식 조회용. 파이프라인이 대상의 MarkerHolder 를 찾을 때 쓴다.</summary>
+    public Transform TargetTransform;
+
     /// <summary>원본 피해량. 끝까지 변하지 않는다.</summary>
     public float BaseAmount;
 
@@ -14,10 +17,12 @@ public class DamageContext
 
     public bool IsCritical;
 
-    public DamageContext(GameObject source, IDamageReceiver target, float baseAmount)
+    public DamageContext(GameObject source, IDamageReceiver target, float baseAmount,
+                         Transform targetTransform = null)
     {
         Source = source;
         Target = target;
+        TargetTransform = targetTransform;
         BaseAmount = baseAmount;
         Amount = baseAmount;
         IsCritical = false;

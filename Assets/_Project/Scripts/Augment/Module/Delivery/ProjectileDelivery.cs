@@ -1,49 +1,31 @@
 using UnityEngine;
 
-/// <summary>타겟마다 투사체를 1발씩 발사한다. 좌표 타겟이면 그 방향으로 쏜다.</summary>
+/// <summary>타겟마다 투사체를 발사한다. 좌표 타겟이면 그 방향으로 쏜다.</summary>
 [System.Serializable]
-public class ProjectileDelivery : DeliveryModule
+public class ProjectileDelivery : ProjectileDeliveryBase
 {
-    [Tooltip("초당 이동 거리(유닛).")]
-    public float speed = 12f;
+    [Header("다중 발사")]
+    [Tooltip("타겟 1명당 몇 발. 0이면 레벨 수치의 count 를 쓴다.")]
+    public int shotsPerTarget = 1;
 
-    [Tooltip("최대 생존 시간(초). 사거리보다 먼저 끝나면 여기서 사라진다. 안전장치.")]
-    public float lifetime = 3f;
+    [Tooltip("여러 발을 어떻게 배치할지. 나란히 또는 줄줄이.")]
+    public ShotFormation formation = ShotFormation.Parallel;
 
-    [Tooltip("몇 명을 뚫고 지나갈지. 1이면 첫 적중에서 소멸.")]
-    public int pierce = 1;
+    [Tooltip("발 사이 간격(유닛). 0이면 한 자리에서 겹쳐 나간다.")]
+    public float shotSpacing = 0.4f;
 
-    [Tooltip("증강 사거리 대비 비행 거리 배수. 1.2 면 사거리의 120% 까지 날아간다.")]
-    public float travelRangeMultiplier = 1.2f;
-
-    [Tooltip("비우면 증강 데이터의 기본 투사체를 쓴다. 연쇄 단계마다 다른 투사체를 쓸 때만 지정.")]
-    public GameObject projectileOverride;
-
-    [Header("발사 연출")]
-    [Tooltip("발사 원점에 띄울 이펙트.")]
-    public GameObject launchVfx;
-
-    public float launchVfxScale = 1f;
-
-    [Tooltip("발사 순간 효과음.")]
-    public AudioClip launchSfx;
+    [Tooltip("발 사이 각도(도). 0이면 완전히 평행, 값을 주면 부채꼴로 퍼진다.")]
+    public float spreadPerShot = 0f;
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
-        GameObject prefab = projectileOverride != null
-            ? projectileOverride
-            : ctx.Instance.Data.projectilePrefab;
+        if (!HasPrefab(ctx)) return;
 
-        if (prefab == null)
-        {
-            Debug.LogWarning($"[{ctx.Instance.Data.name}] 투사체 프리팹이 없습니다");
-            return;
-        }
+        int shots = shotsPerTarget > 0 ? shotsPerTarget : ctx.Stat.count;
+        if (shots <= 0) shots = 1;
 
         Vector2 origin = ctx.Owner.position;
-
-        VfxSpawner.SpawnAt(launchVfx, origin, launchVfxScale);
-        SfxPlayer.Play(launchSfx);
+        PlayLaunch(origin);
 
         for (int i = 0; i < ctx.Targets.Count; i++)
         {
@@ -52,15 +34,11 @@ public class ProjectileDelivery : DeliveryModule
 
             Vector2 delta = target.Position - origin;
 
-            // 원점과 목표가 겹치면 방향이 0이 되어 제자리에 선다
+            // 원점과 목표가 겹치면 방향이 0이 되어 투사체가 제자리에 선다
             if (delta.sqrMagnitude < 0.0001f) continue;
 
-            GameObject go = ProjectileSpawner.Spawn(prefab, origin);
-
-            go.GetComponent<AugmentProjectile>()
-              .Launch(delta.normalized, speed, lifetime,
-                      ctx.Stat.range * travelRangeMultiplier,
-                      pierce, TargetQuery.Mask, ctx.Excluded, onHit);
+            FireSpread(ctx, origin, delta.normalized,
+                       shots, formation, shotSpacing, spreadPerShot, onHit);
         }
     }
 }

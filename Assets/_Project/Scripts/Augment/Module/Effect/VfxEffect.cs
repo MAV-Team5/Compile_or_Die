@@ -4,8 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class VfxEffect : EffectModule
 {
-    [Tooltip("비우면 증강 데이터의 기본 이펙트를 쓴다.")]
-    public GameObject vfxOverride;
+    [Tooltip("띄울 이펙트 프리팹. 수명은 프리팹이 스스로 관리한다.")]
+    public GameObject vfxPrefab;
 
     [Tooltip("이펙트가 나타날 위치.")]
     public VfxAnchor anchor = VfxAnchor.HitPoint;
@@ -14,11 +14,5 @@ public class VfxEffect : EffectModule
     public float scale = 1f;
 
     public override void Apply(AugmentContext ctx, HitInfo hit)
-    {
-        GameObject prefab = vfxOverride != null
-            ? vfxOverride
-            : ctx.Instance.Data.vfxPrefab;
-
-        VfxSpawner.Spawn(prefab, anchor, scale, ctx, hit);
-    }
+        => VfxSpawner.Spawn(vfxPrefab, anchor, scale, ctx, hit);
 }

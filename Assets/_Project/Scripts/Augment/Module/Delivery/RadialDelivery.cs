@@ -1,72 +1,92 @@
 using UnityEngine;
 
-/// <summary>원점에서 균등한 각도로 여러 발 방사. 타겟과 무관하게 사방으로 나간다.</summary>
+/// <summary>
+/// 기준 방향을 중심으로 여러 발 방사한다.
+/// 퍼짐 각도가 360이면 사방으로 균등, 좁히면 부채꼴(산탄)이 된다.
+/// </summary>
 [System.Serializable]
-public class RadialDelivery : DeliveryModule
+public class RadialDelivery : ProjectileDeliveryBase
 {
+    public enum AimBasis
+    {
+        /// <summary>매번 무작위 방향. 사방 방사에 어울린다.</summary>
+        Random,
+
+        /// <summary>첫 타겟 쪽. 부채꼴을 적에게 겨눌 때.</summary>
+        FirstTarget,
+
+        /// <summary>아래 고정 각도.</summary>
+        Fixed
+    }
+
+    [Header("방사")]
     [Tooltip("발사 수. 0이면 레벨 수치의 count 를 쓴다.")]
     public int projectileCount = 0;
 
-    [Tooltip("초당 이동 거리(유닛).")]
-    public float speed = 10f;
+    [Tooltip("퍼지는 각도. 360이면 사방으로 균등, 60이면 좁은 부채꼴(산탄).")]
+    [Range(0f, 360f)] public float spreadAngle = 360f;
 
-    [Tooltip("최대 생존 시간(초). 안전장치.")]
-    public float lifetime = 3f;
+    [Tooltip("퍼짐의 중심을 어디로 잡을지.")]
+    public AimBasis basis = AimBasis.Random;
 
-    [Tooltip("몇 명을 뚫고 지나갈지.")]
-    public int pierce = 1;
+    [Tooltip("basis 가 Fixed 일 때 쓰는 각도(도). 0이 오른쪽, 90이 위.")]
+    public float fixedAngle = 90f;
 
-    [Tooltip("증강 사거리 대비 비행 거리 배수.")]
-    public float travelRangeMultiplier = 1.2f;
-
-    [Tooltip("켜면 매번 시작 각도가 무작위. 끄면 항상 같은 방향에서 시작해 패턴이 고정된다.")]
-    public bool randomizeStartAngle = true;
-
-    [Tooltip("비우면 증강 데이터의 기본 투사체를 쓴다.")]
-    public GameObject projectileOverride;
-
-    [Header("발사 연출")]
-    [Tooltip("발사 원점에 띄울 이펙트.")]
-    public GameObject launchVfx;
-
-    public float launchVfxScale = 1f;
-
-    [Tooltip("발사 순간 효과음.")]
-    public AudioClip launchSfx;
+    [Tooltip("각 발에 더해지는 무작위 흔들림(도). 0이면 정확히 균등하게 나간다.")]
+    public float angleJitter = 0f;
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
-        GameObject prefab = projectileOverride != null
-            ? projectileOverride
-            : ctx.Instance.Data.projectilePrefab;
-
-        if (prefab == null)
-        {
-            Debug.LogWarning($"[{ctx.Instance.Data.name}] 투사체 프리팹이 없습니다");
-            return;
-        }
+        if (!HasPrefab(ctx)) return;
 
         int count = projectileCount > 0 ? projectileCount : ctx.Stat.count;
         if (count <= 0) count = 1;
 
         Vector2 origin = ctx.Owner.position;
+        PlayLaunch(origin);
 
-        VfxSpawner.SpawnAt(launchVfx, origin, launchVfxScale);
-        SfxPlayer.Play(launchSfx);
+        float center = CenterAngle(ctx, origin);
+        bool full = spreadAngle >= 359.9f;
 
-        float step = 360f / count;
-        float start = randomizeStartAngle ? Random.Range(0f, 360f) : 0f;
+        // 360도는 첫 발과 끝 발이 겹치므로 count 로, 부채꼴은 양 끝을 채우도록 count-1 로 나눈다
+        float step = count <= 1 ? 0f
+                   : full ? spreadAngle / count
+                          : spreadAngle / (count - 1);
+
+        float start = (full || count <= 1) ? center : center - spreadAngle * 0.5f;
 
         for (int i = 0; i < count; i++)
         {
-            float rad = (start + step * i) * Mathf.Deg2Rad;
-            Vector2 dir = new(Mathf.Cos(rad), Mathf.Sin(rad));
+            float deg = start + step * i;
 
-            GameObject go = ProjectileSpawner.Spawn(prefab, origin);
+            if (angleJitter > 0f)
+                deg += Random.Range(-angleJitter, angleJitter);
 
-            go.GetComponent<AugmentProjectile>()
-              .Launch(dir, speed, lifetime, ctx.Stat.range * travelRangeMultiplier,
-                      pierce, TargetQuery.Mask, ctx.Excluded, onHit);
+            float rad = deg * Mathf.Deg2Rad;
+
+            Fire(ctx, origin, new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)), onHit);
         }
+    }
+
+    /// <summary>퍼짐의 중심 각도(도).</summary>
+    float CenterAngle(AugmentContext ctx, Vector2 origin)
+    {
+        if (basis == AimBasis.Fixed) return fixedAngle;
+
+        if (basis == AimBasis.FirstTarget)
+        {
+            for (int i = 0; i < ctx.Targets.Count; i++)
+            {
+                Vector2 delta = ctx.Targets.Items[i].Position - origin;
+
+                if (delta.sqrMagnitude > 0.0001f)
+                    return Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
+            }
+
+            // 쓸 만한 타겟이 없으면 고정 각도로 물러난다
+            return fixedAngle;
+        }
+
+        return Random.Range(0f, 360f);
     }
 }

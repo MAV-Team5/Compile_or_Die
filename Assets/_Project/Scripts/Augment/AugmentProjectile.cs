@@ -5,8 +5,13 @@ using UnityEngine;
 public class AugmentProjectile : MonoBehaviour
 {
     System.Action<HitInfo> onHit;
-    HashSet<Transform> excluded;
     LayerMask targetMask;
+
+    /// <summary>연쇄 원점. 이 투사체가 태어난 자리의 적이라 다시 때리면 안 된다.</summary>
+    Transform ignore;
+
+    /// <summary>이 투사체가 이미 맞힌 대상. 관통 중 같은 적을 두 번 때리는 것만 막는다.</summary>
+    readonly HashSet<Transform> alreadyHit = new();
 
     Vector2 velocity;
     float speed;
@@ -16,7 +21,7 @@ public class AugmentProjectile : MonoBehaviour
     int hitIndex;
 
     public void Launch(Vector2 direction, float speed, float lifetime, float maxDistance,
-                       int pierce, LayerMask mask, HashSet<Transform> exclude,
+                       int pierce, LayerMask mask, Transform ignoreTarget,
                        System.Action<HitInfo> callback)
     {
         this.speed   = speed;
@@ -25,10 +30,11 @@ public class AugmentProjectile : MonoBehaviour
         travelRemain = maxDistance;
         pierceRemain = Mathf.Max(1, pierce);
         targetMask   = mask;
-        excluded     = exclude;
+        ignore       = ignoreTarget;
         onHit        = callback;
         hitIndex     = 0;
 
+        alreadyHit.Clear();
         transform.up = direction;
     }
 
@@ -47,12 +53,17 @@ public class AugmentProjectile : MonoBehaviour
     {
         if ((targetMask.value & (1 << other.gameObject.layer)) == 0) return;
 
-        // 이미 맞은 대상은 관통 소모 없이 통과시킨다
-        if (excluded != null && excluded.Contains(other.transform)) return;
+        Transform target = other.transform;
+
+        // 태어난 자리의 적은 통과. 형제 투사체가 맞힌 적은 신경 쓰지 않는다
+        if (target == ignore) return;
+
+        // 콜라이더 경계에서 흔들려도 같은 적을 두 번 세지 않는다
+        if (!alreadyHit.Add(target)) return;
 
         onHit?.Invoke(new HitInfo
         {
-            Target = other.transform,
+            Target = target,
             Point  = transform.position,
             Index  = hitIndex++
         });
@@ -65,9 +76,10 @@ public class AugmentProjectile : MonoBehaviour
     void Despawn()
     {
         onHit = null;
-        excluded = null;
+        ignore = null;
         velocity = Vector2.zero;
 
+        alreadyHit.Clear();
         gameObject.SetActive(false);
     }
 }

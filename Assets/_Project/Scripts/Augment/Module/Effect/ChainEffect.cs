@@ -15,15 +15,20 @@ public class ChainEffect : EffectModule
     [SerializeReference] public TargetingModule targeting;
     [SerializeReference] public List<DeliveryModule> deliveries = new();
 
-    /// <summary>단계마다 적용할 효과. ChainEffect 자신은 자동으로 이어지므로 넣지 말 것.</summary>
+    [Tooltip("단계마다 적용할 효과. ChainEffect 자신은 자동으로 이어지므로 넣지 말 것.")]
     [SerializeReference] public List<EffectModule> effects = new();
+
+    [Header("연쇄 종료")]
+    [Tooltip("연쇄가 끝난 마지막 대상에게만 추가로 적용. Bash:kill 계열. " +
+             "깊이를 다 썼든 대상이 없어 멈췄든 양쪽 다 여기로 온다.")]
+    [SerializeReference] public List<EffectModule> finalEffects = new();
 
     [Header("깊이")]
     [Tooltip("최대 연쇄 단계. 0이면 레벨 수치의 depth 를 쓴다. " +
              "count 는 '몇 개'고 depth 가 '몇 단계'다.")]
     public int maxDepthOverride = 0;
 
-    /// <summary>단계마다 누적되는 피해 증폭. 0.2 면 2단계에서 1.2배, 3단계에서 1.44배.</summary>
+    [Tooltip("단계마다 누적되는 피해 증폭. 0.2 면 2단계에서 1.2배, 3단계에서 1.44배.")]
     public float amplifyPerDepth = 0.2f;
 
     public override void Apply(AugmentContext ctx, HitInfo hit)
@@ -33,15 +38,28 @@ public class ChainEffect : EffectModule
         int limit = maxDepthOverride > 0 ? maxDepthOverride : ctx.Stat.depth;
         limit = Mathf.Min(limit, HardLimit);
 
-        if (ctx.Depth + 1 >= limit) return;
+        // 깊이를 다 썼다 = 여기가 체인의 끝
+        if (ctx.Depth + 1 >= limit)
+        {
+            ApplyFinal(ctx, hit);
+            return;
+        }
 
-        // 적중한 적을 원점으로 삼는다. 하위 타겟팅이 여기서부터 검색한다.
+        // 적중한 적을 원점으로 삼는다. 하위 타겟팅이 여기서부터 검색한다
         var sub = new AugmentContext();
         sub.BeginChild(hit.Target, ctx, ctx.DamageMultiplier * (1f + amplifyPerDepth));
 
-        // 하위 효과에 자기 자신을 붙여야 다음 단계로 이어진다. 깊이 가드가 종료를 보장한다.
+        // 하위 효과에 자기 자신을 붙여야 다음 단계로 이어진다. 깊이 가드가 종료를 보장한다
         var chained = new List<EffectModule>(effects) { this };
 
-        AugmentPipeline.Run(sub, targeting, deliveries, chained);
+        // 못 번졌다 = 대상이 없어 여기서 멈춘 것이므로 이 대상이 마지막
+        if (!AugmentPipeline.Run(sub, targeting, deliveries, chained))
+            ApplyFinal(ctx, hit);
+    }
+
+    void ApplyFinal(AugmentContext ctx, HitInfo hit)
+    {
+        for (int i = 0; i < finalEffects.Count; i++)
+            finalEffects[i]?.Apply(ctx, hit);
     }
 }

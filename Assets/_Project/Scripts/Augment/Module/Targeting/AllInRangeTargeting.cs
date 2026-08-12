@@ -22,7 +22,7 @@ public class AllInRangeTargeting : TargetingModule
         for (int i = 0; i < hits.Count && ctx.Targets.Count < limit; i++)
         {
             Transform t = hits[i].transform;
-            if (!ctx.Excluded.Contains(t)) ctx.Targets.Add(t);
+            if (!ctx.ChainVisited.Contains(t)) ctx.Targets.Add(t);
         }
     }
 

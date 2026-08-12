@@ -31,7 +31,7 @@ public static class AugmentPipeline
         if (effects == null || hit.Target == null) return;
 
         // 같은 대상을 연쇄가 다시 노리지 않도록 즉시 기록
-        ctx.Excluded.Add(hit.Target);
+        ctx.ChainVisited.Add(hit.Target);
 
         for (int i = 0; i < effects.Count; i++)
             effects[i]?.Apply(ctx, hit);

@@ -26,10 +26,13 @@ public class AreaDelivery : DeliveryModule
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
         float radius = useAugmentRange ? ctx.Stat.range : blastRadius;
-        int index = 0;
+        if (radius <= 0f) return;
 
-        // 타겟 목록을 먼저 복사한다. 아래에서 Overlap 이 공용 버퍼를 덮어쓰기 때문
+        // 타겟 목록을 먼저 복사한다. 아래 질의가 공용 버퍼를 덮어쓰기 때문
         List<TargetRef> centers = new(ctx.Targets.Items);
+        List<Transform> hits = new();
+
+        int index = 0;
 
         for (int c = 0; c < centers.Count; c++)
         {
@@ -38,18 +41,13 @@ public class AreaDelivery : DeliveryModule
             VfxSpawner.SpawnAt(blastVfx, center, blastVfxScale);
             SfxPlayer.Play(blastSfx);
 
-            List<Collider2D> hits = TargetQuery.Overlap(center, radius);
+            TargetQuery.OverlapInto(center, radius, ctx.Owner, hits);
 
-            Transform[] snapshot = new Transform[hits.Count];
-            for (int i = 0; i < hits.Count; i++) snapshot[i] = hits[i].transform;
-
-            for (int i = 0; i < snapshot.Length; i++)
+            for (int i = 0; i < hits.Count; i++)
             {
-                if (ctx.Excluded.Contains(snapshot[i])) continue;
+                if (!includeCenterTarget && hits[i] == centers[c].Transform) continue;
 
-                if (!includeCenterTarget && snapshot[i] == centers[c].Transform) continue;
-
-                onHit(new HitInfo { Target = snapshot[i], Point = center, Index = index++ });
+                onHit(new HitInfo { Target = hits[i], Point = center, Index = index++ });
             }
         }
     }

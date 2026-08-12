@@ -22,40 +22,48 @@ MonoBehaviour:
   levelStats:
   - damage: 3
     effectDamage: 0
-    cooldown: 0.8
+    cooldown: 4
     range: 8
-    count: 6
+    count: 3
     duration: 0
-    depth: 1
+    depth: 6
   trigger:
     rid: 980040056421220425
   targeting:
     rid: 980040056421220426
-  noTargetPolicy: 0
   deliveries:
   - rid: 980040056421220427
   effects:
   - rid: 980040056421220434
   - rid: 980040056421220435
-  projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
-  vfxPrefab: {fileID: 0}
+  noTargetPolicy: 0
   references:
     version: 2
     RefIds:
     - rid: 980040056421220425
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
-      data: 
+      data:
+        castVfx: {fileID: 0}
+        castVfxScale: 1
+        castSfx: {fileID: 0}
     - rid: 980040056421220426
       type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data: 
+      data:
+        rangeOverride: 0
     - rid: 980040056421220427
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
-        speed: 5
+        speed: 3
         lifetime: 3
         pierce: 1
         travelRangeMultiplier: 1.2
-        projectileOverride: {fileID: 0}
+        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+        launchVfx: {fileID: 0}
+        launchVfxScale: 1
+        launchSfx: {fileID: 0}
+        shotsPerTarget: 5
+        parallelSpacing: 2
+        spreadPerShot: 20.39
     - rid: 980040056421220434
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -69,20 +77,33 @@ MonoBehaviour:
         - rid: 980040056421220437
         effects:
         - rid: 980040056421220438
+        finalEffects:
+        - rid: 980040080136339538
         maxDepthOverride: 0
         amplifyPerDepth: 0.2
     - rid: 980040056421220436
       type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data: 
+      data:
+        rangeOverride: 0
     - rid: 980040056421220437
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
-        speed: 5
+        speed: 3
         lifetime: 3
         pierce: 1
         travelRangeMultiplier: 1.2
-        projectileOverride: {fileID: 0}
+        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+        launchVfx: {fileID: 0}
+        launchVfxScale: 1
+        launchSfx: {fileID: 0}
+        shotsPerTarget: 1
+        parallelSpacing: 0.1
+        spreadPerShot: 0
     - rid: 980040056421220438
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damageScale: 1
+    - rid: 980040080136339538
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 123

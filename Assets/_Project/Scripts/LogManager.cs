@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum LogType
+public enum GameLogType
 {
     System,
     Combat,
@@ -16,11 +16,11 @@ public enum LogType
 }
 public class LogEntry
 {
-    public LogType Type;
+    public GameLogType Type;
     public string Message;
     public int Count = 1;
 
-    public LogEntry(LogType type, string message)
+    public LogEntry(GameLogType type, string message)
     {
         Type = type;
         Message = message;
@@ -47,7 +47,7 @@ public class LogManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void AddLog(LogType type, string message)
+    public void AddLog(GameLogType type, string message)
     {
         if (logs.Count > 0)
         {
@@ -93,15 +93,15 @@ public class LogManager : MonoBehaviour
     {
         string color = log.Type switch
         {
-            LogType.System  => "#00FF00",
-            LogType.Combat  => "#FFAA00",
-            LogType.Exp     => "#00FFFF",
-            LogType.Skill   => "#AA66FF",
-            LogType.Loot    => "#FFD700",
-            LogType.Warning => "#FFFF00",
-            LogType.Error   => "#FF4444",
-            LogType.Debug   => "#888888",
-            LogType.None    => "#888888",
+            GameLogType.System  => "#00FF00",
+            GameLogType.Combat  => "#FFAA00",
+            GameLogType.Exp     => "#00FFFF",
+            GameLogType.Skill   => "#AA66FF",
+            GameLogType.Loot    => "#FFD700",
+            GameLogType.Warning => "#FFFF00",
+            GameLogType.Error   => "#FF4444",
+            GameLogType.Debug   => "#888888",
+            GameLogType.None    => "#888888",
             _               => "#FFFFFF"
         };
 
@@ -118,7 +118,7 @@ public class LogManager : MonoBehaviour
         if (log.Count > 1)
             message += $" x{log.Count}";
 
-        if(log.Type == LogType.None)
+        if(log.Type == GameLogType.None)
         {
             return $"<color=#{hex}> {message}</color>";
         }
@@ -135,42 +135,42 @@ public class LogManager : MonoBehaviour
 
     public void System(string msg)
     {
-        AddLog(LogType.System, msg);
+        AddLog(GameLogType.System, msg);
     }
 
     public void Combat(string msg)
     {
-        AddLog(LogType.Combat, msg);
+        AddLog(GameLogType.Combat, msg);
     }
 
     public void Exp(string msg)
     {
-        AddLog(LogType.Exp, msg);
+        AddLog(GameLogType.Exp, msg);
     }
 
     public void Skill(string msg)
     {
-        AddLog(LogType.Skill, msg);
+        AddLog(GameLogType.Skill, msg);
     }
 
     public void Warning(string msg)
     {
-        AddLog(LogType.Warning, msg);
+        AddLog(GameLogType.Warning, msg);
     }
 
     public void Error(string msg)
     {
-        AddLog(LogType.Error, msg);
+        AddLog(GameLogType.Error, msg);
     }
 
     public void DebugLog(string msg)
     {
-        AddLog(LogType.Debug, msg);
+        AddLog(GameLogType.Debug, msg);
     }
 
     public void NoneLog(string msg)
     {
-        AddLog(LogType.None, msg);
+        AddLog(GameLogType.None, msg);
     }
 
     #endregion

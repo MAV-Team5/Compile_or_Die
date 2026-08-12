@@ -10,7 +10,7 @@ public class NearestTargeting : TargetingModule
     public override void Resolve(AugmentContext ctx)
     {
         Transform target = TargetQuery.Nearest(
-            ctx.Owner.position, Range(ctx), ctx.Excluded);
+            ctx.Owner.position, Range(ctx), ctx.ChainVisited);
 
         if (target != null)
             ctx.Targets.Add(target);

@@ -22,7 +22,7 @@ public class RandomTargeting : TargetingModule
         for (int i = 0; i < hits.Count; i++)
         {
             Transform t = hits[i].transform;
-            if (!ctx.Excluded.Contains(t)) pool.Add(t);
+            if (!ctx.ChainVisited.Contains(t)) pool.Add(t);
         }
 
         int want = pickCount > 0 ? pickCount : ctx.Stat.count;
