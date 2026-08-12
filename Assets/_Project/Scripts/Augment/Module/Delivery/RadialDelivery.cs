@@ -21,7 +21,7 @@ public class RadialDelivery : ProjectileDeliveryBase
     }
 
     [Header("방사")]
-    [Tooltip("발사 수. 0이면 레벨 수치의 count 를 쓰고, 그것도 0이면 1발.")]
+    [Tooltip("발사 수. 0이면 시트의 수량(count)을 쓰고, 그것도 0이면 1발.")]
     public int projectileCount = 0;
 
     [Tooltip("퍼지는 각도(도). 360이면 사방으로 균등, 60이면 좁은 부채꼴(산탄).")]

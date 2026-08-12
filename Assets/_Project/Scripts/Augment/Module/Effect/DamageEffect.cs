@@ -2,13 +2,13 @@ using UnityEngine;
 
 /// <summary>
 /// 적중 대상에 피해를 준다.
-/// 최종 피해 = 레벨 수치의 damage × damageScale × 연쇄 증폭
+/// 최종 피해 = 시트의 피해량(damage) × damageScale × 연쇄 증폭
 /// </summary>
 [System.Serializable]
-[ModuleInfo("피해를 준다", "레벨 수치의 damage × damageScale")]
+[ModuleInfo("피해를 준다", "시트의 피해량 × damageScale")]
 public class DamageEffect : EffectModule
 {
-    [Tooltip("레벨 수치의 damage 에 곱하는 배율. 1이면 그대로, 0.5면 절반. " +
+    [Tooltip("시트의 피해량(damage)에 곱하는 배율. 1이면 그대로, 0.5면 절반.\n" +
              "한 증강 안에서 효과마다 강약을 줄 때 쓴다. 추가 피해가 아니라 배율이다.")]
     public float damageScale = 1f;
 

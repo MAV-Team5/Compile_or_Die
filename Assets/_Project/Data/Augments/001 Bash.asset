@@ -20,50 +20,56 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   levelStats:
-  - damage: 3
+  - damage: 1
     effectDamage: 0
-    cooldown: 4
+    cooldown: 0.3
     range: 8
+    effectRange: 0
     count: 3
+    pierce: 0
     duration: 0
+    speed: 0
     depth: 6
   trigger:
     rid: 980040056421220425
   targeting:
-    rid: 980040056421220426
+    rid: 980040080136339577
   deliveries:
   - rid: 980040056421220427
   effects:
   - rid: 980040056421220434
   - rid: 980040056421220435
-  noTargetPolicy: 0
+  - rid: 980040080136339539
+  noTargetPolicy: 1
   references:
     version: 2
     RefIds:
     - rid: 980040056421220425
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
-        castVfx: {fileID: 0}
-        castVfxScale: 1
-        castSfx: {fileID: 0}
-    - rid: 980040056421220426
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride: 0
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
     - rid: 980040056421220427
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
         speed: 3
-        lifetime: 3
         pierce: 1
         travelRangeMultiplier: 1.2
-        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
-        launchVfx: {fileID: 0}
-        launchVfxScale: 1
-        launchSfx: {fileID: 0}
-        shotsPerTarget: 5
-        parallelSpacing: 2
-        spreadPerShot: 20.39
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        multiShot:
+          shotsPerTarget: 1
+          formation: 0
+          spacing: 0.4
+          spreadPerShot: 0
     - rid: 980040056421220434
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -71,16 +77,15 @@ MonoBehaviour:
     - rid: 980040056421220435
       type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
       data:
+        maxDepthOverride: 0
+        amplifyPerDepth: 0
         targeting:
           rid: 980040056421220436
         deliveries:
         - rid: 980040056421220437
         effects:
         - rid: 980040056421220438
-        finalEffects:
-        - rid: 980040080136339538
-        maxDepthOverride: 0
-        amplifyPerDepth: 0.2
+        finalEffects: []
     - rid: 980040056421220436
       type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
       data:
@@ -88,22 +93,32 @@ MonoBehaviour:
     - rid: 980040056421220437
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
-        speed: 3
-        lifetime: 3
+        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+        speed: 2
         pierce: 1
         travelRangeMultiplier: 1.2
-        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
-        launchVfx: {fileID: 0}
-        launchVfxScale: 1
-        launchSfx: {fileID: 0}
-        shotsPerTarget: 1
-        parallelSpacing: 0.1
-        spreadPerShot: 0
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        multiShot:
+          shotsPerTarget: 1
+          formation: 0
+          spacing: 0.4
+          spreadPerShot: 0
     - rid: 980040056421220438
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damageScale: 1
-    - rid: 980040080136339538
-      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+    - rid: 980040080136339539
+      type: {class: LogEffect, ns: , asm: Assembly-CSharp}
       data:
-        damageScale: 123
+        message: "> {name} \u2192 {target}"
+        logType: 3
+        minInterval: 0.5
+    - rid: 980040080136339577
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0

@@ -9,11 +9,11 @@ using UnityEngine;
 [ModuleInfo("적 N체 — 무작위", "뽑을 수를 정해두는 것이 AllInRange 와 다르다")]
 public class RandomTargeting : TargetingModule
 {
-    [Tooltip("이 단계의 사거리(유닛). 0이면 레벨 수치의 range 를 그대로 쓴다.\n" +
-             "적을 찾는 범위이자, 뒤따르는 투사체 비행 거리·폭발 크기의 기준이 된다.")]
+    [Tooltip("이 단계의 사거리(유닛). 0이면 시트의 사거리(range)를 쓴다.\n" +
+             "하위 파이프라인 안에서는 대신 효과 범위(effectRange)를 쓴다.")]
     public float rangeOverride = 0f;
 
-    [Tooltip("뽑을 적의 수. 0이면 레벨 수치의 count 를 쓰고, 그것도 0이면 1체.")]
+    [Tooltip("뽑을 적의 수. 0이면 시트의 수량(count)을 쓰고, 그것도 0이면 1체.")]
     public int targetCount = 1;
 
     public override void Resolve(AugmentContext ctx)
@@ -43,5 +43,5 @@ public class RandomTargeting : TargetingModule
 
     /// <summary>이 단계가 실제로 쓸 사거리. 전달 단계가 읽도록 기록도 남긴다.</summary>
     float ResolveRange(AugmentContext ctx)
-        => ctx.EffectiveRange = rangeOverride > 0f ? rangeOverride : ctx.Stat.range;
+        => ctx.EffectiveRange = rangeOverride > 0f ? rangeOverride : ctx.BaseRange;
 }

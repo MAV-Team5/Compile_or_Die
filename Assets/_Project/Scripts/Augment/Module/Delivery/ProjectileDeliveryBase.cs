@@ -9,17 +9,17 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     [Tooltip("발사할 투사체 프리팹. AugmentProjectile 컴포넌트가 붙어 있어야 한다.")]
     public GameObject projectilePrefab;
 
-    [Tooltip("초당 이동 거리(유닛). 0이면 발사가 취소된다.")]
+    [Tooltip("초당 이동 거리(유닛). 0이면 시트의 속도(speed)를 쓴다.")]
     public float speed = 12f;
 
-    [Tooltip("몇 명을 뚫고 지나갈지. 1이면 첫 적중에서 소멸, 크게 주면 관통.")]
+    [Tooltip("몇 명을 뚫고 지나갈지. 0이면 시트의 관통력(pierce)을 쓰고, 그것도 0이면 1명.")]
     public int pierce = 1;
 
-    [Tooltip("타겟팅이 정한 기준 거리 대비 비행 거리 배수. 1.2 면 그 거리의 120% 까지 날아간다.\n" +
-             "타겟팅에서 반경을 좁히면 투사체도 같이 짧아진다.")]
+    [Tooltip("타겟팅이 정한 사거리에 곱할 비행 거리 배수. 1.2 면 그 거리의 120% 까지 날아간다.\n" +
+             "타겟팅에서 사거리를 좁히면 투사체도 같이 짧아진다.")]
     public float travelRangeMultiplier = 1.2f;
 
-    [Tooltip("최대 생존 시간(초). 거리보다 먼저 끝나면 여기서 사라진다. 안전장치.")]
+    [Tooltip("최대 생존 시간(초). 시트와 무관한 안전장치. 거리보다 먼저 끝나면 여기서 사라진다.")]
     public float lifetime = 3f;
 
     [Fx("발사 연출", "발사 원점")]
@@ -81,20 +81,25 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     protected void Fire(AugmentContext ctx, Vector2 origin, Vector2 direction,
                         System.Action<HitInfo> onHit)
     {
-        if (speed <= 0f)
+        float flightSpeed = speed > 0f ? speed : ctx.Stat.speed;
+
+        if (flightSpeed <= 0f)
         {
-            Debug.LogWarning($"[{ctx.Instance.Data.name}] speed 가 0이라 투사체가 제자리에 섭니다");
+            Debug.LogWarning($"[{ctx.Instance.Data.name}] 속도가 0이라 투사체가 제자리에 섭니다");
             return;
         }
 
+        int hits = pierce > 0 ? pierce : ctx.Stat.pierce;
+        if (hits <= 0) hits = 1;
+
         GameObject go = ProjectileSpawner.Spawn(projectilePrefab, origin);
 
-        // 비행 거리는 타겟팅이 정한 기준 거리를 따른다. 좁게 탐색했으면 투사체도 짧게 난다
+        // 비행 거리는 타겟팅이 정한 사거리를 따른다. 좁게 탐색했으면 투사체도 짧게 난다
         float travel = ctx.EffectiveRange * travelRangeMultiplier;
 
         // 연쇄 단계면 Owner가 방금 맞은 적이다. 그 안에서 태어나므로 한 번은 통과시켜야 한다
         go.GetComponent<AugmentProjectile>()
-          .Launch(direction, speed, lifetime, travel,
-                  pierce, TargetQuery.Mask, ctx.Owner, onHit);
+          .Launch(direction, flightSpeed, lifetime, travel,
+                  hits, TargetQuery.Mask, ctx.Owner, onHit);
     }
 }

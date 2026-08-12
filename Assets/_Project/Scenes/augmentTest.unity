@@ -2084,6 +2084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentManager
   startingAugments:
+  - {fileID: 11400000, guid: 9a624432ac58f9747b64115413ed5f05, type: 2}
   - {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
   enemyLayer:
     serializedVersion: 2

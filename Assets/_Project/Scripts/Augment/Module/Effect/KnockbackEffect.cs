@@ -8,7 +8,7 @@ using UnityEngine;
 [ModuleInfo("밀거나 당긴다", "정렬 계열의 군중 제어")]
 public class KnockbackEffect : EffectModule
 {
-    [Tooltip("밀려나는 거리(유닛). 플레이어 크기를 1로 보고 감을 잡으면 된다.")]
+    [Tooltip("밀려나는 거리(유닛). 시트와 무관한 고정값. 플레이어 크기를 1로 보고 감을 잡으면 된다.")]
     public float distance = 1.5f;
 
     [Tooltip("켜면 원점 쪽으로 끌어당긴다. Selection Sort 같은 견인 전용.")]

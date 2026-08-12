@@ -24,7 +24,7 @@
 | 클래스 | 역할 |
 |---|---|
 | `AugmentData` | 증강 1종의 설계도. 모듈 조립 + 레벨 테이블 |
-| `AugmentLevelData` | 레벨별 수치 7종 |
+| `AugmentLevelData` | 레벨별 수치 10종 |
 | `AugmentCategory` | 증강의 분류 |
 | `AugmentModule` | 모듈 4축의 공통 베이스 |
 
@@ -122,7 +122,7 @@ AugmentManager.Update()
 좌표를 찍는다 → 적이 없어도 무조건 발동한다
 ```
 
-전부 **`rangeOverride`** 를 갖는다. **0이면 레벨 수치의 `range`.** 이 값이 곧 `ctx.EffectiveRange` 가 되어 뒤따르는 전달 모듈의 비행 거리·폭발 크기까지 결정한다.
+전부 **`rangeOverride`** 를 갖는다. **0이면 시트의 사거리(`range`)**, 하위 파이프라인 안에서는 **효과 범위(`effectRange`)**. 이 값이 곧 `ctx.EffectiveRange` 가 되어 뒤따르는 전달 모듈의 비행 거리까지 결정한다.
 
 > **모든 타겟팅의 공통 사거리**다. 탐색(BFS·DFS) 증강 전용이 아니라 `Damage` 든 뭐든 다 쓴다.
 
@@ -133,7 +133,7 @@ AugmentManager.Update()
 | `Projectile` | 타겟을 **겨눠** 투사체 | `travelRangeMultiplier` |
 | `Radial` | **각도로** 방사 (타겟 위치 무시) | `travelRangeMultiplier` |
 | `Instant` | 비행 없이 즉시 적중 | — |
-| `Area` | 타겟 지점마다 원형 폭발 | `blastRadius` (0이면 기준 거리) |
+| `Area` | 타겟 지점마다 원형 폭발 | `blastRadius` (0이면 `effectRange`) |
 | `Line` | 원점에서 직선 관통 | `lengthMultiplier` |
 
 ### Effect
@@ -216,21 +216,33 @@ Targeting        [ All In Range ▾ ]
 
 ```
 count   몇 개    타겟 수 · 투사체 수 · 좌표 수 · 스택량
+pierce  몇 명    투사체가 뚫는 수 · 레이저 최대 적중
 depth   몇 단계  연쇄 단계 · 트리 깊이     ← 횟수만. 거리가 아니다
 ```
 
 **섞지 말 것.** `ChainEffect`는 `depth`를 쓴다. `count`를 넣으면 연쇄가 안 돈다.
 
-> **탐색 증강의 "깊이"는 `depth` 가 아니라 `range` 다.**
+> **탐색 증강의 "깊이"는 `depth` 가 아니라 `effectRange` 다.**
 > 기획상 탐색의 깊이는 *전파 반경*이지 횟수가 아니다. 반경 안이면 몇 마리든 전부 표식이 붙는다(상한 없음).
-> 시트의 BFS·DFS 성장 항목도 `깊이` → `범위` 로 읽는다.
+> 시트의 BFS·DFS 성장 항목도 `깊이` → `효과 범위` 로 읽는다.
 
-### `range` 와 `radius`
+### `range` 와 `effectRange` — 거리는 둘이다
 
 ```
-range    증강의 사거리.   레벨 수치(시트). 레벨업으로 성장
-radius   그 모듈의 반경.  모듈 필드. 레벨과 무관
+range        발동 사거리   대상을 찾고 거기까지 도달하는 거리
+effectRange  효과 범위     닿은 뒤 퍼지는 크기
 ```
+
+| 무엇 | 어느 스탯 |
+|---|---|
+| 타겟팅 탐색 반경 | `range` |
+| 투사체 비행 거리 | `range` × `travelRangeMultiplier` |
+| 레이저 길이 | `range` × `lengthMultiplier` |
+| **폭발 반경** | **`effectRange`** |
+| **하위 파이프라인 반경** | **`effectRange`** |
+
+> **하위 파이프라인은 자동으로 `effectRange` 로 갈아탄다.** `SubPipeline` · `Chain` 안의 타겟팅은 `rangeOverride = 0` 이면 `effectRange` 를 본다. BFS 전파 반경이 레벨 따라 자라는 게 이 규칙 덕분이다.
+> `effectRange` 가 0이면 `range` 로 물러난다.
 
 ### `ctx.EffectiveRange`
 
@@ -239,26 +251,42 @@ radius   그 모듈의 반경.  모듈 필드. 레벨과 무관
 ```
 Targeting.rangeOverride = 3   →  ctx.EffectiveRange = 3
 Projectile 비행 거리          =  3 × travelRangeMultiplier
-Area 폭발 반경                =  3            (blastRadius = 0 일 때)
 Line 레이저 길이              =  3 × lengthMultiplier
 ```
+
+폭발 반경은 여기 안 딸린다. **`Area` 는 `effectRange` 를 직접 본다** — 도달 거리가 아니라 퍼지는 크기니까.
 
 타겟팅에서 반경을 좁히면 뒤따르는 전달도 같이 짧아진다. 따로 맞출 필요 없다.
 
 > **새 Targeting 모듈을 만들면 반드시 `ctx.EffectiveRange` 를 채울 것.** 안 채우면 전달이 엉뚱한 거리를 쓴다.
 
-### 0 = 레벨 수치 규칙
+### 0 = 시트 수치 규칙
 
-모듈 필드가 **0이면 레벨 수치를 쓰고, 0보다 크면 그 값을 쓴다.** 예외 없다.
+모듈 필드가 **0이면 시트 수치를 쓰고, 0보다 크면 그 값을 쓴다.** 예외 없다.
 
-`rangeOverride` · `targetCount` · `targetLimit` · `pointCount` · `projectileCount` · `shotsPerTarget` · `maxDepthOverride` · `blastRadius` · `bonusOverride` · `durationOverride` 전부 같은 규칙.
+| 모듈 필드 | ← 시트 |
+|---|---|
+| `rangeOverride` | 사거리 / 효과 범위 |
+| `targetCount` · `targetLimit` · `pointCount` · `projectileCount` · `shotsPerTarget` | 수량 |
+| `speed` | 속도 |
+| `pierce` · `maxHits` | 관통력 |
+| `blastRadius` | 효과 범위 |
+| `bonusOverride` | 효과 피해 |
+| `durationOverride` | 지속시간 |
+| `maxDepthOverride` | 깊이 |
+
+**곱하는 것** — `travelRangeMultiplier`(사거리) · `lengthMultiplier`(사거리) · `damageScale`(피해량) · `damageMultiplier`(피해량)
+
+**시트와 무관한 고정값** — `lifetime` · `width` · `spreadAngle` · `angleJitter` · `scatterRadius` · `minDistanceRatio` · `pointSearchRadius` · 넉백 `distance` · `amplifyPerDepth`
+
+모든 툴팁에 **한글 시트 이름과 코드 이름을 같이** 적어두었다.
 
 ### `damageScale`
 
 추가 피해가 아니라 **배율**이다.
 
 ```
-최종 피해 = 레벨 수치 damage × damageScale × 연쇄 증폭
+최종 피해 = 시트 피해량(damage) × damageScale × 연쇄 증폭
 ```
 
 Tree의 *"자식에게 50% 전이"* 처럼 한 증강 안에서 강약을 줄 때만 쓴다. 보통은 1로 둔다.
@@ -270,7 +298,7 @@ Tree의 *"자식에게 50% 전이"* 처럼 한 증강 안에서 강약을 줄 �
 1. `Data/Augments/{분류}/` 우클릭 → **Create → CoD → Augment**
 2. 파일명은 **시트의 `id`와 동일하게**
 3. `id` / `displayName` / `category` / `icon` 입력
-4. `levelStats` 배열에 시트 수치 — **안 쓰는 항목은 비워둘 것**
+4. **레벨별 수치 표**에 시트 값 입력 — 안 쓰는 칸은 0으로 비워둘 것
 5. `trigger` / `targeting` 드롭다운에서 선택
 6. `deliveries` / `effects` 는 `+` 로 여러 개 가능
 7. `Ctrl+S` 후 유니티 재시작해서 값이 남는지 확인
@@ -401,7 +429,9 @@ public class ConeAreaDelivery : DeliveryModule
 | 투사체 풀링 (`PoolManager.Get(prefab)`) | ✅ |
 | 탐색 표식 (`SearchMark` · `MarkerHolder` · `SearchEffect`) | ✅ |
 | 전역 탐색풀 (`SearchRegistry`) | ✅ |
-| 사거리 일관성 (`ctx.EffectiveRange`) | ✅ |
+| 사거리 일관성 (`ctx.EffectiveRange` · `ctx.BaseRange`) | ✅ |
+| 스탯 10종 + 레벨 수치 표 드로어 | ✅ |
+| 모듈 설명 (`[ModuleInfo]`) · 접이 묶음 (`[Fold]`) | ✅ |
 | **시간차 전파 Delivery** (DFS/BFS 원뿔) | ⬜ 다음 |
 | **간선 연결** (`LinkHolder` — Tree·Graph) | ⬜ |
 | **내부 증강 (`AugmentModifier`)** | ⬜ |

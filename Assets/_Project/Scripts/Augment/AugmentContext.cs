@@ -31,7 +31,13 @@ public class AugmentContext
     public int FiringId { get; private set; }
 
     /// <summary>
-    /// 이번 단계가 실제로 쓴 반경. 타겟팅이 채우고 전달이 읽는다.
+    /// 이 단계의 기본 사거리. 최초 발동은 사거리(range), 하위 파이프라인은 효과 범위(effectRange).
+    /// 타겟팅의 rangeOverride 가 0일 때 이 값을 쓴다.
+    /// </summary>
+    public float BaseRange;
+
+    /// <summary>
+    /// 이번 단계가 실제로 쓴 사거리. 타겟팅이 채우고 전달이 읽는다.
     /// 타겟팅에서 반경을 좁혔는데 투사체만 멀리 날아가는 어긋남을 막는다.
     /// </summary>
     public float EffectiveRange;
@@ -48,7 +54,10 @@ public class AugmentContext
         Depth = 0;
         DamageMultiplier = 1f;
         FiringId = nextFiringId++;
-        EffectiveRange = instance.Stat.range;
+
+        // 최초 발동은 "적을 찾아 도달하는 거리"가 기준이다
+        BaseRange = instance.Stat.range;
+        EffectiveRange = BaseRange;
 
         ChainVisited = new HashSet<Transform>();
         Targets.Clear();
@@ -64,7 +73,10 @@ public class AugmentContext
         Depth = parent.Depth + 1;
         DamageMultiplier = damageMultiplier;
         FiringId = parent.FiringId;
-        EffectiveRange = parent.Stat.range;
+
+        // 이미 도달한 뒤이므로 여기서부터는 "퍼지는 크기"가 기준이 된다
+        BaseRange = Stat.effectRange > 0f ? Stat.effectRange : Stat.range;
+        EffectiveRange = BaseRange;
 
         ChainVisited = parent.ChainVisited;
         Targets.Clear();

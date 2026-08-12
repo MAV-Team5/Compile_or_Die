@@ -13,8 +13,8 @@ public class ChainEffect : EffectModule
     const int HardLimit = 8;
 
     [Header("설정")]
-    [Tooltip("최대 연쇄 단계. 0이면 레벨 수치의 depth 를 쓴다. 8을 넘을 수 없다.\n" +
-             "count 는 '몇 개'고 depth 가 '몇 단계'다. 섞지 말 것.")]
+    [Tooltip("최대 연쇄 단계. 0이면 시트의 깊이(depth)를 쓴다. 8을 넘을 수 없다.\n" +
+             "수량(count)은 '몇 개'고 깊이(depth)가 '몇 단계'다. 섞지 말 것.")]
     public int maxDepthOverride = 0;
 
     [Tooltip("단계마다 누적되는 피해 배율. 0.2 면 2단계에서 1.2배, 3단계에서 1.44배.\n" +

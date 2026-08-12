@@ -13,7 +13,7 @@ public class SubPipelineEffect : EffectModule
     const int HardLimit = 8;
 
     [Header("설정")]
-    [Tooltip("하위 파이프라인의 피해 배율. 1이면 그대로, 0.5면 절반.")]
+    [Tooltip("시트의 피해량(damage)에 곱하는 하위 파이프라인 배율. 1이면 그대로, 0.5면 절반.")]
     public float damageMultiplier = 1f;
 
     // ── 아래는 접어두는 중첩 파이프라인. 길어지므로 설정 밑에 둔다 ──

@@ -9,13 +9,13 @@ using UnityEngine;
 [ModuleInfo("원점에서 직선 관통", "한 프레임에 선상 전체를 훑는다")]
 public class LineDelivery : DeliveryModule
 {
-    [Tooltip("레이저 굵기(유닛). 이 폭 안에 걸친 적이 전부 맞는다.")]
+    [Tooltip("레이저 굵기(유닛). 시트와 무관한 고정값. 이 폭 안에 걸친 적이 전부 맞는다.")]
     public float width = 0.6f;
 
-    [Tooltip("타겟팅이 정한 기준 거리 대비 레이저 길이 배수. 1이면 그 거리만큼.")]
+    [Tooltip("타겟팅이 정한 사거리에 곱할 레이저 길이 배수. 1이면 그 거리만큼.")]
     public float lengthMultiplier = 1f;
 
-    [Tooltip("최대 관통 수. 0이면 선상 전부.")]
+    [Tooltip("최대 관통 수. 0이면 시트의 관통력(pierce)을 쓰고, 그것도 0이면 선상 전부.")]
     public int maxHits = 0;
 
     [Tooltip("켜면 타겟마다 따로 쏜다. 끄면 첫 타겟 방향으로 한 줄만.")]
@@ -66,7 +66,8 @@ public class LineDelivery : DeliveryModule
             ((Vector2)a.position - origin).sqrMagnitude
             .CompareTo(((Vector2)b.position - origin).sqrMagnitude));
 
-        int limit = maxHits > 0 ? maxHits : ordered.Count;
+        int limit = maxHits > 0 ? maxHits : ctx.Stat.pierce;
+        if (limit <= 0) limit = ordered.Count;
 
         for (int i = 0; i < ordered.Count && i < limit; i++)
         {

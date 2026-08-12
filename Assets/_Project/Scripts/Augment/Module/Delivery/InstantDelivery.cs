@@ -9,7 +9,8 @@ using UnityEngine;
 [ModuleInfo("비행 없이 즉시 적중", "좌표 타겟이면 그 자리의 적을 때린다")]
 public class InstantDelivery : DeliveryModule
 {
-    [Tooltip("좌표 타겟일 때 그 자리에서 적을 찾을 반경(유닛). 적 타겟에는 영향 없음.")]
+    [Tooltip("좌표 타겟일 때 그 자리에서 적을 찾을 반경(유닛). 시트와 무관한 고정값.\n" +
+             "적 타겟에는 영향 없음.")]
     public float pointSearchRadius = 1f;
 
     [Fx("적중 연출", "적중 지점")]

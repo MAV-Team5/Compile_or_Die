@@ -9,13 +9,13 @@ using UnityEngine;
 [ModuleInfo("탐색 표식을 남긴다", "직접 피해는 없다. 이후 모든 공격에 추가 피해가 붙는다")]
 public class SearchEffect : EffectModule
 {
-    [Tooltip("추가 피해량. 0이면 레벨 수치의 effectDamage 를 쓴다.")]
+    [Tooltip("추가 피해량. 0이면 시트의 효과 피해(effectDamage)를 쓴다.")]
     public float bonusOverride = 0f;
 
     [Tooltip("켜면 비율. 0.3 이면 원래 피해의 30% 를 더한다. 끄면 고정값.")]
     public bool isPercent = false;
 
-    [Tooltip("표식 지속 시간(초). 0이면 레벨 수치의 duration 을 쓰고, 그것도 0이면 무기한.")]
+    [Tooltip("표식 지속 시간(초). 0이면 시트의 지속시간(duration)을 쓰고, 그것도 0이면 무기한.")]
     public float durationOverride = 0f;
 
     [Tooltip("켜면 다시 발동할 때 이 증강의 지난 표식을 전부 해제한다. 끄면 표식이 계속 쌓인다.\n" +

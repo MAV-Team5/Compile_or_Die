@@ -12,23 +12,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 002 DFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  id: 
-  displayName: 
+  id: 002
+  displayName: DFS
   category: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2737b827e30154e728715dd3c0d21c9c, type: 3}
   descriptionTemplate: 
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
-  levelStats: []
+  levelStats:
+  - damage: 0
+    effectDamage: 2
+    cooldown: 44
+    range: 12
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 2
   trigger:
-    rid: -2
+    rid: 980040080136339540
   targeting:
-    rid: -2
-  deliveries: []
-  effects: []
-  noTargetPolicy: 0
+    rid: 980040080136339566
+  deliveries:
+  - rid: 980040080136339555
+  effects:
+  - rid: 980040080136339544
+  - rid: 980040080136339560
+  noTargetPolicy: 1
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 980040080136339540
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+    - rid: 980040080136339544
+      type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
+      data:
+        bonusOverride: 0
+        isPercent: 0
+        durationOverride: 0
+        releaseOnRefire: 1
+        markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+    - rid: 980040080136339555
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: 794539ce5611b074c9e6add699a4c038, type: 3}
+        speed: 12
+        pierce: 1
+        travelRangeMultiplier: 1.2
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        multiShot:
+          shotsPerTarget: 1
+          formation: 0
+          spacing: 0.4
+          spreadPerShot: 0
+    - rid: 980040080136339560
+      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageMultiplier: 1
+        targeting:
+          rid: 980040080136339561
+        deliveries:
+        - rid: 980040080136339562
+        effects:
+        - rid: 980040080136339563
+    - rid: 980040080136339561
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+    - rid: 980040080136339562
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: 794539ce5611b074c9e6add699a4c038, type: 3}
+        speed: 12
+        pierce: 99
+        travelRangeMultiplier: 1
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        multiShot:
+          shotsPerTarget: 1
+          formation: 0
+          spacing: 0.4
+          spreadPerShot: 0
+    - rid: 980040080136339563
+      type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
+      data:
+        bonusOverride: 0
+        isPercent: 0
+        durationOverride: 0
+        releaseOnRefire: 1
+        markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+    - rid: 980040080136339566
+      type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+        targetCount: 1

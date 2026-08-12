@@ -8,11 +8,11 @@ using UnityEngine;
 [ModuleInfo("좌표 N곳 — 빈 자리", "적이 없어도 발동한다. 적을 노리려면 Random")]
 public class RandomPointTargeting : TargetingModule
 {
-    [Tooltip("이 단계의 사거리(유닛). 0이면 레벨 수치의 range 를 그대로 쓴다.\n" +
-             "좌표를 찍는 범위이자, 뒤따르는 투사체 비행 거리·폭발 크기의 기준이 된다.")]
+    [Tooltip("이 단계의 사거리(유닛). 0이면 시트의 사거리(range)를 쓴다.\n" +
+             "하위 파이프라인 안에서는 대신 효과 범위(effectRange)를 쓴다.")]
     public float rangeOverride = 0f;
 
-    [Tooltip("찍을 좌표 수. 0이면 레벨 수치의 count 를 쓰고, 그것도 0이면 1곳.")]
+    [Tooltip("찍을 좌표 수. 0이면 시트의 수량(count)을 쓰고, 그것도 0이면 1곳.")]
     public int pointCount = 1;
 
     [Tooltip("반경 대비 안쪽 여백. 0.4 면 반경의 40% 안쪽에는 안 찍힌다. 발밑 폭격 방지.")]
@@ -37,5 +37,5 @@ public class RandomPointTargeting : TargetingModule
 
     /// <summary>이 단계가 실제로 쓸 사거리. 전달 단계가 읽도록 기록도 남긴다.</summary>
     float ResolveRange(AugmentContext ctx)
-        => ctx.EffectiveRange = rangeOverride > 0f ? rangeOverride : ctx.Stat.range;
+        => ctx.EffectiveRange = rangeOverride > 0f ? rangeOverride : ctx.BaseRange;
 }
