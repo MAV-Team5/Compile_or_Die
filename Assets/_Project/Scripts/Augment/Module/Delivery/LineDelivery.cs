@@ -3,33 +3,32 @@ using UnityEngine;
 
 /// <summary>
 /// 원점에서 타겟 방향으로 직선 판정. 비행 없이 한 프레임에 선상 전체를 관통한다.
-/// Java JIT 레이저 · C 포인터 계열.
+/// Java JIT 레이저 · C 포인터 전용.
 /// </summary>
 [System.Serializable]
+[ModuleInfo("원점에서 직선 관통", "한 프레임에 선상 전체를 훑는다")]
 public class LineDelivery : DeliveryModule
 {
-    [Tooltip("레이저 굵기. 이 폭 안에 걸친 적이 전부 맞는다.")]
+    [Tooltip("레이저 굵기(유닛). 이 폭 안에 걸친 적이 전부 맞는다.")]
     public float width = 0.6f;
+
+    [Tooltip("타겟팅이 정한 기준 거리 대비 레이저 길이 배수. 1이면 그 거리만큼.")]
+    public float lengthMultiplier = 1f;
 
     [Tooltip("최대 관통 수. 0이면 선상 전부.")]
     public int maxHits = 0;
 
-    [Tooltip("증강 사거리 대비 레이저 길이 배수.")]
-    public float lengthMultiplier = 1f;
-
     [Tooltip("켜면 타겟마다 따로 쏜다. 끄면 첫 타겟 방향으로 한 줄만.")]
     public bool beamPerTarget = false;
 
-    [Header("발사 연출")]
-    [Tooltip("레이저 연출 프리팹. BeamVisual 컴포넌트가 있으면 길이·굵기·페이드를 알아서 처리한다.")]
-    public GameObject beamVfx;
-
-    public AudioClip beamSfx;
+    [Fx("레이저 연출", "원점→방향")]
+    [Tooltip("이펙트 프리팹에 BeamVisual 이 있으면 길이·굵기·페이드를 알아서 맞춘다.")]
+    public FxGroup beamFx = new();
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
         Vector2 origin = ctx.Owner.position;
-        float length = ctx.Stat.range * lengthMultiplier;
+        float length = ctx.EffectiveRange * lengthMultiplier;
 
         if (length <= 0f || width <= 0f) return;
 
@@ -51,8 +50,8 @@ public class LineDelivery : DeliveryModule
     void Fire(AugmentContext ctx, Vector2 origin, Vector2 dir, float length,
               ref int index, System.Action<HitInfo> onHit)
     {
-        SpawnBeamVfx(origin, dir, length);
-        SfxPlayer.Play(beamSfx);
+        SpawnBeam(origin, dir, length);
+        SfxPlayer.Play(beamFx.sfx, beamFx.sfxVolume);
 
         // 원점에서 dir 방향으로 뻗은 직사각형 안의 적을 한 번에 잡는다
         Vector2 center = origin + dir * (length * 0.5f);
@@ -80,11 +79,11 @@ public class LineDelivery : DeliveryModule
         }
     }
 
-    void SpawnBeamVfx(Vector2 origin, Vector2 dir, float length)
+    void SpawnBeam(Vector2 origin, Vector2 dir, float length)
     {
-        if (beamVfx == null) return;
+        if (beamFx.vfx == null) return;
 
-        GameObject go = Object.Instantiate(beamVfx, origin, Quaternion.identity);
+        GameObject go = Object.Instantiate(beamFx.vfx, origin, Quaternion.identity);
 
         if (go.TryGetComponent(out BeamVisual beam))
         {

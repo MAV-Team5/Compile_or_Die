@@ -5,6 +5,7 @@ using UnityEngine;
 /// 최종 피해 = 레벨 수치의 damage × damageScale × 연쇄 증폭
 /// </summary>
 [System.Serializable]
+[ModuleInfo("피해를 준다", "레벨 수치의 damage × damageScale")]
 public class DamageEffect : EffectModule
 {
     [Tooltip("레벨 수치의 damage 에 곱하는 배율. 1이면 그대로, 0.5면 절반. " +
@@ -23,7 +24,8 @@ public class DamageEffect : EffectModule
 
         float amount = ctx.Stat.damage * damageScale * ctx.DamageMultiplier;
 
+        // 표식 조회를 위해 맞은 Transform 도 같이 넘긴다
         DamagePipeline.Process(
-            new DamageContext(ctx.Owner.gameObject, receiver, amount));
+            new DamageContext(ctx.Owner.gameObject, receiver, amount, hit.Target));
     }
 }

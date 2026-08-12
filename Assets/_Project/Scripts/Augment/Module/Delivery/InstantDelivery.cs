@@ -3,22 +3,17 @@ using UnityEngine;
 
 /// <summary>
 /// 비행 없이 즉시 적중. 적 타겟은 그 적을, 좌표 타겟은 그 자리의 적을 때린다.
-/// Stack pop · Selection Sort 계열.
+/// Stack pop · Selection Sort 전용.
 /// </summary>
 [System.Serializable]
+[ModuleInfo("비행 없이 즉시 적중", "좌표 타겟이면 그 자리의 적을 때린다")]
 public class InstantDelivery : DeliveryModule
 {
-    [Tooltip("좌표 타겟일 때 그 자리에서 적을 찾을 반경. 적 타겟에는 영향 없음.")]
+    [Tooltip("좌표 타겟일 때 그 자리에서 적을 찾을 반경(유닛). 적 타겟에는 영향 없음.")]
     public float pointSearchRadius = 1f;
 
-    [Header("적중 연출")]
-    [Tooltip("적중 지점에 띄울 이펙트. 비워도 된다.")]
-    public GameObject hitVfx;
-
-    public float hitVfxScale = 1f;
-
-    [Tooltip("적중 효과음.")]
-    public AudioClip hitSfx;
+    [Fx("적중 연출", "적중 지점")]
+    public FxGroup hitFx = new();
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
@@ -49,8 +44,7 @@ public class InstantDelivery : DeliveryModule
 
     void Emit(Transform target, Vector2 point, ref int index, System.Action<HitInfo> onHit)
     {
-        VfxSpawner.SpawnAt(hitVfx, point, hitVfxScale);
-        SfxPlayer.Play(hitSfx);
+        hitFx.PlayAt(point);
 
         onHit(new HitInfo { Target = target, Point = point, Index = index++ });
     }

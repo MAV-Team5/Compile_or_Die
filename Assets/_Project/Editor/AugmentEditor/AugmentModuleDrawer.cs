@@ -21,6 +21,9 @@ public class AugmentModuleDrawer : PropertyDrawer
     static readonly Color EffectColor    = new(0.35f, 0.80f, 0.45f);
     static readonly Color UnknownColor   = new(0.55f, 0.55f, 0.55f);
 
+    /// <summary>None 인 칸의 버튼 배경. 비워두면 그 단계가 통째로 무시된다.</summary>
+    static readonly Color MissingColor   = new(1.00f, 0.55f, 0.55f);
+
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);
@@ -48,13 +51,30 @@ public class AugmentModuleDrawer : PropertyDrawer
         else
             EditorGUI.LabelField(labelRect, label);
 
+        // 비어 있는 모듈 칸은 조용히 무시되므로 붉게 칠해 눈에 띄게 한다
+        Color previous = GUI.backgroundColor;
+        if (!hasValue) GUI.backgroundColor = MissingColor;
+
         if (GUI.Button(buttonRect, DisplayName(property), EditorStyles.popup))
             ShowTypeMenu(property);
+
+        GUI.backgroundColor = previous;
+
+        float y = position.y + line + Gap;
+
+        // 고른 뒤에도 무슨 모듈인지 잊지 않도록 설명 한 줄을 남긴다
+        ModuleInfoAttribute info = hasValue ? InfoOf(property) : null;
+
+        if (info != null)
+        {
+            EditorGUI.LabelField(new Rect(bodyX, y, bodyWidth, line), Describe(info), NoteStyle);
+            y += line + Gap;
+        }
 
         if (hasValue && property.isExpanded)
         {
             EditorGUI.indentLevel++;
-            DrawChildren(new Rect(bodyX, position.y + line + Gap, bodyWidth, 0), property);
+            DrawChildren(new Rect(bodyX, y, bodyWidth, 0), property);
             EditorGUI.indentLevel--;
         }
 
@@ -63,10 +83,14 @@ public class AugmentModuleDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        float h = EditorGUIUtility.singleLineHeight;
+        float line = EditorGUIUtility.singleLineHeight;
+        float h = line;
 
-        if (string.IsNullOrEmpty(property.managedReferenceFullTypename) || !property.isExpanded)
-            return h;
+        if (string.IsNullOrEmpty(property.managedReferenceFullTypename)) return h;
+
+        if (InfoOf(property) != null) h += line + Gap;
+
+        if (!property.isExpanded) return h;
 
         var end = property.GetEndProperty();
         var it = property.Copy();
@@ -79,6 +103,17 @@ public class AugmentModuleDrawer : PropertyDrawer
         }
         return h;
     }
+
+    static GUIStyle noteStyle;
+    static GUIStyle NoteStyle => noteStyle ??= new GUIStyle(EditorStyles.miniLabel)
+    {
+        fontStyle = FontStyle.Italic,
+        normal = { textColor = new Color(0.62f, 0.62f, 0.62f) },
+        wordWrap = false
+    };
+
+    static string Describe(ModuleInfoAttribute info)
+        => string.IsNullOrEmpty(info.Note) ? info.Summary : $"{info.Summary}   ·   {info.Note}";
 
     static void DrawChildren(Rect rect, SerializedProperty property)
     {
@@ -116,7 +151,14 @@ public class AugmentModuleDrawer : PropertyDrawer
             foreach (var type in types)
             {
                 var captured = type;
-                menu.AddItem(new GUIContent(ShortName(captured.Name)), false,
+                var info = InfoOf(captured);
+
+                // 이름만으로는 뭘 하는 모듈인지 모르므로 설명을 항목에 함께 띄운다
+                string text = info == null
+                    ? ShortName(captured.Name)
+                    : $"{ShortName(captured.Name)}   —   {info.Summary}";
+
+                menu.AddItem(new GUIContent(text), false,
                              () => Assign(so, path, Activator.CreateInstance(captured)));
             }
         }
@@ -130,6 +172,25 @@ public class AugmentModuleDrawer : PropertyDrawer
         p.managedReferenceValue = value;
         p.isExpanded = value != null;
         so.ApplyModifiedProperties();
+    }
+
+    // 리플렉션은 매 프레임 돌리기엔 비싸므로 타입별로 한 번만 읽고 담아둔다
+    static readonly System.Collections.Generic.Dictionary<Type, ModuleInfoAttribute> infoCache = new();
+
+    static ModuleInfoAttribute InfoOf(SerializedProperty property)
+    {
+        Type type = ResolveType(property.managedReferenceFullTypename);
+        return type == null ? null : InfoOf(type);
+    }
+
+    static ModuleInfoAttribute InfoOf(Type type)
+    {
+        if (infoCache.TryGetValue(type, out var cached)) return cached;
+
+        var found = (ModuleInfoAttribute)Attribute.GetCustomAttribute(type, typeof(ModuleInfoAttribute));
+        infoCache[type] = found;
+
+        return found;
     }
 
     static Type ResolveType(string typename)

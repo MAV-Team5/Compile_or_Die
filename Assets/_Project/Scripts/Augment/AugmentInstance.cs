@@ -9,6 +9,12 @@ public class AugmentInstance
 
     readonly Dictionary<AugmentModule, object> states = new();
 
+    /// <summary>
+    /// 탐색 표식을 마지막으로 새로 깐 발동 번호.
+    /// 한 증강 안에 SearchEffect 가 여럿이어도 발동당 한 번만 해제하려고 증강 단위로 둔다.
+    /// </summary>
+    public int LastSearchFiringId;
+
     public AugmentInstance(AugmentData data, int level = 1)
     {
         Data = data;

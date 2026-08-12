@@ -1,13 +1,17 @@
 using UnityEngine;
 
-/// <summary>적중 대상을 발사 원점 기준으로 밀거나 당긴다.</summary>
+/// <summary>
+/// 적중 대상을 발사 원점 기준으로 밀거나 당긴다.
+/// 정렬 계열처럼 적을 모으거나 흩는 군중 제어 전용.
+/// </summary>
 [System.Serializable]
+[ModuleInfo("밀거나 당긴다", "정렬 계열의 군중 제어")]
 public class KnockbackEffect : EffectModule
 {
     [Tooltip("밀려나는 거리(유닛). 플레이어 크기를 1로 보고 감을 잡으면 된다.")]
     public float distance = 1.5f;
 
-    [Tooltip("켜면 원점 쪽으로 끌어당긴다. Selection Sort 같은 견인 계열용.")]
+    [Tooltip("켜면 원점 쪽으로 끌어당긴다. Selection Sort 같은 견인 전용.")]
     public bool pull = false;
 
     [Tooltip("밀린 뒤 대상이 스스로 못 움직이는 시간(초). 0이면 즉시 다시 다가온다.")]

@@ -1,33 +1,29 @@
 using UnityEngine;
 
-/// <summary>투사체를 쏘는 Delivery 들의 공통 파라미터와 발사 로직.</summary>
+/// <summary>투사체를 쏘는 전달 모듈들의 공통 설정과 발사 로직.</summary>
 [System.Serializable]
 public abstract class ProjectileDeliveryBase : DeliveryModule
 {
     [Header("투사체")]
-    [Tooltip("초당 이동 거리(유닛).")]
-    public float speed = 12f;
-
-    [Tooltip("최대 생존 시간(초). 사거리보다 먼저 끝나면 여기서 사라진다. 안전장치.")]
-    public float lifetime = 3f;
-
-    [Tooltip("몇 명을 뚫고 지나갈지. 1이면 첫 적중에서 소멸.")]
-    public int pierce = 1;
-
-    [Tooltip("증강 사거리 대비 비행 거리 배수. 1.2 면 사거리의 120% 까지 날아간다.")]
-    public float travelRangeMultiplier = 1.2f;
-
-    [Tooltip("발사할 투사체 프리팹. AugmentProjectile 컴포넌트가 있어야 한다.")]
+    [Required("투사체가 아예 발사되지 않는다")]
+    [Tooltip("발사할 투사체 프리팹. AugmentProjectile 컴포넌트가 붙어 있어야 한다.")]
     public GameObject projectilePrefab;
 
-    [Header("발사 연출")]
-    [Tooltip("발사 원점에 띄울 이펙트.")]
-    public GameObject launchVfx;
+    [Tooltip("초당 이동 거리(유닛). 0이면 발사가 취소된다.")]
+    public float speed = 12f;
 
-    public float launchVfxScale = 1f;
+    [Tooltip("몇 명을 뚫고 지나갈지. 1이면 첫 적중에서 소멸, 크게 주면 관통.")]
+    public int pierce = 1;
 
-    [Tooltip("발사 순간 효과음.")]
-    public AudioClip launchSfx;
+    [Tooltip("타겟팅이 정한 기준 거리 대비 비행 거리 배수. 1.2 면 그 거리의 120% 까지 날아간다.\n" +
+             "타겟팅에서 반경을 좁히면 투사체도 같이 짧아진다.")]
+    public float travelRangeMultiplier = 1.2f;
+
+    [Tooltip("최대 생존 시간(초). 거리보다 먼저 끝나면 여기서 사라진다. 안전장치.")]
+    public float lifetime = 3f;
+
+    [Fx("발사 연출", "발사 원점")]
+    public FxGroup launchFx = new();
 
     /// <summary>프리팹이 물려 있는지 확인한다. 없으면 경고.</summary>
     protected bool HasPrefab(AugmentContext ctx)
@@ -37,6 +33,8 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
         Debug.LogWarning($"[{ctx.Instance.Data.name}] {GetType().Name} 에 투사체 프리팹이 없습니다");
         return false;
     }
+
+    protected void PlayLaunch(Vector2 origin) => launchFx.PlayAt(origin);
 
     /// <summary>한 방향으로 여러 발을 대형에 맞춰 쏜다. shots 가 1이면 그냥 한 발.</summary>
     protected void FireSpread(AugmentContext ctx, Vector2 origin, Vector2 direction,
@@ -79,12 +77,6 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
         return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
     }
 
-    protected void PlayLaunch(Vector2 origin)
-    {
-        VfxSpawner.SpawnAt(launchVfx, origin, launchVfxScale);
-        SfxPlayer.Play(launchSfx);
-    }
-
     /// <summary>한 발 발사한다.</summary>
     protected void Fire(AugmentContext ctx, Vector2 origin, Vector2 direction,
                         System.Action<HitInfo> onHit)
@@ -97,9 +89,12 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
 
         GameObject go = ProjectileSpawner.Spawn(projectilePrefab, origin);
 
+        // 비행 거리는 타겟팅이 정한 기준 거리를 따른다. 좁게 탐색했으면 투사체도 짧게 난다
+        float travel = ctx.EffectiveRange * travelRangeMultiplier;
+
         // 연쇄 단계면 Owner가 방금 맞은 적이다. 그 안에서 태어나므로 한 번은 통과시켜야 한다
         go.GetComponent<AugmentProjectile>()
-          .Launch(direction, speed, lifetime, ctx.Stat.range * travelRangeMultiplier,
+          .Launch(direction, speed, lifetime, travel,
                   pierce, TargetQuery.Mask, ctx.Owner, onHit);
     }
 }

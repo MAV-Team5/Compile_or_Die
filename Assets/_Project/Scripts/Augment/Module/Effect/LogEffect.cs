@@ -6,8 +6,10 @@ using UnityEngine;
 /// effects 에 넣으면 적중 때, ChainEffect.finalEffects 에 넣으면 연쇄가 끝날 때 나온다.
 /// </summary>
 [System.Serializable]
+[ModuleInfo("게임 내 로그창에 문구 출력", "토큰으로 수치를 끼워 넣을 수 있다")]
 public class LogEffect : EffectModule
 {
+    [Required("아무 로그도 뜨지 않는다")]
     [Tooltip("출력할 문구. 토큰 사용 가능 — {target} {damage} {depth} {level} {name} {count} {range} {index}")]
     [TextArea(1, 3)]
     public string message = "> {name} → {target}";

@@ -24,6 +24,20 @@ public class AugmentContext
     /// <summary>연쇄 단계마다 누적되는 피해 배율.</summary>
     public float DamageMultiplier { get; private set; } = 1f;
 
+    /// <summary>
+    /// 발동 1회를 구분하는 번호. 연쇄 단계는 최초 발동의 번호를 그대로 물려받는다.
+    /// 표식 해제처럼 "이번 발동인가 지난 발동인가"를 가릴 때 쓴다.
+    /// </summary>
+    public int FiringId { get; private set; }
+
+    /// <summary>
+    /// 이번 단계가 실제로 쓴 반경. 타겟팅이 채우고 전달이 읽는다.
+    /// 타겟팅에서 반경을 좁혔는데 투사체만 멀리 날아가는 어긋남을 막는다.
+    /// </summary>
+    public float EffectiveRange;
+
+    static int nextFiringId = 1;
+
     /// <summary>최초 발동용 초기화.</summary>
     public void Begin(Transform owner, AugmentInstance instance)
     {
@@ -33,6 +47,8 @@ public class AugmentContext
 
         Depth = 0;
         DamageMultiplier = 1f;
+        FiringId = nextFiringId++;
+        EffectiveRange = instance.Stat.range;
 
         ChainVisited = new HashSet<Transform>();
         Targets.Clear();
@@ -47,6 +63,8 @@ public class AugmentContext
 
         Depth = parent.Depth + 1;
         DamageMultiplier = damageMultiplier;
+        FiringId = parent.FiringId;
+        EffectiveRange = parent.Stat.range;
 
         ChainVisited = parent.ChainVisited;
         Targets.Clear();

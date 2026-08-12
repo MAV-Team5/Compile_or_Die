@@ -1,49 +1,41 @@
 using UnityEngine;
 
-/// <summary>적이 아니라 빈 좌표를 노린다. Brute Force · Linear Search · Bitwise 계열.</summary>
+/// <summary>
+/// 【좌표 N곳】 적이 아니라 빈 자리를 노린다. 적이 없어도 발동한다는 것이 적 타겟팅과 다르다.
+/// Brute Force · Linear Search · Bitwise 전용.
+/// </summary>
 [System.Serializable]
+[ModuleInfo("좌표 N곳 — 빈 자리", "적이 없어도 발동한다. 적을 노리려면 Random")]
 public class RandomPointTargeting : TargetingModule
 {
-    [Tooltip("탐색 반경. 0이면 증강 사거리(레벨 수치의 range)를 쓴다.")]
+    [Tooltip("이 단계의 사거리(유닛). 0이면 레벨 수치의 range 를 그대로 쓴다.\n" +
+             "좌표를 찍는 범위이자, 뒤따르는 투사체 비행 거리·폭발 크기의 기준이 된다.")]
     public float rangeOverride = 0f;
 
-    [Tooltip("찍을 좌표 수. 0이면 레벨 수치의 count 를 쓴다. 그것도 0이면 1곳.")]
+    [Tooltip("찍을 좌표 수. 0이면 레벨 수치의 count 를 쓰고, 그것도 0이면 1곳.")]
     public int pointCount = 1;
 
-    [Tooltip("사거리 대비 최소 거리. 0.4 면 사거리의 40% 안쪽에는 안 찍힌다. 발밑 폭격 방지용.")]
+    [Tooltip("반경 대비 안쪽 여백. 0.4 면 반경의 40% 안쪽에는 안 찍힌다. 발밑 폭격 방지.")]
     [Range(0f, 1f)] public float minDistanceRatio = 0f;
-
-    [Tooltip("켜면 적이 있는 자리 근처를 우선해서 찍는다. 끄면 완전 무작위.")]
-    public bool preferOccupied = false;
 
     public override void Resolve(AugmentContext ctx)
     {
         Vector2 from = ctx.Owner.position;
-        float range = Range(ctx);
+        float resolved = ResolveRange(ctx);
 
         int count = pointCount > 0 ? pointCount : ctx.Stat.count;
         if (count <= 0) count = 1;
 
-        // 적 근처를 노리는 모드면 실제 적 위치를 좌표로 삼는다
-        if (preferOccupied)
-        {
-            var hits = TargetQuery.Overlap(from, range);
-
-            for (int i = 0; i < hits.Count && ctx.Targets.Count < count; i++)
-                ctx.Targets.Add((Vector2)hits[i].transform.position);
-
-            if (ctx.Targets.Count >= count) return;
-        }
-
         while (ctx.Targets.Count < count)
         {
             float angle = Random.Range(0f, Mathf.PI * 2f);
-            float dist = Random.Range(range * minDistanceRatio, range);
+            float dist = Random.Range(resolved * minDistanceRatio, resolved);
 
             ctx.Targets.Add(from + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * dist);
         }
     }
 
-    /// <summary>오버라이드가 있으면 그걸, 없으면 증강 사거리를 쓴다.</summary>
-    float Range(AugmentContext ctx) => rangeOverride > 0f ? rangeOverride : ctx.Stat.range;
+    /// <summary>이 단계가 실제로 쓸 사거리. 전달 단계가 읽도록 기록도 남긴다.</summary>
+    float ResolveRange(AugmentContext ctx)
+        => ctx.EffectiveRange = rangeOverride > 0f ? rangeOverride : ctx.Stat.range;
 }

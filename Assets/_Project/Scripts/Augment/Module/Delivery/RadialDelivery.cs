@@ -1,10 +1,11 @@
 using UnityEngine;
 
 /// <summary>
-/// 기준 방향을 중심으로 여러 발 방사한다.
+/// 기준 방향을 중심으로 여러 발 방사한다. 타겟 위치가 아니라 각도로 쏘는 것이 Projectile 과 다르다.
 /// 퍼짐 각도가 360이면 사방으로 균등, 좁히면 부채꼴(산탄)이 된다.
 /// </summary>
 [System.Serializable]
+[ModuleInfo("각도로 방사 — 타겟 위치 무시", "360이면 사방, 좁히면 산탄")]
 public class RadialDelivery : ProjectileDeliveryBase
 {
     public enum AimBasis
@@ -20,16 +21,16 @@ public class RadialDelivery : ProjectileDeliveryBase
     }
 
     [Header("방사")]
-    [Tooltip("발사 수. 0이면 레벨 수치의 count 를 쓴다.")]
+    [Tooltip("발사 수. 0이면 레벨 수치의 count 를 쓰고, 그것도 0이면 1발.")]
     public int projectileCount = 0;
 
-    [Tooltip("퍼지는 각도. 360이면 사방으로 균등, 60이면 좁은 부채꼴(산탄).")]
+    [Tooltip("퍼지는 각도(도). 360이면 사방으로 균등, 60이면 좁은 부채꼴(산탄).")]
     [Range(0f, 360f)] public float spreadAngle = 360f;
 
-    [Tooltip("퍼짐의 중심을 어디로 잡을지.")]
-    public AimBasis basis = AimBasis.Random;
+    [Tooltip("부채꼴의 중심을 어느 방향으로 잡을지.")]
+    public AimBasis aimBasis = AimBasis.Random;
 
-    [Tooltip("basis 가 Fixed 일 때 쓰는 각도(도). 0이 오른쪽, 90이 위.")]
+    [Tooltip("aimBasis 가 Fixed 일 때 쓰는 각도(도). 0이 오른쪽, 90이 위.")]
     public float fixedAngle = 90f;
 
     [Tooltip("각 발에 더해지는 무작위 흔들림(도). 0이면 정확히 균등하게 나간다.")]
@@ -68,12 +69,12 @@ public class RadialDelivery : ProjectileDeliveryBase
         }
     }
 
-    /// <summary>퍼짐의 중심 각도(도).</summary>
+    /// <summary>부채꼴 중심 각도(도).</summary>
     float CenterAngle(AugmentContext ctx, Vector2 origin)
     {
-        if (basis == AimBasis.Fixed) return fixedAngle;
+        if (aimBasis == AimBasis.Fixed) return fixedAngle;
 
-        if (basis == AimBasis.FirstTarget)
+        if (aimBasis == AimBasis.FirstTarget)
         {
             for (int i = 0; i < ctx.Targets.Count; i++)
             {

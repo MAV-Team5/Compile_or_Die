@@ -9,6 +9,7 @@ using UnityEngine;
 public class AugmentData : ScriptableObject
 {
     [Header("정체성")]
+    [Required("시트 임포터가 이 증강을 찾지 못한다")]
     [Tooltip("시트와 잇는 유일 키. 한번 정하면 바꾸지 말 것.")]
     public string id;
 
@@ -31,7 +32,8 @@ public class AugmentData : ScriptableObject
     public int requiredRootLevel;
 
     [Header("성장")]
-    [Tooltip("레벨별 수치. 시트 임포터가 덮어쓰는 유일한 영역.")]
+    [Tooltip("＊ 필수 — 레벨별 수치. 비면 증강이 전혀 동작하지 않는다.\n" +
+             "시트 임포터가 덮어쓰는 유일한 영역.")]
     public AugmentLevelData[] levelStats;
 
     [Header("모듈 조립")]

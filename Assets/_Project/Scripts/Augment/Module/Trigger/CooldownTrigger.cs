@@ -2,6 +2,7 @@ using UnityEngine;
 
 /// <summary>일정 주기마다 발동. 대부분의 증강이 쓴다.</summary>
 [System.Serializable]
+[ModuleInfo("일정 주기마다 발동", "쿨타임은 레벨 수치를 따른다")]
 public class CooldownTrigger : TriggerModule
 {
     class State { public float timer; }
