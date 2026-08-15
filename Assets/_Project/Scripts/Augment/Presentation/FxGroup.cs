@@ -47,10 +47,13 @@ public class FxGroup
 
     public bool IsEmpty => vfx == null && sfx == null;
 
-    /// <summary>지정한 좌표에서 연출을 낸다.</summary>
-    public void PlayAt(Vector2 position)
+    /// <summary>
+    /// 지정한 좌표에서 연출을 낸다.
+    /// 방향을 주면 IDirectionalVisual 이 붙은 프리팹이 그쪽을 보게 된다.
+    /// </summary>
+    public void PlayAt(Vector2 position, Vector2 direction = default)
     {
-        VfxSpawner.SpawnAt(vfx, position, vfxScale);
+        VfxSpawner.SpawnAt(vfx, position, vfxScale, direction);
         SfxPlayer.Play(sfx, sfxVolume);
     }
 }

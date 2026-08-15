@@ -17,7 +17,8 @@ using UnityEngine;
     public abstract bool Evaluate(AugmentInstance instance, float deltaTime);
 
     /// <summary>발동 성사 시 호출. 쿨타임을 소비하고 시전 연출을 낸다.</summary>
-    public virtual void Consume(AugmentContext ctx) => castFx.PlayAt(ctx.Owner.position);
+    public virtual void Consume(AugmentContext ctx)
+        => castFx.PlayAt(ctx.Owner.position, ctx.Heading);
 
     /// <summary>0~1 진행률. HUD 표시용.</summary>
     public virtual float Progress(AugmentInstance instance) => 1f;

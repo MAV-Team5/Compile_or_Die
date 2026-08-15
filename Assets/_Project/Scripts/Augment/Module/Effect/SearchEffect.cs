@@ -22,7 +22,9 @@ public class SearchEffect : EffectModule
              "판정은 증강 단위다 — 한 증강 안에 Search 가 여럿이어도 발동당 한 번만 해제한다.")]
     public bool releaseOnRefire = true;
 
-    [Tooltip("적 위에 붙일 표식 오브젝트. 여러 표식은 자동으로 위로 쌓인다.")]
+    [Tooltip("적 위에 붙일 표식 오브젝트. 여러 표식은 자동으로 위로 쌓인다.\n" +
+             "비워도 추가 피해는 그대로 들어간다 — 눈에 안 보일 뿐이다.\n" +
+             "적을 따라다녀야 하므로 연출 묶음이 아니라 별도 필드다.")]
     public GameObject markVfx;
 
     static readonly List<Transform> releaseBuffer = new();

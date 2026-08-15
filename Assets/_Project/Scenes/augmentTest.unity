@@ -2084,8 +2084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentManager
   startingAugments:
-  - {fileID: 11400000, guid: 9a624432ac58f9747b64115413ed5f05, type: 2}
-  - {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
+  - {fileID: 11400000, guid: f7e465c5ecd47c04ea4758a9372c4da4, type: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2435,6 +2434,7 @@ MonoBehaviour:
   - {fileID: 2928715476336936295, guid: c7da8c015f27bea4a895b95f3d5613b2, type: 3}
   - {fileID: 8528441172613760969, guid: 1f6fb960bea8e6a49a4d0a21e36d4175, type: 3}
   - {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+  - {fileID: 6824073935605403827, guid: d9239f9dee3334c489371527d28a460a, type: 3}
   effectPrefabs:
   - {fileID: 59564205465369957, guid: 16db949f9435a2c478019a5b9a41129a, type: 3}
   expPrefabs:

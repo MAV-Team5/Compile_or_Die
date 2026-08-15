@@ -31,7 +31,8 @@ public class SubPipelineEffect : EffectModule
 
         // 적중한 적을 원점으로 삼는다. 하위 타겟팅이 여기서부터 검색한다
         var sub = new AugmentContext();
-        sub.BeginChild(hit.Target, ctx, ctx.DamageMultiplier * damageMultiplier);
+        sub.BeginChild(hit.Target, ctx, ctx.DamageMultiplier * damageMultiplier,
+                       hit.Direction);
 
         AugmentPipeline.Run(sub, targeting, deliveries, effects);
     }

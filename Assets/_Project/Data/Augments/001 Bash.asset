@@ -95,7 +95,7 @@ MonoBehaviour:
       data:
         projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
         speed: 2
-        pierce: 1
+        pierce: 2
         travelRangeMultiplier: 1.2
         lifetime: 3
         launchFx:

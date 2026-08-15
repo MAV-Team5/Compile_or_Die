@@ -14,6 +14,10 @@ public class AugmentProjectile : MonoBehaviour
     readonly HashSet<Transform> alreadyHit = new();
 
     Vector2 velocity;
+
+    /// <summary>비행 방향(정규화). 적중 정보에 실어 하위 파이프라인이 물려받게 한다.</summary>
+    Vector2 heading;
+
     float speed;
     float lifeRemain;
     float travelRemain;
@@ -25,7 +29,8 @@ public class AugmentProjectile : MonoBehaviour
                        System.Action<HitInfo> callback)
     {
         this.speed   = speed;
-        velocity     = direction.normalized * speed;
+        heading      = direction.normalized;
+        velocity     = heading * speed;
         lifeRemain   = lifetime;
         travelRemain = maxDistance;
         pierceRemain = Mathf.Max(1, pierce);
@@ -63,9 +68,10 @@ public class AugmentProjectile : MonoBehaviour
 
         onHit?.Invoke(new HitInfo
         {
-            Target = target,
-            Point  = transform.position,
-            Index  = hitIndex++
+            Target    = target,
+            Point     = transform.position,
+            Index     = hitIndex++,
+            Direction = heading
         });
 
         pierceRemain--;

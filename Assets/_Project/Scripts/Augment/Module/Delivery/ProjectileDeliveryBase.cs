@@ -34,7 +34,9 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
         return false;
     }
 
-    protected void PlayLaunch(Vector2 origin) => launchFx.PlayAt(origin);
+    /// <summary>발사 연출. 여러 발이면 방향이 갈리므로 이 단계가 향하는 방향을 쓴다.</summary>
+    protected void PlayLaunch(AugmentContext ctx, Vector2 origin)
+        => launchFx.PlayAt(origin, ctx.Heading);
 
     /// <summary>한 방향으로 여러 발을 대형에 맞춰 쏜다. shots 가 1이면 그냥 한 발.</summary>
     protected void FireSpread(AugmentContext ctx, Vector2 origin, Vector2 direction,

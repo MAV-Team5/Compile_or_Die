@@ -37,6 +37,16 @@ public class AugmentContext
     public float BaseRange;
 
     /// <summary>
+    /// 이 단계가 향하는 방향(정규화).
+    /// 최초 발동은 시전자가 바라보는 쪽, 하위 파이프라인은 여기까지 날아온 쪽.
+    /// 부채꼴 타겟팅과 방사 발사가 참조한다.
+    /// </summary>
+    public Vector2 Heading;
+
+    /// <summary>방향을 알고 있는가. 시전자가 방향을 안 알려주면 false.</summary>
+    public bool HasDirection => Heading.sqrMagnitude > 0.0001f;
+
+    /// <summary>
     /// 이번 단계가 실제로 쓴 사거리. 타겟팅이 채우고 전달이 읽는다.
     /// 타겟팅에서 반경을 좁혔는데 투사체만 멀리 날아가는 어긋남을 막는다.
     /// </summary>
@@ -59,13 +69,21 @@ public class AugmentContext
         BaseRange = instance.Stat.range;
         EffectiveRange = BaseRange;
 
+        // 최초 발동의 방향은 시전자가 바라보는 쪽.
+        // Runner 는 Player 의 손자라 부모 체인을 타야 찾힌다. 안 알려주면 방향 없음
+        var facing = owner != null ? owner.GetComponentInParent<IFacingProvider>() : null;
+        Heading = facing != null ? facing.Facing : Vector2.zero;
+
         ChainVisited = new HashSet<Transform>();
         Targets.Clear();
     }
 
     /// <summary>연쇄 단계용 초기화. 제외 목록은 상위와 공유한다.</summary>
-    public void BeginChild(Transform owner, AugmentContext parent, float damageMultiplier)
+    public void BeginChild(Transform owner, AugmentContext parent, float damageMultiplier,
+                           Vector2 heading)
     {
+        Heading = heading;
+
         Owner = owner;
         Instance = parent.Instance;
         Stat = parent.Stat;

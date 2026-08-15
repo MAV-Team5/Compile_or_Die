@@ -18,7 +18,7 @@ public class ProjectileDelivery : ProjectileDeliveryBase
         int shots = multiShot.Resolve(ctx);
 
         Vector2 origin = ctx.Owner.position;
-        PlayLaunch(origin);
+        PlayLaunch(ctx, origin);
 
         for (int i = 0; i < ctx.Targets.Count; i++)
         {

@@ -23,52 +23,51 @@ MonoBehaviour:
   - damage: 5
     effectDamage: 2
     cooldown: 1
-    range: 8
-    count: 2
+    range: 1
+    effectRange: 0
+    count: 6
+    pierce: 0
     duration: 0
+    speed: 0
     depth: 0
   trigger:
     rid: 980040056421220447
   targeting:
-    rid: 980040080136339537
+    rid: 980040122817839233
   deliveries:
-  - rid: 980040080136339535
+  - rid: 980040122817839232
   effects:
   - rid: 980040056421220455
-  - rid: -2
   noTargetPolicy: 0
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 980040056421220447
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
-        castVfx: {fileID: 0}
-        castVfxScale: 1
-        castSfx: {fileID: 0}
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
     - rid: 980040056421220455
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damageScale: 1.2
-    - rid: 980040080136339535
-      type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
+        damageScale: 1
+    - rid: 980040122817839232
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
       data:
-        speed: 12
-        lifetime: 3
-        pierce: 1
-        travelRangeMultiplier: 1.2
-        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
-        launchVfx: {fileID: 0}
-        launchVfxScale: 0
-        launchSfx: {fileID: 0}
-        projectileCount: 6
-        spreadAngle: 17
-        basis: 1
-        fixedAngle: 90
-        angleJitter: 10.77
-    - rid: 980040080136339537
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+        blastRadius: 2
+        halfAngle: 65
+        includeCenterTarget: 1
+        blastFx:
+          vfx: {fileID: 8595237471912528195, guid: b8927b28f92377a4ebb605061c81004a, type: 3}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+    - rid: 980040122817839233
+      type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
       data:
         rangeOverride: 0
+        distanceRatio: 0.6
+        fallbackAngle: 90

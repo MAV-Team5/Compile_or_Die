@@ -16,6 +16,7 @@ public enum VfxAnchor
 /// <summary>
 /// 연출 프리팹을 지정 위치에 띄운다.
 /// 수명은 프리팹이 스스로 관리한다 (파티클의 Stop Action = Destroy).
+/// 방향은 IDirectionalVisual 을 통해 넘기며, 처리 방식은 프리팹이 정한다.
 /// </summary>
 public static class VfxSpawner
 {
@@ -31,7 +32,10 @@ public static class VfxSpawner
             _                  => ctx.Owner.position
         };
 
-        GameObject go = Create(prefab, position, scale);
+        // 적중 방향을 먼저 쓰고, 없으면 이 단계가 향하는 방향으로 물러난다
+        Vector2 direction = hit.Direction.sqrMagnitude > 0.0001f ? hit.Direction : ctx.Heading;
+
+        GameObject go = Create(prefab, position, scale, direction);
 
         // Target 앵커만 대상을 따라간다
         if (anchor == VfxAnchor.Target && hit.Target != null)
@@ -39,19 +43,24 @@ public static class VfxSpawner
     }
 
     /// <summary>적중 정보가 없는 시점(시전·발사)용.</summary>
-    public static void SpawnAt(GameObject prefab, Vector2 position, float scale)
+    public static void SpawnAt(GameObject prefab, Vector2 position, float scale,
+                               Vector2 direction = default)
     {
         if (prefab == null) return;
 
-        Create(prefab, position, scale);
+        Create(prefab, position, scale, direction);
     }
 
-    static GameObject Create(GameObject prefab, Vector2 position, float scale)
+    static GameObject Create(GameObject prefab, Vector2 position, float scale, Vector2 direction)
     {
         GameObject go = Object.Instantiate(prefab, position, Quaternion.identity);
 
         if (!Mathf.Approximately(scale, 1f))
             go.transform.localScale *= scale;
+
+        // 방향을 쓸 줄 아는 프리팹에만 건넨다. 회전이든 클립 선택이든 프리팹 몫
+        if (direction.sqrMagnitude > 0.0001f && go.TryGetComponent(out IDirectionalVisual visual))
+            visual.Aim(direction.normalized);
 
         return go;
     }

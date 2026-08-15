@@ -48,6 +48,8 @@
 
 `AugmentPipeline` (3축 실행) · `TargetQuery` (적 검색) · `ProjectileSpawner` · `VfxSpawner` · `SfxPlayer`
 
+연출 방향은 `IDirectionalVisual` — 프리팹이 구현하면 스포너가 방향을 건넨다. `DirectionalSprite` 가 8방향 클립 선택 구현체.
+
 ### 전투
 
 `DamageContext` · `DamagePipeline` · `IDamageReceiver` · `IDisplaceable` · `AugmentProjectile` · `DummyTarget`
@@ -116,11 +118,14 @@ AugmentManager.Update()
 | `AllInRange` | 적 | **전부** (기본 무제한) | `targetLimit` (안전장치) |
 | `RandomPoint` | 좌표 | **N곳** | `pointCount` |
 | `OwnerPoint` | 좌표 | **1곳** (원점 고정) | 없음 |
+| `DirectionPoint` | 좌표 | **1곳** (향한 방향 앞) | 없음 |
 
 ```
 적을 고른다   → 주변에 적이 없으면 발동 자체가 안 된다
 좌표를 찍는다 → 적이 없어도 무조건 발동한다
 ```
+
+`AllInRange` 만 **`halfAngle`** 을 추가로 갖는다. 180이면 전방위, 좁히면 진행 방향 부채꼴만 — DFS 전파용이다.
 
 전부 **`rangeOverride`** 를 갖는다. **0이면 시트의 사거리(`range`)**, 하위 파이프라인 안에서는 **효과 범위(`effectRange`)**. 이 값이 곧 `ctx.EffectiveRange` 가 되어 뒤따르는 전달 모듈의 비행 거리까지 결정한다.
 
@@ -132,9 +137,24 @@ AugmentManager.Update()
 |---|---|---|
 | `Projectile` | 타겟을 **겨눠** 투사체 | `travelRangeMultiplier` |
 | `Radial` | **각도로** 방사 (타겟 위치 무시) | `travelRangeMultiplier` |
-| `Instant` | 비행 없이 즉시 적중 | — |
-| `Area` | 타겟 지점마다 원형 폭발 | `blastRadius` (0이면 `effectRange`) |
+| `Instant` | 타겟을 **그대로** 즉시 적중 | — |
+| `Area` | 타겟 지점 **주변까지** 원형·부채꼴 | `blastRadius` (0이면 `effectRange`) |
 | `Line` | 원점에서 직선 관통 | `lengthMultiplier` |
+
+**`Instant` 와 `Area` 는 대상이 늘어나느냐로 갈린다.**
+
+```
+Nearest(1명) + Instant  →  그 1명만
+Nearest(1명) + Area     →  그 1명 + 주변 전부      ← 늘어남
+```
+
+`Area` 는 타겟을 **폭발 중심점으로만** 쓰고 피해 대상은 새로 검색한다. 그래서 `AllInRange(5명) + Area` 는 폭발이 5번 나고 겹친 적은 여러 번 맞는다.
+
+좌표 타겟일 때는 둘 다 그 자리를 훑어서 동작이 비슷해진다. 이때는 **의도로 구분**한다 — `Instant.pointSearchRadius` 는 "밟은 놈" 판정용이라 작게 고정, `Area.blastRadius` 는 폭발 범위라 레벨 따라 자란다.
+
+`Area` 의 **`halfAngle`** 을 좁히면 부채꼴이 된다. 휘두르기 판정용.
+
+**본체 프리팹이 필요한 모듈** — `Projectile`·`Radial` 은 `projectilePrefab`(＊), `Line` 은 `beamPrefab`(＊). 비우면 판정만 나가고 아무것도 안 보인다. `Instant`·`Area` 는 본체가 없어 연출 묶음만 있다.
 
 ### Effect
 
@@ -191,6 +211,24 @@ Targeting        [ All In Range ▾ ]
 
 **오른쪽에 부착 위치와 채움 여부**가 보인다. 펼치면 이펙트 · 크기 · 효과음 · 음량 4칸.
 
+### 연출이 방향을 쓰려면 — `IDirectionalVisual`
+
+스포너는 **방향만 건네고 처리는 프리팹이 정한다.** 모듈에는 회전 옵션 같은 게 없다.
+
+```csharp
+public interface IDirectionalVisual { void Aim(Vector2 direction); }
+```
+
+```
+원형 충격파   → 인터페이스 미구현. 방향을 무시한다
+휘두르기 도트  → DirectionalSprite 로 8방향 클립 선택
+검기          → transform.up = dir 로 회전
+```
+
+**`DirectionalSprite` 가 기본 제공된다.** `Animator` 와 같이 붙이고 클립을 `Swing_E` · `Swing_NE` … 로 이름만 맞추면 된다. State 만 만들어두면 전이는 안 그려도 된다 — `Animator.Play` 가 이름으로 바로 점프한다.
+
+> 회전은 도트를 뭉갠다. **8방향 클립이 픽셀아트에는 정답**이고, 회전은 원형·대칭 연출에만 쓸 것.
+
 연출 말고도 긴 묶음은 같은 방식으로 접힌다.
 
 ```
@@ -244,6 +282,37 @@ effectRange  효과 범위     닿은 뒤 퍼지는 크기
 > **하위 파이프라인은 자동으로 `effectRange` 로 갈아탄다.** `SubPipeline` · `Chain` 안의 타겟팅은 `rangeOverride = 0` 이면 `effectRange` 를 본다. BFS 전파 반경이 레벨 따라 자라는 게 이 규칙 덕분이다.
 > `effectRange` 가 0이면 `range` 로 물러난다.
 
+### 방향 — `ctx.Heading`
+
+**이 단계가 향하는 방향**이다. 어디서 오느냐에 따라 출처가 다르다.
+
+```
+최초 발동      시전자가 바라보는 쪽   ← IFacingProvider
+하위 파이프라인  여기까지 날아온 쪽     ← HitInfo.Direction
+```
+
+`Player` 가 `IFacingProvider` 를 구현해서 마지막 이동 방향을 알려준다. 손을 떼도 유지된다.
+
+전달 모듈이 적중할 때마다 방향을 실어준다.
+
+```
+투사체   비행 방향
+레이저   레이저가 뻗은 방향
+폭발     중심에서 대상 쪽 (바깥으로)
+즉발     원점에서 대상 쪽
+```
+
+쓰는 곳은 세 군데.
+
+| 쓰는 곳 | 무엇 |
+|---|---|
+| `DirectionPoint` | 그 방향 앞에 좌표를 찍는다 |
+| `AllInRange.halfAngle` | 그 방향 부채꼴 안의 적만 고른다 |
+| `Area.halfAngle` | 그 방향 부채꼴로만 터진다 (휘두르기) |
+| `Radial.aimBasis = Incoming` | 그 방향을 중심으로 방사한다 |
+
+**시전자가 방향을 안 알려주면 zero.** 이때는 각도를 무시하고 전방위로 물러난다.
+
 ### `ctx.EffectiveRange`
 
 **타겟팅이 실제로 쓴 반경**을 기록해두는 자리다. Delivery가 이걸 읽는다.
@@ -293,6 +362,37 @@ Tree의 *"자식에게 50% 전이"* 처럼 한 증강 안에서 강약을 줄 �
 
 ---
 
+## 5-1. BFS / DFS 조립
+
+각도 하나로 갈린다.
+
+```
+Trigger    Cooldown
+Targeting  Nearest
+Delivery   Projectile   pierce 크게(관통), 보이는 프리팹
+
+Effect  ① Search
+        ② SubPipeline
+             targeting   AllInRange
+                           rangeOverride 0        ← effectRange 자동 사용
+                           halfAngle   BFS 180 / DFS 60
+             deliveries  Radial
+                           aimBasis    BFS Random / DFS Incoming
+                           spreadAngle BFS 360    / DFS 120
+                           projectilePrefab  투명
+             effects     Search
+        ③ Damage
+```
+
+```
+BFS   적중 지점에서 사방으로        전방위 파동
+DFS   맞은 방향 그대로 앞쪽으로만   한 방향으로 뻗는 탐색
+```
+
+전파 반경은 `SubPipeline` 안이라 **시트의 효과 범위(effectRange)** 를 따라 레벨마다 자란다.
+
+---
+
 ## 6. 증강 만들기 — 코드 없이
 
 1. `Data/Augments/{분류}/` 우클릭 → **Create → CoD → Augment**
@@ -329,6 +429,16 @@ public class ConeAreaDelivery : DeliveryModule
 - 모든 public 필드에 `[Tooltip]`
 - 비우면 모듈이 죽는 필드에 `[Required("무슨 일이 생기는지")]`
 - 연출은 `[Fx("이름", "부착 위치")] public FxGroup ○○Fx = new();` — 한 줄로 접힌다
+
+> **본체와 연출을 섞지 말 것.**
+> ```
+> 모듈이 반드시 만들어내는 것   →  개별 필드 + [Required]
+> 있으면 좋은 것                →  [Fx] 묶음
+> ```
+> `Line` 은 레이저 프리팹을 `[Fx]` 안에 넣었다가 "비어 있음"이 정상처럼 보이는 문제가 있었다.
+> `Projectile` 처럼 **`○○Prefab`(＊) + `○○Fx`(선택)** 두 칸으로 나눌 것.
+>
+> `[Fx]` 와 `[Tooltip]` 을 같이 쓰면 **툴팁이 조용히 사라진다.** 설명은 `FxGroup` 안쪽 필드에 달 것.
 - **Targeting 이라면 `ctx.EffectiveRange` 를 반드시 채울 것**
 - 설정값은 위, 중첩 `[SerializeReference]` 리스트는 아래에 선언할 것 — 인스펙터가 그 순서대로 그려진다
 - 요약 주석 첫 줄에 **담당 영역**을 적을 것. 기존 모듈과 겹치면 새로 만들지 말고 기존 것을 쓸 것
@@ -383,11 +493,11 @@ public class ConeAreaDelivery : DeliveryModule
 > Targeting 없이 Delivery만 도는 경우는 없으므로 항상 채워져 있다.
 > 새 Targeting 모듈을 만들 때는 **반드시 `ctx.EffectiveRange` 를 채울 것.**
 
-### 🔴 3. `OwnerPoint` + `Projectile` = 무동작
+### ✅ 3. `OwnerPoint` + `Projectile` = 무동작 — 대체됨
 
-원점과 목표가 같아서 방향이 0이 되고, 가드에 걸려 아무것도 안 나간다. 조립은 되는데 결과가 없다.
+원점과 목표가 같아서 방향이 0이 되고, 가드에 걸려 아무것도 안 나간다. 이 조합 자체는 여전히 무동작이다.
 
-> **`OwnerPoint` 는 `Area` 나 `Radial` 과 함께 쓸 것.**
+> **앞으로 쏘려면 `DirectionPoint` 를 쓸 것.** `OwnerPoint` 는 제자리에서 터지는 `Area` · `Radial` 전용.
 
 ### 🔴 4. `Chain` 중첩 시 지수 폭발
 

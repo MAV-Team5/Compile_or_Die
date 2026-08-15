@@ -9,6 +9,11 @@ using UnityEngine;
 [ModuleInfo("원점에서 직선 관통", "한 프레임에 선상 전체를 훑는다")]
 public class LineDelivery : DeliveryModule
 {
+    [Header("레이저")]
+    [Required("판정은 나가지만 레이저가 보이지 않는다")]
+    [Tooltip("레이저 본체 프리팹. BeamVisual 컴포넌트가 붙어 있으면 길이·굵기·페이드를 알아서 맞춘다.")]
+    public GameObject beamPrefab;
+
     [Tooltip("레이저 굵기(유닛). 시트와 무관한 고정값. 이 폭 안에 걸친 적이 전부 맞는다.")]
     public float width = 0.6f;
 
@@ -21,9 +26,8 @@ public class LineDelivery : DeliveryModule
     [Tooltip("켜면 타겟마다 따로 쏜다. 끄면 첫 타겟 방향으로 한 줄만.")]
     public bool beamPerTarget = false;
 
-    [Fx("레이저 연출", "원점→방향")]
-    [Tooltip("이펙트 프리팹에 BeamVisual 이 있으면 길이·굵기·페이드를 알아서 맞춘다.")]
-    public FxGroup beamFx = new();
+    [Fx("발사 연출", "발사 원점")]
+    public FxGroup fireFx = new();
 
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
@@ -51,7 +55,7 @@ public class LineDelivery : DeliveryModule
               ref int index, System.Action<HitInfo> onHit)
     {
         SpawnBeam(origin, dir, length);
-        SfxPlayer.Play(beamFx.sfx, beamFx.sfxVolume);
+        fireFx.PlayAt(origin, dir);
 
         // 원점에서 dir 방향으로 뻗은 직사각형 안의 적을 한 번에 잡는다
         Vector2 center = origin + dir * (length * 0.5f);
@@ -73,18 +77,20 @@ public class LineDelivery : DeliveryModule
         {
             onHit(new HitInfo
             {
-                Target = ordered[i],
-                Point  = ordered[i].position,
-                Index  = index++
+                Target    = ordered[i],
+                Point     = ordered[i].position,
+                Index     = index++,
+                Direction = dir
             });
         }
     }
 
+    /// <summary>레이저 본체를 띄운다. 연출이 아니라 이 모듈의 결과물이다.</summary>
     void SpawnBeam(Vector2 origin, Vector2 dir, float length)
     {
-        if (beamFx.vfx == null) return;
+        if (beamPrefab == null) return;
 
-        GameObject go = Object.Instantiate(beamFx.vfx, origin, Quaternion.identity);
+        GameObject go = Object.Instantiate(beamPrefab, origin, Quaternion.identity);
 
         if (go.TryGetComponent(out BeamVisual beam))
         {

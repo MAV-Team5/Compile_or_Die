@@ -17,7 +17,10 @@ public class RadialDelivery : ProjectileDeliveryBase
         FirstTarget,
 
         /// <summary>아래 고정 각도.</summary>
-        Fixed
+        Fixed,
+
+        /// <summary>여기까지 오게 한 진행 방향. 하위 파이프라인에서 "가던 쪽으로 계속" 퍼질 때.</summary>
+        Incoming
     }
 
     [Header("방사")]
@@ -44,7 +47,7 @@ public class RadialDelivery : ProjectileDeliveryBase
         if (count <= 0) count = 1;
 
         Vector2 origin = ctx.Owner.position;
-        PlayLaunch(origin);
+        PlayLaunch(ctx, origin);
 
         float center = CenterAngle(ctx, origin);
         bool full = spreadAngle >= 359.9f;
@@ -73,6 +76,15 @@ public class RadialDelivery : ProjectileDeliveryBase
     float CenterAngle(AugmentContext ctx, Vector2 origin)
     {
         if (aimBasis == AimBasis.Fixed) return fixedAngle;
+
+        if (aimBasis == AimBasis.Incoming)
+        {
+            // 최초 발동은 온 방향이 없다. 그때는 고정 각도로 물러난다
+            if (!ctx.HasDirection) return fixedAngle;
+
+            Vector2 d = ctx.Heading;
+            return Mathf.Atan2(d.y, d.x) * Mathf.Rad2Deg;
+        }
 
         if (aimBasis == AimBasis.FirstTarget)
         {

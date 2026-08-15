@@ -51,7 +51,8 @@ public class ChainEffect : EffectModule
 
         // 적중한 적을 원점으로 삼는다. 하위 타겟팅이 여기서부터 검색한다
         var sub = new AugmentContext();
-        sub.BeginChild(hit.Target, ctx, ctx.DamageMultiplier * (1f + amplifyPerDepth));
+        sub.BeginChild(hit.Target, ctx, ctx.DamageMultiplier * (1f + amplifyPerDepth),
+                       hit.Direction);
 
         // 하위 효과에 자기 자신을 붙여야 다음 단계로 이어진다. 깊이 가드가 종료를 보장한다
         var chained = new List<EffectModule>(effects) { this };
