@@ -20,16 +20,16 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   levelStats:
-  - damage: 1
+  - damage: 2
     effectDamage: 0
-    cooldown: 0.3
+    cooldown: 9
     range: 8
     effectRange: 0
-    count: 3
+    count: 1
     pierce: 0
     duration: 0
-    speed: 0
-    depth: 6
+    speed: 6
+    depth: 8
   trigger:
     rid: 980040056421220425
   targeting:
@@ -37,10 +37,9 @@ MonoBehaviour:
   deliveries:
   - rid: 980040056421220427
   effects:
-  - rid: 980040056421220434
-  - rid: 980040056421220435
-  - rid: 980040080136339539
-  noTargetPolicy: 1
+  - rid: 980040160363151451
+  - rid: 980040160363151455
+  noTargetPolicy: 0
   references:
     version: 2
     RefIds:
@@ -55,9 +54,9 @@ MonoBehaviour:
     - rid: 980040056421220427
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
-        speed: 3
-        pierce: 1
+        projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
+        speed: 0
+        pierce: 0
         travelRangeMultiplier: 1.2
         lifetime: 3
         launchFx:
@@ -70,55 +69,51 @@ MonoBehaviour:
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
-    - rid: 980040056421220434
-      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damageScale: 1
-    - rid: 980040056421220435
-      type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
-      data:
-        maxDepthOverride: 0
-        amplifyPerDepth: 0
-        targeting:
-          rid: 980040056421220436
-        deliveries:
-        - rid: 980040056421220437
-        effects:
-        - rid: 980040056421220438
-        finalEffects: []
-    - rid: 980040056421220436
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride: 0
-    - rid: 980040056421220437
-      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
-      data:
-        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
-        speed: 2
-        pierce: 2
-        travelRangeMultiplier: 1.2
-        lifetime: 3
-        launchFx:
-          vfx: {fileID: 0}
-          vfxScale: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
-        multiShot:
-          shotsPerTarget: 1
-          formation: 0
-          spacing: 0.4
-          spreadPerShot: 0
-    - rid: 980040056421220438
-      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damageScale: 1
-    - rid: 980040080136339539
-      type: {class: LogEffect, ns: , asm: Assembly-CSharp}
-      data:
-        message: "> {name} \u2192 {target}"
-        logType: 3
-        minInterval: 0.5
     - rid: 980040080136339577
       type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
       data:
         rangeOverride: 0
+    - rid: 980040160363151451
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+    - rid: 980040160363151455
+      type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
+      data:
+        maxDepthOverride: 0
+        amplifyPerDepth: 0.15
+        targeting:
+          rid: 980040160363151461
+        deliveries:
+        - rid: 980040160363151457
+        effects:
+        - rid: 980040160363151458
+        finalEffects: []
+    - rid: 980040160363151457
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
+        speed: 0
+        pierce: 0
+        travelRangeMultiplier: 1.2
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        multiShot:
+          shotsPerTarget: 1
+          formation: 0
+          spacing: 0.4
+          spreadPerShot: 0
+    - rid: 980040160363151458
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+    - rid: 980040160363151461
+      type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+        distanceRatio: 0.6
+        fallbackAngle: 90

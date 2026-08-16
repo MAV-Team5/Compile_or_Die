@@ -15,6 +15,8 @@ public class MenuManager : MonoBehaviour
     public UIPanel pausePanel;
     public UIPanel logPanel;
 
+    private bool setPause = false;
+
     public void OnClickCharacterMenu()
     {
         characterPanel.Open();
@@ -42,8 +44,20 @@ public class MenuManager : MonoBehaviour
 
     public void OnClickPause()
     {
-        pausePanel.Open();
+        if(setPause == false)
+        {
+            pausePanel.Open();
+            setPause = true;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pausePanel.Close();
+            setPause = false;
+            Time.timeScale = 1;
+        }
     }
+    
 
     public void OnClickLog()
     {

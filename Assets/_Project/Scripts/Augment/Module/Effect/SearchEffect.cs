@@ -23,9 +23,16 @@ public class SearchEffect : EffectModule
     public bool releaseOnRefire = true;
 
     [Tooltip("적 위에 붙일 표식 오브젝트. 여러 표식은 자동으로 위로 쌓인다.\n" +
-             "비워도 추가 피해는 그대로 들어간다 — 눈에 안 보일 뿐이다.\n" +
-             "적을 따라다녀야 하므로 연출 묶음이 아니라 별도 필드다.")]
+             "위치와 크기는 적 프리팹의 MarkAnchor 가 정한다.\n" +
+             "비워도 추가 피해는 그대로 들어간다 — 눈에 안 보일 뿐이다.")]
     public GameObject markVfx;
+
+    [Fx("표식 발동 연출", "표식 위치")]
+    public FxGroup burstFx = new();
+
+    [Tooltip("표식 발동 연출의 최소 간격(초). 빠른 공격에 도배되는 것을 막는다.\n" +
+             "표식 자체는 사라지지 않는다 — 연출만 걸러진다.")]
+    public float burstInterval = 0.1f;
 
     static readonly List<Transform> releaseBuffer = new();
 
@@ -46,26 +53,17 @@ public class SearchEffect : EffectModule
         float bonus = bonusOverride > 0f ? bonusOverride : ctx.Stat.effectDamage;
         float life = durationOverride > 0f ? durationOverride : ctx.Stat.duration;
 
-        var mark = new SearchMark
+        // 표식 오브젝트 생성은 MarkerHolder 가 맡는다. 적 프리팹의 MarkAnchor 를 알아야 하므로
+        holder.Apply(new SearchMark
         {
-            Owner     = ctx.Instance,
-            Bonus     = bonus,
-            IsPercent = isPercent,
-            ExpireAt  = life > 0f ? Time.time + life : 0f,
-            Visual    = CreateVisual(ctx, hit.Target)
-        };
-
-        holder.Apply(mark);
-    }
-
-    GameObject CreateVisual(AugmentContext ctx, Transform target)
-    {
-        if (markVfx == null) return null;
-
-        GameObject visual = Object.Instantiate(markVfx, target);
-        visual.name = $"Mark_{ctx.Instance.Data.name}";
-
-        return visual;
+            Owner         = ctx.Instance,
+            Bonus         = bonus,
+            IsPercent     = isPercent,
+            ExpireAt      = life > 0f ? Time.time + life : 0f,
+            VisualPrefab  = markVfx,
+            BurstFx       = burstFx,
+            BurstInterval = burstInterval
+        });
     }
 
     /// <summary>이 증강이 남긴 표식을 전부 해제한다.</summary>

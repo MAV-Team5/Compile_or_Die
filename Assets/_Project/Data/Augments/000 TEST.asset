@@ -91,7 +91,7 @@ MonoBehaviour:
     - rid: 980040160363151447
       type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 6824073935605403827, guid: 47a838b7c040b9d4cbc0311dbdde341e, type: 3}
+        projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
         speed: 12
         pierce: 1
         travelRangeMultiplier: 1.2

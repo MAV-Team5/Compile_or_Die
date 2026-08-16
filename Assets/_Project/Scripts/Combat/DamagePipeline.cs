@@ -17,7 +17,7 @@ public static class DamagePipeline
         if (dmg.TargetTransform != null &&
             dmg.TargetTransform.TryGetComponent(out MarkerHolder marks))
         {
-            dmg.Amount += marks.TotalBonus(dmg.BaseAmount);
+            dmg.Amount += marks.Consume(dmg.BaseAmount);
         }
 
         // 3. 비트 표식 보너스 — Bitwise 도입 시 여기에 연결
