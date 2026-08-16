@@ -23,6 +23,10 @@ public class GameHud : MonoBehaviour
     [SerializeField] Vector2 augmentHudOffset = new(-40f, 40f);
     [SerializeField] float augmentCellSize = 128f;
 
+    [Header("로그 배치")]
+    [Tooltip("로그 텍스트를 경험치바 위로 띄우는 여백. 경험치바 높이에 더해진다.")]
+    [SerializeField] float logRaiseMargin = 40f;
+
     TMP_Text timerText;
     TMP_Text expText;
     RectTransform expFill;
@@ -45,6 +49,7 @@ public class GameHud : MonoBehaviour
         BuildExpBar();
         BuildGameOver();
         PlaceAugmentHud();
+        RaiseLogAboveExpBar();
 
         levelSystem = GameManager.instance.levelSystem;
         levelSystem.ExpChanged += OnExpChanged;
@@ -141,6 +146,19 @@ public class GameHud : MonoBehaviour
 
         if (hud.TryGetComponent(out GridLayoutGroup grid))
             grid.cellSize = new Vector2(augmentCellSize, augmentCellSize);
+    }
+
+    /// <summary>기존 위치를 유지한 채 경험치바 높이만큼만 위로 밀어 겹침을 막는다.</summary>
+    void RaiseLogAboveExpBar()
+    {
+        if (LogManager.Instance == null) return;
+
+        RectTransform rect = LogManager.Instance.TextRect;
+        if (rect == null) return;
+
+        Vector2 pos = rect.anchoredPosition;
+        pos.y += expBarHeight + logRaiseMargin;
+        rect.anchoredPosition = pos;
     }
 
     // ── 갱신 ──────────────────────────────────────────────

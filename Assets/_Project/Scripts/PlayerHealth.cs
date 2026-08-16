@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -24,14 +25,34 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
     public event System.Action<float, float> Changed;
     public event System.Action Died;
 
+    [Header("접촉 판정")]
+    [Tooltip("적을 찾을 물리 레이어. 비우면 \"Enemy\" 레이어를 자동으로 쓴다.")]
+    [SerializeField] LayerMask enemyLayer;
+
     SpriteRenderer[] renderers;
     Color[] originalColors;
     float flashRemain;
     bool tinted;
 
+    Collider2D bodyCollider;
+    ContactFilter2D enemyFilter;
+    readonly List<Collider2D> overlapBuffer = new();
+
     void Awake()
     {
         Current = maxHealth;
+
+        // 콜라이더는 자기 GameObject 것만 잡는다 — 자식인 무기 판정용 Area는 제외된다.
+        // Area는 Rigidbody2D가 없어 플레이어 Rigidbody2D의 복합 콜라이더로 묶이므로,
+        // 메시지 기반(OnTriggerStay2D) 판정을 쓰면 무기 사거리에만 들어와도 맞은 걸로 잡힌다.
+        // 그래서 몸통 콜라이더 하나만 명시해 직접 겹침 검사를 한다.
+        bodyCollider = GetComponent<Collider2D>();
+
+        if (enemyLayer.value == 0) enemyLayer = LayerMask.GetMask("Enemy");
+
+        enemyFilter = new ContactFilter2D();
+        enemyFilter.SetLayerMask(enemyLayer);
+        enemyFilter.useTriggers = true;
     }
 
     void Start()
@@ -67,27 +88,26 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
         Changed?.Invoke(Current, maxHealth);
     }
 
-    // 적과 겹쳐 있는 동안 매 물리 스텝마다 들어온다. 닿아 있는 시간만큼 피해가 쌓인다
-    void OnCollisionStay2D(Collision2D collision)
+    // 몸통 콜라이더 하나만 대상으로 실제로 겹친 적을 직접 찾는다.
+    // 플레이어 Rigidbody2D에 묶인 다른 콜라이더(무기 Area 등)는 여기 끼어들지 않는다.
+    void FixedUpdate()
     {
-        ApplyContact(collision.collider);
-    }
+        if (IsDead || bodyCollider == null) return;
 
-    // 적 콜라이더가 트리거로 바뀌어도 접촉 피해는 유지되게 양쪽 다 받는다
-    void OnTriggerStay2D(Collider2D other)
-    {
-        ApplyContact(other);
-    }
+        int count = Physics2D.OverlapCollider(bodyCollider, enemyFilter, overlapBuffer);
 
-    void ApplyContact(Collider2D other)
-    {
-        // 콜라이더가 자식에 있는 적 프리팹도 있어서 부모까지 훑는다
-        if (!other.TryGetComponent(out Enemy enemy))
-            enemy = other.GetComponentInParent<Enemy>();
+        for (int i = 0; i < count; i++)
+        {
+            Collider2D other = overlapBuffer[i];
 
-        if (enemy == null) return;
+            // 콜라이더가 자식에 있는 적 프리팹도 있어서 부모까지 훑는다
+            if (!other.TryGetComponent(out Enemy enemy))
+                enemy = other.GetComponentInParent<Enemy>();
 
-        TakeDamage(enemy.contactDamage * Time.fixedDeltaTime);
+            if (enemy == null) continue;
+
+            TakeDamage(enemy.contactDamage * Time.fixedDeltaTime);
+        }
     }
 
     void Update()

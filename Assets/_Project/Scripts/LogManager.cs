@@ -34,6 +34,9 @@ public class LogManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TMP_Text logText;
 
+    /// <summary>로그 텍스트의 RectTransform. 다른 HUD가 겹치지 않게 위치를 미룰 때 쓴다.</summary>
+    public RectTransform TextRect => logText != null ? (RectTransform)logText.transform : null;
+
     [Header("Settings")]
     [SerializeField] private int maxLines = 10;
 

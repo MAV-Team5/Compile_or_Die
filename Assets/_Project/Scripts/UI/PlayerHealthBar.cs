@@ -55,6 +55,11 @@ public class PlayerHealthBar : MonoBehaviour
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = WhiteSprite();
         sr.color = color;
+
+        // 정렬 레이어는 순서가 아니라 레이어 자체가 우선이다.
+        // "Default"(제일 아래)에 두면 Background/Enemy/Player 레이어에 전부 가려진다.
+        // 데미지 텍스트와 같은 "Effect" 레이어를 써서 항상 위에 뜨게 한다.
+        sr.sortingLayerName = "Effect";
         sr.sortingOrder = order;
         return go.transform;
     }
