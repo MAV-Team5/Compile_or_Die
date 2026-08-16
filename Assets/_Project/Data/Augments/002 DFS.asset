@@ -21,65 +21,25 @@ MonoBehaviour:
   requiredRootLevel: 0
   levelStats:
   - damage: 0
-    effectDamage: 1.5
-    cooldown: 6
-    range: 10
-    effectRange: 0
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 2
-  - damage: 0
     effectDamage: 2
-    cooldown: 5.3
-    range: 10.5
-    effectRange: 0
+    cooldown: 3
+    range: 15
+    effectRange: 20
     count: 0
     pierce: 0
     duration: 0
-    speed: 0
-    depth: 2
-  - damage: 0
-    effectDamage: 2.5
-    cooldown: 4.6
-    range: 11
-    effectRange: 0
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 3
-  - damage: 0
-    effectDamage: 3
-    cooldown: 3.9
-    range: 11.5
-    effectRange: 0
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 3
-  - damage: 0
-    effectDamage: 3.5
-    cooldown: 3.2
-    range: 12
-    effectRange: 0
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 4
+    speed: 15
+    depth: 0
   trigger:
     rid: 980040080136339540
   targeting:
-    rid: 980040080136339566
+    rid: 980040160363151468
   deliveries:
   - rid: 980040080136339555
   effects:
-  - rid: 980040080136339544
-  - rid: 980040080136339560
-  noTargetPolicy: 1
+  - rid: 980040160363151464
+  - rid: 980040160363151474
+  noTargetPolicy: 0
   references:
     version: 2
     RefIds:
@@ -91,19 +51,11 @@ MonoBehaviour:
           vfxScale: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-    - rid: 980040080136339544
-      type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
-      data:
-        bonusOverride: 0
-        isPercent: 0
-        durationOverride: 0
-        releaseOnRefire: 1
-        markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
     - rid: 980040080136339555
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
         projectilePrefab: {fileID: 6824073935605403827, guid: 794539ce5611b074c9e6add699a4c038, type: 3}
-        speed: 12
+        speed: 8
         pierce: 1
         travelRangeMultiplier: 1.2
         lifetime: 3
@@ -117,27 +69,41 @@ MonoBehaviour:
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
-    - rid: 980040080136339560
+    - rid: 980040160363151464
+      type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
+      data:
+        bonusOverride: 1
+        isPercent: 0
+        durationOverride: 0
+        releaseOnRefire: 1
+        markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        burstFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        burstInterval: 0.1
+    - rid: 980040160363151468
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+    - rid: 980040160363151474
       type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
       data:
         damageMultiplier: 1
         targeting:
-          rid: 980040080136339561
+          rid: 980040160363151478
         deliveries:
-        - rid: 980040080136339562
+        - rid: 980040160363151476
         effects:
-        - rid: 980040080136339563
-    - rid: 980040080136339561
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride: 0
-    - rid: 980040080136339562
+        - rid: 980040160363151477
+    - rid: 980040160363151476
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 6824073935605403827, guid: 794539ce5611b074c9e6add699a4c038, type: 3}
-        speed: 12
-        pierce: 99
-        travelRangeMultiplier: 1
+        projectilePrefab: {fileID: 5636804321861149976, guid: 4270f0bd59cea22449030744c77c69d9, type: 3}
+        speed: 0
+        pierce: 999
+        travelRangeMultiplier: 1.2
         lifetime: 3
         launchFx:
           vfx: {fileID: 0}
@@ -149,16 +115,23 @@ MonoBehaviour:
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
-    - rid: 980040080136339563
+    - rid: 980040160363151477
       type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
       data:
-        bonusOverride: 0
+        bonusOverride: 1
         isPercent: 0
         durationOverride: 0
-        releaseOnRefire: 1
+        releaseOnRefire: 0
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
-    - rid: 980040080136339566
-      type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
+        burstFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        burstInterval: 0.1
+    - rid: 980040160363151478
+      type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
       data:
         rangeOverride: 0
-        targetCount: 1
+        distanceRatio: 0.27
+        fallbackAngle: 90

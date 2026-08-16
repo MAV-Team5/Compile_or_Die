@@ -113,3 +113,37 @@ MonoBehaviour:
           vfxScale: 3
           sfx: {fileID: 0}
           sfxVolume: 1
+    - rid: 980040160363151447
+      type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
+        speed: 12
+        pierce: 1
+        travelRangeMultiplier: 1.2
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        projectileCount: 0
+        spreadAngle: 139.5
+        aimBasis: 3
+        fixedAngle: 90
+        angleJitter: 0
+    - rid: 980040160363151448
+      type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+        distanceRatio: 0.6
+        fallbackAngle: 90
+    - rid: 980040160363151449
+      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 1.5
+        pull: 0
+        stunDuration: 0.2
+    - rid: 980040160363151450
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 2

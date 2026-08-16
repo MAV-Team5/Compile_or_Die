@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ExpMove : MonoBehaviour
@@ -11,6 +12,8 @@ public class ExpMove : MonoBehaviour
     private bool isMagneted = false;
 
     private Player player;
+
+    public FxGroup fxG = new();
 
     void Start()
     {
@@ -55,7 +58,7 @@ public class ExpMove : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         GameManager.instance.player.GetExp(exp);
-
+        fxG.PlayAt(Vector2.zero);
         gameObject.SetActive(false);
     }
 }
