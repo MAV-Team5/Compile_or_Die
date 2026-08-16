@@ -63,4 +63,7 @@ public class SpawnData
     public float spawnTime;
     public int health;
     public float speed;
+
+    /// <summary>플레이어와 닿아 있는 동안 초당 주는 피해.</summary>
+    public float contactDamage = 10f;
 }
