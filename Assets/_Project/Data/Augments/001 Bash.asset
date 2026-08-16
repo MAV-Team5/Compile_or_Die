@@ -30,7 +30,7 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 3
-  - damage: 1.4
+  - damage: 1.5
     effectDamage: 0
     cooldown: 0.33
     range: 7.5
@@ -40,7 +40,7 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 4
-  - damage: 1.8
+  - damage: 2
     effectDamage: 0
     cooldown: 0.3
     range: 8
@@ -50,7 +50,7 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 5
-  - damage: 2.2
+  - damage: 2.5
     effectDamage: 0
     cooldown: 0.27
     range: 8.5
@@ -60,7 +60,7 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 6
-  - damage: 2.6
+  - damage: 3
     effectDamage: 0
     cooldown: 0.24
     range: 9
@@ -81,6 +81,9 @@ MonoBehaviour:
   - rid: 980040056421220435
   - rid: 980040080136339539
   noTargetPolicy: 1
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
   references:
     version: 2
     RefIds:

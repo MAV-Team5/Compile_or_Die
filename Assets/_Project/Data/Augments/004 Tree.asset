@@ -16,9 +16,9 @@ MonoBehaviour:
   displayName: Tree
   category: 2
   icon: {fileID: 21300000, guid: dade702cf85314a13ae63b5c8452b230, type: 3}
-  descriptionTemplate: "가장 가까운 대상을 향해
-    가지처럼 {count}개로 갈라져 피해를
-    준다."
+  descriptionTemplate: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uB300\uC0C1\uC744 \uD5A5\uD574
+    \uAC00\uC9C0\uCC98\uB7FC {count}\uAC1C\uB85C \uAC08\uB77C\uC838 \uD53C\uD574\uB97C
+    \uC900\uB2E4."
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   levelStats:
@@ -81,9 +81,20 @@ MonoBehaviour:
   effects:
   - rid: 103223854106389223
   noTargetPolicy: 0
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
   references:
     version: 2
     RefIds:
+    - rid: 103223854106389223
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+    - rid: 571370152870763455
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
     - rid: 823776550232576661
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
@@ -92,14 +103,10 @@ MonoBehaviour:
           vfxScale: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-    - rid: 571370152870763455
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride: 0
     - rid: 845947609108300422
       type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+        projectilePrefab: {fileID: 6824073935605403827, guid: 65844a7a882df55488297b589d9ac7fb, type: 3}
         speed: 0
         pierce: 0
         travelRangeMultiplier: 1.2
@@ -114,7 +121,3 @@ MonoBehaviour:
         aimBasis: 1
         fixedAngle: 90
         angleJitter: 5
-    - rid: 103223854106389223
-      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damageScale: 1
