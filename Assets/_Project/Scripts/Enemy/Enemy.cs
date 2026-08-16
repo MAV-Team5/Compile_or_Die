@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     public float speed;
     public float health;
     public float maxHealth;
+
+    /// <summary>플레이어와 닿아 있는 동안 초당 주는 피해.</summary>
+    public float contactDamage = 10f;
     public RuntimeAnimatorController[] animCon;
     public Rigidbody2D target;
     public GameObject expPrefab;
@@ -77,6 +80,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         speed = data.speed;
         maxHealth = data.health;
         health = data.health;
+        contactDamage = data.contactDamage;
     }
     /// <summary>피해 진입점. 기존 무기와 증강이 모두 여기로 들어온다.</summary>
     public void TakeDamage(float amount)
@@ -108,6 +112,8 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     void Dead()
     {
         isLive = false;
+
+        GameManager.instance.AddKill();
 
         GameObject exp = GameManager.instance.poolManager.Get(PoolType.Exp, 0);
         exp.transform.position = transform.position;
