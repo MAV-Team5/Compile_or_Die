@@ -34,10 +34,16 @@ public class LogManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TMP_Text logText;
 
+    /// <summary>로그 텍스트의 RectTransform. 다른 HUD가 겹치지 않게 위치를 미룰 때 쓴다.</summary>
+    public RectTransform TextRect => logText != null ? (RectTransform)logText.transform : null;
+
     [Header("Settings")]
     [SerializeField] private int maxLines = 10;
 
     private readonly Queue<LogEntry> logs = new();
+
+    // 로그 맨 아래 흰색으로 고정되는 상태줄. 체력·레벨·킬 수 표시용
+    private string statusLine;
 
     private void Awake()
     {
@@ -86,7 +92,19 @@ public class LogManager : MonoBehaviour
             sb.AppendLine(FormatLog(logArray[i], alpha));
         }
 
+        if (!string.IsNullOrEmpty(statusLine))
+            sb.AppendLine($"<color=#FFFFFF>> {statusLine}</color>");
+
         logText.text = sb.ToString();
+    }
+
+    /// <summary>로그 맨 아래 흰색 고정 줄을 갱신한다. 값이 같으면 다시 그리지 않는다.</summary>
+    public void SetStatusLine(string line)
+    {
+        if (statusLine == line) return;
+
+        statusLine = line;
+        RefreshUI();
     }
 
     private string FormatLog(LogEntry log, float alpha)

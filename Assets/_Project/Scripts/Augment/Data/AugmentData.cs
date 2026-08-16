@@ -2,6 +2,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// 레벨/보유 개념 없이 선택 즉시 1회 적용되는 아이템 효과.
+/// None이 아니면 AugmentManager에 등록되지 않고, 선택 즉시 소비된 뒤 사라진다 —
+/// 그래서 항상 "새 증강"으로 취급되어 몇 번이고 다시 뜰 수 있다.
+/// </summary>
+public enum InstantItemEffect
+{
+    None,
+
+    /// <summary>최대 체력의 instantValue 비율만큼 즉시 회복.</summary>
+    Heal,
+
+    /// <summary>instantDuration초 동안 이동속도를 (1 + instantValue)배로.</summary>
+    SpeedBoost
+}
+
+/// <summary>
 /// 증강 1종의 설계도. 런타임에 변하지 않는다.
 /// 투사체·이펙트 프리팹은 각 모듈이 직접 들고 있다.
 /// </summary>
@@ -44,4 +60,15 @@ public class AugmentData : ScriptableObject
 
     [Tooltip("대상이 없을 때 쿨타임을 유지할지 버릴지.")]
     public NoTargetPolicy noTargetPolicy = NoTargetPolicy.Hold;
+
+    [Header("즉시 효과 (레벨 없는 소모성 아이템 전용)")]
+    [Tooltip("None이 아니면 이 증강은 무기로 등록되지 않고 선택 즉시 효과만 적용된다.\n" +
+             "levelStats·모듈 조립은 쓰지 않는다.")]
+    public InstantItemEffect instantEffect = InstantItemEffect.None;
+
+    [Tooltip("Heal: 최대 체력에 곱할 비율(0.2 = 20%). SpeedBoost: 배율에 더할 비율(0.2 = 120%).")]
+    public float instantValue;
+
+    [Tooltip("SpeedBoost 지속시간(초). Heal은 쓰지 않는다.")]
+    public float instantDuration;
 }
