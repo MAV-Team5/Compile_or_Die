@@ -39,6 +39,9 @@ public class LogManager : MonoBehaviour
 
     private readonly Queue<LogEntry> logs = new();
 
+    // 로그 맨 아래 흰색으로 고정되는 상태줄. 체력·레벨·킬 수 표시용
+    private string statusLine;
+
     private void Awake()
     {
         if (Instance == null)
@@ -86,7 +89,19 @@ public class LogManager : MonoBehaviour
             sb.AppendLine(FormatLog(logArray[i], alpha));
         }
 
+        if (!string.IsNullOrEmpty(statusLine))
+            sb.AppendLine($"<color=#FFFFFF>> {statusLine}</color>");
+
         logText.text = sb.ToString();
+    }
+
+    /// <summary>로그 맨 아래 흰색 고정 줄을 갱신한다. 값이 같으면 다시 그리지 않는다.</summary>
+    public void SetStatusLine(string line)
+    {
+        if (statusLine == line) return;
+
+        statusLine = line;
+        RefreshUI();
     }
 
     private string FormatLog(LogEntry log, float alpha)

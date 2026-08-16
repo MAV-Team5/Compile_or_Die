@@ -60,6 +60,7 @@ public class Player : MonoBehaviour, IFacingProvider
     {
         exp += amount;
 
+        GameManager.instance.levelSystem.AddExp(amount);
         GameManager.instance.expManager.AddExpLog(amount);
     }
 }

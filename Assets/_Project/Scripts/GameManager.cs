@@ -13,11 +13,44 @@ public class GameManager : MonoBehaviour
     public PoolManager poolManager;
     public ExpManager expManager;
 
+    /// <summary>이번 런의 처치 수. Enemy.Dead 가 올린다.</summary>
+    public int kills { get; private set; }
+
+    public bool isGameOver { get; private set; }
+
+    public LevelSystem levelSystem { get; private set; }
+
+    /// <summary>남은 시간(초). HUD 타이머가 읽는다.</summary>
+    public float RemainingTime => Mathf.Max(0f, maxGameTime - gameTime);
+
     [SerializeField]
     private GameObject backgroundPrefab;
     private void Awake()
     {
         instance = this;
+
+        // 일시정지 중 씬이 넘어와도 멈춘 채 시작하지 않게
+        Time.timeScale = 1f;
+
+        levelSystem = GetComponent<LevelSystem>();
+        if (levelSystem == null) levelSystem = gameObject.AddComponent<LevelSystem>();
+
+        // 씬에 PlayerHealth 를 붙이지 않았어도 체력 시스템이 돌게 한다
+        if (player != null && player.GetComponent<PlayerHealth>() == null)
+            player.gameObject.AddComponent<PlayerHealth>();
+    }
+
+    public void AddKill()
+    {
+        if (!isGameOver) kills++;
+    }
+
+    public void GameOver()
+    {
+        if (isGameOver) return;
+
+        isGameOver = true;
+        Time.timeScale = 0f;
     }
 
     void Start()
