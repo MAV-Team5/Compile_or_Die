@@ -20,24 +20,42 @@ public class Player : MonoBehaviour, IFacingProvider
 
     public float pickupRange;
     Rigidbody2D rigid;
-    
+
     public float exp;
 
-    
+    // 0xCAFE 같은 한시적 이동속도 버프. 배율 하나만 유지하면 되니 스택 없이 덮어쓴다
+    float speedMultiplier = 1f;
+    float speedBoostRemain;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         visualRoot = GetComponent<Transform>();
-        
+
         scanner = GetComponent<Scanner>();
 
         SelectCharacter();
     }
 
+    void Update()
+    {
+        if (speedBoostRemain <= 0f) return;
+
+        speedBoostRemain -= Time.deltaTime;
+        if (speedBoostRemain <= 0f) speedMultiplier = 1f;
+    }
+
     private void FixedUpdate()
     {
-        Vector2 nextvec = inputVec * speed * Time.fixedDeltaTime;
+        Vector2 nextvec = inputVec * speed * speedMultiplier * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextvec);
+    }
+
+    /// <summary>지속시간 동안 이동속도에 배율을 곱한다. 다시 걸리면 남은 시간을 갱신한다.</summary>
+    public void ApplySpeedBoost(float multiplier, float duration)
+    {
+        speedMultiplier = multiplier;
+        speedBoostRemain = duration;
     }
 
     void OnMove(InputValue value)

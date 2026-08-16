@@ -3179,6 +3179,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9a624432ac58f9747b64115413ed5f05, type: 2}
   - {fileID: 11400000, guid: bd168370cb104ae3880eb45e45f46060, type: 2}
   - {fileID: 11400000, guid: 0ad151536838490ebcdebf8079a2455d, type: 2}
+  - {fileID: 11400000, guid: 19538555e3e74b6c9b8399e754011d38, type: 2}
+  - {fileID: 11400000, guid: 160ecebc0eea4d25a9f42ba93f957be6, type: 2}
   canvas: {fileID: 120051866}
   augmentManager: {fileID: 1295043570}
   font: {fileID: 11400000, guid: 5892d989ac6cc734cbdda122efecd17f, type: 2}

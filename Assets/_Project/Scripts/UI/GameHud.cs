@@ -102,6 +102,11 @@ public class GameHud : MonoBehaviour
         expText = UiFactory.CreateText("Label", back.transform, font,
                                        46f, Color.white, TextAlignmentOptions.Center);
         UiFactory.Stretch((RectTransform)expText.transform, Vector2.zero, Vector2.one);
+
+        // 게이지가 배경(밝은 회색)이든 채움(청록)이든 항상 읽히게 테두리를 준다
+        expText.fontMaterial.EnableKeyword("OUTLINE_ON");
+        expText.outlineWidth = 0.2f;
+        expText.outlineColor = new Color32(0, 0, 0, 255);
     }
 
     void BuildGameOver()
