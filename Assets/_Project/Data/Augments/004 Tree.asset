@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 004 Tree
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  id: 004
+  displayName: Tree
+  category: 2
+  icon: {fileID: 21300000, guid: dade702cf85314a13ae63b5c8452b230, type: 3}
+  descriptionTemplate: "가장 가까운 대상을 향해
+    가지처럼 {count}개로 갈라져 피해를
+    준다."
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  levelStats:
+  - damage: 2
+    effectDamage: 0
+    cooldown: 1.6
+    range: 6
+    effectRange: 0
+    count: 3
+    pierce: 1
+    duration: 0
+    speed: 10
+    depth: 0
+  - damage: 2.6
+    effectDamage: 0
+    cooldown: 1.45
+    range: 6.3
+    effectRange: 0
+    count: 4
+    pierce: 1
+    duration: 0
+    speed: 10
+    depth: 0
+  - damage: 3.2
+    effectDamage: 0
+    cooldown: 1.3
+    range: 6.6
+    effectRange: 0
+    count: 5
+    pierce: 1
+    duration: 0
+    speed: 11
+    depth: 0
+  - damage: 3.8
+    effectDamage: 0
+    cooldown: 1.15
+    range: 7
+    effectRange: 0
+    count: 6
+    pierce: 2
+    duration: 0
+    speed: 11
+    depth: 0
+  - damage: 4.5
+    effectDamage: 0
+    cooldown: 1
+    range: 7.5
+    effectRange: 0
+    count: 7
+    pierce: 2
+    duration: 0
+    speed: 12
+    depth: 0
+  trigger:
+    rid: 823776550232576661
+  targeting:
+    rid: 571370152870763455
+  deliveries:
+  - rid: 845947609108300422
+  effects:
+  - rid: 103223854106389223
+  noTargetPolicy: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 823776550232576661
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+    - rid: 571370152870763455
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+    - rid: 845947609108300422
+      type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+        speed: 0
+        pierce: 0
+        travelRangeMultiplier: 1.2
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        projectileCount: 0
+        spreadAngle: 100
+        aimBasis: 1
+        fixedAngle: 90
+        angleJitter: 5
+    - rid: 103223854106389223
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1

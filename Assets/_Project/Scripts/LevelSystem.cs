@@ -7,8 +7,9 @@ using UnityEngine;
 public class LevelSystem : MonoBehaviour
 {
     [Header("레벨 곡선 — 필요 경험치 = base + growth × (레벨-1)")]
-    [SerializeField] int baseRequired = 10;
-    [SerializeField] int growthPerLevel = 8;
+    [Tooltip("테스트 편의를 위해 원래 값(10 / 8)의 1/10로 줄여 둔 상태.")]
+    [SerializeField] int baseRequired = 1;
+    [SerializeField] int growthPerLevel = 1;
 
     public int Level { get; private set; } = 1;
     public int CurrentExp { get; private set; }

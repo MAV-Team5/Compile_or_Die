@@ -22,13 +22,53 @@ MonoBehaviour:
   levelStats:
   - damage: 5
     effectDamage: 2
-    cooldown: 1
-    range: 8
+    cooldown: 1.1
+    range: 7
     effectRange: 0
     count: 6
     pierce: 0
     duration: 0
     speed: 5
+    depth: 0
+  - damage: 6
+    effectDamage: 2.4
+    cooldown: 1
+    range: 7.3
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 5
+    depth: 0
+  - damage: 7
+    effectDamage: 2.8
+    cooldown: 0.9
+    range: 7.6
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 5.5
+    depth: 0
+  - damage: 8
+    effectDamage: 3.2
+    cooldown: 0.8
+    range: 7.9
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 5.5
+    depth: 0
+  - damage: 9
+    effectDamage: 3.6
+    cooldown: 0.7
+    range: 8.2
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 6
     depth: 0
   trigger:
     rid: 980040160363151444

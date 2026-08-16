@@ -22,14 +22,54 @@ MonoBehaviour:
   levelStats:
   - damage: 1
     effectDamage: 0
+    cooldown: 0.36
+    range: 7
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 3
+  - damage: 1.4
+    effectDamage: 0
+    cooldown: 0.33
+    range: 7.5
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 4
+  - damage: 1.8
+    effectDamage: 0
     cooldown: 0.3
     range: 8
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 5
+  - damage: 2.2
+    effectDamage: 0
+    cooldown: 0.27
+    range: 8.5
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 6
+  - damage: 2.6
+    effectDamage: 0
+    cooldown: 0.24
+    range: 9
     effectRange: 0
     count: 3
     pierce: 0
     duration: 0
     speed: 0
-    depth: 6
+    depth: 8
   trigger:
     rid: 980040056421220425
   targeting:
@@ -66,10 +106,10 @@ MonoBehaviour:
           sfx: {fileID: 0}
           sfxVolume: 1
         multiShot:
-          shotsPerTarget: 1
+          shotsPerTarget: 0
           formation: 0
           spacing: 0.4
-          spreadPerShot: 0
+          spreadPerShot: 12
     - rid: 980040056421220434
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
