@@ -23,26 +23,64 @@ MonoBehaviour:
   - damage: 5
     effectDamage: 2
     cooldown: 1
-    range: 1
+    range: 8
     effectRange: 0
     count: 6
     pierce: 0
     duration: 0
-    speed: 0
+    speed: 5
     depth: 0
   trigger:
-    rid: 980040056421220447
+    rid: 980040160363151444
   targeting:
-    rid: 980040122817839233
+    rid: 980040160363151430
   deliveries:
-  - rid: 980040122817839232
+  - rid: 980040160363151431
   effects:
   - rid: 980040056421220455
+  - rid: 980040160363151432
   noTargetPolicy: 0
   references:
     version: 2
     RefIds:
-    - rid: 980040056421220447
+    - rid: 980040056421220455
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+    - rid: 980040160363151430
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+    - rid: 980040160363151431
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: 8042f9423cf971741b77c5948b1b3b13, type: 3}
+        speed: 12
+        pierce: 1
+        travelRangeMultiplier: 1.2
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        multiShot:
+          shotsPerTarget: 1
+          formation: 0
+          spacing: 0.4
+          spreadPerShot: 0
+    - rid: 980040160363151432
+      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageMultiplier: 1
+        targeting:
+          rid: 980040160363151448
+        deliveries:
+        - rid: 980040160363151447
+        effects:
+        - rid: 980040160363151449
+        - rid: 980040160363151450
+    - rid: 980040160363151444
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
         castFx:
@@ -50,24 +88,37 @@ MonoBehaviour:
           vfxScale: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-    - rid: 980040056421220455
-      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+    - rid: 980040160363151447
+      type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
       data:
-        damageScale: 1
-    - rid: 980040122817839232
-      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
-      data:
-        blastRadius: 2
-        halfAngle: 65
-        includeCenterTarget: 1
-        blastFx:
-          vfx: {fileID: 8595237471912528195, guid: b8927b28f92377a4ebb605061c81004a, type: 3}
+        projectilePrefab: {fileID: 6824073935605403827, guid: 47a838b7c040b9d4cbc0311dbdde341e, type: 3}
+        speed: 12
+        pierce: 1
+        travelRangeMultiplier: 1.2
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
           vfxScale: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-    - rid: 980040122817839233
+        projectileCount: 0
+        spreadAngle: 139.5
+        aimBasis: 3
+        fixedAngle: 90
+        angleJitter: 0
+    - rid: 980040160363151448
       type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
       data:
         rangeOverride: 0
         distanceRatio: 0.6
         fallbackAngle: 90
+    - rid: 980040160363151449
+      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 1.5
+        pull: 0
+        stunDuration: 0.2
+    - rid: 980040160363151450
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 2
