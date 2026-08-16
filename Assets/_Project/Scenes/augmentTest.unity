@@ -727,7 +727,7 @@ Transform:
   m_GameObject: {fileID: 304795290}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.002, y: 0.003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1336,7 +1336,7 @@ Transform:
   m_GameObject: {fileID: 836142184}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.002, y: 0.003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1882,7 +1882,7 @@ Transform:
   m_GameObject: {fileID: 1178571355}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.002, y: 0.003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2084,8 +2084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentManager
   startingAugments:
-  - {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
-  - {fileID: 11400000, guid: 9a624432ac58f9747b64115413ed5f05, type: 2}
+  - {fileID: 11400000, guid: f7e465c5ecd47c04ea4758a9372c4da4, type: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
