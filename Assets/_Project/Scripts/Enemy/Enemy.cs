@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     SpriteRenderer spriter;
     Collider2D coll;
 
+    /// <summary>상태이상 목록. 증강이 걸 때 자동으로 붙으므로 처음엔 없을 수 있다.</summary>
+    StatusHolder status;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -47,8 +50,15 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
             return;
         }
 
+        // StatusHolder 는 증강이 상태를 걸 때 비로소 붙는다. 한 번 붙으면 계속 남으므로
+        // 이 조회는 상태가 걸린 적 없는 개체에서만 돈다
+        if (status == null) TryGetComponent(out status);
+
+        // 둔화 같은 상태이상이 걸려 있으면 그만큼 느려진다. 없으면 배율이 1이라 그대로다
+        float moveSpeed = speed * (status != null ? status.SpeedMultiplier : 1f);
+
         Vector2 dirVec = target.position - rigid.position;
-        Vector2 nextVec = dirVec.normalized * speed * Time.deltaTime;
+        Vector2 nextVec = dirVec.normalized * moveSpeed * Time.deltaTime;
         rigid.MovePosition(rigid.position + nextVec);
         rigid.linearVelocity = Vector2.zero;
     }
@@ -82,7 +92,10 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         health = data.health;
         contactDamage = data.contactDamage;
     }
-    /// <summary>피해 진입점. 기존 무기와 증강이 모두 여기로 들어온다.</summary>
+    /// <summary>
+    /// 피해 진입점. 피해량만 깎는다 —
+    /// 숫자 표시는 맥락(크리티컬·어느 증강)을 아는 DamagePipeline 이 맡는다.
+    /// </summary>
     public void TakeDamage(float amount)
     {
         // 같은 프레임에 여러 발이 맞아도 Dead가 두 번 돌지 않게 막는다
@@ -90,8 +103,6 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
             return;
 
         health -= amount;
-
-        DamageTextManager.Instance.ShowDamage(amount, transform);
 
         if (health <= 0f)
             Dead();
@@ -106,7 +117,10 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         if (!collision.TryGetComponent(out Bullet bullet))
             return;
 
+        // ⚠️ 옛 무기 경로. DamagePipeline 을 안 거쳐서 표식 보정도 숫자 표시도 없다.
+        // 증강으로 완전히 대체되면 이 블록째로 지울 것
         TakeDamage(bullet.damage);
+        DamageTextManager.Instance.ShowDamage(bullet.damage, transform);
     }
 
     void Dead()

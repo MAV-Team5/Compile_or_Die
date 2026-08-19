@@ -40,20 +40,34 @@ public class FxGroup
     [Tooltip("이펙트 크기 배수. 1이면 프리팹 그대로.")]
     public float vfxScale = 1f;
 
+    [Tooltip("켜면 판정 범위만큼 이펙트도 같이 커진다. 프리팹에 ISizedVisual 이 있어야 먹는다.\n" +
+             "끄면 범위가 커져도 프리팹에 그린 크기 그대로 — 불꽃·타격감처럼 크기가 의미 없는 연출용.")]
+    public bool scaleWithRange = true;
+
     [Tooltip("함께 낼 효과음.")]
     public AudioClip sfx;
 
     [Range(0f, 1f)] public float sfxVolume = 1f;
 
+    [Tooltip("켜면 이펙트가 발동한 대상에 붙어 따라다닌다. 레이더 · 휘두르기 · 오라처럼 몸에 붙는 연출용.\n" +
+             "폭발이나 착탄처럼 '그 자리에서 터진' 연출은 꺼둘 것 — 켜면 이펙트가 쫓아다닌다.")]
+    public bool attachToSource = false;
+
     public bool IsEmpty => vfx == null && sfx == null;
 
     /// <summary>
     /// 지정한 좌표에서 연출을 낸다.
-    /// 방향을 주면 IDirectionalVisual 이 붙은 프리팹이 그쪽을 보게 된다.
+    /// 방향은 IDirectionalVisual, 판정 반경은 ISizedVisual 이 붙은 프리팹에만 전달된다.
+    /// source 는 attachToSource 가 켜져 있을 때만 쓰인다.
     /// </summary>
-    public void PlayAt(Vector2 position, Vector2 direction = default)
+    public void PlayAt(Vector2 position, Vector2 direction = default, float radius = 0f,
+                       Transform source = null)
     {
-        VfxSpawner.SpawnAt(vfx, position, vfxScale, direction);
+        // 반경을 안 넘기면 ISizedVisual 이 안 불려서 프리팹 크기 그대로 나온다
+        VfxSpawner.SpawnAt(vfx, position, vfxScale, direction,
+                           scaleWithRange ? radius : 0f,
+                           attachToSource ? source : null);
+
         SfxPlayer.Play(sfx, sfxVolume);
     }
 }

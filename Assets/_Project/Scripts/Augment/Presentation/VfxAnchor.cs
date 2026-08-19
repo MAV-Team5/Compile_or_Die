@@ -38,20 +38,37 @@ public static class VfxSpawner
         GameObject go = Create(prefab, position, scale, direction);
 
         // Target 앵커만 대상을 따라간다
-        if (anchor == VfxAnchor.Target && hit.Target != null)
-            go.transform.SetParent(hit.Target, true);
+        if (anchor == VfxAnchor.Target) Attach(go, hit.Target);
     }
 
-    /// <summary>적중 정보가 없는 시점(시전·발사)용.</summary>
+    /// <summary>
+    /// 적중 정보가 없는 시점(시전·발사)용.
+    /// attachTo 를 주면 그 오브젝트에 붙어 따라다닌다 — 몸에 붙는 연출용.
+    /// </summary>
     public static void SpawnAt(GameObject prefab, Vector2 position, float scale,
-                               Vector2 direction = default)
+                               Vector2 direction = default, float radius = 0f,
+                               Transform attachTo = null)
     {
         if (prefab == null) return;
 
-        Create(prefab, position, scale, direction);
+        GameObject go = Create(prefab, position, scale, direction, radius);
+
+        Attach(go, attachTo);
     }
 
-    static GameObject Create(GameObject prefab, Vector2 position, float scale, Vector2 direction)
+    /// <summary>
+    /// 연출을 대상에 붙인다. 월드 크기를 보존하는 것이 핵심 —
+    /// Instantiate 의 parent 인자를 쓰면 부모 스케일이 곱해져 크기가 통째로 어긋난다.
+    /// </summary>
+    public static void Attach(GameObject go, Transform parent)
+    {
+        if (go == null || parent == null) return;
+
+        go.transform.SetParent(parent, true);
+    }
+
+    static GameObject Create(GameObject prefab, Vector2 position, float scale,
+                             Vector2 direction, float radius = 0f)
     {
         GameObject go = Object.Instantiate(prefab, position, Quaternion.identity);
 
@@ -59,8 +76,12 @@ public static class VfxSpawner
             go.transform.localScale *= scale;
 
         // 방향을 쓸 줄 아는 프리팹에만 건넨다. 회전이든 클립 선택이든 프리팹 몫
-        if (direction.sqrMagnitude > 0.0001f && go.TryGetComponent(out IDirectionalVisual visual))
-            visual.Aim(direction.normalized);
+        if (direction.sqrMagnitude > 0.0001f && go.TryGetComponent(out IDirectionalVisual aimed))
+            aimed.Aim(direction.normalized);
+
+        // 판정 크기도 마찬가지. 스케일을 바꿀지 파티클을 만질지는 프리팹이 정한다
+        if (radius > 0.0001f && go.TryGetComponent(out ISizedVisual sized))
+            sized.Resize(radius);
 
         return go;
     }

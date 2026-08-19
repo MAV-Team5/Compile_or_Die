@@ -19,6 +19,9 @@ public class AugmentModuleDrawer : PropertyDrawer
     static readonly Color TargetingColor = new(0.35f, 0.65f, 0.95f);
     static readonly Color DeliveryColor  = new(0.70f, 0.50f, 0.95f);
     static readonly Color EffectColor    = new(0.35f, 0.80f, 0.45f);
+
+    /// <summary>4축은 아니지만 모듈로 끼워 쓰는 것들 (지속 효과 등).</summary>
+    static readonly Color StatusColor    = new(0.95f, 0.80f, 0.35f);
     static readonly Color UnknownColor   = new(0.55f, 0.55f, 0.55f);
 
     /// <summary>None 인 칸의 버튼 배경. 비워두면 그 단계가 통째로 무시된다.</summary>
@@ -204,7 +207,7 @@ public class AugmentModuleDrawer : PropertyDrawer
     /// <summary>필드 위치가 이미 축을 말해주므로 접미사는 빼서 줄을 짧게 만든다.</summary>
     static string ShortName(string className)
     {
-        foreach (string suffix in new[] { "Targeting", "Delivery", "Effect", "Trigger" })
+        foreach (string suffix in new[] { "Targeting", "Delivery", "Effect", "Trigger", "Status" })
         {
             if (className.Length > suffix.Length && className.EndsWith(suffix))
                 return ObjectNames.NicifyVariableName(className[..^suffix.Length]);
@@ -227,6 +230,7 @@ public class AugmentModuleDrawer : PropertyDrawer
         if (cls.EndsWith("Targeting")) return TargetingColor;
         if (cls.EndsWith("Delivery"))  return DeliveryColor;
         if (cls.EndsWith("Effect"))    return EffectColor;
+        if (cls.EndsWith("Status"))    return StatusColor;
 
         return UnknownColor;
     }

@@ -49,7 +49,8 @@ public class RadialDelivery : ProjectileDeliveryBase
         Vector2 origin = ctx.Owner.position;
         PlayLaunch(ctx, origin);
 
-        float center = CenterAngle(ctx, origin);
+        // 부채꼴 중심을 통째로 돌린다. 같은 방사를 각도만 바꿔 여러 개 넣을 수 있다
+        float center = CenterAngle(ctx, origin) + directionOffset;
         bool full = spreadAngle >= 359.9f;
 
         // 360도는 첫 발과 끝 발이 겹치므로 count 로, 부채꼴은 양 끝을 채우도록 count-1 로 나눈다

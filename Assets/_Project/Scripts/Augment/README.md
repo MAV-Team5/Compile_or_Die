@@ -48,11 +48,21 @@
 
 `AugmentPipeline` (3축 실행) · `TargetQuery` (적 검색) · `ProjectileSpawner` · `VfxSpawner` · `SfxPlayer`
 
-연출 방향은 `IDirectionalVisual` — 프리팹이 구현하면 스포너가 방향을 건넨다. `DirectionalSprite` 가 8방향 클립 선택 구현체.
+연출은 인터페이스로 프리팹에 사실만 건넨다. 어떻게 그릴지는 프리팹이 정한다.
+
+| 통로 | 건네는 것 | 구현체 |
+|---|---|---|
+| `IDirectionalVisual` | 방향 | `RotateToAim` · `DirectionalSprite` · `SwingArc` |
+| `ISizedVisual` | 판정 반경 | `RadarSweep` · `SwingArc` |
+| `IArcVisual` | 부채꼴 각도 | `SwingArc` |
+
+그리기 원시 도구는 `SweepFan`(부채꼴 메시) 하나고, 그 위에 `RadarSweep`(전방위 스캔) 과 `SwingArc`(휘두르기) 가 얹혀 있다.
 
 ### 전투
 
-`DamageContext` · `DamagePipeline` · `IDamageReceiver` · `IDisplaceable` · `AugmentProjectile` · `DummyTarget`
+`DamageContext` · `DamagePipeline` · `IDamageReceiver` · `IDisplaceable` · `IFacingProvider` · `AugmentProjectile` · `DummyTarget`
+
+전역 능력치는 `PlayerStats` + `StatKind` + `StatModifier`. 하드웨어 업그레이드가 여기로 들어온다.
 
 ### 탐색
 
@@ -104,6 +114,119 @@ burstInterval 로 도배를 막는다 (기본 0.1초)
 
 ---
 
+### 피해 숫자는 파이프라인이 띄운다
+
+적이 자기 피격 UI를 아는 건 이상한 결합이라 `DamagePipeline` 6단계로 옮겼다. **크리티컬인지, 어느 증강이 때렸는지를 아는 유일한 자리**이기 때문이다.
+
+색·크기를 고르는 순서.
+
+```
+1. 크리티컬            팔레트의 critical
+2. Effect 가 지정      DamageEffect.accentText 를 켜고 스타일 지정
+3. 증강 분류           팔레트의 byCategory — 탐색 / 정렬 / 자료구조 …
+4. 없음                팔레트의 normal
+```
+
+**3번이 기본이다.** 분류별 색만 채워두면 증강마다 따로 정하지 않아도 자동으로 구분된다.
+
+```
+DamageTextPalette (SO)
+  Normal      흰색 · 1배
+  Critical    노랑 · 1.5배 · 빠르게 튐
+  By Category  Search 하늘색 · Sort 보라 · …
+```
+
+`DamageTextManager` 인스펙터에 이 에셋을 물려두면 된다. 안 물려도 전부 흰색으로 나올 뿐 동작은 한다.
+
+> ⚠️ 옛 무기(`Bullet`)는 `DamagePipeline` 을 안 거친다. 그래서 표식 보정도, 분류 색도 안 붙는다.
+> `Enemy.OnTriggerEnter2D` 에서 숫자만 따로 띄우고 있으니, 증강으로 완전히 넘어가면 그 블록째 지울 것.
+
+---
+
+### 간선 — 남의 탐색에 얹혀 간다
+
+```
+SearchTrigger      쿨타임이 찬 뒤 다음 탐색이 일어나면 발동
+SearchPool         표식 붙은 적을 노드로 집는다
+LinkEffect         노드들을 간선으로 잇는다
+LinkHolder         적이 지닌 간선 목록. 자동으로 붙는다
+```
+
+**이 게임 최초의 반응형 증강이다.** 나머지는 전부 쿨타임이 차면 스스로 터지는데, 자료구조 계열은 *남이 탐색해둔 것*에 얹혀 간다. 탐색 증강을 하나도 안 들고 있으면 영영 발동하지 않는다 — 그것이 이 계열의 성격이다.
+
+쿨다운 중에 일어난 탐색은 **기억만 하고 흘려보낸다.** 안 그러면 밀린 탐색이 쌓였다가 쿨타임이 차는 순간 즉발한다.
+
+**트리는 부모가 하나뿐이다.**
+
+```
+새 노드가 올 때마다  →  이미 놓인 노드 중 가장 가까운 하나에만 붙는다
+                        부모가 항상 하나라 사이클이 안 생긴다 = 정의상 트리
+connectToAll 을 켜면 →  놓인 것 전부와 잇는다 = 그물(그래프)
+```
+
+`EffectModule.Apply` 는 적중 1회씩 불리는데, 그게 오히려 트리가 자라는 방식과 맞아떨어진다. 발동 단위 상태는 `ctx.GetState<T>` + `ctx.FiringId` 로 잡는다 — 표식 해제와 같은 패턴.
+
+**간선은 표식과 수명이 독립적이다.**
+
+```
+표식   다시 발동하면 지난 것이 풀린다
+간선   다음 탐색이 시작돼도 끊기지 않는다.  화면에 계속 남는다
+```
+
+그래서 누적 방어가 따로 필요하다 — 노드당 간선 상한은 **8개**고, 넘치면 오래된 것부터 밀려난다. `duration` 을 0으로 두면 노드가 죽을 때까지 남으니 화면이 선으로 뒤덮일 수 있다.
+
+**전이는 `DamagePipeline` 7단계다.**
+
+```
+LinkHops     간선을 타고 몇 번 더.  전이마다 하나씩 준다
+LinkVisited  이미 거쳐간 노드.      되짚기 차단
+```
+
+전이된 피해도 파이프라인을 **다시 통과**하므로 표식 보정과 분류 색이 그대로 붙는다. `visited` 가 있어 총 전이 횟수는 연결된 노드 수를 넘지 않는다 — 지수로 안 터진다.
+
+> 확장 자리 — 간선을 타고 **상태이상을 공유**하려면 `Link` 에 필드를 하나 더하고
+> `StatusHolder.Apply` 에서 이웃에게 넘기면 된다. `Link` 가 모듈을 참조하지 않고
+> 값을 복사해 들고 있는 것이 이 때문이다.
+
+---
+
+### 지속 효과 — 탐색과 따로 산다
+
+```
+Status (추상)          지속시간 · 세기 · 시각 · 갱신 규칙
+ ├ DamageOverTime      주기마다 피해
+ └ Slow                이동속도 감소
+
+StatusHolder           대상 1개가 지닌 상태 목록. 자동으로 붙는다
+```
+
+`Status` 모듈 하나를 끼우는 구조라 **새 상태이상은 클래스 하나만 추가**하면 된다.
+
+```
+Effect: Status
+  Duration   0 × 1      ← 시트 지속시간
+  Magnitude  0 × 1      ← 시트 효과 피해
+  status: [ Damage Over Time ▾ ]   Interval 0.5
+```
+
+**탐색 표식은 여기 속하지 않는다.** 전역 탐색풀에 등록되고 다른 증강이 그 목록을 조회하는, 성격이 다른 물건이라 `Search` 로 따로 있다.
+
+시각 자리도 갈린다.
+
+```
+탐색 표식    머리 위 MarkAnchor      "내가 표시한 것"
+상태이상     대상 몸에 직접           "적에게 걸린 것"
+```
+
+| | |
+|---|---|
+| 지속 피해 | `DamagePipeline` 을 그대로 통과한다 — **탐색 표식 보정도 틱마다 얹힌다.** 지속피해 + 탐색 조합은 생각보다 훨씬 세니 밸런싱 때 주의 |
+| 둔화 | `Enemy` 가 `SpeedMultiplier` 를 조회한다. 여러 개면 곱해지되 0에는 안 닿는다 |
+| 개체별 값 | `Status` 는 에셋에 하나뿐인 공유 객체다. 남은 시간·타이머는 `StatusHolder.Active` 가 든다 |
+| 갱신 vs 중첩 | `refreshInsteadOfStack` 으로 고른다 |
+
+---
+
 ## 3. 한 발 쏘는 흐름
 
 ```
@@ -131,8 +254,16 @@ AugmentManager.Update()
 | 모듈 | 설명 |
 |---|---|
 | `Cooldown` | 일정 주기마다 |
+| `SearchTrigger` | 쿨타임이 찬 뒤 **다음 탐색이 일어나면** |
 
-베이스에 **시전 연출**(`castFx`)이 있어 모든 Trigger가 공유한다.
+베이스에 두 가지가 있어 모든 Trigger가 공유한다.
+
+| 필드 | 뜻 |
+|---|---|
+| `castFx` | 시전 연출 |
+| `noTargetPolicy` | 대상을 못 찾았을 때 쿨타임을 유지(`Hold`)할지 버릴지(`Consume`) |
+
+> `noTargetPolicy` 는 원래 `AugmentData` 루트에 있었다. "발동 조건을 소비할 것인가"는 명백히 Trigger 의 일이라 여기로 옮겼다 — 나중에 발동 조건마다 다른 정책을 줄 수도 있다.
 
 ### Targeting — 겹치지 않게 영역이 나뉜다
 
@@ -142,10 +273,11 @@ AugmentManager.Update()
 |---|---|---|---|
 | `Nearest` | 적 | **1체** (가장 가까운) | 없음 |
 | `Random` | 적 | **N체** (무작위) | `targetCount` |
-| `AllInRange` | 적 | **전부** (기본 무제한) | `targetLimit` (안전장치) |
+| `AllInRange` | 적 | **전부** (항상 무제한) | `targetLimit` (직접 입력할 때만) |
 | `RandomPoint` | 좌표 | **N곳** | `pointCount` |
 | `OwnerPoint` | 좌표 | **1곳** (원점 고정) | 없음 |
 | `DirectionPoint` | 좌표 | **1곳** (향한 방향 앞) | 없음 |
+| `SearchPool` | 적 | **표식 붙은 것만** | `targetLimit` |
 
 ```
 적을 고른다   → 주변에 적이 없으면 발동 자체가 안 된다
@@ -154,7 +286,7 @@ AugmentManager.Update()
 
 `AllInRange` 만 **`halfAngle`** 을 추가로 갖는다. 180이면 전방위, 좁히면 진행 방향 부채꼴만 — DFS 전파용이다.
 
-전부 **`rangeOverride`** 를 갖는다. **0이면 시트의 사거리(`range`)**, 하위 파이프라인 안에서는 **효과 범위(`effectRange`)**. 이 값이 곧 `ctx.EffectiveRange` 가 되어 뒤따르는 전달 모듈의 비행 거리까지 결정한다.
+전부 **`rangeOverride`**(`Scalable`) 를 갖는다. 비워두면 시트의 **사거리(`range`)**, 하위 파이프라인 안에서는 **효과 범위(`effectRange`)**. 이 값이 곧 `ctx.EffectiveRange` 가 되어 뒤따르는 전달 모듈의 비행 거리까지 결정한다.
 
 > **모든 타겟팅의 공통 사거리**다. 탐색(BFS·DFS) 증강 전용이 아니라 `Damage` 든 뭐든 다 쓴다.
 
@@ -162,11 +294,106 @@ AugmentManager.Update()
 
 | 모듈 | 설명 | 거리 기준 |
 |---|---|---|
-| `Projectile` | 타겟을 **겨눠** 투사체 | `travelRangeMultiplier` |
-| `Radial` | **각도로** 방사 (타겟 위치 무시) | `travelRangeMultiplier` |
+| `Projectile` | 타겟을 **겨눠** 투사체 | `travelRange` ← 사거리 |
+| `Radial` | **각도로** 방사 (타겟 위치 무시) | `travelRange` ← 사거리 |
 | `Instant` | 타겟을 **그대로** 즉시 적중 | — |
-| `Area` | 타겟 지점 **주변까지** 원형·부채꼴 | `blastRadius` (0이면 `effectRange`) |
-| `Line` | 원점에서 직선 관통 | `lengthMultiplier` |
+| `Area` | 타겟 지점 **주변까지** 원형·부채꼴 (+본체) | `blastRadius` ← 효과 범위 |
+| `Line` | 원점에서 직선 관통 | `length` ← 사거리 |
+
+거리 기준은 전부 **`Scalable`** 이다. 비워두면 시트값, 배수만 주면 비례한다.
+
+> ⚠ **`Area` · `FanArea` 는 시트 `효과범위` 가 0이면 아무것도 안 한다.** 폴백 없이 콘솔에 증강 이름을 찍고 끝난다. 폭발형 증강은 시트 컬럼을 반드시 채울 것.
+
+### 본체와 연출은 다르다
+
+```
+본체   Area.bodyPrefab · Line.beamPrefab   판정 그 자체의 그림.  항상 반경에 맞춰진다
+연출   FxGroup 의 Vfx                      분위기.             따라 커질지 고른다
+```
+
+**본체는 크기를 고를 수 없다.** 판정 반경과 다르게 그리면 플레이어를 속이는 것이기 때문. 근접 휘두르기가 레벨업으로 커지면 낫 그림도 반드시 같이 커져야 한다.
+
+반대로 `FxGroup` 의 **`Scale With Range`** 는 꺼둘 수 있다. 불꽃이나 타격 섬광처럼 크기에 의미가 없는 연출은 범위가 커져도 그대로 두는 게 낫다.
+
+> `FanArea` 는 `Area` 에 흡수됐다. 판정 코드가 같았고 차이는 본체 프리팹뿐이었다.
+> 이제 `halfAngle` 하나로 원(180) ↔ 낫(45) 이 연속으로 조절되고, 원형 장판에도 본체를 붙일 수 있다.
+
+**근접 휘두르기 조립**
+
+```
+Targeting   OwnerPoint            ← 내 몸이 중심.  DirectionPoint 를 쓰면 중심이 앞으로 밀린다
+Delivery    Area
+   halfAngle          45
+   bodyPrefab         SwingArc 프리팹
+   attachBodyToOwner  ✔          ← 걸으면서 쳐도 안 처진다
+Effect      Damage · Knockback
+```
+
+양손 휘두르기는 `Area` 를 두 개 넣고 `directionOffset` 에 0 과 180 을 준다.
+
+### 부채꼴을 스프라이트로 그리지 말 것
+
+```
+❌  45도 부채꼴 스프라이트          halfAngle 을 60으로 바꿔도 그림은 45  →  거짓말
+✅  칼날 스프라이트 + SwingArc      칼날이 훑는 범위가 곧 halfAngle      →  항상 일치
+```
+
+스프라이트에 각도를 그려 넣으면 **코드가 그 각도를 알 수 없어 검증도 경고도 불가능**하다. 레벨업으로 각도가 자라는 증강을 만들면 그때부터 계속 어긋난다.
+
+`SwingArc` 는 칼날을 호를 따라 이동시키고 `SweepFan` 이 지나간 자리를 채운다. **각도 정보가 스프라이트에 없으므로 어긋날 것 자체가 없다.** 그림은 여전히 자유롭게 그리면 된다.
+
+| 필드 | |
+|---|---|
+| `duration` | 0.15~0.25. 길면 "칼이 안 닿았는데 죽었다"가 된다 |
+| `easing` | 2면 처음이 빠르고 끝이 느려진다 — 칼을 뿌리는 느낌 |
+| `clockwise` | 양손으로 만들 때 하나만 뒤집는다 |
+
+> 판정은 한 프레임에 끝나고 휘두르기는 0.2초 걸린다. 히트박스는 즉발, 그림은 시간축 — 액션 게임의 표준 구성이다. 레이더와 같은 구조다.
+
+**잔상에 그림 입히기** — `SweepFan` 의 **`Sprite`** 슬롯에 그림을 드래그하면 된다. 부채꼴이 그 그림의 **해당 각도 조각만** 잘라 보여준다.
+
+```
+그림 규격   정사각 안에 꽉 차는 원판.  가운데가 부채꼴 꼭짓점
+UV          평면 매핑 — 정점 위치가 곧 그림 좌표
+색          nearColor · leadColor · tailColor 가 그림에 곱해진다
+            원본 색감 그대로 쓰려면 셋 다 흰색으로 두고 알파만 조절
+```
+
+`artFollowsSwing` 을 켜면 그림이 휘두르는 방향을 따라 돌아서 **베는 자국이 항상 같은 모양**으로 나온다. 끄면 그림이 월드 기준으로 고정되고 부채꼴이 그 위를 훑는다.
+
+> **머티리얼의 텍스처 칸에는 넣지 말 것.** 유니티에서 스프라이트와 텍스처는 다른 에셋이라
+> 인스펙터에서 드래그가 거부당하고, 시트에서 잘라 쓴 그림이면 UV 도 어긋난다.
+> `Sprite` 슬롯은 프로퍼티 블록으로 물리므로 머티리얼이 복제되지도 않고 시트 조각도 알아서 맞춘다.
+
+---
+
+### 유도는 전달이 아니라 투사체 성질이다
+
+```
+ProjectileDeliveryBase
+ ├ Projectile   타겟을 겨눠 발사
+ └ Radial       각도로 발사
+      ↓  둘 다 AugmentProjectile 을 낳는다
+         유도는 여기 붙으므로 두 전달이 같이 얻는다
+```
+
+**유도용 전달 모듈은 없다.** `[Fold("유도")]` 안의 `turnSpeed` 를 올리면 그만이다.
+
+```
+Turn Speed         0     0이면 직진. 90이 자연스럽고 360이면 즉시 꺾인다
+Seek Radius        0     0이면 발사 때 정한 대상만 쫓는다
+Retarget Interval  0.15  목표를 다시 고르는 주기(초)
+```
+
+| | |
+|---|---|
+| `Projectile` | 겨냥한 대상을 그대로 쫓는다. `seekRadius` 없어도 유도됨 |
+| `Radial` | 발사 대상이 없다 — **`seekRadius` 를 줘야 유도가 걸린다** |
+| `Line` · `Area` · `Instant` | 비행 시간이 없어 유도 개념이 성립하지 않는다 |
+
+방금 뚫은 적은 목표에서 빠진다. 안 그러면 그 자리를 맴돈다.
+
+> **빔을 휘게 하려면** `Line` 을 고치는 게 아니라 "지속 빔" 모듈이 따로 필요하다. `Line` 은 한 프레임에 직사각형 판정을 끝내므로 유도할 시간 자체가 없다.
 
 **`Instant` 와 `Area` 는 대상이 늘어나느냐로 갈린다.**
 
@@ -189,7 +416,9 @@ Nearest(1명) + Area     →  그 1명 + 주변 전부      ← 늘어남
 |---|---|
 | `Damage` | 피해 |
 | `Knockback` | 밀거나 당김 |
+| `Link` | 적중 대상들을 간선으로 이음 |
 | `Search` | 탐색 표식 (딜 증폭) |
+| `Status` | **지속 효과.** 지속피해 · 둔화 |
 | `Chain` | **반복.** 같은 파이프라인을 depth 만큼 |
 | `SubPipeline` | **1회.** 다른 파이프라인을 한 번만 |
 | `Vfx` / `Sfx` / `Log` | 연출 |
@@ -224,7 +453,7 @@ All In Range —   적 전부 — 반경 안 전원
 
 ```
 Targeting        [ All In Range ▾ ]
-  적 전부 — 반경 안 전원   ·   기본이 무제한. 적이 뭉칠수록 강해진다
+  적 전부 — 반경 안 전원   ·   각도를 좁히면 진행 방향 부채꼴만
 ```
 
 새 모듈을 만들면 클래스에 `[ModuleInfo("무엇을 한다", "이웃 모듈과 뭐가 다르다")]` 를 붙일 것.
@@ -254,6 +483,61 @@ public interface IDirectionalVisual { void Aim(Vector2 direction); }
 
 **`DirectionalSprite` 가 기본 제공된다.** `Animator` 와 같이 붙이고 클립을 `Swing_E` · `Swing_NE` … 로 이름만 맞추면 된다. State 만 만들어두면 전이는 안 그려도 된다 — `Animator.Play` 가 이름으로 바로 점프한다.
 
+### 연출이 대상을 따라다니려면 — 붙이기 토글
+
+연출 묶음마다 **붙이기** 체크가 있다. 켜면 이펙트가 대상에 붙어 따라간다.
+
+```
+따라와야 함    레이더 · 근접 휘두르기 · 오라 · 화상 같은 지속 연출
+따라오면 안 됨  폭발 · 착탄 · 피격      ← 그 자리에서 터진 것
+```
+
+붙는 대상은 연출이 난 자리가 정한다 — 시전·발사는 시전자, 적중·틱은 맞은 적.
+
+`FanArea` 는 본체 프리팹에도 따로 **`Attach To Owner`** 가 있고 **기본이 켜짐**이다. 걸으면서 휘두를 때 칼이 뒤로 처지지 않게.
+
+> 붙일 때는 반드시 `VfxSpawner.Attach`(= `SetParent(parent, true)`)를 쓴다.
+> `Instantiate` 의 parent 인자를 쓰면 부모 스케일이 곱해져 크기가 통째로 어긋난다.
+
+---
+
+### 레이더 스윕 — `RadarSweep` + `SweepFan`
+
+탐색 증강의 시전 연출. 범위만큼 원을 그리고 스캔 라인이 돌면서 지나간 자리를 밝힌다.
+
+```
+RadarSweep      회전 · 페이드 · 크기.  ISizedVisual 이라 사거리를 자동으로 받는다
+SweepFan        지나간 자리를 채우는 부채꼴. 메시를 직접 그린다
+```
+
+**판정과 무관하다.** 표식은 레이더가 돌기 전에 이미 다 붙어 있다 — 시전 연출은 파이프라인 뒤에 나오기 때문. 레이더는 "방금 이 범위를 훑었다"를 보여줄 뿐이다.
+
+`SweepFan` 이 메시인 이유 — `SpriteRenderer` 에는 Radial Fill 이 없다. UI `Image` 를 쓰면 Canvas 가 매 프레임 리빌드돼 오히려 비싸고 스프라이트와 정렬이 따로 논다. 메시는 드로우콜 1회에 정점 49개고, 배열을 재사용해서 GC 할당이 0이다.
+
+| 필드 | |
+|---|---|
+| `trailAngle` | 0이면 원이 다 채워지고, 90이면 꼬리만 따라다닌다 |
+| `opacity` | 링·라인·잔광 전체 투명도 |
+| `duration` | 한 바퀴 시간. **쿨타임보다 짧게** — 겹치면 레이더가 두 개 뜬다 |
+
+---
+
+### 연출이 판정 크기를 쓰려면 — `ISizedVisual`
+
+방향과 같은 방식이다. 스포너는 **반경만 건네고 처리는 프리팹이 정한다.**
+
+```csharp
+public interface ISizedVisual { void Resize(float radius); }
+```
+
+```
+원형 폭발 스프라이트  → localScale = radius
+파티클                → Shape Radius 조절
+고정 크기 연출         → 인터페이스 미구현. 반경을 무시한다
+```
+
+`Area` · `FanArea` · `Line` 이 판정 크기를 넘긴다. **범위가 커지면 그림도 같이 커진다.**
+
 > 회전은 도트를 뭉갠다. **8방향 클립이 픽셀아트에는 정답**이고, 회전은 원형·대칭 연출에만 쓸 것.
 
 연출 말고도 긴 묶음은 같은 방식으로 접힌다.
@@ -282,10 +566,18 @@ public interface IDirectionalVisual { void Aim(Vector2 direction); }
 ```
 count   몇 개    타겟 수 · 투사체 수 · 좌표 수 · 스택량
 pierce  몇 명    투사체가 뚫는 수 · 레이저 최대 적중
-depth   몇 단계  연쇄 단계 · 트리 깊이     ← 횟수만. 거리가 아니다
+depth   몇 번    연쇄가 더 번지는 횟수     ← 횟수만. 거리가 아니다
 ```
 
 **섞지 말 것.** `ChainEffect`는 `depth`를 쓴다. `count`를 넣으면 연쇄가 안 돈다.
+
+**`depth` 는 "최초 적중 뒤 몇 번 더 번지나"다.**
+
+```
+depth 0  →  안 번짐. 최초 적중만
+depth 1  →  1번 번짐   (선형 연쇄 기준 대상 2개)
+depth 3  →  3번 번짐   (선형 연쇄 기준 대상 4개)
+```
 
 > **탐색 증강의 "깊이"는 `depth` 가 아니라 `effectRange` 다.**
 > 기획상 탐색의 깊이는 *전파 반경*이지 횟수가 아니다. 반경 안이면 몇 마리든 전부 표식이 붙는다(상한 없음).
@@ -301,8 +593,8 @@ effectRange  효과 범위     닿은 뒤 퍼지는 크기
 | 무엇 | 어느 스탯 |
 |---|---|
 | 타겟팅 탐색 반경 | `range` |
-| 투사체 비행 거리 | `range` × `travelRangeMultiplier` |
-| 레이저 길이 | `range` × `lengthMultiplier` |
+| 투사체 비행 거리 | `range` → `travelRange` |
+| 레이저 길이 | `range` → `length` |
 | **폭발 반경** | **`effectRange`** |
 | **하위 파이프라인 반경** | **`effectRange`** |
 
@@ -346,8 +638,8 @@ effectRange  효과 범위     닿은 뒤 퍼지는 크기
 
 ```
 Targeting.rangeOverride = 3   →  ctx.EffectiveRange = 3
-Projectile 비행 거리          =  3 × travelRangeMultiplier
-Line 레이저 길이              =  3 × lengthMultiplier
+Projectile 비행 거리          =  travelRange.Of(3)
+Line 레이저 길이              =  length.Of(3)
 ```
 
 폭발 반경은 여기 안 딸린다. **`Area` 는 `effectRange` 를 직접 본다** — 도달 거리가 아니라 퍼지는 크기니까.
@@ -356,6 +648,65 @@ Line 레이저 길이              =  3 × lengthMultiplier
 
 > **새 Targeting 모듈을 만들면 반드시 `ctx.EffectiveRange` 를 채울 것.** 안 채우면 전달이 엉뚱한 거리를 쓴다.
 
+### 전역 보정 — `PlayerStats`
+
+하드웨어 업그레이드·캐릭터 능력·한시적 버프가 여기 모여서 **보유 증강 전부에 한꺼번에** 적용된다.
+
+```
+최종 수치 = (시트 레벨 수치 + 가산) × (1 + 승산)
+쿨타임만  = (시트 쿨타임 + 가산) ÷ (1 + 승산)     ← 짧아지는 방향
+```
+
+통로는 `AugmentInstance.Stat` 하나뿐이다. 모든 모듈이 여기를 거치므로 증강이 몇 개든 자동으로 따라온다.
+
+```csharp
+PlayerStats.Current.Add(new StatModifier(StatKind.Damage, cpuUpgrade, percent: 0.2f));
+PlayerStats.Current.AddTimed(new StatModifier(StatKind.Cooldown, item, percent: 0.5f), 5f);
+PlayerStats.Current.Remove(cpuUpgrade);
+```
+
+| | |
+|---|---|
+| **쿨타임은 나눗셈** | 아무리 쌓아도 0에 닿지 않는다. 곱셈이면 100%에서 매 프레임 발동이 된다 |
+| **가산 → 승산 순** | 반대로 하면 같은 20%가 순서에 따라 다른 결과를 내서 밸런싱이 안 잡힌다 |
+| **정수는 가산만** | `count` · `pierce` · `depth`. 투사체 1.5개가 없으므로 퍼센트를 안 받는다 |
+| `Source` 로 해제 | 같은 출처가 건 보정을 한 번에 뗀다 |
+
+`AugmentInstance.BaseStat` 은 보정을 뺀 시트 원본이다. 설명문에 "기본 수치"를 보여줄 때 쓴다.
+
+> 하드웨어가 붙기 전까지는 `PlayerStats` 인스펙터의 **시작 보정** 목록으로 시험해 볼 수 있다.
+
+### `Scalable` — 고정값 × 배수
+
+시트 수치를 어떻게 바꿔 쓸지 한 줄로 적는다.
+
+```
+Blast Radius     [ 0 ]  ×  [ 0.5 ]
+```
+
+| 고정값 | 배수 | 결과 |
+|---|---|---|
+| 0 | 0 | **시트값 그대로** (기본) |
+| 0 | 0.5 | 시트값의 절반 — **레벨업하면 같이 자란다** |
+| 3 | 0 | 고정 3 |
+| 3 | 2 | 고정 6 |
+
+**효과 범위 하나를 여러 곳이 나눠 쓸 때 이걸 쓴다.** 폭발 ×1, 전파 ×0.5, 표식 ×0.3 으로 두면 전부 레벨을 따라 같이 자란다. 고정값으로 박으면 레벨업해도 안 커진다.
+
+쓰는 곳 — 타겟팅 `rangeOverride` · `Area`/`FanArea` `blastRadius` · `Line` `length` · 투사체 `travelRange` · `Search` `bonus`·`duration`
+
+### 방향 오프셋
+
+모든 전달이 **`directionOffset`** 을 갖는다. 자기가 구한 방향을 이 각도만큼 돌린다.
+
+```
+Area  halfAngle 90,  directionOffset   0     앞쪽 휘두르기
+Area  halfAngle 90,  directionOffset 180     뒤쪽 휘두르기
+                                             → 둘 다 넣으면 양쪽
+```
+
+`Instant` 는 위치가 이미 정해져 있어 영향이 없다.
+
 ### 0 = 시트 수치 규칙
 
 모듈 필드가 **0이면 시트 수치를 쓰고, 0보다 크면 그 값을 쓴다.** 예외 없다.
@@ -363,19 +714,43 @@ Line 레이저 길이              =  3 × lengthMultiplier
 | 모듈 필드 | ← 시트 |
 |---|---|
 | `rangeOverride` | 사거리 / 효과 범위 |
-| `targetCount` · `targetLimit` · `pointCount` · `projectileCount` · `shotsPerTarget` | 수량 |
+| `projectileCount` · `shotsPerTarget` | 수량 |
 | `speed` | 속도 |
 | `pierce` · `maxHits` | 관통력 |
 | `blastRadius` | 효과 범위 |
-| `bonusOverride` | 효과 피해 |
-| `durationOverride` | 지속시간 |
+| `bonus` | 효과 피해 |
+| `duration` | 지속시간 |
 | `maxDepthOverride` | 깊이 |
 
-**곱하는 것** — `travelRangeMultiplier`(사거리) · `lengthMultiplier`(사거리) · `damageScale`(피해량) · `damageMultiplier`(피해량)
+**`Scalable` 인 것** — `rangeOverride` · `blastRadius` · `travelRange` · `length` · `bonus` · `duration`
+
+**단순 배수** — `damageScale`(피해량) · `damageMultiplier`(피해량)
 
 **시트와 무관한 고정값** — `lifetime` · `width` · `spreadAngle` · `angleJitter` · `scatterRadius` · `minDistanceRatio` · `pointSearchRadius` · 넉백 `distance` · `amplifyPerDepth`
 
+### 시트 `수량` 은 전달 축 전용이다
+
+**타겟 수를 정하는 필드는 시트를 보지 않는다.** `targetCount` · `pointCount` · `targetLimit` 셋 다 모듈에 적힌 수가 전부다.
+
+```
+시트 수량(count)  →  발사체 수만        projectileCount · shotsPerTarget
+타겟 수          →  타겟팅 모듈이 직접   targetCount · pointCount · targetLimit
+```
+
+**이유는 곱셈이다.** 두 축이 같은 컬럼을 보면 `타겟 수 × 발 수` 가 된다.
+
+```
+Random(count 5) + Projectile(count 5발)  →  25발
+```
+
+레벨업으로 늘어나야 하는 건 대개 발사체 쪽이라 시트를 그쪽에 줬다.
+
+> **대가** — "레벨업하면 정렬 대상이 늘어난다" 같은 증강은 지금 구조로 표현할 수 없다.
+> 필요해지면 시트에 `타겟수` 컬럼을 따로 파는 게 맞다. 컬럼 하나가 두 축에 걸치는 것만은 피할 것.
+
 모든 툴팁에 **한글 시트 이름과 코드 이름을 같이** 적어두었다.
+
+> ⚠ **거리·발사체 계열 모듈 필드 기본값은 0이다.** 예전에는 `speed 12` · `pierce 1` 처럼 0이 아닌 기본값이 있어서 시트를 채워도 안 먹었다. 지금은 새로 만든 모듈이 곧바로 시트를 따른다 — 그러니 **시트 컬럼을 비워두면 아무것도 안 나간다.**
 
 ### `damageScale`
 
@@ -421,6 +796,25 @@ DFS   맞은 방향 그대로 앞쪽으로만   한 방향으로 뻗는 탐색
 ---
 
 ## 6. 증강 만들기 — 코드 없이
+
+### 완성한 증강은 잠근다
+
+인스펙터 맨 위에 잠금 버튼 두 개가 있다.
+
+```
+[ 작동 방식 잠금 ]   [ 수치 잠금 ]
+```
+
+| | 잠기는 것 |
+|---|---|
+| 작동 방식 | `trigger` · `targeting` · `deliveries` · `effects` |
+| 수치 | 레벨별 수치 표 (레벨 추가·삭제 포함) |
+
+**따로 있는 이유** — 작동 방식은 확정됐는데 밸런싱은 계속하는 경우가 대부분이다. 그때 작동 방식만 잠가두면 실수로 모듈을 갈아끼우는 일이 없다.
+
+잠긴 칸은 회색으로 비활성화되고 드롭다운도 안 열린다. 풀려면 같은 버튼을 다시 누른다.
+
+---
 
 1. `Data/Augments/{분류}/` 우클릭 → **Create → CoD → Augment**
 2. 파일명은 **시트의 `id`와 동일하게**
@@ -493,7 +887,7 @@ public class ConeAreaDelivery : DeliveryModule
 | 컴포넌트가 안 붙는다 | MonoBehaviour의 **파일명 ≠ 클래스명** |
 | 조립해둔 모듈이 `None`이 됐다 | 클래스 이름을 바꿈 |
 | 연쇄가 안 돈다 | `levelStats.depth`가 0 (`count`에 넣었을 가능성) |
-| 사거리 밖 적을 때린다 | `travelRangeMultiplier` 가 1보다 큼 |
+| 사거리 밖 적을 때린다 | `travelRange` 배수가 1보다 큼 |
 | 모듈이 조용히 아무것도 안 한다 | ＊ 필드가 비었음. 붉은 칸을 찾을 것 |
 | 적이 스폰 직후 이상하게 잡힌다 | 물리 좌표 미동기화. `Spawner`가 활성화 후 이동 중 |
 | 이펙트가 씬에 쌓인다 | 파티클에 `Stop Action = Destroy` 없음 |
@@ -505,13 +899,12 @@ public class ConeAreaDelivery : DeliveryModule
 
 감사에서 나온 항목. **고치기 전까지는 피해서 조립할 것.**
 
-### 🔴 1. `Excluded` 가 동시 전달 사이에도 막는다
+### ✅ 1. `deliveries` 다중 사용 — 해결됨
 
-`deliveries` 에 **두 개 이상 넣으면 두 번째가 약해진다.** 첫 번째가 맞힌 적을 두 번째가 건너뛴다.
+예전 `Excluded` 시절에는 두 번째 전달이 약해졌지만, `ChainVisited` 로 정리하면서 **전달 모듈은 이 목록을 아예 안 본다.** 타겟팅만 참조한다.
 
-`Excluded` 는 연쇄 중복 방지용인데 같은 단계의 여러 전달까지 막고 있다. 구조 변경이 필요해서 보류.
-
-> **당분간 `deliveries`는 1개만 쓸 것.**
+> **`deliveries` 를 여러 개 넣어도 된다.** 각자 온전히 판정한다.
+> `directionOffset` 을 달리 주면 같은 전달로 양쪽 휘두르기·십자 방사를 만들 수 있다.
 
 ### ✅ 2. 탐지 사거리와 비행 거리가 어긋난다 — 해결됨
 
@@ -526,11 +919,28 @@ public class ConeAreaDelivery : DeliveryModule
 
 > **앞으로 쏘려면 `DirectionPoint` 를 쓸 것.** `OwnerPoint` 는 제자리에서 터지는 `Area` · `Radial` 전용.
 
-### 🔴 4. `Chain` 중첩 시 지수 폭발
+### 🟡 4. 연쇄 분기 폭발 — 에디터가 경고한다
 
-`ChainEffect` 는 하위 효과에 **자기를 자동으로 붙인다.** 하위 `effects` 에 `Chain` 을 또 넣으면 한 단계에 두 번 분기해서 최대 256회까지 간다.
+**연쇄는 선이 아니라 나무다.** 한 단계에서 b갈래로 갈라지면 총 실행 수가 `b^깊이` 가 된다.
 
-> **`Chain` 의 하위 `effects` 에 `Chain` 을 넣지 말 것.**
+| 분기 b | 깊이 3 | 깊이 8 |
+|---|---|---|
+| 1 (Nearest 1체) | 4 | 9 |
+| 3 (관통 3) | 40 | 9,841 |
+| 8 (Radial 8발) | 585 | **1,600만** |
+
+깊이 상한 8은 **분기 없는 선형 연쇄**를 가정한 숫자다. `Chain` 하위에 관통·방사·다중 타겟을 물리면 한 프레임에 프리즈한다.
+
+`ChainAudit` 이 에셋을 열 때 조합을 계산해서 인스펙터 맨 위에 띄운다.
+
+```
+⚠ 연쇄가 지수로 불어난다 — 분기 8 × 깊이 3 = 최대 512회 실행.
+   하위 타겟 수나 관통·발사 수를 줄이거나 깊이를 낮출 것.
+```
+
+`AllInRange`(상한 없음)나 `Area` 처럼 **미리 셀 수 없는** 조합은 숫자 대신 "적이 몰리면 수천 번"으로 경고한다. 중첩된 `SubPipeline` 안에 숨은 `Chain` 도 찾아낸다.
+
+> 경고는 어디까지나 경고다. **런타임 차단은 없으니 뜨면 실제로 고칠 것.**
 
 ### 🔴 5. `speed = 0` 투사체가 제자리에 머문다
 
@@ -546,6 +956,8 @@ public class ConeAreaDelivery : DeliveryModule
 **`AllInRange` + `Area`** — 폭발 5번이 서로를 갉아먹는다(`Excluded`). 겹치는 폭발이 더 아파야 하는지는 밸런스 판단.
 
 **Effect 순서가 결과를 바꾼다.** `Knockback → Chain` 은 밀려난 위치에서, `Chain → Knockback` 은 원래 위치에서 연쇄한다.
+
+**넉백은 `hit.Direction` 을 따른다.** 투사체는 비행 방향, 레이저는 발사 방향, 폭발은 중심에서 바깥. `pull` 을 켜면 그 반대라 폭발은 중심으로 빨아들이고 투사체는 시전자 쪽으로 끌어온다.
 
 **연쇄 중 적이 죽으면** 원점이 비활성 오브젝트가 된다. 같은 프레임이라 지금은 동작하지만, 풀 재사용 타이밍에 따라 원점이 튈 수 있다.
 

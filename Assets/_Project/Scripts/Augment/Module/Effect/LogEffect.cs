@@ -23,6 +23,12 @@ public class LogEffect : EffectModule
     // 모듈은 SO에 저장되므로 시간 기록은 static 으로 둔다. 문구 단위라 증강이 달라도 안전
     static readonly Dictionary<string, float> lastShown = new();
 
+    /// <summary>
+    /// 문구에 적 이름 같은 토큰이 들어가면 키가 무한히 늘어난다.
+    /// 이 수를 넘으면 통째로 비운다 — 잃는 것은 도배 방지 타이밍뿐이라 부작용이 없다.
+    /// </summary>
+    const int MaxTrackedMessages = 256;
+
     public override void Apply(AugmentContext ctx, HitInfo hit)
     {
         if (string.IsNullOrEmpty(message)) return;
@@ -35,6 +41,8 @@ public class LogEffect : EffectModule
 
             if (lastShown.TryGetValue(text, out float last) && now - last < minInterval)
                 return;
+
+            if (lastShown.Count >= MaxTrackedMessages) lastShown.Clear();
 
             lastShown[text] = now;
         }

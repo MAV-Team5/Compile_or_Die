@@ -9,15 +9,17 @@ using UnityEngine;
 [ModuleInfo("적 전부 — 반경 안 전원", "각도를 좁히면 진행 방향 부채꼴만")]
 public class AllInRangeTargeting : TargetingModule
 {
-    [Tooltip("이 단계의 사거리(유닛). 0이면 시트의 사거리(range)를 그대로 쓴다.\n" +
-             "하위 파이프라인 안에서는 대신 효과 범위(effectRange)를 쓴다.")]
-    public float rangeOverride = 0f;
+    [Tooltip("이 단계의 사거리(유닛). 비워두면 시트의 사거리(range)를 쓴다.\n" +
+             "배수만 주면 그 사거리에 비례한다 — 0 × 0.5 면 절반.\n" +
+             "하위 파이프라인 안에서는 사거리 대신 효과 범위(effectRange)를 기준으로 삼는다.")]
+    public Scalable rangeOverride = Scalable.Ratio(1f);
 
     [Tooltip("진행 방향 기준 좌우 각도(도). 180이면 전방위, 60이면 앞쪽 부채꼴만.\n" +
              "여기까지 오게 한 방향이 없으면(최초 발동) 각도와 무관하게 전방위로 잡는다.")]
     [Range(0f, 180f)] public float halfAngle = 180f;
 
-    [Tooltip("안전장치. 이 수를 넘으면 잘라낸다. 0이면 시트의 수량(count)을 쓰고, 그것도 0이면 무제한.")]
+    [Tooltip("최대 타겟 수. 0이면 반경 안 전원.\n" +
+             "⚠ 투사체 전달과 함께 쓰면 타겟 수 × 발 수만큼 나간다. 그때는 반드시 값을 넣을 것.")]
     public int targetLimit = 0;
 
     public override void Resolve(AugmentContext ctx)
@@ -25,8 +27,9 @@ public class AllInRangeTargeting : TargetingModule
         Vector2 from = ctx.Owner.position;
         List<Collider2D> hits = TargetQuery.Overlap(from, ResolveRange(ctx));
 
-        int limit = targetLimit > 0 ? targetLimit : ctx.Stat.count;
-        if (limit <= 0) limit = int.MaxValue;
+        // 시트 수량(count)은 투사체 수로도 쓰이는 컬럼이라 여기서 참조하지 않는다.
+        // "적 전부"가 다른 필드 때문에 조용히 잘리면 안 된다
+        int limit = targetLimit > 0 ? targetLimit : int.MaxValue;
 
         // 방향을 모르면 부채꼴을 만들 수 없으므로 전방위로 물러난다
         bool useCone = ctx.HasDirection && halfAngle < 180f;
@@ -55,5 +58,5 @@ public class AllInRangeTargeting : TargetingModule
 
     /// <summary>이 단계가 실제로 쓸 사거리. 전달 단계가 읽도록 기록도 남긴다.</summary>
     float ResolveRange(AugmentContext ctx)
-        => ctx.EffectiveRange = rangeOverride > 0f ? rangeOverride : ctx.BaseRange;
+        => ctx.EffectiveRange = rangeOverride.Of(ctx.BaseRange);
 }

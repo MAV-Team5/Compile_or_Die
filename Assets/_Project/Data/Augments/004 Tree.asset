@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 004 Tree
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
   id: 004
   displayName: Tree
   category: 2
@@ -23,15 +25,15 @@ MonoBehaviour:
   requiredRootLevel: 0
   levelStats:
   - damage: 2
-    effectDamage: 0
+    effectDamage: 3
     cooldown: 1.6
     range: 6
     effectRange: 0
     count: 3
     pierce: 1
-    duration: 0
+    duration: 15
     speed: 10
-    depth: 0
+    depth: 3
   - damage: 2.6
     effectDamage: 0
     cooldown: 1.45
@@ -73,51 +75,68 @@ MonoBehaviour:
     speed: 12
     depth: 0
   trigger:
-    rid: 823776550232576661
+    rid: 980040206240448621
   targeting:
-    rid: 571370152870763455
+    rid: 980040206240448622
   deliveries:
-  - rid: 845947609108300422
+  - rid: 980040206240448624
   effects:
-  - rid: 103223854106389223
-  noTargetPolicy: 0
+  - rid: 980040206240448625
   instantEffect: 0
   instantValue: 0
   instantDuration: 0
   references:
     version: 2
     RefIds:
-    - rid: 103223854106389223
-      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+    - rid: 980040206240448621
+      type: {class: SearchTrigger, ns: , asm: Assembly-CSharp}
       data:
-        damageScale: 1
-    - rid: 571370152870763455
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride: 0
-    - rid: 823776550232576661
-      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
-      data:
+        noTargetPolicy: 1
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-    - rid: 845947609108300422
-      type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
+          attachToSource: 0
+        cooldownScale: 1
+    - rid: 980040206240448622
+      type: {class: SearchPoolTargeting, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 6824073935605403827, guid: 65844a7a882df55488297b589d9ac7fb, type: 3}
-        speed: 0
-        pierce: 0
-        travelRangeMultiplier: 1.2
-        lifetime: 3
-        launchFx:
+        rangeOverride:
+          value: 0
+          scale: 1
+        targetLimit: 0
+        nearestFirst: 1
+    - rid: 980040206240448624
+      type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        pointSearchRadius: 1
+        hitFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-        projectileCount: 0
-        spreadAngle: 100
-        aimBasis: 1
-        fixedAngle: 90
-        angleJitter: 5
+          attachToSource: 0
+    - rid: 980040206240448625
+      type: {class: LinkEffect, ns: , asm: Assembly-CSharp}
+      data:
+        transfer:
+          value: 0
+          scale: 1
+        isPercent: 1
+        hopsOverride: 0
+        duration:
+          value: 0
+          scale: 1
+        connectToAll: 1
+        linePrefab: {fileID: 8426094270902924539, guid: 95824c0d8dc85ca4eb65fe9bd4f0c35f, type: 3}
+        connectFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0

@@ -39,10 +39,24 @@ MonoBehaviour:
   effects:
   - rid: 5795976958777753603
   - rid: 5795976958777753604
+  - rid: 980040160363151493
   noTargetPolicy: 0
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
   references:
     version: 2
     RefIds:
+    - rid: 980040160363151493
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 9f9b21a311cb8e044a35981f06d06805, type: 3}
+        volume: 0.416
+    - rid: 980040160363151494
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 908935a69076d8149907f5f8b1d28b6f, type: 3}
+        volume: 1
     - rid: 5795976958777753600
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
@@ -76,6 +90,12 @@ MonoBehaviour:
         durationOverride: 0
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        burstFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        burstInterval: 0.1
     - rid: 5795976958777753604
       type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -87,6 +107,7 @@ MonoBehaviour:
         - rid: 5795976959538757702
         effects:
         - rid: 5795976958777753681
+        - rid: 980040160363151494
         finalEffects: []
     - rid: 5795976958777753681
       type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
@@ -96,6 +117,12 @@ MonoBehaviour:
         durationOverride: 3
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        burstFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        burstInterval: 0.1
     - rid: 5795976958777753682
       type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
       data:

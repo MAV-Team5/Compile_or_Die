@@ -30,8 +30,10 @@ public class ProjectileDelivery : ProjectileDeliveryBase
             // 원점과 목표가 겹치면 방향이 0이 되어 투사체가 제자리에 선다
             if (delta.sqrMagnitude < 0.0001f) continue;
 
-            FireSpread(ctx, origin, delta.normalized, shots,
-                       multiShot.formation, multiShot.spacing, multiShot.spreadPerShot, onHit);
+            // 겨냥해서 쏘므로 유도가 쫓을 첫 대상을 그대로 넘긴다
+            FireSpread(ctx, origin, Aim(delta.normalized), shots,
+                       multiShot.formation, multiShot.spacing, multiShot.spreadPerShot, onHit,
+                       target.Transform);
         }
     }
 }

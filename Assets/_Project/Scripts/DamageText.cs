@@ -1,8 +1,8 @@
-using System;
 using TMPro;
 using UnityEngine;
+
 /// <summary>
-/// 데미지 텍스트 클래스.
+/// 데미지 텍스트 클래스. 색·크기·튀는 속도는 띄우는 쪽에서 정해 넘긴다.
 /// </summary>
 public class DamageText : MonoBehaviour
 {
@@ -14,26 +14,26 @@ public class DamageText : MonoBehaviour
 
     Vector3 moveDirection;
     float moveSpeed;
+    float baseScale;
 
-    /// <summary>
-    /// 텍스트를 받은 데미지로 수정하고 위로 이동.
-    /// </summary>
-    /// <param name="damage"></param>
-    public void Initialize(float damage)
+    /// <summary>텍스트를 받은 데미지로 수정하고 위로 이동.</summary>
+    public void Initialize(float damage, DamageTextStyle style)
     {
         damageText.text = damage.ToString("F0");
+        damageText.color = style.color;
 
         lifeTime = MAX_LIFETIME;
         moveDirection = Vector3.up;
-        moveSpeed = 1.5f;
+        moveSpeed = style.riseSpeed;
+        baseScale = style.scale;
 
-        transform.localScale = Vector3.one;
+        transform.localScale = Vector3.one * baseScale;
         canvasGroup.alpha = 1.0f;
     }
 
-    /// <summary>
-    /// 시간이 지나면 투명해지다 사라지게
-    /// </summary>
+    public void Initialize(float damage) => Initialize(damage, DamageTextStyle.Default);
+
+    /// <summary>시간이 지나면 작아지고 투명해지다 사라진다.</summary>
     private void Update()
     {
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
@@ -42,7 +42,8 @@ public class DamageText : MonoBehaviour
 
         float ratio = lifeTime / MAX_LIFETIME;
 
-        transform.localScale = Vector3.one * ratio;
+        // 스타일 크기를 유지한 채 줄어들어야 큰 숫자가 처음부터 작아 보이지 않는다
+        transform.localScale = Vector3.one * (baseScale * ratio);
         canvasGroup.alpha = ratio;
 
         if (lifeTime <= 0)

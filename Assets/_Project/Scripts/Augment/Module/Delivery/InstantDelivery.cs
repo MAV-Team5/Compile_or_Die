@@ -52,7 +52,8 @@ public class InstantDelivery : DeliveryModule
         // 비행은 없지만 "원점에서 대상 쪽"을 진행 방향으로 본다
         Vector2 toTarget = point - origin;
 
-        hitFx.PlayAt(point, toTarget);
+        // 적중 연출은 붙는다면 맞은 적에게 붙는 게 자연스럽다
+        hitFx.PlayAt(point, toTarget, 0f, target);
 
         onHit(new HitInfo
         {

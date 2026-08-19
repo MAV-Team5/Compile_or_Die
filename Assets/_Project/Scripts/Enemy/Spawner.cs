@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -31,8 +30,12 @@ public class Spawner : MonoBehaviour
     {
         GameObject enemy = GameManager.instance.poolManager.Get(PoolType.Enemy,prefabId);
         enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
-        enemy.GetComponent<Enemy>().Init(spawnData[level]);
 
+        // 물리 좌표는 다음 FixedUpdate 까지 transform 을 따라오지 않는다.
+        // 그 사이에 증강이 사거리 검색을 하면 갓 스폰한 적이 원점에 있는 것으로 잡힌다
+        Physics2D.SyncTransforms();
+
+        enemy.GetComponent<Enemy>().Init(spawnData[level]);
     }
 
     // void SpawnByIndex(int index, int points = 0)

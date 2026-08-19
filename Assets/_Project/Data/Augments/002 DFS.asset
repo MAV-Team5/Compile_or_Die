@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 002 DFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 1
+  lockStats: 0
   id: 002
   displayName: DFS
   category: 0
@@ -23,29 +25,33 @@ MonoBehaviour:
   - damage: 0
     effectDamage: 2
     cooldown: 3
-    range: 15
-    effectRange: 20
+    range: 12
+    effectRange: 8
     count: 0
     pierce: 0
     duration: 0
-    speed: 15
+    speed: 16
     depth: 0
   trigger:
     rid: 980040080136339540
   targeting:
-    rid: 980040160363151468
+    rid: 980040206240448588
   deliveries:
   - rid: 980040080136339555
   effects:
   - rid: 980040160363151464
   - rid: 980040160363151474
-  noTargetPolicy: 0
+  - rid: 980040160363151488
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
   references:
     version: 2
     RefIds:
     - rid: 980040080136339540
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
+        noTargetPolicy: 0
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -54,11 +60,18 @@ MonoBehaviour:
     - rid: 980040080136339555
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
+        directionOffset: 0
         projectilePrefab: {fileID: 6824073935605403827, guid: 794539ce5611b074c9e6add699a4c038, type: 3}
         speed: 8
         pierce: 1
-        travelRangeMultiplier: 1.2
+        travelRange:
+          value: 0
+          scale: 1.2
         lifetime: 3
+        homing:
+          turnSpeed: 90
+          seekRadius: 0
+          retargetInterval: 0.3
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -72,9 +85,13 @@ MonoBehaviour:
     - rid: 980040160363151464
       type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
       data:
-        bonusOverride: 1
-        isPercent: 0
-        durationOverride: 0
+        bonus:
+          value: 0
+          scale: 0.1
+        isPercent: 1
+        duration:
+          value: 0
+          scale: 1
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
         burstFx:
@@ -83,10 +100,6 @@ MonoBehaviour:
           sfx: {fileID: 0}
           sfxVolume: 1
         burstInterval: 0.1
-    - rid: 980040160363151468
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride: 0
     - rid: 980040160363151474
       type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -95,16 +108,24 @@ MonoBehaviour:
           rid: 980040160363151478
         deliveries:
         - rid: 980040160363151476
+        - rid: 980040206240448589
         effects:
         - rid: 980040160363151477
     - rid: 980040160363151476
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
+        directionOffset: 0
         projectilePrefab: {fileID: 5636804321861149976, guid: 4270f0bd59cea22449030744c77c69d9, type: 3}
         speed: 0
         pierce: 999
-        travelRangeMultiplier: 1.2
+        travelRange:
+          value: 0
+          scale: 1
         lifetime: 3
+        homing:
+          turnSpeed: 0
+          seekRadius: 0
+          retargetInterval: 0.15
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -118,10 +139,14 @@ MonoBehaviour:
     - rid: 980040160363151477
       type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
       data:
-        bonusOverride: 1
-        isPercent: 0
-        durationOverride: 0
-        releaseOnRefire: 0
+        bonus:
+          value: 0
+          scale: 0.1
+        isPercent: 1
+        duration:
+          value: 0
+          scale: 1
+        releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
         burstFx:
           vfx: {fileID: 0}
@@ -132,6 +157,36 @@ MonoBehaviour:
     - rid: 980040160363151478
       type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
       data:
-        rangeOverride: 0
-        distanceRatio: 0.27
+        rangeOverride:
+          value: 0
+          scale: 1
+        distanceRatio: 0.1
         fallbackAngle: 90
+    - rid: 980040160363151488
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 9191c3f0aa5f83b498da2653551518bd, type: 3}
+        volume: 1
+    - rid: 980040206240448588
+      type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+        targetCount: 1
+    - rid: 980040206240448589
+      type: {class: LineDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        beamPrefab: {fileID: 6824073935605403827, guid: 809d337b3aa8adc47950391cfa7c14ab, type: 3}
+        width: 0.05
+        length:
+          value: 0
+          scale: 1
+        maxHits: 0
+        beamPerTarget: 0
+        fireFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1

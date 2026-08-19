@@ -28,22 +28,42 @@ public static class TargetQuery
 
         if (!ready)
         {
-            Debug.LogWarning("EnemyQuery: 레이어가 설정되지 않았습니다");
+            Debug.LogWarning("TargetQuery: 레이어가 설정되지 않았습니다");
             return buffer;
         }
 
         Physics2D.OverlapCircle(center, radius, filter, buffer);
 
-        // 스폰 직후처럼 물리 좌표가 transform 을 아직 따라오지 못한 대상이 섞여 들어온다
-        float sqrLimit = radius * radius;
-
+        // ── 이 필터를 지우지 말 것 ────────────────────────────────
+        // OverlapCircle 은 "물리 좌표"로 판정한다. 풀에서 꺼내 위치를 옮긴 적은
+        // 다음 물리 갱신 전까지 옛 자리에 있는 것으로 잡혀서, 화면 반대편의 적이 섞여 들어온다.
+        // Spawner 가 SyncTransforms 를 부르면서 대부분 사라졌지만
+        // 풀에서 적을 꺼내는 경로가 하나 더 생기면 즉시 재발한다.
+        //
+        // 그래서 위치는 transform 을 다시 확인하되, 크기는 콜라이더에서 가져온다 —
+        // 중심만 보면 몸집 큰 보스가 범위에 걸쳐도 누락된다.
         for (int i = buffer.Count - 1; i >= 0; i--)
         {
-            if (((Vector2)buffer[i].transform.position - center).sqrMagnitude > sqrLimit)
-                buffer.RemoveAt(i);
+            if (SurfaceDistance(buffer[i], center) > radius) buffer.RemoveAt(i);
         }
 
         return buffer;
+    }
+
+    /// <summary>
+    /// 중심에서 이 적의 몸 표면까지의 거리. 몸이 걸쳐 있으면 음수.
+    ///
+    /// 위치는 transform 을, 크기는 콜라이더를 쓴다 —
+    /// 스폰 직후 물리 좌표가 밀린 적을 거르면서도 몸집 큰 보스를 놓치지 않으려면 둘을 갈라야 한다.
+    /// </summary>
+    static float SurfaceDistance(Collider2D collider, Vector2 from)
+    {
+        float distance = Vector2.Distance(collider.transform.position, from);
+
+        Vector3 extents = collider.bounds.extents;
+        float reach = Mathf.Max(extents.x, extents.y);
+
+        return distance - reach;
     }
 
     /// <summary>

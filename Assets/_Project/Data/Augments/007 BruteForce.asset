@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 007 BruteForce
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  id: melee_attack
-  displayName: melee
-  category: 2
+  lockModules: 0
+  lockStats: 0
+  id: 007
+  displayName: BruteForce
+  category: 4
   icon: {fileID: 0}
   descriptionTemplate: "\uADFC\uC811\uACF5\uACA9"
   rootAugment: {fileID: 0}
@@ -23,8 +25,8 @@ MonoBehaviour:
   - damage: 1
     effectDamage: 0
     cooldown: 2
-    range: 4
-    effectRange: 0
+    range: 1
+    effectRange: 5
     count: 0
     pierce: 0
     duration: 0
@@ -35,45 +37,70 @@ MonoBehaviour:
   targeting:
     rid: 928005772953518170
   deliveries:
-  - rid: 928005772953518169
+  - rid: 980040206240448610
   effects:
   - rid: 928005772953518174
   - rid: 928005772953518175
-  noTargetPolicy: 0
+  - rid: 980040160363151492
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
   references:
     version: 2
     RefIds:
     - rid: 928005772953518160
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
+        noTargetPolicy: 1
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-    - rid: 928005772953518169
-      type: {class: FanAreaDelivery, ns: , asm: Assembly-CSharp}
-      data:
-        blastRadius: 0
-        halfAngle: 45
-        fanPrefab: {fileID: 4192414326866704946, guid: b5352c0de3a4f439f9b515a431f13f3d, type: 3}
-        blastFx:
-          vfx: {fileID: 0}
-          vfxScale: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
+          attachToSource: 0
     - rid: 928005772953518170
       type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
       data:
-        rangeOverride: 0
+        rangeOverride:
+          value: 0
+          scale: 1
         scatterRadius: 0
     - rid: 928005772953518174
       type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
       data:
-        distance: 4
+        distance: 1.5
         pull: 0
         stunDuration: 0.3
     - rid: 928005772953518175
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damageScale: 1
+        accentText: 0
+        textStyle:
+          color: {r: 1, g: 1, b: 1, a: 1}
+          scale: 1
+          riseSpeed: 1.5
+    - rid: 980040160363151492
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: dc0b3228654fb2445b9ee0b24c254df1, type: 3}
+        volume: 0.541
+    - rid: 980040206240448610
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        blastRadius:
+          value: 0
+          scale: 1
+        halfAngle: 30
+        includeCenterTarget: 1
+        bodyPrefab: {fileID: 3957709228793655409, guid: 1c59fe9830681a7438847527d3d5c01f, type: 3}
+        attachBodyToOwner: 1
+        blastFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0

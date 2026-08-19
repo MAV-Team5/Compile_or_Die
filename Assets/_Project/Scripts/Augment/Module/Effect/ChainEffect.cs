@@ -13,8 +13,9 @@ public class ChainEffect : EffectModule
     const int HardLimit = 8;
 
     [Header("설정")]
-    [Tooltip("최대 연쇄 단계. 0이면 시트의 깊이(depth)를 쓴다. 8을 넘을 수 없다.\n" +
-             "수량(count)은 '몇 개'고 깊이(depth)가 '몇 단계'다. 섞지 말 것.")]
+    [Tooltip("몇 번 더 번질지. 0이면 시트의 깊이(depth)를 쓴다. 8을 넘을 수 없다.\n" +
+             "3이면 최초 적중 뒤 3번 더 번진다 — 선형 연쇄 기준 대상 4개.\n" +
+             "수량(count)은 '몇 개'고 깊이(depth)가 '몇 번'이다. 섞지 말 것.")]
     public int maxDepthOverride = 0;
 
     [Tooltip("단계마다 누적되는 피해 배율. 0.2 면 2단계에서 1.2배, 3단계에서 1.44배.\n" +
@@ -42,8 +43,8 @@ public class ChainEffect : EffectModule
         int limit = maxDepthOverride > 0 ? maxDepthOverride : ctx.Stat.depth;
         limit = Mathf.Min(limit, HardLimit);
 
-        // 깊이를 다 썼다 = 여기가 체인의 끝
-        if (ctx.Depth + 1 >= limit)
+        // 깊이 = 번지는 횟수. 최초 적중(Depth 0)에서 이미 다 썼으면 여기가 끝
+        if (ctx.Depth >= limit)
         {
             ApplyFinal(ctx, hit);
             return;

@@ -17,8 +17,9 @@ public class LineDelivery : DeliveryModule
     [Tooltip("레이저 굵기(유닛). 시트와 무관한 고정값. 이 폭 안에 걸친 적이 전부 맞는다.")]
     public float width = 0.6f;
 
-    [Tooltip("타겟팅이 정한 사거리에 곱할 레이저 길이 배수. 1이면 그 거리만큼.")]
-    public float lengthMultiplier = 1f;
+    [Tooltip("레이저 길이(유닛). 비워두면 타겟팅이 정한 사거리를 쓴다.\n" +
+             "배수만 주면 그 사거리에 비례한다.")]
+    public Scalable length = Scalable.Ratio(1f);
 
     [Tooltip("최대 관통 수. 0이면 시트의 관통력(pierce)을 쓰고, 그것도 0이면 선상 전부.")]
     public int maxHits = 0;
@@ -32,9 +33,9 @@ public class LineDelivery : DeliveryModule
     public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
     {
         Vector2 origin = ctx.Owner.position;
-        float length = ctx.EffectiveRange * lengthMultiplier;
+        float beamLength = length.Of(ctx.EffectiveRange);
 
-        if (length <= 0f || width <= 0f) return;
+        if (beamLength <= 0f || width <= 0f) return;
 
         // 타겟 목록을 먼저 복사한다. 아래 판정이 공용 버퍼를 덮어쓰기 때문
         List<TargetRef> targets = new(ctx.Targets.Items);
@@ -45,7 +46,7 @@ public class LineDelivery : DeliveryModule
             Vector2 delta = targets[t].Position - origin;
             if (delta.sqrMagnitude < 0.0001f) continue;
 
-            Fire(ctx, origin, delta.normalized, length, ref index, onHit);
+            Fire(ctx, origin, Aim(delta.normalized), beamLength, ref index, onHit);
 
             if (!beamPerTarget) return;
         }
@@ -55,7 +56,7 @@ public class LineDelivery : DeliveryModule
               ref int index, System.Action<HitInfo> onHit)
     {
         SpawnBeam(origin, dir, length);
-        fireFx.PlayAt(origin, dir);
+        fireFx.PlayAt(origin, dir, width, ctx.Owner);
 
         // 원점에서 dir 방향으로 뻗은 직사각형 안의 적을 한 번에 잡는다
         Vector2 center = origin + dir * (length * 0.5f);

@@ -21,8 +21,6 @@ public class Player : MonoBehaviour, IFacingProvider
     public float pickupRange;
     Rigidbody2D rigid;
 
-    public float exp;
-
     // 0xCAFE 같은 한시적 이동속도 버프. 배율 하나만 유지하면 되니 스택 없이 덮어쓴다
     float speedMultiplier = 1f;
     float speedBoostRemain;
@@ -74,11 +72,12 @@ public class Player : MonoBehaviour, IFacingProvider
 
     }
 
+    /// <summary>경험치는 LevelSystem 이 소유한다. 여기서는 전달만 한다.</summary>
     public void GetExp(int amount)
     {
-        exp += amount;
-
         GameManager.instance.levelSystem.AddExp(amount);
+
+        // 로그는 따로 — 짧은 시간에 여러 번 먹으면 한 줄로 묶어준다
         GameManager.instance.expManager.AddExpLog(amount);
     }
 }

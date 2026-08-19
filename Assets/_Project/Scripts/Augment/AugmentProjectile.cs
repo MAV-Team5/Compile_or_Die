@@ -24,9 +24,15 @@ public class AugmentProjectile : MonoBehaviour
     int pierceRemain;
     int hitIndex;
 
+    // ── 유도 ──
+    Homing homing;
+    Transform chase;
+    float retargetRemain;
+
     public void Launch(Vector2 direction, float speed, float lifetime, float maxDistance,
                        int pierce, LayerMask mask, Transform ignoreTarget,
-                       System.Action<HitInfo> callback)
+                       System.Action<HitInfo> callback,
+                       Homing homingSetting = null, Transform launchTarget = null)
     {
         this.speed   = speed;
         heading      = direction.normalized;
@@ -39,20 +45,58 @@ public class AugmentProjectile : MonoBehaviour
         onHit        = callback;
         hitIndex     = 0;
 
+        homing = homingSetting != null && homingSetting.Enabled ? homingSetting : null;
+        chase = launchTarget;
+        retargetRemain = 0f;
+
         alreadyHit.Clear();
         transform.up = direction;
     }
 
     void Update()
     {
-        transform.position += (Vector3)(velocity * Time.deltaTime);
+        float dt = Time.deltaTime;
+
+        if (homing != null) Steer(dt);
+
+        transform.position += (Vector3)(velocity * dt);
 
         // 사거리와 수명 중 먼저 닿는 쪽에서 소멸
-        travelRemain -= speed * Time.deltaTime;
-        lifeRemain   -= Time.deltaTime;
+        travelRemain -= speed * dt;
+        lifeRemain   -= dt;
 
         if (travelRemain <= 0f || lifeRemain <= 0f) Despawn();
     }
+
+    /// <summary>목표 쪽으로 조금씩 방향을 튼다. 속력은 그대로 유지된다.</summary>
+    void Steer(float dt)
+    {
+        retargetRemain -= dt;
+
+        // 목표를 잃었거나 주기가 됐을 때만 다시 찾는다. 매 프레임 검색하면 투사체가 많을 때 무겁다
+        if (homing.seekRadius > 0f && (chase == null || !chase.gameObject.activeInHierarchy ||
+                                       retargetRemain <= 0f))
+        {
+            retargetRemain = homing.retargetInterval;
+            chase = FindTarget();
+        }
+
+        if (chase == null || !chase.gameObject.activeInHierarchy) return;
+
+        Vector2 toTarget = (Vector2)chase.position - (Vector2)transform.position;
+        if (toTarget.sqrMagnitude < 0.0001f) return;
+
+        heading = Vector3.RotateTowards(
+            heading, toTarget.normalized,
+            homing.turnSpeed * Mathf.Deg2Rad * dt, 0f);
+
+        velocity = heading * speed;
+        transform.up = heading;
+    }
+
+    /// <summary>이미 뚫은 적은 빼고 가장 가까운 적. 안 그러면 방금 맞힌 적 주위를 맴돈다.</summary>
+    Transform FindTarget()
+        => TargetQuery.Nearest(transform.position, homing.seekRadius, alreadyHit);
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -74,6 +118,9 @@ public class AugmentProjectile : MonoBehaviour
             Direction = heading
         });
 
+        // 방금 뚫은 적을 계속 쫓으면 제자리를 맴돈다
+        if (chase == target) chase = null;
+
         pierceRemain--;
         if (pierceRemain <= 0) Despawn();
     }
@@ -83,6 +130,8 @@ public class AugmentProjectile : MonoBehaviour
     {
         onHit = null;
         ignore = null;
+        homing = null;
+        chase = null;
         velocity = Vector2.zero;
 
         alreadyHit.Clear();

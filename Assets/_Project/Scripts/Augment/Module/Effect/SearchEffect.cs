@@ -9,14 +9,16 @@ using UnityEngine;
 [ModuleInfo("탐색 표식을 남긴다", "직접 피해는 없다. 이후 모든 공격에 추가 피해가 붙는다")]
 public class SearchEffect : EffectModule
 {
-    [Tooltip("추가 피해량. 0이면 시트의 효과 피해(effectDamage)를 쓴다.")]
-    public float bonusOverride = 0f;
+    [Tooltip("추가 피해량. 비워두면 시트의 효과 피해(effectDamage)를 쓴다.\n" +
+             "배수만 주면 그 값에 비례한다.")]
+    public Scalable bonus = Scalable.Ratio(1f);
 
     [Tooltip("켜면 비율. 0.3 이면 원래 피해의 30% 를 더한다. 끄면 고정값.")]
     public bool isPercent = false;
 
-    [Tooltip("표식 지속 시간(초). 0이면 시트의 지속시간(duration)을 쓰고, 그것도 0이면 무기한.")]
-    public float durationOverride = 0f;
+    [Tooltip("표식 지속 시간(초). 비워두면 시트의 지속시간(duration)을 쓴다.\n" +
+             "결과가 0이면 갱신될 때까지 무기한 유지된다.")]
+    public Scalable duration = Scalable.Ratio(1f);
 
     [Tooltip("켜면 다시 발동할 때 이 증강의 지난 표식을 전부 해제한다. 끄면 표식이 계속 쌓인다.\n" +
              "판정은 증강 단위다 — 한 증강 안에 Search 가 여럿이어도 발동당 한 번만 해제한다.")]
@@ -50,14 +52,14 @@ public class SearchEffect : EffectModule
             if (releaseOnRefire) ReleasePrevious(ctx.Instance);
         }
 
-        float bonus = bonusOverride > 0f ? bonusOverride : ctx.Stat.effectDamage;
-        float life = durationOverride > 0f ? durationOverride : ctx.Stat.duration;
+        float amount = bonus.Of(ctx.Stat.effectDamage);
+        float life = duration.Of(ctx.Stat.duration);
 
         // 표식 오브젝트 생성은 MarkerHolder 가 맡는다. 적 프리팹의 MarkAnchor 를 알아야 하므로
         holder.Apply(new SearchMark
         {
             Owner         = ctx.Instance,
-            Bonus         = bonus,
+            Bonus         = amount,
             IsPercent     = isPercent,
             ExpireAt      = life > 0f ? Time.time + life : 0f,
             VisualPrefab  = markVfx,

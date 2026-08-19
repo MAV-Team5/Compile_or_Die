@@ -9,7 +9,10 @@ using UnityEngine;
 [ModuleInfo("다른 파이프라인을 한 번만 실행", "반복하려면 Chain")]
 public class SubPipelineEffect : EffectModule
 {
-    /// <summary>손으로 깊게 중첩해도 여기서 멈춘다.</summary>
+    /// <summary>
+    /// 손으로 깊게 중첩해도 여기서 멈춘다.
+    /// 깊이 해석은 Chain 과 같다 — Depth 는 "지금까지 몇 번 번졌나"다.
+    /// </summary>
     const int HardLimit = 8;
 
     [Header("설정")]
@@ -27,7 +30,7 @@ public class SubPipelineEffect : EffectModule
     public override void Apply(AugmentContext ctx, HitInfo hit)
     {
         if (hit.Target == null) return;
-        if (ctx.Depth + 1 >= HardLimit) return;
+        if (ctx.Depth >= HardLimit) return;
 
         // 적중한 적을 원점으로 삼는다. 하위 타겟팅이 여기서부터 검색한다
         var sub = new AugmentContext();

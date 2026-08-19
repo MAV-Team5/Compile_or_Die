@@ -45,8 +45,8 @@ public class AugmentRunner : MonoBehaviour
 
         if (!fired)
         {
-            // 대상이 없을 때 쿨타임을 버릴지 유지할지는 증강마다 다르다
-            if (data.noTargetPolicy == NoTargetPolicy.Consume)
+            // 대상이 없을 때 쿨타임을 버릴지 유지할지는 발동 조건이 정한다
+            if (data.trigger.noTargetPolicy == NoTargetPolicy.Consume)
                 data.trigger.Consume(ctx);
 
             return;

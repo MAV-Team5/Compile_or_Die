@@ -12,23 +12,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: Augment2312
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  id: 
+  id: 123
   displayName: 
   category: 0
   icon: {fileID: 0}
   descriptionTemplate: 
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
-  levelStats: []
+  levelStats:
+  - damage: 5
+    effectDamage: 4
+    cooldown: 5
+    range: 15
+    effectRange: 0
+    count: 5
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
   trigger:
-    rid: -2
+    rid: 980040160363151495
   targeting:
-    rid: -2
-  deliveries: []
-  effects: []
+    rid: 980040160363151496
+  deliveries:
+  - rid: 980040160363151497
+  effects:
+  - rid: 980040160363151498
   noTargetPolicy: 0
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 980040160363151495
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+    - rid: 980040160363151496
+      type: {class: RandomPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+        pointCount: 0
+        minDistanceRatio: 0.6
+    - rid: 980040160363151497
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        blastRadius: 0
+        halfAngle: 180
+        includeCenterTarget: 1
+        blastFx:
+          vfx: {fileID: 3958639205442384375, guid: 5af7ccd2f608f7646a2565eccef2df21, type: 3}
+          vfxScale: 1
+          sfx: {fileID: 8300000, guid: ab6ddbe7ab453e64b8860a13d65c43b4, type: 3}
+          sfxVolume: 0.296
+    - rid: 980040160363151498
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1

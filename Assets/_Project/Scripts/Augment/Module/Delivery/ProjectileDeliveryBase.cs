@@ -9,18 +9,21 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     [Tooltip("발사할 투사체 프리팹. AugmentProjectile 컴포넌트가 붙어 있어야 한다.")]
     public GameObject projectilePrefab;
 
-    [Tooltip("초당 이동 거리(유닛). 0이면 시트의 속도(speed)를 쓴다.")]
-    public float speed = 12f;
+    [Tooltip("초당 이동 거리(유닛). 0이면 시트의 속도(speed)를 쓴다 — 레벨업으로 빨라지게 하려면 비워둘 것.")]
+    public float speed = 0f;
 
     [Tooltip("몇 명을 뚫고 지나갈지. 0이면 시트의 관통력(pierce)을 쓰고, 그것도 0이면 1명.")]
-    public int pierce = 1;
+    public int pierce = 0;
 
-    [Tooltip("타겟팅이 정한 사거리에 곱할 비행 거리 배수. 1.2 면 그 거리의 120% 까지 날아간다.\n" +
-             "타겟팅에서 사거리를 좁히면 투사체도 같이 짧아진다.")]
-    public float travelRangeMultiplier = 1.2f;
+    [Tooltip("비행 거리(유닛). 비워두면 타겟팅이 정한 사거리를 쓴다.\n" +
+             "배수만 주면 그 사거리에 비례한다 — 0 × 1.2 면 사거리의 120%.")]
+    public Scalable travelRange = Scalable.Ratio(1.2f);
 
     [Tooltip("최대 생존 시간(초). 시트와 무관한 안전장치. 거리보다 먼저 끝나면 여기서 사라진다.")]
     public float lifetime = 3f;
+
+    [Fold("유도")]
+    public Homing homing = new();
 
     [Fx("발사 연출", "발사 원점")]
     public FxGroup launchFx = new();
@@ -30,22 +33,23 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     {
         if (projectilePrefab != null) return true;
 
-        Debug.LogWarning($"[{ctx.Instance.Data.name}] {GetType().Name} 에 투사체 프리팹이 없습니다");
+        ModuleWarning.Once(ctx, $"{GetType().Name} 에 투사체 프리팹이 없습니다");
         return false;
     }
 
     /// <summary>발사 연출. 여러 발이면 방향이 갈리므로 이 단계가 향하는 방향을 쓴다.</summary>
     protected void PlayLaunch(AugmentContext ctx, Vector2 origin)
-        => launchFx.PlayAt(origin, ctx.Heading);
+        => launchFx.PlayAt(origin, ctx.Heading, 0f, ctx.Owner);
 
     /// <summary>한 방향으로 여러 발을 대형에 맞춰 쏜다. shots 가 1이면 그냥 한 발.</summary>
     protected void FireSpread(AugmentContext ctx, Vector2 origin, Vector2 direction,
                               int shots, ShotFormation formation, float spacing,
-                              float anglePerShot, System.Action<HitInfo> onHit)
+                              float anglePerShot, System.Action<HitInfo> onHit,
+                              Transform launchTarget = null)
     {
         if (shots <= 1)
         {
-            Fire(ctx, origin, direction, onHit);
+            Fire(ctx, origin, direction, onHit, launchTarget);
             return;
         }
 
@@ -66,28 +70,23 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
                 ? direction
                 : Rotate(direction, lane * anglePerShot);
 
-            Fire(ctx, spawn, aim, onHit);
+            Fire(ctx, spawn, aim, onHit, launchTarget);
         }
     }
 
-    static Vector2 Rotate(Vector2 v, float degrees)
-    {
-        float rad = degrees * Mathf.Deg2Rad;
-        float cos = Mathf.Cos(rad);
-        float sin = Mathf.Sin(rad);
-
-        return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
-    }
-
-    /// <summary>한 발 발사한다.</summary>
+    /// <summary>
+    /// 한 발 발사한다.
+    /// launchTarget 은 유도가 처음 쫓을 대상이다. 겨냥해서 쏘는 전달만 넘길 수 있다.
+    /// </summary>
     protected void Fire(AugmentContext ctx, Vector2 origin, Vector2 direction,
-                        System.Action<HitInfo> onHit)
+                        System.Action<HitInfo> onHit, Transform launchTarget = null)
     {
         float flightSpeed = speed > 0f ? speed : ctx.Stat.speed;
 
         if (flightSpeed <= 0f)
         {
-            Debug.LogWarning($"[{ctx.Instance.Data.name}] 속도가 0이라 투사체가 제자리에 섭니다");
+            ModuleWarning.Once(ctx, "속도가 0이라 투사체가 안 나갑니다. " +
+                                    "시트의 속도(speed)를 채우거나 모듈에 직접 입력할 것");
             return;
         }
 
@@ -97,11 +96,11 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
         GameObject go = ProjectileSpawner.Spawn(projectilePrefab, origin);
 
         // 비행 거리는 타겟팅이 정한 사거리를 따른다. 좁게 탐색했으면 투사체도 짧게 난다
-        float travel = ctx.EffectiveRange * travelRangeMultiplier;
+        float travel = travelRange.Of(ctx.EffectiveRange);
 
         // 연쇄 단계면 Owner가 방금 맞은 적이다. 그 안에서 태어나므로 한 번은 통과시켜야 한다
         go.GetComponent<AugmentProjectile>()
           .Launch(direction, flightSpeed, lifetime, travel,
-                  hits, TargetQuery.Mask, ctx.Owner, onHit);
+                  hits, TargetQuery.Mask, ctx.Owner, onHit, homing, launchTarget);
     }
 }

@@ -36,12 +36,14 @@ public class SearchMark
     public float Evaluate(float baseAmount) => IsPercent ? baseAmount * Bonus : Bonus;
 
     /// <summary>추가 피해가 실제로 들어간 순간의 연출. 간격 안에 다시 부르면 조용히 넘어간다.</summary>
-    public void PlayBurst(Vector2 position)
+    public void PlayBurst(Vector2 position, Transform host = null)
     {
         if (BurstFx == null || BurstFx.IsEmpty) return;
         if (Time.time < nextBurstAt) return;
 
         nextBurstAt = Time.time + BurstInterval;
-        BurstFx.PlayAt(position);
+
+        // 붙이기를 켜면 표식이 붙은 적을 따라다닌다
+        BurstFx.PlayAt(position, default, 0f, host);
     }
 }

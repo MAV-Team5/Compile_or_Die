@@ -24,6 +24,17 @@ public enum InstantItemEffect
 [CreateAssetMenu(fileName = "Augment", menuName = "CoD/Augment")]
 public class AugmentData : ScriptableObject
 {
+    [Header("잠금")]
+    [Tooltip("작동 방식을 확정하고 잠근다. 모듈 조립을 인스펙터에서 못 바꾸게 된다.\n" +
+             "수치는 계속 조정할 수 있다.")]
+    public bool lockModules;
+
+    [Tooltip("레벨별 수치를 잠근다. 밸런싱이 끝난 증강에 건다.")]
+    public bool lockStats;
+
+    /// <summary>둘 중 하나라도 잠겼는가. 시트 임포터가 건너뛸 때 참고한다.</summary>
+    public bool IsLocked => lockModules || lockStats;
+
     [Header("정체성")]
     [Required("시트 임포터가 이 증강을 찾지 못한다")]
     [Tooltip("시트와 잇는 유일 키. 한번 정하면 바꾸지 말 것.")]
@@ -57,9 +68,6 @@ public class AugmentData : ScriptableObject
     [SerializeReference] public TargetingModule targeting;
     [SerializeReference] public List<DeliveryModule> deliveries = new();
     [SerializeReference] public List<EffectModule> effects = new();
-
-    [Tooltip("대상이 없을 때 쿨타임을 유지할지 버릴지.")]
-    public NoTargetPolicy noTargetPolicy = NoTargetPolicy.Hold;
 
     [Header("즉시 효과 (레벨 없는 소모성 아이템 전용)")]
     [Tooltip("None이 아니면 이 증강은 무기로 등록되지 않고 선택 즉시 효과만 적용된다.\n" +

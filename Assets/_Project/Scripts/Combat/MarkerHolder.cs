@@ -92,7 +92,7 @@ public class MarkerHolder : MonoBehaviour
                 ? (Vector2)marks[i].Visual.transform.position
                 : (Vector2)transform.position;
 
-            marks[i].PlayBurst(at);
+            marks[i].PlayBurst(at, transform);
         }
 
         return sum;
@@ -100,6 +100,9 @@ public class MarkerHolder : MonoBehaviour
 
     void Update()
     {
+        // 이 컴포넌트는 한 번 붙으면 안 떨어진다. 표식이 없는 동안 헛돌지 않게 막는다
+        if (marks.Count == 0) return;
+
         bool changed = false;
 
         for (int i = marks.Count - 1; i >= 0; i--)

@@ -25,10 +25,24 @@ public class AugmentDataEditor : Editor
     static GUIStyle headStyle;
     static GUIStyle levelStyle;
 
+    /// <summary>작동 방식에 해당하는 필드. lockModules 가 켜지면 이 칸들이 잠긴다.</summary>
+    static readonly System.Collections.Generic.HashSet<string> ModuleFields =
+        new() { "trigger", "targeting", "deliveries", "effects" };
+
+    /// <summary>잠금 토글 자체는 따로 그리므로 순회에서 뺀다.</summary>
+    static readonly System.Collections.Generic.HashSet<string> LockFields =
+        new() { "lockModules", "lockStats" };
+
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
         BuildStyles();
+
+        SerializedProperty lockModules = serializedObject.FindProperty("lockModules");
+        SerializedProperty lockStats = serializedObject.FindProperty("lockStats");
+
+        DrawLockBar(lockModules, lockStats);
+        DrawChainWarning();
 
         SerializedProperty it = serializedObject.GetIterator();
         bool enter = true;
@@ -36,6 +50,8 @@ public class AugmentDataEditor : Editor
         while (it.NextVisible(enter))
         {
             enter = false;
+
+            if (LockFields.Contains(it.propertyPath)) continue;
 
             if (it.propertyPath == "m_Script")
             {
@@ -46,14 +62,67 @@ public class AugmentDataEditor : Editor
 
             if (it.propertyPath == TableField)
             {
-                DrawTable(serializedObject.FindProperty(TableField));
+                using (new EditorGUI.DisabledScope(lockStats.boolValue))
+                    DrawTable(serializedObject.FindProperty(TableField));
                 continue;
             }
 
-            EditorGUILayout.PropertyField(it, true);
+            bool locked = ModuleFields.Contains(it.propertyPath) && lockModules.boolValue;
+
+            // 비활성 상태에서는 접힘/펼침도 안 눌린다. 잠글 때 열어둬야 안을 볼 수 있다
+            if (locked) it.isExpanded = true;
+
+            using (new EditorGUI.DisabledScope(locked))
+                EditorGUILayout.PropertyField(it, true);
         }
 
         serializedObject.ApplyModifiedProperties();
+    }
+
+    /// <summary>연쇄가 지수로 불어나는 조합이면 만들 때 바로 보이게 띄운다.</summary>
+    void DrawChainWarning()
+    {
+        string warning = ChainAudit.Inspect(target as AugmentData);
+        if (warning == null) return;
+
+        EditorGUILayout.HelpBox(warning, MessageType.Warning);
+        EditorGUILayout.Space(4);
+    }
+
+    static readonly Color LockedTint = new(1f, 0.85f, 0.45f);
+
+    /// <summary>맨 위 잠금 줄. 잠긴 상태가 한눈에 보여야 실수로 풀지 않는다.</summary>
+    static void DrawLockBar(SerializedProperty lockModules, SerializedProperty lockStats)
+    {
+        using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+        {
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                DrawLockToggle(lockModules, "작동 방식");
+                DrawLockToggle(lockStats, "수치");
+            }
+
+            if (lockModules.boolValue || lockStats.boolValue)
+            {
+                EditorGUILayout.LabelField(
+                    "잠긴 칸은 회색으로 비활성화된다. 고치려면 위 버튼을 다시 눌러 풀 것.",
+                    EditorStyles.miniLabel);
+            }
+        }
+
+        EditorGUILayout.Space(4);
+    }
+
+    static void DrawLockToggle(SerializedProperty flag, string label)
+    {
+        Color previous = GUI.backgroundColor;
+        if (flag.boolValue) GUI.backgroundColor = LockedTint;
+
+        string text = flag.boolValue ? $"[ 잠김 ] {label}" : $"{label} 잠금";
+
+        flag.boolValue = GUILayout.Toggle(flag.boolValue, text, EditorStyles.miniButton);
+
+        GUI.backgroundColor = previous;
     }
 
     static void BuildStyles()

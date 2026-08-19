@@ -5,7 +5,7 @@ using UnityEngine;
 public class MultiShot
 {
     [Tooltip("타겟 1명당 몇 발. 0이면 시트의 수량(count)을 쓰고, 그것도 0이면 1발.")]
-    public int shotsPerTarget = 1;
+    public int shotsPerTarget = 0;
 
     [Tooltip("여러 발을 어떻게 배치할지. 나란히 또는 줄줄이.")]
     public ShotFormation formation = ShotFormation.Parallel;

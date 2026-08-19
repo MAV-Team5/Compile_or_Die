@@ -54,8 +54,9 @@ public struct AugmentLevelData
              "즉발·폭발·레이저 계열은 쓰지 않는다.")]
     public float speed;
 
-    [Tooltip("깊이 — '몇 단계'.\n" +
-             "연쇄가 이어지는 단계 수, 트리 계층.\n" +
+    [Tooltip("깊이 — '몇 번 더 번지나'.\n" +
+             "3이면 최초 적중 뒤 3번 더 번진다 — 선형 연쇄 기준 대상 4개.\n" +
+             "0이면 안 번지고 최초 적중만.\n" +
              "거리가 아니다. 최대 8까지만 유효하다.")]
     public int depth;
 }
