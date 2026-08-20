@@ -9,6 +9,7 @@ using UnityEngine;
 [ModuleInfo("적 N체 — 무작위", "뽑을 수를 정해두는 것이 AllInRange 와 다르다")]
 public class RandomTargeting : TargetingModule
 {
+    [Sheet("사거리")]
     [Tooltip("이 단계의 사거리(유닛). 비워두면 시트의 사거리(range)를 쓴다.\n" +
              "배수만 주면 그 사거리에 비례한다 — 0 × 0.5 면 절반.\n" +
              "하위 파이프라인 안에서는 사거리 대신 효과 범위(effectRange)를 기준으로 삼는다.")]

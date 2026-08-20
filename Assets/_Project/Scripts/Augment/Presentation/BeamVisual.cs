@@ -23,15 +23,30 @@ public class BeamVisual : MonoBehaviour
     Vector2 spriteUnit;
     Color baseColor;
     bool playing;
+    bool captured;
+
+    // 풀에서 재사용되므로 원래 색은 처음 한 번만 기억한다.
+    // Play 에서 잡으면 이전 재생이 알파를 0으로 만들어둔 상태를 원본으로 착각한다
+    void Awake() => Capture();
+
+    void Capture()
+    {
+        if (captured) return;
+        if (body == null) body = GetComponentInChildren<SpriteRenderer>();
+        if (body == null) return;
+
+        baseColor = body.color;
+        captured = true;
+    }
 
     public void Play(Vector2 origin, Vector2 direction, float length, float width)
     {
-        if (body == null) body = GetComponentInChildren<SpriteRenderer>();
+        Capture();
 
         if (body == null || body.sprite == null)
         {
             Debug.LogWarning("BeamVisual: SpriteRenderer 나 Sprite 가 없습니다", this);
-            Destroy(gameObject);
+            Despawn();
             return;
         }
 
@@ -40,13 +55,12 @@ public class BeamVisual : MonoBehaviour
 
         if (spriteUnit.x <= 0f || spriteUnit.y <= 0f)
         {
-            Destroy(gameObject);
+            Despawn();
             return;
         }
 
         beamLength = length;
         baseWidth  = width;
-        baseColor  = body.color;
         elapsed    = 0f;
         playing    = true;
 
@@ -68,11 +82,22 @@ public class BeamVisual : MonoBehaviour
 
         if (elapsed >= duration)
         {
-            Destroy(gameObject);
+            Despawn();
             return;
         }
 
         ApplyFrame(elapsed / duration);
+    }
+
+    /// <summary>풀로 돌려보낸다. 파괴하면 풀 목록에 죽은 참조가 남는다.</summary>
+    void Despawn()
+    {
+        playing = false;
+
+        // 다음에 꺼내 쓸 때 투명한 채로 나오지 않게 되돌린다
+        if (body != null) body.color = baseColor;
+
+        PooledSpawner.Despawn(gameObject);
     }
 
     void ApplyFrame(float t)

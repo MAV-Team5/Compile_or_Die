@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abef1080e19e8794bb51773b740d88e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarkAnchor
-  size: 1.8
-  spacing: 1.2
+  size: 1.6
+  ringGap: 0
+  maxRing: 3
 --- !u!1 &3469445803652378370
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +255,7 @@ MonoBehaviour:
   speed: 0
   health: 0
   maxHealth: 0
+  contactDamage: 10
   animCon:
   - {fileID: 9100000, guid: b1ec1df822c21e5419b066d8807165bd, type: 2}
   - {fileID: 9100000, guid: b1ec1df822c21e5419b066d8807165bd, type: 2}

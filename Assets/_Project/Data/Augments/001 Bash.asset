@@ -22,16 +22,16 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   levelStats:
-  - damage: 2
+  - damage: 10
     effectDamage: 0
-    cooldown: 2
+    cooldown: 6
     range: 8
     effectRange: 0
     count: 1
     pierce: 0
     duration: 0
     speed: 7
-    depth: 2
+    depth: 0
   trigger:
     rid: 980040056421220425
   targeting:
@@ -57,19 +57,27 @@ MonoBehaviour:
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
     - rid: 980040056421220427
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
         projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
         speed: 0
-        pierce: 0
+        pierce:
+          value: 0
+          scale: 1
         travelRange:
           value: 0
           scale: 1.2
         lifetime: 3
+        oneHitPerTarget: 0
+        dieWithOrigin: 1
         homing:
           turnSpeed: 0
           seekRadius: 0
@@ -77,10 +85,16 @@ MonoBehaviour:
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
         multiShot:
-          shotsPerTarget: 0
+          shotsPerTarget:
+            value: 0
+            scale: 1
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
@@ -119,11 +133,15 @@ MonoBehaviour:
         directionOffset: 0
         projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
         speed: 0
-        pierce: 0
+        pierce:
+          value: 0
+          scale: 1
         travelRange:
           value: 0
           scale: 1.2
         lifetime: 3
+        oneHitPerTarget: 0
+        dieWithOrigin: 1
         homing:
           turnSpeed: 0
           seekRadius: 0
@@ -131,10 +149,16 @@ MonoBehaviour:
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 8300000, guid: b8331d17c3f83df4aaafd971f96d7b6d, type: 3}
           sfxVolume: 0.2
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
         multiShot:
-          shotsPerTarget: 1
+          shotsPerTarget:
+            value: 0
+            scale: 1
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
@@ -142,7 +166,7 @@ MonoBehaviour:
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damageScale: 1
-        accentText: 0
+        accentText: 1
         textStyle:
           color: {r: 1, g: 1, b: 1, a: 1}
           scale: 1

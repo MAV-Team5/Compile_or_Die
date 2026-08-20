@@ -1,8 +1,17 @@
 using UnityEngine;
 
-/// <summary>증강 1개를 실행한다. Tick은 AugmentManager가 호출한다.</summary>
+/// <summary>
+/// 증강 1개를 실행한다. 보통은 AugmentManager 가 Tick 을 부른다.
+///
+/// 원점은 자기 transform 이다 — 플레이어 밑에 있으면 플레이어 기준으로,
+/// 월드에 떼어놓으면 그 자리를 기준으로 돈다. 소환물이 이 성질을 쓴다.
+/// </summary>
 public class AugmentRunner : MonoBehaviour
 {
+    [Tooltip("켜면 관리자를 안 거치고 스스로 매 프레임 돈다.\n" +
+             "소환물처럼 월드에 떨어져 나온 증강용. 플레이어의 증강은 꺼둘 것.")]
+    [SerializeField] bool selfDriven = false;
+
     [SerializeField] bool logTrigger = false;
 
     /// <summary>쿨타임이 막 찬 순간 1회. 대기 중에는 다시 울리지 않는다.</summary>
@@ -11,6 +20,15 @@ public class AugmentRunner : MonoBehaviour
     public AugmentInstance Instance { get; private set; }
 
     bool wasReady;
+
+    /// <summary>월드에 떨어져 나온 러너는 스스로 돈다. 관리자 목록에 없기 때문이다.</summary>
+    void Update()
+    {
+        if (selfDriven) Tick(Time.deltaTime);
+    }
+
+    /// <summary>소환물처럼 코드로 만들어 붙일 때. 인스펙터를 못 만지므로 여기서 켠다.</summary>
+    public void DriveSelf() => selfDriven = true;
 
     public void Setup(AugmentInstance instance)
     {

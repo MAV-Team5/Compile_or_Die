@@ -70,7 +70,7 @@ public static class VfxSpawner
     static GameObject Create(GameObject prefab, Vector2 position, float scale,
                              Vector2 direction, float radius = 0f)
     {
-        GameObject go = Object.Instantiate(prefab, position, Quaternion.identity);
+        GameObject go = PooledSpawner.Spawn(prefab, position, PoolType.Effect);
 
         if (!Mathf.Approximately(scale, 1f))
             go.transform.localScale *= scale;

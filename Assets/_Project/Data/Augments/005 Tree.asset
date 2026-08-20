@@ -1,0 +1,218 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 005 Tree
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
+  id: 005
+  displayName: Tree
+  category: 2
+  icon: {fileID: 0}
+  descriptionTemplate: 
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  levelStats:
+  - damage: 0
+    effectDamage: 0.5
+    cooldown: 12
+    range: 6
+    effectRange: 10
+    count: 2
+    pierce: 0
+    duration: 30
+    speed: 14
+    depth: 5
+  trigger:
+    rid: 980040230645006410
+  targeting:
+    rid: 980040253629792355
+  deliveries:
+  - rid: 980040230645006417
+  effects:
+  - rid: 980040230645006421
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 980040230645006410
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        noTargetPolicy: 0
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 0
+    - rid: 980040230645006417
+      type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+        speed: 0
+        pierce:
+          value: 0
+          scale: 1
+        travelRange:
+          value: 0
+          scale: 1.2
+        lifetime: 3
+        oneHitPerTarget: 1
+        dieWithOrigin: 1
+        homing:
+          turnSpeed: 0
+          seekRadius: 0
+          retargetInterval: 0.15
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        projectileCount:
+          value: 0
+          scale: 0.2
+        spreadAngle: 360
+        aimBasis: 1
+        fixedAngle: 90
+        angleJitter: 0
+    - rid: 980040230645006421
+      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageMultiplier: 1
+        targeting:
+          rid: 980040230645006425
+        deliveries:
+        - rid: 980040230645006427
+        effects:
+        - rid: 980040253629792332
+    - rid: 980040230645006425
+      type: {class: TreeFrontierTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+        maxDepth:
+          value: 0
+          scale: 1
+        targetLimit: 0
+    - rid: 980040230645006427
+      type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        pointSearchRadius: 1
+        hitFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 980040253629792332
+      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageMultiplier: 1
+        targeting:
+          rid: 980040253629792352
+        deliveries:
+        - rid: 980040253629792353
+        effects:
+        - rid: 980040253629792335
+    - rid: 980040253629792335
+      type: {class: LinkEffect, ns: , asm: Assembly-CSharp}
+      data:
+        parentMode: 1
+        transfer:
+          value: 0
+          scale: 1
+        isPercent: 1
+        hopsOverride: 0
+        duration:
+          value: 0
+          scale: 1
+        neighborsPerNode: 1
+        linkRange:
+          value: 0
+          scale: 1
+        maxChildren: 0
+        maxLinksPerNode: 0
+        allowCycles: 0
+        linePrefab: {fileID: 8426094270902924539, guid: 1f054fd73dbcd4a47bc536e1dcef0217, type: 3}
+        connectFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        logLinks: 0
+    - rid: 980040253629792352
+      type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+        scatterRadius: 0
+    - rid: 980040253629792353
+      type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        projectilePrefab: {fileID: 8426094270902924539, guid: 349a6f08618547d42b4e9ab7e1f72065, type: 3}
+        speed: 0
+        pierce:
+          value: 0
+          scale: 1
+        travelRange:
+          value: 0
+          scale: 1.2
+        lifetime: 3
+        oneHitPerTarget: 1
+        dieWithOrigin: 1
+        homing:
+          turnSpeed: 30
+          seekRadius: 6
+          retargetInterval: 0.15
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        projectileCount:
+          value: 0
+          scale: 1
+        spreadAngle: 30
+        aimBasis: 3
+        fixedAngle: 90
+        angleJitter: 15
+    - rid: 980040253629792355
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1

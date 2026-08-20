@@ -1,9 +1,13 @@
 using UnityEngine;
 
 /// <summary>
-/// 연출 프리팹의 수명 관리. 지정 시간 뒤 스스로 사라진다.
-/// VfxSpawner 는 낳기만 하고 죽는 것은 프리팹 책임이므로,
-/// 파티클이 아닌 스프라이트 연출은 이걸 붙여야 씬에 안 쌓인다.
+/// 연출 프리팹의 수명 관리. 지정 시간 뒤 스스로 <b>풀에 반납</b>한다.
+///
+/// Destroy 가 아니라 SetActive(false) 인 것이 중요하다 —
+/// 파괴하면 풀 목록에 죽은 참조가 남고, 다음에 꺼내 쓸 때 터진다.
+///
+/// 알파를 되돌리는 것도 여기 몫이다. 페이드로 투명해진 채 반납되면
+/// 재사용했을 때 안 보이는 연출이 나간다.
 /// </summary>
 public class FxAutoDespawn : MonoBehaviour
 {
@@ -17,30 +21,52 @@ public class FxAutoDespawn : MonoBehaviour
     [SerializeField] float fadeDuration = 0.15f;
 
     SpriteRenderer[] renderers;
+    float[] baseAlpha;
+
     float elapsed;
 
-    void Awake() => renderers = GetComponentsInChildren<SpriteRenderer>();
+    void Awake()
+    {
+        renderers = GetComponentsInChildren<SpriteRenderer>(true);
+        baseAlpha = new float[renderers.Length];
 
-    void OnEnable() => elapsed = 0f;
+        for (int i = 0; i < renderers.Length; i++)
+            baseAlpha[i] = renderers[i].color.a;
+    }
+
+    void OnEnable()
+    {
+        elapsed = 0f;
+
+        SetAlpha(1f);
+
+        // 파티클 되감기는 PooledSpawner 가 붙여주는 PooledParticles 가 맡는다
+    }
 
     void Update()
     {
         elapsed += Time.deltaTime;
 
-        if (fadeOut && renderers != null)
+        if (fadeOut && fadeDuration > 0f)
         {
             // 남은 시간이 fadeDuration 안으로 들어오면 알파를 줄인다
             float remain = lifetime - elapsed;
-            float alpha = Mathf.Clamp01(remain / fadeDuration);
 
-            for (int i = 0; i < renderers.Length; i++)
-            {
-                Color c = renderers[i].color;
-                c.a = alpha;
-                renderers[i].color = c;
-            }
+            SetAlpha(Mathf.Clamp01(remain / fadeDuration));
         }
 
-        if (elapsed >= lifetime) Destroy(gameObject);
+        if (elapsed >= lifetime) gameObject.SetActive(false);
+    }
+
+    void SetAlpha(float factor)
+    {
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] == null) continue;
+
+            Color c = renderers[i].color;
+            c.a = baseAlpha[i] * factor;
+            renderers[i].color = c;
+        }
     }
 }

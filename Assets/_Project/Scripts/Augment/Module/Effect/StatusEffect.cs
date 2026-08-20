@@ -11,10 +11,12 @@ using UnityEngine;
 [ModuleInfo("지속 효과를 건다 — 지속피해 · 둔화", "탐색 표식은 Search 로")]
 public class StatusEffect : EffectModule
 {
+    [Sheet("지속시간")]
     [Tooltip("지속 시간(초). 비워두면 시트의 지속시간(duration)을 쓴다.\n" +
              "결과가 0이면 걷어낼 때까지 무기한 유지된다.")]
     public Scalable duration = Scalable.Ratio(1f);
 
+    [Sheet("효과피해")]
     [Tooltip("상태의 세기. 비워두면 시트의 효과 피해(effectDamage)를 쓴다.\n" +
              "지속 피해는 틱당 피해로, 둔화는 감속 비율로 읽힌다.")]
     public Scalable magnitude = Scalable.Ratio(1f);

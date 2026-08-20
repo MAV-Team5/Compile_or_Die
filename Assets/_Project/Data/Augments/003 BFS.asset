@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 003 BFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 0
   id: 003
   displayName: BFS
@@ -26,43 +26,13 @@ MonoBehaviour:
   levelStats:
   - damage: 0
     effectDamage: 1
-    cooldown: 55
+    cooldown: 4
     range: 6
     effectRange: 0
     count: 0
     pierce: 0
     duration: 0
-    speed: 12
-    depth: 0
-  - damage: 0
-    effectDamage: 1.5
-    cooldown: 6.3
-    range: 6.5
-    effectRange: 0
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 13
-    depth: 0
-  - damage: 0
-    effectDamage: 2
-    cooldown: 5.6
-    range: 7
-    effectRange: 0
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 14
-    depth: 0
-  - damage: 0
-    effectDamage: 2.5
-    cooldown: 4.9
-    range: 7.5
-    effectRange: 0
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 15
+    speed: 0
     depth: 0
   trigger:
     rid: 535904966883525006
@@ -90,7 +60,7 @@ MonoBehaviour:
           value: 0
           scale: 1
         releaseOnRefire: 1
-        markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        markVfx: {fileID: 5518349989568777204, guid: 966d70b2bada0984b8e5ebaaddcabee3, type: 3}
         burstFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -98,6 +68,8 @@ MonoBehaviour:
           sfx: {fileID: 0}
           sfxVolume: 1
           attachToSource: 0
+          motionParameter: 
+          motionValue: 1
         burstInterval: 0.1
     - rid: 535904966883525006
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
@@ -110,6 +82,8 @@ MonoBehaviour:
           sfx: {fileID: 0}
           sfxVolume: 1
           attachToSource: 1
+          motionParameter: 
+          motionValue: 1
     - rid: 980040160363151491
       type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -120,12 +94,16 @@ MonoBehaviour:
       data:
         directionOffset: 0
         projectilePrefab: {fileID: 5636804321861149976, guid: 4270f0bd59cea22449030744c77c69d9, type: 3}
-        speed: 0
-        pierce: 0
+        speed: 14
+        pierce:
+          value: 0
+          scale: 1
         travelRange:
           value: 0
           scale: 1
         lifetime: 5
+        oneHitPerTarget: 1
+        dieWithOrigin: 1
         homing:
           turnSpeed: 90
           seekRadius: 0
@@ -137,7 +115,11 @@ MonoBehaviour:
           sfx: {fileID: 0}
           sfxVolume: 1
           attachToSource: 0
-        projectileCount: 24
+          motionParameter: 
+          motionValue: 1
+        projectileCount:
+          value: 24
+          scale: 1
         spreadAngle: 360
         aimBasis: 1
         fixedAngle: 90

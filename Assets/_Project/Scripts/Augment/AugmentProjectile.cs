@@ -10,8 +10,14 @@ public class AugmentProjectile : MonoBehaviour
     /// <summary>연쇄 원점. 이 투사체가 태어난 자리의 적이라 다시 때리면 안 된다.</summary>
     Transform ignore;
 
-    /// <summary>이 투사체가 이미 맞힌 대상. 관통 중 같은 적을 두 번 때리는 것만 막는다.</summary>
-    readonly HashSet<Transform> alreadyHit = new();
+    /// <summary>이 투사체 혼자 쓰는 기록.</summary>
+    readonly HashSet<Transform> ownHits = new();
+
+    /// <summary>
+    /// 실제로 참조하는 기록. 볼리 공용 집합을 받으면 그쪽을 가리킨다 —
+    /// 그러면 같이 나간 형제 투사체들이 같은 적을 중복해서 못 때린다.
+    /// </summary>
+    HashSet<Transform> alreadyHit;
 
     Vector2 velocity;
 
@@ -24,16 +30,32 @@ public class AugmentProjectile : MonoBehaviour
     int pierceRemain;
     int hitIndex;
 
+    /// <summary>실 연출. 없으면 null.</summary>
+    ProjectileThread thread;
+
+    /// <summary>원점이 사라지면 이 투사체도 접을지.</summary>
+    bool dieWithOrigin;
+
     // ── 유도 ──
     Homing homing;
     Transform chase;
     float retargetRemain;
 
+    void Awake() => TryGetComponent(out thread);
+
     public void Launch(Vector2 direction, float speed, float lifetime, float maxDistance,
                        int pierce, LayerMask mask, Transform ignoreTarget,
                        System.Action<HitInfo> callback,
-                       Homing homingSetting = null, Transform launchTarget = null)
+                       Homing homingSetting = null, Transform launchTarget = null,
+                       HashSet<Transform> volleyHits = null, bool endWithOrigin = false)
     {
+        dieWithOrigin = endWithOrigin;
+
+        // 공용 집합을 받으면 그걸 쓰고, 없으면 혼자 기록한다
+        alreadyHit = volleyHits ?? ownHits;
+
+        if (volleyHits == null) ownHits.Clear();
+
         this.speed   = speed;
         heading      = direction.normalized;
         velocity     = heading * speed;
@@ -49,13 +71,23 @@ public class AugmentProjectile : MonoBehaviour
         chase = launchTarget;
         retargetRemain = 0f;
 
-        alreadyHit.Clear();
         transform.up = direction;
+
+        // 실은 발사 자리를 알아야 한다. 풀에서 꺼낼 때 스스로는 못 잡는다
+        if (thread != null) thread.Begin(transform.position, ignoreTarget);
     }
 
     void Update()
     {
         float dt = Time.deltaTime;
+
+        // 쏜 자리가 사라졌으면 이 투사체는 갈 곳이 없다.
+        // 죽은 적은 풀에서 되살아나므로, 들고 있으면 엉뚱한 적을 원점으로 삼게 된다
+        if (dieWithOrigin && ignore != null && !ignore.gameObject.activeInHierarchy)
+        {
+            Despawn();
+            return;
+        }
 
         if (homing != null) Steer(dt);
 
@@ -130,11 +162,15 @@ public class AugmentProjectile : MonoBehaviour
     {
         onHit = null;
         ignore = null;
+        dieWithOrigin = false;
         homing = null;
         chase = null;
         velocity = Vector2.zero;
 
-        alreadyHit.Clear();
+        // 공용 집합은 형제들이 아직 쓰고 있으니 비우면 안 된다
+        ownHits.Clear();
+        alreadyHit = ownHits;
+
         gameObject.SetActive(false);
     }
 }

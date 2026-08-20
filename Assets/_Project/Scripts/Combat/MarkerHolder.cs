@@ -9,11 +9,8 @@ using UnityEngine;
 /// </summary>
 public class MarkerHolder : MonoBehaviour
 {
-    /// <summary>MarkAnchor 가 없는 적에게 쓰는 기본 간격.</summary>
-    const float FallbackSpacing = 0.25f;
-
-    /// <summary>MarkAnchor 가 없을 때 본체 위로 얼마나 띄울지.</summary>
-    const float FallbackHeight = 0.6f;
+    /// <summary>MarkAnchor 가 없는 적에게 쓰는 겹 간격 배율.</summary>
+    const float FallbackRing = 1.15f;
 
     readonly List<SearchMark> marks = new();
 
@@ -156,8 +153,9 @@ public class MarkerHolder : MonoBehaviour
         }
     }
 
-    float Spacing => anchor != null ? anchor.Spacing : FallbackSpacing;
-    float BaseHeight => anchor != null ? 0f : FallbackHeight;
+    /// <summary>index 번째 겹의 크기 배율.</summary>
+    float RingScale(int index)
+        => anchor != null ? anchor.RingScale(index) : Mathf.Pow(FallbackRing, index);
 
     void CreateVisual(SearchMark mark)
     {
@@ -168,7 +166,14 @@ public class MarkerHolder : MonoBehaviour
         mark.Visual = Instantiate(mark.VisualPrefab, Mount);
         mark.Visual.name = $"Mark_{mark.Owner.Data.name}";
 
+        // 테두리는 적을 감싸는 것이라 자리를 옮기지 않는다. 칸 한가운데에 겹쳐 둔다
+        mark.Visual.transform.localPosition = Vector3.zero;
+
         FitToAnchor(mark.Visual);
+
+        // 칸에 꽉 찬 상태를 기억해둔다. 겹이 늘 때마다 여기에 배율만 곱한다 —
+        // 현재 스케일에 곱하면 값이 겹겹이 불어난다
+        mark.BaseScale = mark.Visual.transform.localScale;
     }
 
     /// <summary>
@@ -191,19 +196,22 @@ public class MarkerHolder : MonoBehaviour
     }
 
     /// <summary>
-    /// 표식이 겹치지 않게 위로 쌓는다. 크기는 손대지 않는다 — 프리팹이 그린 그대로.
-    /// 간격도 월드 단위라 적 스케일에 휘둘리지 않는다.
+    /// 표식은 적을 둘러싸는 테두리라 자리를 나눠 쓸 수 없다.
+    /// 여러 개가 붙으면 <b>한 겹씩 바깥으로</b> 키워서 전부 보이게 한다 —
+    /// 같은 크기로 겹치면 맨 위엣것만 보이고 나머지는 없는 것과 같다.
+    ///
+    /// 나중에 붙은 것이 바깥으로 간다. 안쪽이 오래된 표식이다.
     /// </summary>
     void Reposition()
     {
-        Vector3 origin = Mount.position + Vector3.up * BaseHeight;
-        float spacing = Spacing;
-
         for (int i = 0; i < marks.Count; i++)
         {
             if (marks[i].Visual == null) continue;
 
-            marks[i].Visual.transform.position = origin + Vector3.up * (i * spacing);
+            Transform t = marks[i].Visual.transform;
+
+            t.localPosition = Vector3.zero;
+            t.localScale = marks[i].BaseScale * RingScale(i);
         }
     }
 

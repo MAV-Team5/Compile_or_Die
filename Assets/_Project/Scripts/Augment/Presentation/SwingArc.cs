@@ -73,6 +73,14 @@ public class SwingArc : MonoBehaviour, IDirectionalVisual, ISizedVisual, IArcVis
         if (fan == null) fan = GetComponentInChildren<SweepFan>();
     }
 
+    // 풀에서 다시 꺼내 쓰므로 매번 처음 상태로 되돌린다
+    void OnEnable()
+    {
+        elapsed = 0f;
+        radius = fallbackRadius;
+        halfAngle = fallbackHalfAngle;
+    }
+
     void Start() => Render(0f);
 
     // ── 전달 모듈이 알려주는 사실들 ─────────────────────────
@@ -107,7 +115,12 @@ public class SwingArc : MonoBehaviour, IDirectionalVisual, ISizedVisual, IArcVis
 
         Render(Mathf.Clamp01(elapsed / swing));
 
-        if (elapsed >= swing + fadeOut) Destroy(gameObject);
+        if (elapsed < swing + fadeOut) return;
+
+        // 파괴하면 풀 목록에 죽은 참조가 남는다
+        if (fan != null) fan.Clear();
+
+        PooledSpawner.Despawn(gameObject);
     }
 
     void Render(float progress)

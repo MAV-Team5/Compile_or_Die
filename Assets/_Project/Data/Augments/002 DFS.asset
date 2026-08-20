@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 002 DFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 0
   id: 002
   displayName: DFS
@@ -55,8 +55,12 @@ MonoBehaviour:
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
     - rid: 980040080136339555
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
@@ -68,6 +72,7 @@ MonoBehaviour:
           value: 0
           scale: 1.2
         lifetime: 3
+        oneHitPerTarget: 0
         homing:
           turnSpeed: 90
           seekRadius: 0
@@ -75,8 +80,12 @@ MonoBehaviour:
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
         multiShot:
           shotsPerTarget: 1
           formation: 0
@@ -97,8 +106,12 @@ MonoBehaviour:
         burstFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
         burstInterval: 0.1
     - rid: 980040160363151474
       type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
@@ -122,6 +135,7 @@ MonoBehaviour:
           value: 0
           scale: 1
         lifetime: 3
+        oneHitPerTarget: 0
         homing:
           turnSpeed: 0
           seekRadius: 0
@@ -129,8 +143,12 @@ MonoBehaviour:
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
         multiShot:
           shotsPerTarget: 1
           formation: 0
@@ -151,8 +169,12 @@ MonoBehaviour:
         burstFx:
           vfx: {fileID: 0}
           vfxScale: 1
-          sfx: {fileID: 0}
+          scaleWithRange: 1
+          sfx: {fileID: 8300000, guid: 9191c3f0aa5f83b498da2653551518bd, type: 3}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
         burstInterval: 0.1
     - rid: 980040160363151478
       type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
@@ -188,5 +210,9 @@ MonoBehaviour:
         fireFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1

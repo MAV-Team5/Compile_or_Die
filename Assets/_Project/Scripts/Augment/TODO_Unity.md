@@ -104,7 +104,8 @@ Effect      Link
    isPercent       ✔   0.4 면 원래 피해의 40%가 이웃에게
    hopsOverride    0   (시트 깊이)
    duration        비워둠 (시트 지속시간)
-   connectToAll    ✖   ← 끄면 트리, 켜면 그물(그래프)
+   neighborsPerNode 1   ← 1=트리, 2~3=그물, 0=전부
+   linkRange       비워둠 (시트 효과범위)  ← 반드시 채울 것
    linePrefab      선 프리팹 (LineRenderer)
 ```
 
@@ -129,14 +130,96 @@ Effect      Link
 
 ---
 
+## 2-4. Link 필드 교체 — 에셋 두 개 다시 설정
+
+`connectToAll`(불리언)이 `neighborsPerNode`(숫자)로 바뀌었다. 그 칸이 초기화되므로 다시 넣을 것.
+
+```
+004 Graph
+   Neighbors Per Node   2~3      ← 무리 모양을 따라 둥글게
+   Link Range           비워둠   (시트 효과범위)
+
+005 Tree
+   Neighbors Per Node   1        ← 가장 가까운 하나에만
+   Link Range           비워둠
+```
+
+**`Link Range` 가 핵심이다.** 시트 `효과범위` 가 0이면 거리 제한이 없어져서
+화면 반대편끼리 이어진다. Graph·Tree 의 시트 `효과범위` 를 꼭 채울 것 (5~7 정도).
+
+---
+
+## 2-3. 풀링 — 연출 프리팹 규율
+
+연출이 전부 풀을 거치게 바뀌었다. **프리팹이 재사용 가능해야 한다.**
+
+| 어디로 | 무엇 |
+|---|---|
+| `bulletParent` | 투사체 · 빔 |
+| `effectParent` | VFX · 간선 선 · Area 본체 |
+| 풀 안 씀 | 표식 · 상태이상 시각 (대상에 매달림) · 소환물 (오래 삶) |
+
+### 프리팹이 신경 쓸 것은 하나뿐
+
+**"어떻게 사라지는가"** 만 정하면 된다. 되감아 트는 것은 코드가 알아서 한다.
+
+| 연출 종류 | 사라지는 방법 |
+|---|---|
+| 파티클 | `Particle System` 메인 블록 → **`Stop Action` 을 `Disable`** 로 |
+| 스프라이트 | `FxAutoDespawn` 붙이기 |
+| 직접 만든 것 | `Destroy(gameObject)` 대신 `PooledSpawner.Despawn(gameObject)` |
+
+**`Stop Action = Disable` 이 곧 풀 반납이다.** 별도 컴포넌트가 필요 없다.
+
+`Stop Action` 위치 — 프리팹 선택 → Inspector → `Particle System` 컴포넌트 **맨 위 블록**
+(컴포넌트 이름 바로 아래 큰 박스) → 아래로 스크롤, `Ring Buffer Mode` 다음.
+
+> ⚠ **`Looping` 이 켜져 있으면 `Stop Action` 이 영원히 안 불린다.** 일회성 연출은 끌 것.
+> ⚠ **`Destroy` 로 두면** 풀에 죽은 참조가 남는다. 코드가 걸러내긴 하지만 매번 새로 만들게 되어 풀링 이득이 사라진다.
+
+파티클 되감기(`Clear` + `Play`)는 `PooledSpawner` 가 `PooledParticles` 를 자동으로 붙여 처리한다.
+**프리팹에 아무것도 안 붙여도 된다.**
+
+### 빔 프리팹
+
+`BeamVisual` 이 없으면 수명을 관리할 주체가 없어 콘솔에 경고가 뜬다.
+`BeamVisual` 이나 `FxAutoDespawn` 중 하나는 붙일 것.
+
+---
+
+## 2-5. Scalable 전환 — 에셋 재입력
+
+정수 칸들이 `Scalable`(고정값 × 배수)로 바뀌었다. 저장값이 초기화되므로 다시 넣을 것.
+
+| 모듈 | 칸 | 기본으로 두면 |
+|---|---|---|
+| `Radial` | Projectile Count | `0 × 1` = 시트 수량 그대로 |
+| `Projectile` | Multi Shot → Shots Per Target | 〃 |
+| 투사체 공통 | Pierce | `0 × 1` = 시트 관통력 그대로 |
+| `Line` | Max Hits | 〃 |
+| `SearchPool` | Target Limit | `0 × 1` = 시트 수량 |
+| `TreeFrontier` | Max Depth | `0 × 1` = 시트 깊이 |
+
+**대부분 `0 × 1` 로 두면 예전과 똑같이 동작한다.** 배수를 주는 건 전달을 여러 개 쓰면서
+서로 다른 값을 원할 때만.
+
+> 예) 전달 A `Pierce 0 × 1`, 전달 B `Pierce 0 × 3` → B만 세 배 관통하면서 둘 다 레벨업을 따라간다.
+
+---
+
 ## 3. 파일 정리
 
 - `_Project/Editor/AugmentEditor/FxGroupDrawer.cs` **삭제**
   `FoldDrawer.cs` 로 합쳐서 주석만 남은 빈 파일이다. 유니티에서 지워야 `.meta` 도 같이 정리된다.
 - `Scripts/Effect.cs` **삭제** — 단, 먼저 `explosion.prefab` 의 `Effect` 컴포넌트를
   `FxAutoDespawn` 으로 교체할 것. 순서를 지키지 않으면 프리팹 참조가 깨진다.
+- `Scripts/Augment/ProjectileSpawner.cs` **삭제** — `PooledSpawner` 로 대체됐고 아무도 안 쓴다.
+
 - `.meta` 가 없는 새 파일 넷 — 유니티를 한 번 켜면 생성되니 **커밋할 때 같이 넣을 것.**
   `ISizedVisual.cs` · `ScalableDrawer.cs` · `ChainAudit.cs` · `ModuleWarning.cs`
+
+- `Summon.Clear()` 를 런 재시작 지점에 물릴 것.
+  증강별 생존 소환물 목록이 static 이라, 안 비우면 지난 런의 죽은 참조가 상한을 잡아먹는다.
 
 - `ModuleWarning.Reset()` 을 런 재시작 지점에 물릴 것.
   안 물리면 에디터를 껐다 켜기 전까지 같은 경고가 다시 안 뜬다. (`GameManager` 의 재시작 자리)
@@ -154,7 +237,6 @@ Effect      Link
 
 ## 5. 나중에 — 지금은 안 해도 됨
 
-- `Line` · `FanArea` 본체가 매번 `Instantiate` 된다. 연사형 증강이 늘면 풀링 필요.
-- `FanAreaDelivery` 와 `Area.halfAngle` 의 역할이 겹친다. 하나로 합칠지 판단 보류 중.
+- 대기(지연) 이펙트 — 예고 장판 · 시간차 폭발. 필요한 증강이 시트에 나올 때 만든다.
 - 지속 빔(레이저를 계속 쏘는 형태) 모듈. `Line` 은 한 프레임짜리라 대체 불가.
 - `Chain` 하위에 `Chain` 을 넣는 분기 연쇄. 지금은 에디터 경고만 뜨고 런타임 차단은 없다.

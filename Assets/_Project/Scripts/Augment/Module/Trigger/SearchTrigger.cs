@@ -16,11 +16,23 @@ public class SearchTrigger : TriggerModule
     {
         public float timer;
         public int seenVersion;
+
+        /// <summary>탐색을 감지했고 멎기를 기다리는 중.</summary>
+        public bool waiting;
+
+        /// <summary>탐색이 멎은 뒤 남은 대기 시간.</summary>
+        public float settle;
     }
 
     [Tooltip("탐색을 기다리기까지의 쿨타임 배수. 1이면 시트 쿨타임 그대로.\n" +
              "0.5면 절반 주기마다 탐색을 노린다.")]
     public float cooldownScale = 1f;
+
+    [Tooltip("탐색이 멎고 이만큼 지나야 발동한다(초).\n" +
+             "＊ 투사체로 퍼지는 탐색은 표식이 다 붙는 데 시간이 걸린다. " +
+             "0으로 두면 첫 표식만 보고 발동해서 대상이 한둘밖에 안 잡힌다.\n" +
+             "BFS 투사체 비행 시간보다 조금 길게 잡을 것.")]
+    public float settleDelay = 0.3f;
 
     public override bool Evaluate(AugmentInstance instance, float deltaTime)
     {
@@ -28,8 +40,6 @@ public class SearchTrigger : TriggerModule
 
         float cd = instance.Stat.cooldown * (cooldownScale > 0f ? cooldownScale : 1f);
 
-        // 쿨타임 미입력(0)은 매 탐색마다 발동이 되므로 그대로 허용한다 —
-        // "탐색이 일어날 때마다"가 의도인 증강도 있을 수 있다
         // 탐색을 오래 기다려도 타이머가 무한히 자라지 않게 막는다
         s.timer = Mathf.Min(s.timer + deltaTime, cd);
 
@@ -37,10 +47,28 @@ public class SearchTrigger : TriggerModule
         {
             // 아직 못 쓴다. 이 사이에 일어난 탐색은 흘려보낸다
             s.seenVersion = SearchRegistry.Version;
+            s.waiting = false;
             return false;
         }
 
-        return SearchRegistry.Version != s.seenVersion;
+        int version = SearchRegistry.Version;
+
+        // 탐색이 아직 퍼지는 중이다. 표식이 계속 늘어나므로 지금 스냅샷을 뜨면 한둘만 잡힌다
+        if (version != s.seenVersion)
+        {
+            s.seenVersion = version;
+            s.settle = settleDelay;
+            s.waiting = true;
+
+            return false;
+        }
+
+        if (!s.waiting) return false;
+
+        // 탐색이 멎었다. 잠깐 더 기다렸다가 다 붙은 상태로 집는다
+        s.settle -= deltaTime;
+
+        return s.settle <= 0f;
     }
 
     public override void Consume(AugmentContext ctx)
@@ -49,6 +77,7 @@ public class SearchTrigger : TriggerModule
 
         s.timer = 0f;
         s.seenVersion = SearchRegistry.Version;
+        s.waiting = false;
 
         base.Consume(ctx);
     }

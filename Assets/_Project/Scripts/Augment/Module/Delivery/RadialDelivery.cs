@@ -24,8 +24,10 @@ public class RadialDelivery : ProjectileDeliveryBase
     }
 
     [Header("방사")]
-    [Tooltip("발사 수. 0이면 시트의 수량(count)을 쓰고, 그것도 0이면 1발.")]
-    public int projectileCount = 0;
+    [Sheet("수량")]
+    [Tooltip("발사 수.\n" +
+             "0 × 1 이면 시트 그대로, 0 × 2 면 시트의 두 배 — 레벨업을 따라간다.")]
+    public Scalable projectileCount = Scalable.Ratio(1f);
 
     [Tooltip("퍼지는 각도(도). 360이면 사방으로 균등, 60이면 좁은 부채꼴(산탄).")]
     [Range(0f, 360f)] public float spreadAngle = 360f;
@@ -33,9 +35,11 @@ public class RadialDelivery : ProjectileDeliveryBase
     [Tooltip("부채꼴의 중심을 어느 방향으로 잡을지.")]
     public AimBasis aimBasis = AimBasis.Random;
 
+    [Detail]
     [Tooltip("aimBasis 가 Fixed 일 때 쓰는 각도(도). 0이 오른쪽, 90이 위.")]
     public float fixedAngle = 90f;
 
+    [Detail]
     [Tooltip("각 발에 더해지는 무작위 흔들림(도). 0이면 정확히 균등하게 나간다.")]
     public float angleJitter = 0f;
 
@@ -43,11 +47,13 @@ public class RadialDelivery : ProjectileDeliveryBase
     {
         if (!HasPrefab(ctx)) return;
 
-        int count = projectileCount > 0 ? projectileCount : ctx.Stat.count;
-        if (count <= 0) count = 1;
+        int count = projectileCount.IntOf(ctx.Stat.count);
 
         Vector2 origin = ctx.Owner.position;
         PlayLaunch(ctx, origin);
+
+        // 이번 방사분 전체가 공유할 적중 기록. 한 놈에게 몰리는 것을 막는다
+        var volley = NewVolley();
 
         // 부채꼴 중심을 통째로 돌린다. 같은 방사를 각도만 바꿔 여러 개 넣을 수 있다
         float center = CenterAngle(ctx, origin) + directionOffset;
@@ -69,7 +75,7 @@ public class RadialDelivery : ProjectileDeliveryBase
 
             float rad = deg * Mathf.Deg2Rad;
 
-            Fire(ctx, origin, new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)), onHit);
+            Fire(ctx, origin, new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)), onHit, null, volley);
         }
     }
 

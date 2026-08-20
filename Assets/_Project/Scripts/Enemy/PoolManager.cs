@@ -96,8 +96,9 @@ public class PoolManager : MonoBehaviour
 
     /// <summary>
     /// 프리팹을 직접 넘겨 받아온다. 인덱스 등록이 필요 없어 증강처럼 프리팹이 많은 쪽에 쓴다.
+    /// category 는 하이어라키에서 어느 묶음 밑으로 들어갈지만 정한다.
     /// </summary>
-    public GameObject Get(GameObject prefab)
+    public GameObject Get(GameObject prefab, PoolType category = PoolType.Bullet)
     {
         if (prefab == null) return null;
 
@@ -107,19 +108,38 @@ public class PoolManager : MonoBehaviour
             prefabPools[prefab] = pool;
         }
 
-        foreach (GameObject item in pool)
+        for (int i = pool.Count - 1; i >= 0; i--)
         {
-            if (!item.activeSelf)
+            // 누군가 Destroy 로 없앤 항목이 섞이면 activeSelf 를 읽는 순간 터진다
+            if (pool[i] == null)
             {
-                item.SetActive(true);
-                return item;
+                pool.RemoveAt(i);
+                continue;
             }
+
+            if (pool[i].activeSelf) continue;
+
+            // 지난번에 적에게 붙었을 수 있다. 안 떼면 그 적이 되살아날 때 같이 떠오른다
+            Transform parent = ParentOf(category);
+            if (pool[i].transform.parent != parent) pool[i].transform.SetParent(parent, false);
+
+            pool[i].SetActive(true);
+            return pool[i];
         }
 
-        GameObject created = Instantiate(prefab, bulletParent);
+        GameObject created = Instantiate(prefab, ParentOf(category));
         pool.Add(created);
         return created;
     }
+
+    Transform ParentOf(PoolType category) => category switch
+    {
+        PoolType.Enemy  => enemyParent,
+        PoolType.Effect => effectParent,
+        PoolType.Exp    => expParent,
+        PoolType.Item   => itemParent,
+        _               => bulletParent
+    };
 
     /// <summary>
     /// 해당하는 풀에서 인덱스로 프리팹 목록에서 찾아 활성화.

@@ -103,6 +103,13 @@ public class RadarSweep : MonoBehaviour, ISizedVisual
     }
 #endif
 
+    // 풀에서 다시 꺼내 쓰므로 매번 처음 상태로 되돌린다
+    void OnEnable()
+    {
+        elapsed = 0f;
+        radius = fallbackRadius;
+    }
+
     void Start()
     {
         // Resize 는 생성 직후 외부에서 불린다. 안 불렸으면 fallback 으로라도 보이게 한다
@@ -135,7 +142,12 @@ public class RadarSweep : MonoBehaviour, ISizedVisual
 
         Render(progress);
 
-        if (elapsed >= spin + fadeOut) Destroy(gameObject);
+        if (elapsed < spin + fadeOut) return;
+
+        // 파괴하면 풀 목록에 죽은 참조가 남는다
+        if (fan != null) fan.Clear();
+
+        PooledSpawner.Despawn(gameObject);
     }
 
     void Render(float progress)

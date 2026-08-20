@@ -20,6 +20,9 @@ public class ProjectileDelivery : ProjectileDeliveryBase
         Vector2 origin = ctx.Owner.position;
         PlayLaunch(ctx, origin);
 
+        // 이번 발사분 전체가 공유할 적중 기록
+        var volley = NewVolley();
+
         for (int i = 0; i < ctx.Targets.Count; i++)
         {
             TargetRef target = ctx.Targets.Items[i];
@@ -33,7 +36,7 @@ public class ProjectileDelivery : ProjectileDeliveryBase
             // 겨냥해서 쏘므로 유도가 쫓을 첫 대상을 그대로 넘긴다
             FireSpread(ctx, origin, Aim(delta.normalized), shots,
                        multiShot.formation, multiShot.spacing, multiShot.spreadPerShot, onHit,
-                       target.Transform);
+                       target.Transform, volley);
         }
     }
 }

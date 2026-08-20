@@ -8,6 +8,7 @@ using UnityEngine;
 [ModuleInfo("좌표 1곳 — 원점 그 자리", "연쇄 단계에서는 직전에 맞은 적 위치가 된다")]
 public class OwnerPointTargeting : TargetingModule
 {
+    [Sheet("사거리")]
     [Tooltip("이 단계의 사거리(유닛). 비워두면 시트의 사거리(range)를 쓴다.\n" +
              "배수만 주면 그 사거리에 비례한다 — 0 × 0.5 면 절반.\n" +
              "하위 파이프라인 안에서는 사거리 대신 효과 범위(effectRange)를 기준으로 삼는다.")]

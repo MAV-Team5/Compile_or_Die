@@ -23,6 +23,13 @@ public class SearchMark
     /// <summary>적에 붙은 표식 오브젝트. MarkerHolder 가 채운다.</summary>
     public GameObject Visual;
 
+    /// <summary>
+    /// 칸 하나를 꽉 채웠을 때의 스케일. 생성 때 한 번만 잰다.
+    /// 표식 수가 바뀔 때마다 여기에 배율을 곱해 다시 맞춘다 —
+    /// 현재 스케일에 곱하면 늘었다 줄었다 하면서 값이 불어난다.
+    /// </summary>
+    public Vector3 BaseScale = Vector3.one;
+
     /// <summary>추가 피해가 들어갈 때마다 낼 연출. 증강 에셋이 들고 있는 것을 빌려 쓴다.</summary>
     public FxGroup BurstFx;
 

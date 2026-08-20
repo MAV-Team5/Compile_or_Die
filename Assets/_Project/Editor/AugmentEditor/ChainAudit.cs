@@ -105,14 +105,15 @@ public static class ChainAudit
         InstantDelivery => 1,
 
         ProjectileDelivery p
-            => Fallback(p.multiShot.shotsPerTarget, Sheet(data).count, 1)
-               * Fallback(p.pierce, Sheet(data).pierce, 1),
+            => p.multiShot.shotsPerTarget.IntOf(Sheet(data).count)
+               * p.pierce.IntOf(Sheet(data).pierce),
 
         RadialDelivery r
-            => Fallback(r.projectileCount, Sheet(data).count, 1)
-               * Fallback(r.pierce, Sheet(data).pierce, 1),
+            => r.projectileCount.IntOf(Sheet(data).count)
+               * r.pierce.IntOf(Sheet(data).pierce),
 
-        LineDelivery l => Fallback(l.maxHits, Sheet(data).pierce, Unbounded),
+        // 관통을 안 걸면 선상 전부라 미리 셀 수 없다
+        LineDelivery l => l.maxHits.IntOf(Sheet(data).pierce, Unbounded),
 
         // 폭발은 범위 안에 있는 만큼 맞는다
         AreaDelivery => Unbounded,
@@ -121,15 +122,6 @@ public static class ChainAudit
     };
 
     // ── 도우미 ────────────────────────────────────────────
-
-    /// <summary>0 = 시트 수치 규칙을 그대로 흉내낸다.</summary>
-    static int Fallback(int moduleValue, int sheetValue, int lastResort)
-    {
-        if (moduleValue > 0) return moduleValue;
-        if (sheetValue > 0) return sheetValue;
-
-        return lastResort;
-    }
 
     /// <summary>최악을 봐야 하므로 마지막 레벨 수치를 쓴다.</summary>
     static AugmentLevelData Sheet(AugmentData data)

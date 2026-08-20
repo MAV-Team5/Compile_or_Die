@@ -13,6 +13,7 @@ public class ChainEffect : EffectModule
     const int HardLimit = 8;
 
     [Header("설정")]
+    [Sheet("깊이")]
     [Tooltip("몇 번 더 번질지. 0이면 시트의 깊이(depth)를 쓴다. 8을 넘을 수 없다.\n" +
              "3이면 최초 적중 뒤 3번 더 번진다 — 선형 연쇄 기준 대상 4개.\n" +
              "수량(count)은 '몇 개'고 깊이(depth)가 '몇 번'이다. 섞지 말 것.")]

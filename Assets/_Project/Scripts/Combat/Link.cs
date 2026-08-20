@@ -14,6 +14,13 @@ public class Link
     /// <summary>이 간선이 이어진 반대쪽.</summary>
     public LinkHolder Other;
 
+    /// <summary>
+    /// 반대쪽이 내 자식인가. 간선은 양쪽에 하나씩 저장되고 이 값만 반대다.
+    /// 방향이 있어야 트리를 타고 내려가 잎을 찾을 수 있다 —
+    /// 대칭이면 어디가 뿌리이고 어디가 끝인지 코드가 알 수 없다.
+    /// </summary>
+    public bool ToChild;
+
     /// <summary>누가 이었나. 피해 숫자 색과 해제에 쓴다.</summary>
     public AugmentInstance Owner;
 
@@ -25,11 +32,29 @@ public class Link
     /// <summary>여기서 몇 번 더 번질 수 있나. 0이면 이 간선을 타고 끝.</summary>
     public int Hops;
 
+    /// <summary>
+    /// 노드 하나가 가질 수 있는 간선 상한.
+    /// 완전 그래프는 노드 N개면 각자 N-1개를 가지므로, 낮으면 잇는 도중에 밀려난다.
+    /// </summary>
+    public int MaxPerNode;
+
     /// <summary>이 시각이 지나면 끊긴다. 0이면 노드가 사라질 때까지 유지.</summary>
     public float ExpireAt;
 
     /// <summary>선 오브젝트. 한 쌍 중 만든 쪽만 들고 있다 — 안 그러면 선이 두 겹으로 그려진다.</summary>
     public GameObject Visual;
+
+    /// <summary>선을 그리는 컴포넌트. 만들 때 한 번만 찾아둔다.</summary>
+    public LineRenderer Line;
+
+    /// <summary>있으면 그리기를 이쪽에 맡긴다. 뭔가 지나갈 때 꿀렁이게 하는 담당.</summary>
+    public LinkPulse Pulse;
+
+    /// <summary>이 간선을 타고 뭔가 지나갔다고 알린다. 연출이 없으면 조용히 넘어간다.</summary>
+    public void Ripple(float strength)
+    {
+        if (Pulse != null) Pulse.Pulse(strength);
+    }
 
     public bool IsExpired => ExpireAt > 0f && Time.time >= ExpireAt;
 

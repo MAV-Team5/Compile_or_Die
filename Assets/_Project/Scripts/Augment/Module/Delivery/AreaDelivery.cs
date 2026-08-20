@@ -12,6 +12,7 @@ using UnityEngine;
 [ModuleInfo("타겟 지점마다 원형·부채꼴 판정", "주변까지 번진다. 타겟만 때리려면 Instant")]
 public class AreaDelivery : DeliveryModule
 {
+    [Sheet("효과범위")]
     [Tooltip("판정 반경(유닛). 비워두면 시트의 효과 범위(effectRange)를 쓴다.\n" +
              "배수만 주면 효과 범위에 비례해 자란다 — 0 × 0.5 면 효과 범위의 절반.")]
     public Scalable blastRadius = Scalable.Ratio(1f);
@@ -20,6 +21,7 @@ public class AreaDelivery : DeliveryModule
              "방향을 모르면 각도와 무관하게 원으로 터진다.")]
     [Range(0f, 180f)] public float halfAngle = 180f;
 
+    [Detail]
     [Tooltip("중심에 있는 적도 포함할지. 끄면 주변만 맞는다.")]
     public bool includeCenterTarget = true;
 
@@ -87,7 +89,9 @@ public class AreaDelivery : DeliveryModule
                     Target    = hits[i],
                     Point     = center,
                     Index     = index++,
-                    Direction = hasOutward ? outward.normalized : Vector2.zero
+                    // 중심에 겹친 적은 퍼진 방향이 없다. 하위 파이프라인이 방향을 잃지 않게
+                    // 이 폭발이 향하던 쪽을 물려준다
+                    Direction = hasOutward ? outward.normalized : heading
                 });
             }
         }
@@ -101,7 +105,7 @@ public class AreaDelivery : DeliveryModule
     {
         if (bodyPrefab == null) return;
 
-        GameObject go = Object.Instantiate(bodyPrefab, center, Quaternion.identity);
+        GameObject go = PooledSpawner.Spawn(bodyPrefab, center, PoolType.Effect);
 
         if (heading.sqrMagnitude > 0.0001f && go.TryGetComponent(out IDirectionalVisual aimed))
             aimed.Aim(heading.normalized);

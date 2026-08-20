@@ -4,8 +4,10 @@ using UnityEngine;
 [System.Serializable]
 public class MultiShot
 {
-    [Tooltip("타겟 1명당 몇 발. 0이면 시트의 수량(count)을 쓰고, 그것도 0이면 1발.")]
-    public int shotsPerTarget = 0;
+    [Sheet("수량")]
+    [Tooltip("타겟 1명당 몇 발.\n" +
+             "0 × 1 이면 시트 그대로, 0 × 2 면 시트의 두 배 — 레벨업을 따라간다.")]
+    public Scalable shotsPerTarget = Scalable.Ratio(1f);
 
     [Tooltip("여러 발을 어떻게 배치할지. 나란히 또는 줄줄이.")]
     public ShotFormation formation = ShotFormation.Parallel;
@@ -19,7 +21,6 @@ public class MultiShot
     /// <summary>실제로 쏠 발 수. 0 규칙을 여기서 푼다.</summary>
     public int Resolve(AugmentContext ctx)
     {
-        int shots = shotsPerTarget > 0 ? shotsPerTarget : ctx.Stat.count;
-        return shots > 0 ? shots : 1;
+        return shotsPerTarget.IntOf(ctx.Stat.count);
     }
 }

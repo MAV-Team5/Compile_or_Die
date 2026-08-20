@@ -21,9 +21,12 @@ public class LineDelivery : DeliveryModule
              "배수만 주면 그 사거리에 비례한다.")]
     public Scalable length = Scalable.Ratio(1f);
 
-    [Tooltip("최대 관통 수. 0이면 시트의 관통력(pierce)을 쓰고, 그것도 0이면 선상 전부.")]
-    public int maxHits = 0;
+    [Sheet("관통력")]
+    [Tooltip("최대 관통 수. 0 × 1 이면 시트 그대로, 0 × 2 면 두 배.\n" +
+             "시트도 0이면 선상 전부를 맞힌다.")]
+    public Scalable maxHits = Scalable.Ratio(1f);
 
+    [Detail]
     [Tooltip("켜면 타겟마다 따로 쏜다. 끄면 첫 타겟 방향으로 한 줄만.")]
     public bool beamPerTarget = false;
 
@@ -55,7 +58,7 @@ public class LineDelivery : DeliveryModule
     void Fire(AugmentContext ctx, Vector2 origin, Vector2 dir, float length,
               ref int index, System.Action<HitInfo> onHit)
     {
-        SpawnBeam(origin, dir, length);
+        SpawnBeam(ctx, origin, dir, length);
         fireFx.PlayAt(origin, dir, width, ctx.Owner);
 
         // 원점에서 dir 방향으로 뻗은 직사각형 안의 적을 한 번에 잡는다
@@ -71,8 +74,7 @@ public class LineDelivery : DeliveryModule
             ((Vector2)a.position - origin).sqrMagnitude
             .CompareTo(((Vector2)b.position - origin).sqrMagnitude));
 
-        int limit = maxHits > 0 ? maxHits : ctx.Stat.pierce;
-        if (limit <= 0) limit = ordered.Count;
+        int limit = maxHits.IntOf(ctx.Stat.pierce, ordered.Count);
 
         for (int i = 0; i < ordered.Count && i < limit; i++)
         {
@@ -87,11 +89,11 @@ public class LineDelivery : DeliveryModule
     }
 
     /// <summary>레이저 본체를 띄운다. 연출이 아니라 이 모듈의 결과물이다.</summary>
-    void SpawnBeam(Vector2 origin, Vector2 dir, float length)
+    void SpawnBeam(AugmentContext ctx, Vector2 origin, Vector2 dir, float length)
     {
         if (beamPrefab == null) return;
 
-        GameObject go = Object.Instantiate(beamPrefab, origin, Quaternion.identity);
+        GameObject go = PooledSpawner.Spawn(beamPrefab, origin, PoolType.Bullet);
 
         if (go.TryGetComponent(out BeamVisual beam))
         {
@@ -105,6 +107,8 @@ public class LineDelivery : DeliveryModule
         go.transform.SetPositionAndRotation(
             origin + dir * (length * 0.5f), Quaternion.Euler(0f, 0f, angle));
 
-        Object.Destroy(go, 0.15f);
+        // BeamVisual 이 없으면 수명을 관리할 주체가 없다. 프리팹에 FxAutoDespawn 을 붙일 것
+        ModuleWarning.Once(ctx, "빔 프리팹에 BeamVisual 이 없습니다. " +
+                                "FxAutoDespawn 이라도 붙여야 선이 안 쌓입니다");
     }
 }

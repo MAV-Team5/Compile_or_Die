@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
-  m_Name: 005 0xBEEF
+  m_Name: 0xBEEF
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   id: 005
   displayName: 0xBEEF
   category: 6
   icon: {fileID: 21300000, guid: 1b8bc3d0a9d574df4b36e9b29ab6a1e0, type: 3}
-  descriptionTemplate: "메모리에서 회수한 조각. 최대
-    체력의 20%를 즉시 회복한다."
+  descriptionTemplate: "\uBA54\uBAA8\uB9AC\uC5D0\uC11C \uD68C\uC218\uD55C \uC870\uAC01.
+    \uCD5C\uB300 \uCCB4\uB825\uC758 20%\uB97C \uC989\uC2DC \uD68C\uBCF5\uD55C\uB2E4."
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   levelStats: []

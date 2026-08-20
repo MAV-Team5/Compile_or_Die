@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>투사체를 쏘는 전달 모듈들의 공통 설정과 발사 로직.</summary>
@@ -9,18 +10,36 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     [Tooltip("발사할 투사체 프리팹. AugmentProjectile 컴포넌트가 붙어 있어야 한다.")]
     public GameObject projectilePrefab;
 
+    [Sheet("속도")]
     [Tooltip("초당 이동 거리(유닛). 0이면 시트의 속도(speed)를 쓴다 — 레벨업으로 빨라지게 하려면 비워둘 것.")]
     public float speed = 0f;
 
-    [Tooltip("몇 명을 뚫고 지나갈지. 0이면 시트의 관통력(pierce)을 쓰고, 그것도 0이면 1명.")]
-    public int pierce = 0;
+    [Sheet("관통력")]
+    [Tooltip("몇 명을 뚫고 지나갈지.\n" +
+             "0 × 1 이면 시트 그대로, 0 × 2 면 시트의 두 배 — 레벨업을 따라간다.\n" +
+             "전달을 여러 개 쓸 때 각자 배수만 달리 주면 서로 다른 관통을 갖는다.")]
+    public Scalable pierce = Scalable.Ratio(1f);
 
+    [Sheet("사거리")]
     [Tooltip("비행 거리(유닛). 비워두면 타겟팅이 정한 사거리를 쓴다.\n" +
              "배수만 주면 그 사거리에 비례한다 — 0 × 1.2 면 사거리의 120%.")]
     public Scalable travelRange = Scalable.Ratio(1.2f);
 
+    [Detail]
     [Tooltip("최대 생존 시간(초). 시트와 무관한 안전장치. 거리보다 먼저 끝나면 여기서 사라진다.")]
     public float lifetime = 3f;
+
+    [Detail]
+    [Tooltip("켜면 이번에 함께 쏜 투사체들이 같은 적을 중복해서 못 맞힌다.\n" +
+             "방사·산탄이 한 놈에게 몰리는 것을 막아 여러 대상에 골고루 퍼진다.")]
+    public bool oneHitPerTarget = false;
+
+    [Detail]
+    [Tooltip("켜면 쏜 자리가 사라질 때 투사체도 같이 접는다.\n" +
+             "하위 파이프라인에서 쏜 적이 죽으면, 그 적은 풀에서 되살아나 딴 자리에 선다 —\n" +
+             "그대로 두면 원점이 엉뚱한 적으로 바뀌어 잘못 이어진다.\n" +
+             "플레이어가 쏘는 투사체에는 영향이 없다.")]
+    public bool dieWithOrigin = true;
 
     [Fold("유도")]
     public Homing homing = new();
@@ -41,15 +60,23 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     protected void PlayLaunch(AugmentContext ctx, Vector2 origin)
         => launchFx.PlayAt(origin, ctx.Heading, 0f, ctx.Owner);
 
+    /// <summary>
+    /// 이번 발사분이 공유할 적중 기록. 끄면 null 이라 투사체마다 따로 센다.
+    /// Execute 시작에서 한 번 만들어 그 볼리의 모든 Fire 에 넘길 것.
+    /// </summary>
+    protected HashSet<Transform> NewVolley()
+        => oneHitPerTarget ? new HashSet<Transform>() : null;
+
     /// <summary>한 방향으로 여러 발을 대형에 맞춰 쏜다. shots 가 1이면 그냥 한 발.</summary>
     protected void FireSpread(AugmentContext ctx, Vector2 origin, Vector2 direction,
                               int shots, ShotFormation formation, float spacing,
                               float anglePerShot, System.Action<HitInfo> onHit,
-                              Transform launchTarget = null)
+                              Transform launchTarget = null,
+                              HashSet<Transform> volley = null)
     {
         if (shots <= 1)
         {
-            Fire(ctx, origin, direction, onHit, launchTarget);
+            Fire(ctx, origin, direction, onHit, launchTarget, volley);
             return;
         }
 
@@ -70,7 +97,7 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
                 ? direction
                 : Rotate(direction, lane * anglePerShot);
 
-            Fire(ctx, spawn, aim, onHit, launchTarget);
+            Fire(ctx, spawn, aim, onHit, launchTarget, volley);
         }
     }
 
@@ -79,7 +106,8 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     /// launchTarget 은 유도가 처음 쫓을 대상이다. 겨냥해서 쏘는 전달만 넘길 수 있다.
     /// </summary>
     protected void Fire(AugmentContext ctx, Vector2 origin, Vector2 direction,
-                        System.Action<HitInfo> onHit, Transform launchTarget = null)
+                        System.Action<HitInfo> onHit, Transform launchTarget = null,
+                        HashSet<Transform> volley = null)
     {
         float flightSpeed = speed > 0f ? speed : ctx.Stat.speed;
 
@@ -90,10 +118,9 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
             return;
         }
 
-        int hits = pierce > 0 ? pierce : ctx.Stat.pierce;
-        if (hits <= 0) hits = 1;
+        int hits = pierce.IntOf(ctx.Stat.pierce);
 
-        GameObject go = ProjectileSpawner.Spawn(projectilePrefab, origin);
+        GameObject go = PooledSpawner.Spawn(projectilePrefab, origin, PoolType.Bullet);
 
         // 비행 거리는 타겟팅이 정한 사거리를 따른다. 좁게 탐색했으면 투사체도 짧게 난다
         float travel = travelRange.Of(ctx.EffectiveRange);
@@ -101,6 +128,7 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
         // 연쇄 단계면 Owner가 방금 맞은 적이다. 그 안에서 태어나므로 한 번은 통과시켜야 한다
         go.GetComponent<AugmentProjectile>()
           .Launch(direction, flightSpeed, lifetime, travel,
-                  hits, TargetQuery.Mask, ctx.Owner, onHit, homing, launchTarget);
+                  hits, TargetQuery.Mask, ctx.Owner, onHit, homing, launchTarget, volley,
+                  dieWithOrigin);
     }
 }

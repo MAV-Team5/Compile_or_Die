@@ -34,7 +34,7 @@ public class InstantDelivery : DeliveryModule
 
             if (target.IsEnemy)
             {
-                Emit(target.Transform, origin, target.Position, ref index, onHit);
+                Emit(target.Transform, origin, target.Position, ctx.Heading, ref index, onHit);
                 continue;
             }
 
@@ -42,25 +42,31 @@ public class InstantDelivery : DeliveryModule
             TargetQuery.OverlapInto(target.Point, pointSearchRadius, ctx.Owner, hits);
 
             for (int h = 0; h < hits.Count; h++)
-                Emit(hits[h], origin, target.Point, ref index, onHit);
+                Emit(hits[h], origin, target.Point, ctx.Heading, ref index, onHit);
         }
     }
 
-    void Emit(Transform target, Vector2 origin, Vector2 point, ref int index,
-              System.Action<HitInfo> onHit)
+    void Emit(Transform target, Vector2 origin, Vector2 point, Vector2 incoming,
+              ref int index, System.Action<HitInfo> onHit)
     {
         // 비행은 없지만 "원점에서 대상 쪽"을 진행 방향으로 본다
         Vector2 toTarget = point - origin;
 
+        // 원점과 대상이 겹치면 방향이 0이 된다. 하위 파이프라인이 방향을 통째로 잃지 않게
+        // 여기까지 오게 한 방향을 그대로 물려준다
+        Vector2 direction = toTarget.sqrMagnitude > 0.0001f
+            ? toTarget.normalized
+            : incoming;
+
         // 적중 연출은 붙는다면 맞은 적에게 붙는 게 자연스럽다
-        hitFx.PlayAt(point, toTarget, 0f, target);
+        hitFx.PlayAt(point, direction, 0f, target);
 
         onHit(new HitInfo
         {
             Target    = target,
             Point     = point,
             Index     = index++,
-            Direction = toTarget.sqrMagnitude > 0.0001f ? toTarget.normalized : Vector2.zero
+            Direction = direction
         });
     }
 }

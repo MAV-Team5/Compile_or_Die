@@ -33,6 +33,19 @@ public struct Scalable
         return baseValue * factor;
     }
 
+    /// <summary>
+    /// 정수로 쓰는 값. 발사 수·관통·깊이처럼 반개가 없는 것들.
+    /// 반올림하되 0으로는 안 떨어뜨린다 — 0.4발을 쏘려던 것이 0발이 되면 조용히 사라진다.
+    /// </summary>
+    public readonly int IntOf(int sheetValue, int fallback = 1)
+    {
+        float raw = Of(sheetValue);
+
+        if (raw <= 0f) return fallback;
+
+        return Mathf.Max(1, Mathf.RoundToInt(raw));
+    }
+
     /// <summary>아무것도 안 적힌 상태인가. 경고 표시에 쓴다.</summary>
     public readonly bool IsUntouched => value <= 0f && scale <= 0f;
 

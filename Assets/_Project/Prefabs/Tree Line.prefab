@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7072774688625515537}
   - component: {fileID: 2522708712592008706}
+  - component: {fileID: 7792520274705350429}
   m_Layer: 0
   m_Name: Tree Line
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 8426094270902924539}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.002, y: 0.003, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86,26 +87,35 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
+        time: 0.014598538
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: 0.043755952
+        outSlope: 0.043755952
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0.24938269
+      - serializedVersion: 3
+        time: 0.9975586
+        value: 0.22580482
+        inSlope: -0.13000871
+        outSlope: -0.13000871
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.12592597
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 0.627451}
+      key1: {r: 1, g: 1, b: 1, a: 0.3529412}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -129,7 +139,7 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -142,3 +152,21 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &7792520274705350429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426094270902924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34358abcb531886459e60098b3b040cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LinkPulse
+  segments: 12
+  amplitude: 0.18
+  speed: 8
+  waves: 1.5
+  widthBoost: 2.2
+  duration: 0.3

@@ -8,6 +8,7 @@ using UnityEngine;
 [ModuleInfo("피해를 준다", "시트의 피해량 × damageScale")]
 public class DamageEffect : EffectModule
 {
+    [Sheet("피해량")]
     [Tooltip("시트의 피해량(damage)에 곱하는 배율. 1이면 그대로, 0.5면 절반.\n" +
              "한 증강 안에서 효과마다 강약을 줄 때 쓴다. 추가 피해가 아니라 배율이다.")]
     public float damageScale = 1f;

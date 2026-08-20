@@ -98,14 +98,38 @@ public class AugmentModuleDrawer : PropertyDrawer
         var end = property.GetEndProperty();
         var it = property.Copy();
         bool enter = true;
+        bool hasDetail = false;
 
         while (it.NextVisible(enter) && !SerializedProperty.EqualContents(it, end))
         {
             enter = false;
+
+            if (ModuleFieldInfo.Of(it).Detail)
+            {
+                hasDetail = true;
+
+                // 접혀 있으면 자리를 안 먹는다
+                if (!DetailOpen(property)) continue;
+            }
+
             h += Gap + EditorGUI.GetPropertyHeight(it, true);
         }
+
+        // "세부" 접이 줄
+        if (hasDetail) h += Gap + line;
+
         return h;
     }
+
+    /// <summary>세부 접이가 펼쳐져 있나. 모듈 칸마다 따로 기억한다.</summary>
+    static bool DetailOpen(SerializedProperty property)
+        => EditorPrefs.GetBool(DetailKey(property), false);
+
+    static void SetDetailOpen(SerializedProperty property, bool open)
+        => EditorPrefs.SetBool(DetailKey(property), open);
+
+    static string DetailKey(SerializedProperty property)
+        => $"CoD.Detail.{property.serializedObject.targetObject.GetInstanceID()}.{property.propertyPath}";
 
     static GUIStyle noteStyle;
     static GUIStyle NoteStyle => noteStyle ??= new GUIStyle(EditorStyles.miniLabel)
@@ -125,13 +149,80 @@ public class AugmentModuleDrawer : PropertyDrawer
         bool enter = true;
         float y = rect.y;
 
+        bool open = DetailOpen(property);
+        bool hasDetail = false;
+
+        // 자주 만지는 칸 먼저, 세부는 접이 아래로
         while (it.NextVisible(enter) && !SerializedProperty.EqualContents(it, end))
         {
             enter = false;
-            float h = EditorGUI.GetPropertyHeight(it, true);
-            EditorGUI.PropertyField(new Rect(rect.x, y, rect.width, h), it, true);
-            y += h + Gap;
+
+            ModuleFieldInfo.Marks marks = ModuleFieldInfo.Of(it);
+
+            if (marks.Detail)
+            {
+                hasDetail = true;
+                continue;
+            }
+
+            y = DrawField(rect, y, it, marks);
         }
+
+        if (!hasDetail) return;
+
+        float line = EditorGUIUtility.singleLineHeight;
+
+        // 옅은 바탕을 깔아 구분선처럼 보이게 한다. 그냥 글씨만 두면 필드 사이에 묻힌다
+        EditorGUI.DrawRect(new Rect(rect.x, y, rect.width, line), new Color(1f, 1f, 1f, 0.05f));
+
+        bool next = EditorGUI.Foldout(
+            new Rect(rect.x + 4f, y, rect.width - 4f, line),
+            open, "상세", true, EditorStyles.boldLabel);
+
+        if (next != open) SetDetailOpen(property, next);
+
+        y += line + Gap;
+
+        if (!next) return;
+
+        it = property.Copy();
+        enter = true;
+
+        while (it.NextVisible(enter) && !SerializedProperty.EqualContents(it, end))
+        {
+            enter = false;
+
+            ModuleFieldInfo.Marks marks = ModuleFieldInfo.Of(it);
+            if (!marks.Detail) continue;
+
+            y = DrawField(rect, y, it, marks);
+        }
+    }
+
+    /// <summary>
+    /// 칸 하나를 그린다. 시트 컬럼이 지정돼 있으면 라벨 뒤에 붙여
+    /// "이건 시트가 정한다"가 마우스를 안 올려도 보이게 한다.
+    /// </summary>
+    static float DrawField(Rect rect, float y, SerializedProperty property,
+                          ModuleFieldInfo.Marks marks)
+    {
+        float h = EditorGUI.GetPropertyHeight(property, true);
+        var area = new Rect(rect.x, y, rect.width, h);
+
+        if (string.IsNullOrEmpty(marks.Sheet))
+        {
+            EditorGUI.PropertyField(area, property, true);
+        }
+        else
+        {
+            var label = new GUIContent(
+                $"{property.displayName}  ← {marks.Sheet}",
+                property.tooltip);
+
+            EditorGUI.PropertyField(area, property, label, true);
+        }
+
+        return y + h + Gap;
     }
 
     static void ShowTypeMenu(SerializedProperty property)
