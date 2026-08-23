@@ -24,6 +24,18 @@ public static class SearchRegistry
         if (holder != null && tagged.Remove(holder)) Version++;
     }
 
+    /// <summary>
+    /// 전부 비운다. 런이 다시 시작될 때 RunLifecycle 이 부른다.
+    /// 씬을 다시 로드해도 이 목록은 static 이라 살아남아, 지난 런의 죽은 참조가 남는다.
+    /// </summary>
+    public static void Clear()
+    {
+        if (tagged.Count == 0) return;
+
+        tagged.Clear();
+        Version++;
+    }
+
     /// <summary>표식이 붙은 적 전부. 결과 리스트는 호출자가 소유한다.</summary>
     public static void CollectAll(List<Transform> results)
     {

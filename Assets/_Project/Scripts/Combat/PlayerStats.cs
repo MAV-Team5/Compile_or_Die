@@ -192,6 +192,19 @@ public class PlayerStats : MonoBehaviour
         return result < 0 ? 0 : result;
     }
 
+    // ── 조회 ──────────────────────────────────────────────
+
+    /// <summary>이 수치에 걸린 가산 합계. 없으면 0.</summary>
+    public float AddOf(StatKind kind) => addTotal[(int)kind];
+
+    /// <summary>이 수치에 걸린 승산 합계. 0.2 면 +20%. 없으면 0.</summary>
+    public float PercentOf(StatKind kind) => percentTotal[(int)kind];
+
+    /// <summary>이 수치에 걸린 보정이 하나라도 있는가. 표에서 빈 줄을 걸러낼 때 쓴다.</summary>
+    public bool HasBonus(StatKind kind)
+        => !Mathf.Approximately(addTotal[(int)kind], 0f)
+        || !Mathf.Approximately(percentTotal[(int)kind], 0f);
+
     // ── 확인용 ────────────────────────────────────────────
 
     /// <summary>현재 걸린 보정 요약. 로그·디버그용.</summary>

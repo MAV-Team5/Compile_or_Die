@@ -9,6 +9,12 @@ public class AugmentHud : MonoBehaviour
 
     readonly List<AugmentHudSlot> slots = new();
 
+    /// <summary>
+    /// 다른 화면 위로 올린다. 증강을 고르는 동안에도 지금 무엇을 갖고 있는지
+    /// 훑어볼 수 있어야 하는데, 선택 오버레이가 화면을 덮으면 마우스가 안 닿는다.
+    /// </summary>
+    public void BringToFront() => transform.SetAsLastSibling();
+
     void Update()
     {
         if (manager == null) return;

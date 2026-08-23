@@ -31,7 +31,7 @@ public class PlayerHealthBar : MonoBehaviour
         offset = barOffset;
         size = barSize;
 
-        Transform back = MakeQuad("Back", new Color(0.85f, 0.85f, 0.85f, 0.9f), 20);
+        Transform back = MakeQuad("Back", UiTheme.Current.line, 20);
         back.localScale = new Vector3(size.x, size.y, 1f);
 
         // 왼쪽 끝을 고정한 채 X 스케일만 줄여서 채움을 표현한다
@@ -39,7 +39,7 @@ public class PlayerHealthBar : MonoBehaviour
         fillRoot.SetParent(transform, false);
         fillRoot.localPosition = new Vector3(-size.x * 0.5f, 0f, 0f);
 
-        Transform fill = MakeQuad("Fill", new Color(0.78f, 0.17f, 0.12f, 1f), 21);
+        Transform fill = MakeQuad("Fill", UiTheme.Current.warn, 21);
         fill.SetParent(fillRoot, false);
         fill.localPosition = new Vector3(0.5f, 0f, 0f);
 

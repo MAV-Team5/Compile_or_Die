@@ -7,9 +7,6 @@ using UnityEngine;
 /// </summary>
 public static class DamagePipeline
 {
-    /// <summary>숫자 색·크기 표. 씬에 DamageTextManager 가 들고 있다.</summary>
-    public static DamageTextPalette Palette { get; set; }
-
     public static void Process(DamageContext dmg)
     {
         if (dmg == null || dmg.Target == null) return;
@@ -44,18 +41,23 @@ public static class DamagePipeline
         // 6. 적용
         dmg.Target.TakeDamage(dmg.Amount);
 
-        // 7. 숫자 표시. 여기서 해야 크리티컬·증강 분류에 따라 색을 고를 수 있다
+        // 7. 증강별 집계. 모든 피해가 여기를 지나므로 이 한 줄이면 증강이 늘어도 따라온다
+        RunStats.Record(dmg.SourceAugment, dmg.Amount);
+
+        // 8. 숫자 표시. 여기서 해야 크리티컬·증강 분류에 따라 색을 고를 수 있다
         ShowNumber(dmg);
     }
 
     static void ShowNumber(DamageContext dmg)
     {
-        if (dmg.TargetTransform == null || DamageTextManager.Instance == null) return;
+        if (dmg.TargetTransform == null) return;
 
-        DamageTextStyle style = Palette != null
-            ? Palette.Resolve(dmg)
+        DamageTextPalette palette = DamageTextSpawner.Palette;
+
+        DamageTextStyle style = palette != null
+            ? palette.Resolve(dmg)
             : DamageTextStyle.Default;
 
-        DamageTextManager.Instance.ShowDamage(dmg.Amount, dmg.TargetTransform, style);
+        DamageTextSpawner.Show(dmg.Amount, dmg.TargetTransform, style);
     }
 }

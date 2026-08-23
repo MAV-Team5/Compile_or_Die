@@ -92,8 +92,15 @@ public class LinkHolder : MonoBehaviour
         }
 
         // a 가 부모, b 가 자식이다. 선 오브젝트도 부모 쪽이 들고 있어서 0번 점이 항상 부모가 된다
-        from.Add(Copy(template, to, CreateLine(linePrefab, a.position), toChild: true));
-        to.Add(Copy(template, from, null, toChild: false));
+        Link parentSide = Copy(template, to, CreateLine(linePrefab, a.position), toChild: true);
+        Link childSide = Copy(template, from, null, toChild: false);
+
+        // 꿀렁임만은 양쪽이 같이 쓴다. 피해가 자식에서 부모로 흘러도 같은 선이 반응해야 한다 —
+        // 그래프처럼 사방으로 번지는 구조에서는 절반이 이 방향으로 지나간다
+        childSide.Echo = parentSide.Pulse;
+
+        from.Add(parentSide);
+        to.Add(childSide);
 
         return true;
     }
@@ -143,7 +150,10 @@ public class LinkHolder : MonoBehaviour
         ExpireAt = source.ExpireAt,
         Visual = visual,
         Line = visual != null ? visual.GetComponentInChildren<LineRenderer>() : null,
-        Pulse = visual != null ? visual.GetComponentInChildren<LinkPulse>() : null
+        Pulse = visual != null ? visual.GetComponentInChildren<LinkPulse>() : null,
+
+        // 만든 쪽은 자기 것을 그대로 울린다. 반대쪽은 Connect 가 채워준다
+        Echo = visual != null ? visual.GetComponentInChildren<LinkPulse>() : null
     };
 
     void Add(Link link)
@@ -194,6 +204,15 @@ public class LinkHolder : MonoBehaviour
             if (links[i].Owner == owner) Remove(i);
     }
 
+    /// <summary>
+    /// 이 노드의 간선을 전부 끊는다. 적을 다른 자리로 옮길 때 부른다 —
+    /// 자리만 바뀌고 간선이 남으면 선이 화면 끝까지 늘어난다.
+    /// </summary>
+    public void CutAll()
+    {
+        for (int i = links.Count - 1; i >= 0; i--) Remove(i);
+    }
+
     void Remove(int index)
     {
         Link link = links[index];
@@ -242,7 +261,8 @@ public class LinkHolder : MonoBehaviour
 
         for (int i = links.Count - 1; i >= 0; i--)
         {
-            if (links[i].IsExpired || links[i].IsBroken)
+            // 늘어난 간선도 끊는다. 안 그러면 회수된 적의 선이 화면을 가로지른다
+            if (links[i].IsExpired || links[i].IsBroken || links[i].IsStretched(transform.position))
             {
                 Remove(i);
                 continue;
@@ -281,7 +301,7 @@ public class LinkHolder : MonoBehaviour
     // 적이 풀로 반납될 때 간선이 남으면 다음 적이 물려받는다
     void OnDisable()
     {
-        for (int i = links.Count - 1; i >= 0; i--) Remove(i);
+        CutAll();
     }
 
     // ── 트리 탐색 ─────────────────────────────────────────

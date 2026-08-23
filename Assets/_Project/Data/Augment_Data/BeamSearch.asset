@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: BeamSearch
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  id: WIP_BEAM_SEARCH
+  displayName: ttt
+  category: 0
+  icon: {fileID: 0}
+  descriptionTemplate: 
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  levelStats:
+  - damage: 0
+    effectDamage: 10
+    cooldown: 10
+    range: 3
+    effectRange: 0
+    count: 0
+    pierce: 3
+    duration: 5
+    speed: 10
+    depth: 5
+  trigger:
+    rid: 5795976958777753600
+  targeting:
+    rid: 5795976958777753601
+  deliveries:
+  - rid: 5795976958777753602
+  effects:
+  - rid: 5795976958777753603
+  - rid: 5795976958777753604
+  - rid: 980040160363151493
+  noTargetPolicy: 0
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 980040160363151493
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 9f9b21a311cb8e044a35981f06d06805, type: 3}
+        volume: 0.416
+    - rid: 980040160363151494
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 908935a69076d8149907f5f8b1d28b6f, type: 3}
+        volume: 1
+    - rid: 5795976958777753600
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+    - rid: 5795976958777753601
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+    - rid: 5795976958777753602
+      type: {class: LineDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        beamPrefab: {fileID: 6824073935605403827, guid: d9239f9dee3334c489371527d28a460a, type: 3}
+        width: 0.1
+        lengthMultiplier: 7
+        maxHits: 1
+        beamPerTarget: 0
+        fireFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+    - rid: 5795976958777753603
+      type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
+      data:
+        bonusOverride: 0
+        isPercent: 0
+        durationOverride: 0
+        releaseOnRefire: 1
+        markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        burstFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        burstInterval: 0.1
+    - rid: 5795976958777753604
+      type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
+      data:
+        maxDepthOverride: 0
+        amplifyPerDepth: 0.2
+        targeting:
+          rid: 5795976958777753682
+        deliveries:
+        - rid: 5795976959538757702
+        effects:
+        - rid: 5795976958777753681
+        - rid: 980040160363151494
+        finalEffects: []
+    - rid: 5795976958777753681
+      type: {class: SearchEffect, ns: , asm: Assembly-CSharp}
+      data:
+        bonusOverride: 0
+        isPercent: 0
+        durationOverride: 3
+        releaseOnRefire: 1
+        markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        burstFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        burstInterval: 0.1
+    - rid: 5795976958777753682
+      type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+        targetCount: 1
+    - rid: 5795976959538757702
+      type: {class: LineDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        beamPrefab: {fileID: 6824073935605403827, guid: d9239f9dee3334c489371527d28a460a, type: 3}
+        width: 0.6
+        lengthMultiplier: 2
+        maxHits: 3
+        beamPerTarget: 0
+        fireFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1

@@ -47,8 +47,14 @@ public class AugmentData : ScriptableObject
     public Sprite icon;
 
     [Header("설명")]
-    [Tooltip("{damage} {count} 같은 토큰이 현재 레벨 수치로 치환된다.")]
-    [TextArea(2, 4)]
+    [Tooltip("토큰이 현재 레벨 수치로 치환된다. 시트 열 이름을 그대로 쓴다.\n\n" +
+             "  {damage} {effectDamage} {cooldown} {range} {effectRange}\n" +
+             "  {duration} {speed} {count} {pierce} {depth} {name} {level}\n\n" +
+             "서식:  {effectDamage:%} → 30%      비율을 퍼센트로\n" +
+             "        {damage:0}      → 14       소수 없이\n" +
+             "        {effectDamage*100} → 30    직접 곱하기\n\n" +
+             "줄바꿈은 이 칸에서 Enter 를 치면 된다.")]
+    [TextArea(2, 16)]
     public string descriptionTemplate;
 
     [Header("내부 증강")]

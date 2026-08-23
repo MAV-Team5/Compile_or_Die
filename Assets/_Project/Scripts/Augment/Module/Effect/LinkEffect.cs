@@ -93,6 +93,11 @@ public class LinkEffect : EffectModule
     public Scalable linkRange = Scalable.Ratio(1f);
 
     [Detail]
+    [Tooltip("이은 뒤 이 배수만큼 벌어지면 간선이 끊긴다. 2면 연결 거리의 두 배.\n" +
+             "0이면 아무리 멀어져도 안 끊긴다 — 회수된 적의 선이 화면을 가로지를 수 있다.")]
+    public float stretchLimit = 2f;
+
+    [Detail]
     [Tooltip("한 노드가 거느릴 수 있는 자식 수. 0이면 제한 없음.\n" +
              "부모 고르기가 Nearest 일 때만 쓰인다 — Origin 은 부모가 이미 정해져 있다.\n" +
              "Origin 에서 자식 수를 줄이려면 하위 파이프라인의 타겟 수를 제한할 것.")]
@@ -142,7 +147,10 @@ public class LinkEffect : EffectModule
             IsPercent = isPercent,
             Hops = ResolveHops(ctx),
             MaxPerNode = maxLinksPerNode,
-            ExpireAt = ResolveExpireAt(ctx)
+            ExpireAt = ResolveExpireAt(ctx),
+
+            // 이을 때보다 넉넉히 준다. 조금 벌어졌다고 바로 끊기면 간선이 깜빡인다
+            MaxLength = linkRange.Of(ctx.Stat.effectRange) * stretchLimit
         };
 
         if (parentMode == LinkParent.Origin)
