@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90da61df98d4674b8a51bcbe4ecebaf, type: 3}
+  m_Name: HardwareTable
+  m_EditorClassIdentifier: Assembly-CSharp::HardwareTable
+  entries:
+  - kind: 0
+    displayName: CPU
+    effectName: "투사체 속도"
+    perLevel: 0.1
+    percent: 1
+    costs:
+    - 100
+    - 200
+    - 400
+    - 800
+    - 1600
+    icon: {fileID: 0}
+  - kind: 1
+    displayName: RAM
+    effectName: "경험치 획득량"
+    perLevel: 0.1
+    percent: 1
+    costs:
+    - 100
+    - 200
+    - 400
+    - 800
+    - 1600
+    icon: {fileID: 0}
+  - kind: 2
+    displayName: SSD
+    effectName: "쿨타임 감소"
+    perLevel: 0.1
+    percent: 1
+    costs:
+    - 100
+    - 200
+    - 400
+    - 800
+    - 1600
+    icon: {fileID: 0}
+  - kind: 3
+    displayName: GPU
+    effectName: "공격 범위"
+    perLevel: 0.1
+    percent: 1
+    costs:
+    - 100
+    - 200
+    - 400
+    - 800
+    - 1600
+    icon: {fileID: 0}
+  - kind: 4
+    displayName: "파워"
+    effectName: "전체 공격력"
+    perLevel: 0.1
+    percent: 1
+    costs:
+    - 100
+    - 200
+    - 400
+    - 800
+    - 1600
+    icon: {fileID: 0}
+  - kind: 5
+    displayName: "모니터"
+    effectName: "시야 범위"
+    perLevel: 0.1
+    percent: 1
+    costs:
+    - 100
+    - 200
+    - 400
+    - 800
+    - 1600
+    icon: {fileID: 0}
+  - kind: 6
+    displayName: "마우스"
+    effectName: "크리티컬 확률"
+    perLevel: 0.1
+    percent: 1
+    costs: []
+    icon: {fileID: 0}
+  - kind: 7
+    displayName: "키보드"
+    effectName: "이동 속도"
+    perLevel: 0.1
+    percent: 1
+    costs:
+    - 100
+    - 200
+    - 400
+    - 800
+    - 1600
+    icon: {fileID: 0}
+  - kind: 8
+    displayName: "메인보드"
+    effectName: "스타트 증강"
+    perLevel: 1
+    percent: 0
+    costs:
+    - 500
+    - 2000
+    - 5000
+    icon: {fileID: 0}
+  - kind: 9
+    displayName: "쿨러"
+    effectName: "최대 에러량"
+    perLevel: 0.1
+    percent: 1
+    costs: []
+    icon: {fileID: 0}

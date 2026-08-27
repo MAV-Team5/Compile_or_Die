@@ -37,5 +37,8 @@ public enum HardwareKind
     Keyboard,
 
     /// <summary>런 시작 시 스타트 증강 수.</summary>
-    Mainboard
+    Mainboard,
+
+    /// <summary>최대 에러량. 에러율 시스템이 생기기 전까지는 잠가둔다.</summary>
+    Cooler
 }

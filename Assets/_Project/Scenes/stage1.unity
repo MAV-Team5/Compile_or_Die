@@ -3453,6 +3453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2019952982}
   - component: {fileID: 2019952983}
+  - component: {fileID: 1900001001}
   m_Layer: 0
   m_Name: RunDirector
   m_TagString: Untagged
@@ -3489,6 +3490,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunDirector
   endDelay: 3
   resultScene: StageResult
+--- !u!114 &1900001001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019952981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512cb6499e964ac696ba33f84f541092, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::HardwareBonus
+  table: {fileID: 11400000, guid: 8bb3200f80a54f30b4b0f16421fcf875, type: 2}
+  logApplied: 1
 --- !u!1 &2020898044
 GameObject:
   m_ObjectHideFlags: 0
