@@ -37,9 +37,20 @@ public class MenuManager : MonoBehaviour
         settingPanel.Open();
     }
 
+    [Header("씬 이름")]
+    [Tooltip("스테이지 버튼이 들어갈 씬. 스테이지가 늘면 아래 목록으로 옮긴다.")]
+    [SerializeField] string runScene = "stage1";
+
+    /// <summary>
+    /// 스테이지를 고르고 들어간다.
+    ///
+    /// TODO 스테이지 2 이상: 지금은 stageId 를 쓰지 않고 항상 같은 씬으로 간다.
+    /// 스테이지는 씬이 아니라 StageData 에셋이 정하므로(StageSetup),
+    /// 스테이지를 늘릴 때는 씬을 복제하지 말고 stageId 로 StageData 를 골라 넘길 것.
+    /// </summary>
     public void OnClickRun(int stageId)
     {
-        SceneManager.LoadScene("Run");
+        SceneManager.LoadScene(runScene);
     }
 
     public void OnClickPause()

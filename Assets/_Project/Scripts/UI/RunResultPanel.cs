@@ -19,7 +19,10 @@ public class RunResultPanel : MonoBehaviour
     [SerializeField] TMP_FontAsset fontOverride;
 
     [Header("씬 이동")]
-    [SerializeField] string retryScene = "stage 1";
+    [Tooltip("다시 하기로 돌아갈 스테이지 씬.")]
+    [SerializeField] string retryScene = "stage1";
+
+    [Tooltip("하드웨어 업그레이드·스테이지 선택이 있는 로비.")]
     [SerializeField] string lobbyScene = "MainB";
 
     [Header("표")]
