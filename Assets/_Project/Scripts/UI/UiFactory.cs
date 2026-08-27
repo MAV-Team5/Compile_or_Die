@@ -51,6 +51,33 @@ public static class UiFactory
         rect.offsetMax = offsetMax;
     }
 
+    /// <summary>
+    /// 고정폭 글꼴에서 열을 맞추려고 공백으로 채운다.
+    ///
+    /// <b>한글은 두 칸을 차지한다.</b> 글자 수로만 세면 "체력" 과 "이동속도" 의
+    /// 값 시작 위치가 어긋난다 — 고정폭 글꼴이어도 그렇다.
+    /// </summary>
+    public static string Pad(string text, int width, bool right = false)
+    {
+        text ??= "";
+
+        int used = 0;
+        for (int i = 0; i < text.Length; i++) used += IsWide(text[i]) ? 2 : 1;
+
+        int fill = Mathf.Max(0, width - used);
+        string space = new(' ', fill);
+
+        return right ? space + text : text + space;
+    }
+
+    /// <summary>한글·한자·가나처럼 두 칸을 쓰는 글자인가.</summary>
+    static bool IsWide(char c)
+        => (c >= 0x1100 && c <= 0x115F)     // 한글 자모
+        || (c >= 0x2E80 && c <= 0xA4CF)     // 한자·부수·가나
+        || (c >= 0xAC00 && c <= 0xD7A3)     // 한글 음절
+        || (c >= 0xF900 && c <= 0xFAFF)     // 호환 한자
+        || (c >= 0xFF00 && c <= 0xFF60);    // 전각 기호
+
     /// <summary>한 점에 고정하고 크기를 직접 준다.</summary>
     public static void Place(RectTransform rect, Vector2 anchor, Vector2 pivot,
                              Vector2 position, Vector2 size)
