@@ -228,6 +228,22 @@ public class RunDirector : MonoBehaviour
 
     void OnPlayerDied() => Finish(cleared: false);
 
+    /// <summary>
+    /// 런을 중도에 포기한다. 일시정지 메뉴의 나가기가 부른다.
+    ///
+    /// <b>씬을 직접 넘기지 말 것.</b> 정산을 거치지 않으면 이번 판에 모은 비트가
+    /// 통째로 사라지고, 결과 화면에는 지난 판 성적표가 그대로 뜬다.
+    /// 죽은 것과 똑같이 실패로 끝내되, 그때까지 번 것은 그대로 챙겨준다.
+    /// </summary>
+    public void Abandon()
+    {
+        if (State != RunState.Playing) return;
+
+        if (LogManager.Instance != null) LogManager.Instance.Warning("BUILD ABORTED BY USER");
+
+        Finish(cleared: false);
+    }
+
     /// <summary>비트를 쌓는다. 드랍물이 생기면 여기로 넣으면 된다.</summary>
     public void AddBits(int amount)
     {

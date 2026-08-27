@@ -96,8 +96,21 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainA");
     }
+    /// <summary>
+    /// 런을 그만두고 결과 화면으로. 일시정지 메뉴의 나가기가 부른다.
+    ///
+    /// 런 중이라면 씬을 직접 넘기지 않고 RunDirector 에 맡긴다 —
+    /// 정산을 거쳐야 이번 판에 모은 비트가 지급되고 성적표도 새로 채워진다.
+    /// 씬 이동은 정산이 끝난 뒤 RunDirector 가 알아서 한다.
+    /// </summary>
     public void OnClickStageExit()
     {
+        if (RunDirector.Current != null && RunDirector.IsPlaying)
+        {
+            RunDirector.Current.Abandon();
+            return;
+        }
+
         SceneManager.LoadScene("StageResult");
     }
 
