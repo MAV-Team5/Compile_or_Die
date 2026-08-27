@@ -38,19 +38,6 @@ public class RunResultPanel : MonoBehaviour
     const float ButtonWidth = 300f;
     const float ButtonGap = 40f;
 
-    // ── 네온 버튼 색 — 씬에 놓인 기존 버튼에서 그대로 가져온 값 ──
-    //
-    // 배수가 5인 것이 핵심이다. 글자색을 어둡게 깔고 상태색을 곱한 뒤 5를 곱하므로,
-    // 평소에는 눌린 초록이었다가 커서를 올리는 순간 형광으로 튄다.
-    // 셋 중 하나만 바꾸면 균형이 무너지니 함께 볼 것.
-
-    const float NeonMultiplier = 5f;
-
-    static readonly Color NeonBase    = new(0.196f, 0.196f, 0.196f, 1f);
-    static readonly Color NeonNormal  = new(0.122f, 0.478f, 0.122f, 1f);
-    static readonly Color NeonHover   = new(0.243f, 1f,    0.361f, 1f);
-    static readonly Color NeonPressed = new(0.659f, 1f,    0.690f, 1f);
-
     RectTransform root;
 
     UiTheme theme;
@@ -274,7 +261,7 @@ public class RunResultPanel : MonoBehaviour
                         position, new Vector2(ButtonWidth, 56f));
 
         TMP_Text label = UiFactory.CreateText("Label", hitArea.rectTransform, font, 24f,
-                                              NeonBase, TextAlignmentOptions.Center);
+                                              Color.white, TextAlignmentOptions.Center);
 
         UiFactory.Stretch(label.rectTransform, Vector2.zero, Vector2.one);
 
@@ -282,21 +269,13 @@ public class RunResultPanel : MonoBehaviour
         label.text = $"> {text}";
 
         Button button = hitArea.gameObject.AddComponent<Button>();
+        button.targetGraphic = hitArea;
 
-        // 상자가 아니라 글자를 물들인다
-        button.targetGraphic = label;
-        button.transition = Selectable.Transition.ColorTint;
+        // 색은 NeonTextButton 이 글자에 직접 넣는다.
+        // Button 의 ColorTint 로는 아틀라스가 갈린 한글에서 색이 따로 논다
+        button.transition = Selectable.Transition.None;
 
-        button.colors = new ColorBlock
-        {
-            normalColor      = NeonNormal,
-            highlightedColor = NeonHover,
-            pressedColor     = NeonPressed,
-            selectedColor    = NeonHover,
-            disabledColor    = NeonNormal,
-            colorMultiplier  = NeonMultiplier,
-            fadeDuration     = 0.08f
-        };
+        hitArea.gameObject.AddComponent<NeonTextButton>().Bind(label);
 
         string target = scene;
 
