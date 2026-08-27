@@ -422,7 +422,11 @@ public class LinkHolder : MonoBehaviour
                 {
                     SourceAugment = link.Owner,
                     LinkHops = hops - 1,
-                    LinkVisited = visited
+                    LinkVisited = visited,
+
+                    // 전이량은 이미 파워 배율이 곱해진 피해에서 떼어 온 것이다.
+                    // 표시를 안 남기면 홉마다 배율이 거듭 곱해져 기하급수로 불어난다
+                    HardwareApplied = true
                 });
         }
     }
