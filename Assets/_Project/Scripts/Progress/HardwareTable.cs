@@ -4,10 +4,12 @@ using UnityEngine;
 /// <summary>
 /// 하드웨어 업그레이드 표. 부품마다 레벨당 얼마나 오르고 얼마가 드는지를 기획자가 여기서 정한다.
 ///
-/// <c>Create → CoD → Hardware Table</c> 로 만든다.
+/// <c>Create → CoD → Hardware Table</c> 로 만들거나, <c>CoD → 하드웨어 표 만들기</c> 로
+/// 기획서의 10종이 채워진 표를 한 번에 만든다.
 ///
-/// <b>지금은 값을 담아두기만 한다.</b> 실제 능력치 주입(PlayerStats 등)은 아직 연결하지 않았다 —
-/// 어떤 부품이 어느 수치로 갈지 확정되면 그때 배선한다.
+/// <b>무엇이 오르는지도 여기 적는다.</b> 부품 효과를 코드에 두면 밸런싱을 고칠 때마다
+/// 컴파일을 기다려야 하고, 기획자가 손댈 수 없다. <see cref="HardwareLoader"/> 는
+/// 이 표를 읽어 옮기기만 한다.
 /// </summary>
 [CreateAssetMenu(fileName = "HardwareTable", menuName = "CoD/Hardware Table")]
 public class HardwareTable : ScriptableObject
@@ -32,15 +34,36 @@ public class HardwareTable : ScriptableObject
         [Tooltip("레벨이 오를 때마다 값에 곱해지는 비율. 1.5 면 레벨마다 1.5배씩 비싸진다.")]
         public float costGrowth = 1.5f;
 
-        [Tooltip("레벨 1당 오르는 양. 비율 수치면 0.05 가 +5% 다.")]
-        public float perLevel = 0.05f;
+        [Tooltip("이 부품이 올리는 것들. 여러 개를 둘 수 있다 — GPU 는 사거리와 효과범위를 같이 올린다.")]
+        public List<HardwareEffect> effects = new();
 
         public Sprite icon;
+
+        /// <summary>이 레벨에서 걸리는 효과를 한 줄로. 상점 줄에 쓴다.</summary>
+        public string DescribeAt(int level)
+        {
+            if (effects.Count == 0) return "";
+
+            var sb = new System.Text.StringBuilder();
+
+            for (int i = 0; i < effects.Count; i++)
+            {
+                if (sb.Length > 0) sb.Append("  ");
+                sb.Append(effects[i].Describe(level));
+            }
+
+            return sb.ToString();
+        }
     }
 
     [SerializeField] List<Entry> entries = new();
 
     public IReadOnlyList<Entry> Entries => entries;
+
+#if UNITY_EDITOR
+    /// <summary>에디터 메뉴가 기본값을 부어 넣을 때만 쓴다. 런타임에서는 표를 안 바꾼다.</summary>
+    public void EditorFill(List<Entry> filled) => entries = filled;
+#endif
 
     public Entry Find(HardwareKind kind)
     {
@@ -60,12 +83,12 @@ public class HardwareTable : ScriptableObject
         return Mathf.RoundToInt(entry.baseCost * Mathf.Pow(entry.costGrowth, currentLevel));
     }
 
-    /// <summary>이 레벨에서 실제로 얹히는 보너스 총량.</summary>
-    public float BonusAt(HardwareKind kind, int level)
+    /// <summary>잠긴 부품인가. 최대 레벨이 0이면 상점에 회색으로 뜬다.</summary>
+    public bool IsLocked(HardwareKind kind)
     {
         Entry entry = Find(kind);
 
-        return entry == null ? 0f : entry.perLevel * level;
+        return entry == null || entry.maxLevel <= 0;
     }
 
 #if UNITY_EDITOR

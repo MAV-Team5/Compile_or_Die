@@ -61,4 +61,3 @@ public class ExpMove : MonoBehaviour
         gameObject.SetActive(false);
     }
 }
-

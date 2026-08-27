@@ -16,68 +16,142 @@ MonoBehaviour:
   stageId: 1
   backgroundPrefab: {fileID: 731202862171851470, guid: 8ac44f1dafcc4834aba41f2c32b9f582, type: 3}
   bootLines:
-  - SYSTEM BOOT COMPLETE
-  - '> kernel loaded'
-  - '> process attached : PLAYER_01'
+  - '$ gcc -o stage_01 main.c'
+  - '> compiling ...'
+  - '> ERROR: 2,138 issues found'
+  - '> attaching debugger : PLAYER_01'
+  - '> resolve all issues to compile.'
   waves:
-  - label: 1
+  - label: 1 도입
     startAt: 0
-    duration: 30
+    duration: 45
     enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
-    interval: 5
-    burst: 8
+    interval: 2
+    burst: 2
     maxSpawns: 0
-    healthScale: 0.5
+    healthScale: 0.6
     speedScale: 1
     damageScale: 1
     sizeScale: 1
     expScale: 1
-  - label: 2
-    startAt: 15
-    duration: 60
+  - label: 2 증식
+    startAt: 48
+    duration: 102
     enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
-    interval: 10
-    burst: 8
+    interval: 1.5
+    burst: 3
     maxSpawns: 0
     healthScale: 1
     speedScale: 1
+    damageScale: 1
+    sizeScale: 1
+    expScale: 1
+  - label: 3 압박
+    startAt: 150
+    duration: 150
+    enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
+    interval: 1.2
+    burst: 4
+    maxSpawns: 0
+    healthScale: 1.8
+    speedScale: 1.05
+    damageScale: 1
+    sizeScale: 1
+    expScale: 1
+  - label: 3 압박 - typo
+    startAt: 155
+    duration: 145
+    enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
+    interval: 5
+    burst: 2
+    maxSpawns: 0
+    healthScale: 2
+    speedScale: 1
+    damageScale: 1
+    sizeScale: 1
+    expScale: 1
+  - label: 4 과부하
+    startAt: 300
+    duration: 180
+    enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
+    interval: 1
+    burst: 5
+    maxSpawns: 0
+    healthScale: 3
+    speedScale: 1.1
+    damageScale: 1
+    sizeScale: 0.9
+    expScale: 1
+  - label: 4 과부하 - typo
+    startAt: 305
+    duration: 175
+    enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
+    interval: 3
+    burst: 2
+    maxSpawns: 0
+    healthScale: 3.5
+    speedScale: 1.05
+    damageScale: 1
+    sizeScale: 1.1
+    expScale: 1
+  - label: 5 임계
+    startAt: 480
+    duration: 60
+    enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
+    interval: 0.8
+    burst: 5
+    maxSpawns: 0
+    healthScale: 4.5
+    speedScale: 1.15
+    damageScale: 1
+    sizeScale: 0.85
+    expScale: 1
+  - label: 5 임계 - typo
+    startAt: 480
+    duration: 60
+    enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
+    interval: 2
+    burst: 3
+    maxSpawns: 0
+    healthScale: 5
+    speedScale: 1.1
     damageScale: 1
     sizeScale: 1.2
     expScale: 1
-  - label: 3
-    startAt: 60
-    duration: 120
+  - label: 엘리트 - memory leak
+    startAt: 90
+    duration: 450
     enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
-    interval: 5
-    burst: 16
+    interval: 25
+    burst: 1
     maxSpawns: 0
-    healthScale: 2
-    speedScale: 2
-    damageScale: 2
-    sizeScale: 0.8
+    healthScale: 8
+    speedScale: 0.7
+    damageScale: 1.5
+    sizeScale: 2.2
     expScale: 1
-  - label: 4
-    startAt: 80
-    duration: 200
+  - label: 엘리트 - typo
+    startAt: 240
+    duration: 300
     enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
-    interval: 10
-    burst: 2
+    interval: 40
+    burst: 1
     maxSpawns: 0
-    healthScale: 1
-    speedScale: 1
-    damageScale: 3
-    sizeScale: 1
+    healthScale: 12
+    speedScale: 0.8
+    damageScale: 1.5
+    sizeScale: 2.4
     expScale: 1
   bosses:
   - enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
-    nameOverride: KKK
-    atSeconds: 120
-    spawnDistance: 20
+    nameOverride: SEGMENTATION FAULT
+    atSeconds: 540
+    spawnDistance: 15
     endsRun: 1
-    healthScale: 10
-    speedScale: 1
+    healthScale: 200
+    speedScale: 0.8
     damageScale: 5
-    sizeScale: 4
+    sizeScale: 5
   augmentPool: {fileID: 11400000, guid: 14de165c4bff2634d9c9cf1b6bf1927e, type: 2}
   startingRerolls: 10
   killValue: 1

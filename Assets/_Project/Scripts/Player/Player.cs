@@ -28,8 +28,16 @@ public class Player : MonoBehaviour, IFacingProvider
     /// <summary>지금 걸린 이동속도 배율. 1이면 버프 없음.</summary>
     public float SpeedMultiplier => speedMultiplier;
 
+    /// <summary>
+    /// 하드웨어(키보드)가 올리는 영구 이동속도 배율. HardwareLoader 가 채운다.
+    ///
+    /// 한시적 버프와 칸을 나눈 이유 — 버프가 풀릴 때 <c>speedMultiplier = 1</c> 로
+    /// 되돌리는데, 한 칸을 같이 쓰면 <b>버프가 끝날 때마다 하드웨어 보정도 사라진다.</b>
+    /// </summary>
+    public float HardwareSpeed { get; set; } = 1f;
+
     /// <summary>버프까지 반영한 실제 이동속도.</summary>
-    public float CurrentSpeed => speed * speedMultiplier;
+    public float CurrentSpeed => speed * speedMultiplier * HardwareSpeed;
 
     void Awake()
     {
@@ -51,7 +59,7 @@ public class Player : MonoBehaviour, IFacingProvider
 
     private void FixedUpdate()
     {
-        Vector2 nextvec = inputVec * speed * speedMultiplier * Time.fixedDeltaTime;
+        Vector2 nextvec = inputVec * CurrentSpeed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextvec);
     }
 

@@ -171,7 +171,7 @@ MonoBehaviour:
   textColor: {r: 0.85, g: 0.88, b: 0.92, a: 1}
   dimColor: {r: 0.5, g: 0.55, b: 0.62, a: 1}
   barColor: {r: 0.35, g: 0.65, b: 0.95, a: 1}
-  retryScene: stage 1
+  retryScene: Run
   lobbyScene: MainB
   maxRows: 10
 --- !u!4 &69054563

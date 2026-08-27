@@ -19,7 +19,7 @@ public class RunResultPanel : MonoBehaviour
     [SerializeField] TMP_FontAsset fontOverride;
 
     [Header("씬 이동")]
-    [SerializeField] string retryScene = "stage 1";
+    [SerializeField] string retryScene = "Run";
     [SerializeField] string lobbyScene = "MainB";
 
     [Header("표")]

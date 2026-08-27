@@ -513,8 +513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909b848ce2974bd29459683a23b55398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelSystem
-  baseRequired: 1
-  growthPerLevel: 1
+  baseRequired: 10
+  growthPerLevel: 10
 --- !u!1 &296892101
 GameObject:
   m_ObjectHideFlags: 0
