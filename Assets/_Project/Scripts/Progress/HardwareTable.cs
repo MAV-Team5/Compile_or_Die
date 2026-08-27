@@ -25,19 +25,8 @@ public class HardwareTable : ScriptableObject
         [Tooltip("무엇이 좋아지는가. 값은 뒤에 자동으로 붙으므로 '투사체 속도'처럼 짧게.")]
         public string effectName;
 
-        [Tooltip("레벨 1당 오르는 양. 비율이면 0.1 이 +10%, 개수면 1 이 +1개.\n" +
-                 "아래 bonuses 를 채우면 이 값은 안 쓰인다.")]
+        [Tooltip("레벨 1당 오르는 양. 비율이면 0.1 이 +10%, 개수면 1 이 +1개.")]
         public float perLevel = 0.1f;
-
-        [Tooltip("레벨별 보너스를 직접 적는다. 첫 칸이 레벨 1이다.\n" +
-                 "간격이 고르지 않은 부품용 — 시야처럼 8·9·10.5·12 로 가면 레벨당 같은 양이 아니라\n" +
-                 "perLevel 로는 적을 수 없다. 비워두면 perLevel × 레벨 을 쓴다.")]
-        public float[] bonuses;
-
-        [Tooltip("화면에 보여줄 값만 따로 정한다. 레벨 1당 오르는 양으로 적는다.\n" +
-                 "0이면 실제 값을 그대로 보여준다.\n" +
-                 "실제 수치가 어중간할 때 표시만 33·67·100% 처럼 떨어지게 하려는 것.")]
-        public float displayPerLevel;
 
         [Tooltip("켜면 % 로, 끄면 개수로 표시한다. 메인보드처럼 개수를 주는 부품만 끈다.")]
         public bool percent = true;
@@ -88,13 +77,7 @@ public class HardwareTable : ScriptableObject
     {
         Entry entry = Find(kind);
 
-        if (entry == null || level <= 0) return 0f;
-
-        // 레벨별로 직접 적어둔 것이 있으면 그쪽이 먼저다
-        if (entry.bonuses != null && entry.bonuses.Length > 0)
-            return entry.bonuses[Mathf.Clamp(level - 1, 0, entry.bonuses.Length - 1)];
-
-        return entry.perLevel * level;
+        return entry == null ? 0f : entry.perLevel * level;
     }
 
     /// <summary>"투사체 속도 +30%" 처럼 화면에 그대로 쓸 문구.</summary>
@@ -103,11 +86,7 @@ public class HardwareTable : ScriptableObject
         Entry entry = Find(kind);
         if (entry == null) return "";
 
-        // 표시용 값을 따로 적어뒀으면 그것을 보여준다.
-        // 실제 수치가 +12.5% 처럼 어중간해도 화면에는 깔끔한 숫자를 낼 수 있다
-        float bonus = entry.displayPerLevel > 0f
-            ? entry.displayPerLevel * level
-            : BonusAt(kind, level);
+        float bonus = entry.perLevel * level;
 
         return entry.percent
             ? $"{entry.effectName} +{bonus:P0}"
