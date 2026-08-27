@@ -140,23 +140,34 @@ public class HardwareBonus : MonoBehaviour
 
         float scale = 1f + bonus;
 
+        Camera camera = Camera.main;
+
+        // ＊ lens.Orthographic 을 믿으면 안 된다.
+        //   ModeOverride 가 None 이면 그 값은 브레인이 카메라를 스냅샷할 때 채워지는
+        //   내부 플래그를 따르는데, Start 시점에는 아직 비어 있어 원근으로 나온다.
+        //   그대로 믿고 갈라지면 직교 화면에서 화각만 바꿔 아무 일도 일어나지 않는다.
+        //   진짜 카메라에 물어보는 것이 확실하다
+        bool orthographic = camera == null || camera.orthographic;
+
         var vcam = FindAnyObjectByType<Unity.Cinemachine.CinemachineCamera>();
 
         if (vcam != null)
         {
             LensSettings lens = vcam.Lens;
 
-            // 2D 직교라면 크기가 곧 시야다. 원근이면 화각을 넓힌다
-            if (lens.Orthographic) lens.OrthographicSize *= scale;
-            else lens.FieldOfView = Mathf.Min(170f, lens.FieldOfView * scale);
+            if (orthographic) lens.OrthographicSize *= scale;
+            else lens.FieldOfView = Mathf.Min(179f, lens.FieldOfView * scale);
 
             vcam.Lens = lens;
+
+            if (logApplied)
+                Debug.Log($"[HardwareBonus] 시야 x{scale:0.##} → " +
+                          (orthographic ? $"직교 {lens.OrthographicSize:0.##}"
+                                        : $"화각 {lens.FieldOfView:0.##}"), this);
             return;
         }
 
         // Cinemachine 이 없는 씬(증강 테스트 등)에서는 카메라를 직접 만져도 안 밀린다
-        Camera camera = Camera.main;
-
         if (camera != null && camera.orthographic) camera.orthographicSize *= scale;
     }
 
