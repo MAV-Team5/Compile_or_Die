@@ -228,11 +228,11 @@ public class RunResultPanel : MonoBehaviour
 
     void Buttons(RectTransform parent)
     {
-        (string label, string scene)[] entries =
+        (string label, string scene, LobbyIntent.Screen open)[] entries =
         {
-            ("다시 하기",   retryScene),
-            ("업그레이드", lobbyScene),
-            ("나가기",     titleScene)
+            ("다시 하기",   retryScene, LobbyIntent.Screen.None),
+            ("업그레이드", lobbyScene, LobbyIntent.Screen.Upgrade),
+            ("나가기",     titleScene, LobbyIntent.Screen.None)
         };
 
         // 가운데를 기준으로 좌우 대칭. 개수가 바뀌어도 자리가 알아서 맞는다
@@ -240,7 +240,8 @@ public class RunResultPanel : MonoBehaviour
         float start = -(entries.Length - 1) * 0.5f * step;
 
         for (int i = 0; i < entries.Length; i++)
-            Button(parent, new Vector2(start + step * i, 40f), entries[i].label, entries[i].scene);
+            Button(parent, new Vector2(start + step * i, 40f),
+                   entries[i].label, entries[i].scene, entries[i].open);
     }
 
     /// <summary>
@@ -250,7 +251,8 @@ public class RunResultPanel : MonoBehaviour
     /// 글자색을 어둡게 깔아두면 평소에는 잠긴 초록이고 커서를 올리면 형광으로 튄다.
     /// 상자를 물들이는 방식으로는 이 느낌이 안 나온다.
     /// </summary>
-    void Button(RectTransform parent, Vector2 position, string text, string scene)
+    void Button(RectTransform parent, Vector2 position, string text, string scene,
+                LobbyIntent.Screen open = LobbyIntent.Screen.None)
     {
         // 글자에는 raycast 가 없다. 글자 사이 빈틈에서도 눌리도록 판정면을 따로 깐다.
         // 완전히 투명하므로 상자로 보이지는 않는다
@@ -278,10 +280,16 @@ public class RunResultPanel : MonoBehaviour
         hitArea.gameObject.AddComponent<NeonTextButton>().Bind(label);
 
         string target = scene;
+        LobbyIntent.Screen intent = open;
 
         button.onClick.AddListener(() =>
         {
-            if (!string.IsNullOrEmpty(target)) SceneManager.LoadScene(target);
+            if (string.IsNullOrEmpty(target)) return;
+
+            // 로비에 도착해서 어느 화면을 열지 미리 적어둔다. 씬을 넘기기 전이어야 한다
+            LobbyIntent.Request(intent);
+
+            SceneManager.LoadScene(target);
         });
     }
 }

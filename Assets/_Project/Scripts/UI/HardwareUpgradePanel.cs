@@ -38,13 +38,20 @@ public class HardwareUpgradePanel : MonoBehaviour
     static readonly Color PipOwned    = new(0.122f, 0.478f, 0.180f, 1f);     // 샀지만 안 켠 칸
     static readonly Color PipLocked   = new(0.110f, 0.140f, 0.170f, 1f);     // 아직 못 산 칸
 
-    static readonly Color ArrowOn     = new(0.243f, 1f,     0.361f, 1f);
-    static readonly Color ArrowOff    = new(0.150f, 0.175f, 0.205f, 1f);
+    // 화살표는 흰색이다. 초록으로 두면 위의 레벨 칸과 같은 색이라 무엇이 조작부인지 헷갈린다
+    static readonly Color ArrowOn     = new(0.930f, 0.950f, 0.980f, 1f);
+    static readonly Color ArrowOff    = new(0.200f, 0.225f, 0.255f, 1f);
 
     static readonly Color CardFace    = new(0.043f, 0.059f, 0.086f, 1f);
     static readonly Color CardEdge    = new(0.110f, 0.400f, 0.180f, 1f);
     static readonly Color CardEdgeMax = new(0.243f, 1f,     0.361f, 1f);
     static readonly Color CardEdgeOff = new(0.100f, 0.120f, 0.145f, 1f);
+
+    // 구매 버튼. 글자만 있으면 눌리는 것인지 알 수 없어 테두리와 바닥을 준다
+    static readonly Color BuyFace     = new(0.075f, 0.110f, 0.090f, 1f);
+    static readonly Color BuyEdge     = new(0.243f, 0.700f, 0.361f, 1f);
+    static readonly Color BuyFaceOff  = new(0.070f, 0.080f, 0.095f, 1f);
+    static readonly Color BuyEdgeOff  = new(0.160f, 0.185f, 0.215f, 1f);
 
     static readonly Color TextName    = new(0.784f, 0.827f, 0.878f, 1f);
     static readonly Color TextEffect  = new(0.353f, 0.780f, 0.459f, 1f);
@@ -76,6 +83,8 @@ public class HardwareUpgradePanel : MonoBehaviour
         public Button Buy;
         public TMP_Text BuyLabel;
         public NeonTextButton BuyNeon;
+        public Image BuyEdge;
+        public Image BuyFace;
     }
 
     // 패널이 꺼진 채로 시작하므로 Awake 가 아니라 열릴 때 처음 돈다
@@ -127,6 +136,44 @@ public class HardwareUpgradePanel : MonoBehaviour
 
         UiFactory.Place(bitsText.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 1f),
                         new Vector2(-60f, -60f), new Vector2(900f, 90f));
+
+        ResetButton(root);
+    }
+
+    /// <summary>
+    /// 산 것을 전부 물리고 비트를 돌려받는다. 보유 비트 왼쪽에 둔다.
+    /// 실수로 눌러도 잃는 것이 없으므로 되묻지 않는다 — 값이 그대로 돌아오기 때문.
+    /// </summary>
+    void ResetButton(RectTransform root)
+    {
+        Image edge = UiFactory.CreateImage("ResetButton", root, BuyEdgeOff);
+        edge.raycastTarget = true;
+
+        UiFactory.Place(edge.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 0.5f),
+                        new Vector2(-1000f, -105f), new Vector2(260f, 78f));
+
+        Image face = UiFactory.CreateImage("Face", edge.rectTransform, BuyFaceOff);
+        UiFactory.Stretch(face.rectTransform, Vector2.zero, Vector2.one,
+                          new Vector2(2f, 2f), new Vector2(-2f, -2f));
+
+        TMP_Text label = UiFactory.CreateText("Label", face.rectTransform, Font, 36f,
+                                              Color.white, TextAlignmentOptions.Center);
+        UiFactory.Stretch(label.rectTransform, Vector2.zero, Vector2.one);
+        label.text = "초기화";
+
+        var button = edge.gameObject.AddComponent<Button>();
+        button.targetGraphic = edge;
+        button.transition = Selectable.Transition.None;
+        button.onClick.AddListener(ResetAll);
+
+        edge.gameObject.AddComponent<NeonTextButton>().Bind(label, button);
+    }
+
+    void ResetAll()
+    {
+        PlayerProgress.RefundAll(table);
+
+        RefreshAll();
     }
 
     void Grid(RectTransform root)
@@ -216,8 +263,9 @@ public class HardwareUpgradePanel : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
+            // 다이아몬드다. 화살표와 같은 삼각형이면 어느 쪽이 조작부인지 헷갈린다
             Image pip = UiFactory.CreateImage($"Pip{i}", parent, PipLocked);
-            pip.sprite = TriangleSprite();
+            pip.sprite = DiamondSprite();
 
             UiFactory.Place(pip.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
                             new Vector2(start + step * i, -486f), new Vector2(pipSize, pipSize));
@@ -231,55 +279,66 @@ public class HardwareUpgradePanel : MonoBehaviour
     /// <summary>◀ 값 ▶ 한 줄. 화살표는 적용 레벨만 움직이고, 가운데가 실제 구매다.</summary>
     void BuildControls(Card card, RectTransform parent, HardwareTable.Entry entry)
     {
-        const float arrowSize = 70f;
-        const float buyWidth = 340f;
+        const float arrowSize = 64f;
+        const float buyWidth = 320f;
+        const float buyHeight = 88f;
         const float rowY = -600f;
 
-        card.DownArrow = UiFactory.CreateImage("DownArrow", parent, ArrowOff);
-        card.DownArrow.sprite = TriangleSprite();
-        card.DownArrow.raycastTarget = true;
+        // 이 줄에 놓이는 것은 전부 가운데를 기준으로 맞춘다.
+        // 카드의 다른 요소처럼 위쪽 기준으로 두면, 화살표를 180도 돌릴 때
+        // 회전축이 위 모서리라 왼쪽 화살표만 그만큼 떠오른다
+        float centerY = rowY - buyHeight * 0.5f;
+        float arrowX = buyWidth * 0.5f + 56f;
 
-        // 같은 삼각형을 뒤집어 왼쪽 화살표로 쓴다. 스프라이트를 하나 더 만들 이유가 없다
-        card.DownArrow.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 180f);
+        card.BuyEdge = UiFactory.CreateImage("Buy", parent, BuyEdge);
+        card.BuyEdge.raycastTarget = true;
 
-        UiFactory.Place(card.DownArrow.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
-                        new Vector2(-(buyWidth * 0.5f + 50f), rowY), new Vector2(arrowSize, arrowSize));
+        UiFactory.Place(card.BuyEdge.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 0.5f),
+                        new Vector2(0f, centerY), new Vector2(buyWidth, buyHeight));
 
+        card.BuyFace = UiFactory.CreateImage("Face", card.BuyEdge.rectTransform, BuyFace);
+        UiFactory.Stretch(card.BuyFace.rectTransform, Vector2.zero, Vector2.one,
+                          new Vector2(2f, 2f), new Vector2(-2f, -2f));
+
+        card.BuyLabel = UiFactory.CreateText("Label", card.BuyFace.rectTransform, Font, 38f,
+                                             Color.white, TextAlignmentOptions.Center);
+        UiFactory.Stretch(card.BuyLabel.rectTransform, Vector2.zero, Vector2.one);
+
+        card.Buy = card.BuyEdge.gameObject.AddComponent<Button>();
+        card.Buy.targetGraphic = card.BuyEdge;
+        card.Buy.transition = Selectable.Transition.None;
+        card.Buy.onClick.AddListener(() => Purchase(card));
+
+        card.BuyNeon = card.BuyEdge.gameObject.AddComponent<NeonTextButton>();
+        card.BuyNeon.Bind(card.BuyLabel, card.Buy);
+
+        card.DownArrow = Arrow(parent, "DownArrow", new Vector2(-arrowX, centerY), arrowSize, flip: true);
         card.Down = card.DownArrow.gameObject.AddComponent<Button>();
         card.Down.targetGraphic = card.DownArrow;
         card.Down.colors = ArrowColors();
         card.Down.onClick.AddListener(() => Step(card, -1));
 
-        card.UpArrow = UiFactory.CreateImage("UpArrow", parent, ArrowOff);
-        card.UpArrow.sprite = TriangleSprite();
-        card.UpArrow.raycastTarget = true;
-
-        UiFactory.Place(card.UpArrow.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
-                        new Vector2(buyWidth * 0.5f + 50f, rowY), new Vector2(arrowSize, arrowSize));
-
+        card.UpArrow = Arrow(parent, "UpArrow", new Vector2(arrowX, centerY), arrowSize, flip: false);
         card.Up = card.UpArrow.gameObject.AddComponent<Button>();
         card.Up.targetGraphic = card.UpArrow;
         card.Up.colors = ArrowColors();
         card.Up.onClick.AddListener(() => Step(card, +1));
+    }
 
-        // 가운데 구매 버튼. 글자만 있고 상자는 없다 — 결과 화면 버튼과 같은 양식
-        Image hit = UiFactory.CreateImage("Buy", parent, Color.clear);
-        hit.raycastTarget = true;
+    /// <summary>삼각형 화살표 하나. 왼쪽 것은 같은 스프라이트를 180도 돌려 쓴다.</summary>
+    Image Arrow(RectTransform parent, string name, Vector2 center, float size, bool flip)
+    {
+        Image arrow = UiFactory.CreateImage(name, parent, ArrowOff);
+        arrow.sprite = TriangleSprite();
+        arrow.raycastTarget = true;
 
-        UiFactory.Place(hit.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
-                        new Vector2(0f, rowY), new Vector2(buyWidth, 80f));
+        // 축이 한가운데여야 돌려도 자리가 그대로다
+        UiFactory.Place(arrow.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 0.5f),
+                        center, new Vector2(size, size));
 
-        card.BuyLabel = UiFactory.CreateText("Label", hit.rectTransform, Font, 40f,
-                                             Color.white, TextAlignmentOptions.Center);
-        UiFactory.Stretch(card.BuyLabel.rectTransform, Vector2.zero, Vector2.one);
+        if (flip) arrow.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 180f);
 
-        card.Buy = hit.gameObject.AddComponent<Button>();
-        card.Buy.targetGraphic = hit;
-        card.Buy.transition = Selectable.Transition.None;
-        card.Buy.onClick.AddListener(() => Purchase(card));
-
-        card.BuyNeon = hit.gameObject.AddComponent<NeonTextButton>();
-        card.BuyNeon.Bind(card.BuyLabel, card.Buy);
+        return arrow;
     }
 
     static ColorBlock ArrowColors() => new()
@@ -371,45 +430,64 @@ public class HardwareUpgradePanel : MonoBehaviour
         // interactable 을 바꾼 뒤에 불러야 커서가 밖에 있어도 회색으로 바뀐다
         card.BuyNeon.Refresh();
 
+        card.BuyEdge.color = card.Buy.interactable ? BuyEdge : BuyEdgeOff;
+        card.BuyFace.color = card.Buy.interactable ? BuyFace : BuyFaceOff;
+
         card.Edge.color = entry.Locked ? CardEdgeOff
                         : purchased >= max ? CardEdgeMax
                         : CardEdge;
     }
 
-    // ── 삼각형 ────────────────────────────────────────────
+    // ── 도형 ──────────────────────────────────────────────
+    //
+    // ▶ ◆ 같은 글자는 글꼴에 없으면 네모(두부)로 뜨는데, 그게 언제 터질지는
+    // 글꼴을 바꿔봐야 안다. 그래서 직접 그려 쓴다.
 
     static Sprite triangle;
+    static Sprite diamond;
 
-    /// <summary>
-    /// 오른쪽을 향한 삼각형. 글꼴에 ▶ 가 없을 수 있어 직접 그린다 —
-    /// 없는 글자를 쓰면 네모(두부)가 뜨는데, 그게 언제 터질지는 글꼴을 바꿔봐야 안다.
-    /// </summary>
-    static Sprite TriangleSprite()
+    /// <summary>레벨 칸으로 쓰는 마름모.</summary>
+    static Sprite DiamondSprite()
     {
-        if (triangle != null) return triangle;
+        if (diamond != null) return diamond;
 
+        diamond = Draw((x, y) => Mathf.Abs(x - 0.5f) + Mathf.Abs(y - 0.5f) <= 0.5f);
+
+        return diamond;
+    }
+
+    /// <summary>주어진 판정으로 흰 도형을 그린다. 좌표는 0~1.</summary>
+    static Sprite Draw(System.Func<float, float, bool> inside)
+    {
         const int size = 64;
 
         var tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
         var pixels = new Color32[size * size];
 
+        var on = new Color32(255, 255, 255, 255);
+        var off = new Color32(255, 255, 255, 0);
+
         for (int y = 0; y < size; y++)
         {
-            // 왼쪽 변에서 오른쪽 꼭짓점으로 갈수록 세로 폭이 좁아진다
-            float t = y / (float)(size - 1);
-            float half = Mathf.Abs(t - 0.5f) * 2f;          // 0(가운데) ~ 1(위아래 끝)
-            float edge = (1f - half) * size;                // 그 높이에서 칠할 가로 길이
+            float v = y / (float)(size - 1);
 
             for (int x = 0; x < size; x++)
-                pixels[y * size + x] = x <= edge
-                    ? new Color32(255, 255, 255, 255)
-                    : new Color32(255, 255, 255, 0);
+                pixels[y * size + x] = inside(x / (float)(size - 1), v) ? on : off;
         }
 
         tex.SetPixels32(pixels);
         tex.Apply();
 
-        triangle = Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f));
+        return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f));
+    }
+
+    /// <summary>오른쪽을 향한 삼각형. 화살표로 쓴다.</summary>
+    static Sprite TriangleSprite()
+    {
+        if (triangle != null) return triangle;
+
+        // 위아래 끝으로 갈수록 오른쪽 꼭짓점 쪽이 좁아진다
+        triangle = Draw((x, y) => x <= 1f - Mathf.Abs(y - 0.5f) * 2f);
 
         return triangle;
     }

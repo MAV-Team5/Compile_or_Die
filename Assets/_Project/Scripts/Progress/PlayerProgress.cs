@@ -92,6 +92,50 @@ public static class PlayerProgress
     }
 
     /// <summary>
+    /// 산 것을 전부 물리고 쓴 비트를 그대로 돌려준다.
+    ///
+    /// 표의 값 목록을 되짚어 합산하므로, 나중에 값을 고치면 환불액도 그 값을 따른다 —
+    /// 얼마에 샀는지를 따로 기록해두지 않는다. 밸런싱 중에는 표가 자주 바뀌는데
+    /// 그때마다 세이브에 남은 옛 가격이 되살아나면 계산이 어긋난다.
+    /// </summary>
+    public static void RefundAll(HardwareTable table)
+    {
+        if (table == null) return;
+
+        Ensure();
+
+        int refund = 0;
+
+        foreach (HardwareKind kind in System.Enum.GetValues(typeof(HardwareKind)))
+        {
+            int index = (int)kind;
+
+            for (int level = 0; level < data.hardware[index]; level++)
+            {
+                int cost = table.CostToUpgrade(kind, level);
+                if (cost > 0) refund += cost;
+            }
+
+            data.hardware[index] = 0;
+            data.active[index] = 0;
+        }
+
+        data.bits += refund;
+
+        Save();
+    }
+
+    /// <summary>비트를 직접 정한다. 테스트 도구 전용 — 게임 안에서는 부르지 말 것.</summary>
+    public static void SetBits(int amount)
+    {
+        Ensure();
+
+        data.bits = Mathf.Max(0, amount);
+
+        Save();
+    }
+
+    /// <summary>
     /// 적용 레벨을 바꾼다. 0 ~ 구매 레벨 사이로 잘린다. 값은 오가지 않는다.
     /// </summary>
     public static void SetActiveLevel(HardwareKind kind, int level)

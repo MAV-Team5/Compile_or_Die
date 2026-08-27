@@ -17,6 +17,12 @@ public class MenuManager : MonoBehaviour
 
     private bool setPause = false;
 
+    void Start()
+    {
+        // 결과 화면에서 "업그레이드"로 들어온 경우. 로비를 거치지 않고 바로 상점을 연다
+        if (LobbyIntent.Consume() == LobbyIntent.Screen.Upgrade) OnClickUpgradeMenu();
+    }
+
     public void OnClickCharacterMenu()
     {
         characterPanel.Open();
