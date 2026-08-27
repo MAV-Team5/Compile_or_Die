@@ -1,3 +1,4 @@
+using Unity.Cinemachine;   // LensSettings
 using UnityEngine;
 
 /// <summary>
@@ -123,16 +124,40 @@ public class HardwareBonus : MonoBehaviour
         player.speed *= 1f + bonus;
     }
 
+    /// <summary>
+    /// 시야를 넓힌다.
+    ///
+    /// <b>Camera 를 직접 건드리면 안 된다.</b> 이 씬은 Cinemachine 이 카메라를 몰고 있어서,
+    /// CinemachineBrain 이 매 프레임 가상 카메라의 렌즈 값으로 덮어쓴다.
+    /// 그래서 Camera.orthographicSize 를 키워봐야 그 프레임에 바로 되돌아간다.
+    /// 몰고 있는 쪽(CinemachineCamera)의 렌즈를 고쳐야 실제로 넓어진다.
+    /// </summary>
     void ApplyView()
     {
         float bonus = BonusOf(HardwareKind.Monitor);
 
         if (Mathf.Approximately(bonus, 0f)) return;
 
+        float scale = 1f + bonus;
+
+        var vcam = FindAnyObjectByType<Unity.Cinemachine.CinemachineCamera>();
+
+        if (vcam != null)
+        {
+            LensSettings lens = vcam.Lens;
+
+            // 2D 직교라면 크기가 곧 시야다. 원근이면 화각을 넓힌다
+            if (lens.Orthographic) lens.OrthographicSize *= scale;
+            else lens.FieldOfView = Mathf.Min(170f, lens.FieldOfView * scale);
+
+            vcam.Lens = lens;
+            return;
+        }
+
+        // Cinemachine 이 없는 씬(증강 테스트 등)에서는 카메라를 직접 만져도 안 밀린다
         Camera camera = Camera.main;
 
-        // 2D 직교 카메라라 크기를 키우면 그만큼 넓게 보인다
-        if (camera != null && camera.orthographic) camera.orthographicSize *= 1f + bonus;
+        if (camera != null && camera.orthographic) camera.orthographicSize *= scale;
     }
 
     void LogSummary()
