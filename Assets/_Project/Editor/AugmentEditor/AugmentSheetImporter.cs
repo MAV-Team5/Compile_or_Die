@@ -6,25 +6,31 @@ using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// 구글 시트의 <c>1_설계</c> 탭을 읽어 증강의 레벨 표를 채운다.
+/// 증강 레벨 표를 시트에서 통째로 가져온다.
 /// 메뉴: <c>CoD → 증강 시트 가져오기</c>
 ///
-/// <b>시트의 2_Augment_Levels 탭은 안 본다.</b> 곡선 계산을 여기서 직접 하므로
-/// 그 탭은 눈으로 확인하는 용도로만 남는다 — 수식이 깨져도 게임에는 영향이 없다.
+/// <b>계산을 하지 않는다.</b> 시트에 적힌 값이 그대로 들어간다 —
+/// 예전 임포터는 1레벨값과 증가량으로 곡선을 만들어서 선형 성장밖에 못 했다.
+/// 3레벨마다 비약을 주는 곡선은 수식으로 표현할 수 없고, 표현하려 들면
+/// 기획자가 원하는 모양과 코드가 만드는 모양이 어긋난다.
 ///
-/// <b>성장은 곱셈이 아니라 덧셈이다.</b>
+/// <b>시트 모양 — 한 행이 증강 하나의 한 레벨이다.</b>
 /// <code>
-/// 실수 스탯   Lv(n) = 1레벨값 + 증가량 × (n-1)
-/// 정수 스탯   Lv(n) = 1레벨값 + 내림(증가량 × (n-1))   ← 0.5 면 2레벨마다 +1
+/// id     레벨  피해량  효과피해  쿨타임  사거리  효과범위  속도  지속시간  수량  관통력  깊이
+/// BASH    1     3      0.15     4.0     6      0        9     0        0     0      1
+/// BASH    2     4      0.17     3.8     6      0        9     0        0     0      1
+/// BASH    3    12      0.30     3.0     8      0        9     0        0     0      2
+/// DFS     1    ...
 /// </code>
-/// 곱셈은 후반에 폭주해서 8레벨을 손으로 못 잡는다. 덧셈이면 "몇 번 더해졌나"가 암산된다.
+///
+/// 빈 칸은 0이다. 밸런싱 곡선은 시트 안에서 따로 만들고 결과 값만 이 표에 둘 것.
 /// </summary>
 public static class AugmentSheetImporter
 {
-    /// <summary>채울 레벨 수. 시트와 맞춰둘 것.</summary>
-    const int MaxLevel = 8;
+    const string IdColumn = "id";
+    const string LevelColumn = "레벨";
 
-    /// <summary>시트 열 이름 → AugmentLevelData 필드. 정수 스탯은 계단으로 오른다.</summary>
+    /// <summary>시트 열 이름 → AugmentLevelData 필드. 정수 칸은 반올림해서 넣는다.</summary>
     static readonly (string Sheet, string Field, bool Whole)[] Stats =
     {
         ("피해량",   "damage",       false),
@@ -42,148 +48,117 @@ public static class AugmentSheetImporter
     [MenuItem("CoD/증강 시트 가져오기", priority = 100)]
     static void Import()
     {
-        string path = EditorUtility.OpenFilePanel("1_설계 탭을 CSV 로 내려받아 고르세요",
-                                                  "", "csv");
+        string path = EditorUtility.OpenFilePanel("증강 레벨 표를 CSV 로 내려받아 고르세요", "", "csv");
         if (string.IsNullOrEmpty(path)) return;
 
-        string[] lines = File.ReadAllLines(path, Encoding.UTF8);
-
-        var table = new List<string[]>();
-        for (int i = 0; i < lines.Length; i++) table.Add(SplitCsv(lines[i]));
+        List<string[]> table = ReadCsv(path);
 
         int header = FindHeader(table);
 
         if (header < 0)
         {
-            EditorUtility.DisplayDialog("가져오기 실패",
-                "'id' 열을 못 찾았습니다.\n1_설계 탭을 CSV 로 내려받았는지 확인하세요.", "확인");
+            Fail($"'{IdColumn}' 과 '{LevelColumn}' 이 같이 있는 줄을 못 찾았습니다.\n\n"
+               + "한 행이 증강 하나의 한 레벨인 표여야 합니다.\n"
+               + $"예) {IdColumn} · {LevelColumn} · 피해량 · 쿨타임 ...");
             return;
         }
 
-        // ★ 스탯 열이 하나도 없으면 여기서 멈춘다.
-        //   예전에는 그대로 진행해 모든 수치를 0으로 덮어썼다 —
-        //   엉뚱한 탭(2_Augment_Levels 등)에도 'id' 열은 있기 때문에
-        //   경고 한 줄 없이 증강이 통째로 망가졌다
         List<string> found = FoundStats(table[header]);
 
+        // 스탯 열이 하나도 없으면 여기서 멈춘다.
+        // 예전에 이 검사가 없어서, 엉뚱한 탭을 골랐는데 경고 한 줄 없이 모든 증강이 0이 됐다
         if (found.Count == 0)
         {
-            EditorUtility.DisplayDialog("가져오기 실패",
-                "스탯 열을 하나도 못 찾았습니다. 아무것도 바꾸지 않았습니다.\n\n" +
-                "'피해량 1레벨' 같은 열이 있는 1_설계 탭인지 확인하세요.\n" +
-                "2_Augment_Levels 탭에는 이 열들이 없습니다.\n\n" +
-                "읽은 헤더: " + string.Join(", ", table[header]), "확인");
+            Fail("스탯 열을 하나도 못 찾았습니다. 아무것도 바꾸지 않았습니다.\n\n"
+               + "읽은 헤더: " + string.Join(", ", table[header]));
+            return;
+        }
+
+        Dictionary<string, List<Row>> rows = Collect(table, header, out int skipped);
+
+        if (rows.Count == 0)
+        {
+            Fail("헤더는 찾았는데 값이 있는 행이 하나도 없습니다.");
             return;
         }
 
         if (!EditorUtility.DisplayDialog("증강 시트 가져오기",
-                $"찾은 스탯 열 {found.Count}개\n  {string.Join(", ", found)}\n\n" +
-                "이 열들로 덮어씁니다. 진행할까요?", "가져오기", "취소"))
+                $"증강 {rows.Count}개 · 레벨 행 {Total(rows)}줄\n"
+              + $"스탯 열 {found.Count}개 — {string.Join(", ", found)}\n\n"
+              + "이 값으로 덮어씁니다. 진행할까요?", "가져오기", "취소"))
             return;
 
-        Apply(table, header);
+        Apply(rows, skipped);
     }
 
-    /// <summary>헤더에 실제로 있는 스탯 이름. 하나도 없으면 시트를 잘못 고른 것이다.</summary>
-    static List<string> FoundStats(string[] header)
+    // ── 읽기 ──────────────────────────────────────────────
+
+    /// <summary>시트 한 줄. 레벨 번호와 그 레벨의 수치.</summary>
+    struct Row
     {
-        var found = new List<string>();
-
-        for (int i = 0; i < Stats.Length; i++)
-            if (IndexOf(header, $"{Stats[i].Sheet} 1레벨") >= 0) found.Add(Stats[i].Sheet);
-
-        return found;
+        public int Level;
+        public AugmentLevelData Stats;
     }
 
-    // ── 본작업 ────────────────────────────────────────────
-
-    static void Apply(List<string[]> table, int header)
+    /// <summary>
+    /// id 별로 행을 모은다. 레벨 순서는 시트에서 뒤죽박죽이어도 뒤에서 정렬한다.
+    /// </summary>
+    static Dictionary<string, List<Row>> Collect(List<string[]> table, int header, out int skipped)
     {
-        Dictionary<string, AugmentData> byId = CollectAssets(out List<string> duplicates);
+        var byId = new Dictionary<string, List<Row>>();
 
-        var filled = new List<string>();
-        var locked = new List<string>();
-        var missing = new List<string>();
-        var empty = new List<string>();
-        var thin = new List<string>();
+        string[] head = table[header];
+        int idAt = IndexOf(head, IdColumn);
+        int levelAt = IndexOf(head, LevelColumn);
 
-        int idColumn = IndexOf(table[header], "id");
+        skipped = 0;
 
         for (int r = header + 1; r < table.Count; r++)
         {
             string[] row = table[r];
-            if (idColumn >= row.Length) continue;
 
-            string id = row[idColumn].Trim();
+            if (idAt >= row.Length || levelAt >= row.Length) continue;
+
+            string id = row[idAt].Trim();
             if (id.Length == 0) continue;
 
-            if (!byId.TryGetValue(id, out AugmentData data))
+            int level = Mathf.RoundToInt(Number(row, levelAt));
+
+            // 레벨이 없거나 0 이하인 줄은 표가 아니라 안내문일 가능성이 높다
+            if (level <= 0) { skipped++; continue; }
+
+            if (!byId.TryGetValue(id, out List<Row> list))
             {
-                // 시트에만 있고 아직 에셋을 안 만든 증강. 흔한 일이라 조용히 모아만 둔다
-                missing.Add(id);
-                continue;
+                list = new List<Row>();
+                byId[id] = list;
             }
 
-            // 인스펙터에서 잠근 증강은 손대지 않는다. 손으로 맞춰둔 값을 지키려는 자물쇠다
-            if (data.lockStats)
-            {
-                locked.Add(id);
-                continue;
-            }
-
-            AugmentLevelData[] levels = BuildLevels(table[header], row);
-
-            // 이 줄이 통째로 비어 있으면 아직 안 채운 증강이다.
-            // 0으로 덮어쓰면 손으로 넣어둔 값까지 날아간다
-            if (IsAllZero(levels[0]))
-            {
-                empty.Add(id);
-                continue;
-            }
-
-            Undo.RecordObject(data, "증강 시트 가져오기");
-
-            data.levelStats = levels;
-
-            EditorUtility.SetDirty(data);
-            filled.Add(id);
-
-            if (LooksUnusable(data.levelStats[0])) thin.Add(id);
+            list.Add(new Row { Level = level, Stats = ReadStats(head, row) });
         }
 
-        AssetDatabase.SaveAssets();
-
-        Report(filled, locked, missing, empty, thin, duplicates);
+        return byId;
     }
 
-    static AugmentLevelData[] BuildLevels(string[] header, string[] row)
+    static AugmentLevelData ReadStats(string[] head, string[] row)
     {
-        var levels = new AugmentLevelData[MaxLevel];
+        var s = new AugmentLevelData();
 
         for (int i = 0; i < Stats.Length; i++)
         {
             (string sheet, string field, bool whole) = Stats[i];
 
-            float baseValue = Read(header, row, $"{sheet} 1레벨");
-            float step = ReadStep(header, row, sheet);
+            int c = IndexOf(head, sheet);
+            if (c < 0) continue;
 
-            for (int lv = 0; lv < MaxLevel; lv++)
-            {
-                float v = baseValue + step * lv;
-
-                // 정수 스탯은 내림한다. 0.5 면 2레벨마다 한 칸 오른다
-                if (whole) v = Mathf.Floor(baseValue + step * lv);
-
-                Assign(ref levels[lv], field, Mathf.Max(0f, v), whole);
-            }
+            Assign(ref s, field, Mathf.Max(0f, Number(row, c)), whole);
         }
 
-        return levels;
+        return s;
     }
 
     /// <summary>
     /// 구조체라 리플렉션 없이 직접 꽂는다.
-    /// 필드가 열 개뿐이고, 여기가 시트와 코드를 잇는 유일한 자리라 눈에 보이는 편이 낫다.
+    /// 칸이 열 개뿐이고, 여기가 시트와 코드를 잇는 유일한 자리라 눈에 보이는 편이 낫다.
     /// </summary>
     static void Assign(ref AugmentLevelData level, string field, float value, bool whole)
     {
@@ -205,38 +180,108 @@ public static class AugmentSheetImporter
         }
     }
 
-    // ── 시트 읽기 ─────────────────────────────────────────
+    // ── 쓰기 ──────────────────────────────────────────────
 
-    /// <summary>
-    /// 증가량 열. 이름이 여러 번 바뀌었으므로 후보를 다 본다 —
-    /// 시트 열 이름 하나 때문에 가져오기가 통째로 실패하면 원인을 찾기 어렵다.
-    /// </summary>
-    static float ReadStep(string[] header, string[] row, string sheet)
+    static void Apply(Dictionary<string, List<Row>> rows, int skippedRows)
     {
-        string[] names = { $"{sheet} 레벨당 증가", $"{sheet} 증가", $"{sheet} 성장", $"{sheet} 계단" };
+        Dictionary<string, AugmentData> byId = CollectAssets(out List<string> duplicates);
 
-        for (int i = 0; i < names.Length; i++)
+        var filled = new List<string>();
+        var locked = new List<string>();
+        var missing = new List<string>();
+        var gaps = new List<string>();
+
+        foreach (KeyValuePair<string, List<Row>> pair in rows)
         {
-            int c = IndexOf(header, names[i]);
-            if (c >= 0) return Number(row, c);
+            if (!byId.TryGetValue(pair.Key, out AugmentData data)) { missing.Add(pair.Key); continue; }
+
+            // 인스펙터에서 잠근 증강은 손대지 않는다. 손으로 맞춰둔 값을 지키려는 자물쇠다
+            if (data.lockStats) { locked.Add(pair.Key); continue; }
+
+            List<Row> list = pair.Value;
+            list.Sort((a, b) => a.Level.CompareTo(b.Level));
+
+            // 레벨이 1부터 연속이 아니면 배열 인덱스와 레벨이 어긋난다.
+            // 3레벨이 빠진 채로 넣으면 4레벨 값이 3레벨 자리에 앉는다
+            string gap = FindGap(list);
+            if (gap != null) { gaps.Add($"{pair.Key} ({gap})"); continue; }
+
+            var levels = new AugmentLevelData[list.Count];
+            for (int i = 0; i < list.Count; i++) levels[i] = list[i].Stats;
+
+            Undo.RecordObject(data, "증강 시트 가져오기");
+
+            data.levelStats = levels;
+
+            EditorUtility.SetDirty(data);
+            filled.Add($"{pair.Key} ({levels.Length}렙)");
         }
 
-        return 0f;
+        AssetDatabase.SaveAssets();
+
+        Report(filled, locked, missing, gaps, duplicates, skippedRows);
     }
 
-    static float Read(string[] header, string[] row, string name)
+    /// <summary>레벨이 1,2,3... 으로 이어지는가. 어긋나면 그 자리를 알려준다.</summary>
+    static string FindGap(List<Row> sorted)
     {
-        int c = IndexOf(header, name);
-        return c < 0 ? 0f : Number(row, c);
+        for (int i = 0; i < sorted.Count; i++)
+        {
+            if (sorted[i].Level == i + 1) continue;
+
+            return sorted[i].Level == (i > 0 ? sorted[i - 1].Level : 0)
+                ? $"{sorted[i].Level}레벨이 두 줄"
+                : $"{i + 1}레벨이 없음";
+        }
+
+        return null;
     }
 
+    // ── 잔가지 ────────────────────────────────────────────
+
+    static List<string> FoundStats(string[] header)
+    {
+        var found = new List<string>();
+
+        for (int i = 0; i < Stats.Length; i++)
+            if (IndexOf(header, Stats[i].Sheet) >= 0) found.Add(Stats[i].Sheet);
+
+        return found;
+    }
+
+    static int Total(Dictionary<string, List<Row>> rows)
+    {
+        int n = 0;
+        foreach (List<Row> v in rows.Values) n += v.Count;
+        return n;
+    }
+
+    /// <summary>id 와 레벨이 함께 있는 줄이 헤더다. 위에 안내문이 몇 줄이든 상관없게 한다.</summary>
+    static int FindHeader(List<string[]> table)
+    {
+        for (int r = 0; r < table.Count; r++)
+            if (IndexOf(table[r], IdColumn) >= 0 && IndexOf(table[r], LevelColumn) >= 0) return r;
+
+        return -1;
+    }
+
+    static List<string[]> ReadCsv(string path)
+    {
+        string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+
+        var table = new List<string[]>(lines.Length);
+        for (int i = 0; i < lines.Length; i++) table.Add(SplitCsv(lines[i]));
+
+        return table;
+    }
+
+    /// <summary>빈 칸은 0이다. 안 쓰는 스탯을 매 줄 채우지 않아도 되게.</summary>
     static float Number(string[] row, int column)
     {
-        if (column >= row.Length) return 0f;
+        if (column < 0 || column >= row.Length) return 0f;
 
         string cell = row[column].Trim();
 
-        // 빈칸은 "이 증강은 이 항목을 안 씀"이다. 0 과 같게 다뤄도 결과는 같다
         return float.TryParse(cell, NumberStyles.Float, CultureInfo.InvariantCulture, out float v)
             ? v : 0f;
     }
@@ -245,15 +290,6 @@ public static class AugmentSheetImporter
     {
         for (int i = 0; i < header.Length; i++)
             if (header[i].Trim() == name) return i;
-
-        return -1;
-    }
-
-    /// <summary>'id' 가 있는 줄이 헤더다. 위에 안내문이 몇 줄이든 상관없게 한다.</summary>
-    static int FindHeader(List<string[]> table)
-    {
-        for (int r = 0; r < table.Count; r++)
-            if (IndexOf(table[r], "id") >= 0) return r;
 
         return -1;
     }
@@ -284,8 +320,6 @@ public static class AugmentSheetImporter
         return cells.ToArray();
     }
 
-    // ── 에셋 찾기 ─────────────────────────────────────────
-
     static Dictionary<string, AugmentData> CollectAssets(out List<string> duplicates)
     {
         var byId = new Dictionary<string, AugmentData>();
@@ -295,8 +329,7 @@ public static class AugmentSheetImporter
 
         for (int i = 0; i < guids.Length; i++)
         {
-            string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-            var data = AssetDatabase.LoadAssetAtPath<AugmentData>(path);
+            var data = AssetDatabase.LoadAssetAtPath<AugmentData>(AssetDatabase.GUIDToAssetPath(guids[i]));
 
             if (data == null || string.IsNullOrEmpty(data.id)) continue;
 
@@ -308,20 +341,14 @@ public static class AugmentSheetImporter
         return byId;
     }
 
-    /// <summary>시트에 아무 값도 안 적힌 줄인가. 이런 줄로 에셋을 덮으면 안 된다.</summary>
-    static bool IsAllZero(AugmentLevelData s)
-        => s.damage == 0f && s.effectDamage == 0f && s.cooldown == 0f && s.range == 0f
-        && s.effectRange == 0f && s.speed == 0f && s.duration == 0f
-        && s.count == 0 && s.pierce == 0 && s.depth == 0;
-
-    /// <summary>흔한 빈칸 사고. 이 값이 0이면 조립에 따라 아예 발동이 안 된다.</summary>
-    static bool LooksUnusable(AugmentLevelData first)
-        => Mathf.Approximately(first.speed, 0f) || Mathf.Approximately(first.effectRange, 0f);
-
-    // ── 결과 ──────────────────────────────────────────────
+    static void Fail(string message)
+    {
+        Debug.LogWarning("[증강 시트] " + message);
+        EditorUtility.DisplayDialog("가져오기 실패", message, "확인");
+    }
 
     static void Report(List<string> filled, List<string> locked, List<string> missing,
-                       List<string> empty, List<string> thin, List<string> duplicates)
+                       List<string> gaps, List<string> duplicates, int skippedRows)
     {
         var sb = new StringBuilder();
 
@@ -331,18 +358,17 @@ public static class AugmentSheetImporter
         if (locked.Count > 0)
             sb.AppendLine($"\n잠겨서 건너뜀 {locked.Count}개\n  " + string.Join(", ", locked));
 
-        if (empty.Count > 0)
-            sb.AppendLine($"\n시트가 비어 건너뜀 {empty.Count}개\n  " + string.Join(", ", empty));
-
         if (missing.Count > 0)
             sb.AppendLine($"\n에셋이 없는 id {missing.Count}개\n  " + string.Join(", ", missing));
+
+        if (gaps.Count > 0)
+            sb.AppendLine($"\n⚠ 레벨이 이어지지 않아 건드리지 않음\n  " + string.Join(", ", gaps));
 
         if (duplicates.Count > 0)
             sb.AppendLine($"\n⚠ id 가 겹쳐 건드리지 않음\n  " + string.Join(", ", duplicates));
 
-        if (thin.Count > 0)
-            sb.AppendLine($"\n⚠ 속도나 효과범위가 0 — 조립에 따라 발동이 안 됩니다\n  "
-                        + string.Join(", ", thin));
+        if (skippedRows > 0)
+            sb.AppendLine($"\n레벨 칸이 비어 건너뛴 줄 {skippedRows}개");
 
         Debug.Log("[증강 시트] " + sb);
         EditorUtility.DisplayDialog("증강 시트 가져오기", sb.ToString(), "확인");

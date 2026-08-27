@@ -70,10 +70,10 @@ public class EnemyData : ScriptableObject
     public GameLogType killLog = GameLogType.Combat;
 
     [Header("보상")]
-    [Tooltip("처치 시 떨구는 경험치. 예전에는 Exp 프리팹에 박혀 있어 모든 적이 같았다.")]
-    public int exp = 1;
+    // 경험치는 여기 없다. 무엇을 얼마나 떨굴지는 StageWave 가 정한다 —
+    // 같은 적이라도 웨이브마다 다른 오브를 떨궈야 하기 때문
 
-    [Tooltip("처치 시 주는 비트(재화). 드랍물이 생기기 전까지는 정산에만 쓰인다.")]
+    [Tooltip("처치 시 주는 비트(재화). 오브 없이 바로 정산에 쌓인다.")]
     public int bits = 0;
 
     /// <summary>처치 로그 한 줄. 여러 개 적어뒀으면 그중 하나를 뽑는다.</summary>

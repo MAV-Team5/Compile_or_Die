@@ -64,6 +64,32 @@ public class AugmentData : ScriptableObject
     [Tooltip("뿌리가 이 레벨 이상일 때 해금된다.")]
     public int requiredRootLevel;
 
+    [Tooltip("뿌리의 어느 자리에 꽂히나. 뿌리 조립에 있는 ExtensionEffect 의 슬롯 이름과 같아야 한다.\n\n" +
+             "예) Bash 의 Chain → Final Effects 에 ExtensionEffect(kill) 을 두고,\n" +
+             "    이 칸에 kill 이라고 적으면 그 자리에서 이 증강의 효과가 실행된다.\n\n" +
+             "비워두면 어디에도 안 꽂힌다 — 스스로 발동하는 보통 증강이 된다.")]
+    public string extensionSlot;
+
+    [Tooltip("아래 레벨 수치를 뿌리의 보정으로 쓴다.\n\n" +
+             "켜면 실수 칸이 비율이다 — 피해량 0.2 는 뿌리 피해 +20%.\n" +
+             "끄면 절대값이다 — 피해량 0.2 는 뿌리 피해 +0.2.\n\n" +
+             "★ 정수 칸(수량·관통·깊이)은 이 토글과 무관하게 항상 더해진다.\n" +
+             "   4발 × 1.5 는 반올림이 생겨 몇 발 늘었는지 안 읽히기 때문.")]
+    public bool bonusIsPercent = true;
+
+    [Header("뿌리 조립 덮어쓰기")]
+    [Tooltip("아래 Targeting 으로 뿌리의 것을 갈아끼울지. 단수라 Add 는 뜻이 없다.")]
+    public BuildPatch targetingPatch = BuildPatch.None;
+
+    [Tooltip("아래 Deliveries 를 뿌리에 어떻게 얹을지.\n" +
+             "Replace: 뿌리 것을 버린다 · Add: 뿌리 것 뒤에 이어 붙인다")]
+    public BuildPatch deliveryPatch = BuildPatch.None;
+
+    [Tooltip("아래 Effects 를 뿌리에 어떻게 얹을지.\n\n" +
+             "★ Extension Slot 을 쓰는 증강은 여기를 None 으로 둘 것 —\n" +
+             "   슬롯에 꽂히는 것과 3축을 덮는 것을 동시에 하면 효과가 두 번 난다.")]
+    public BuildPatch effectPatch = BuildPatch.None;
+
     [Header("성장")]
     [Tooltip("＊ 필수 — 레벨별 수치. 비면 증강이 전혀 동작하지 않는다.\n" +
              "시트 임포터가 덮어쓰는 유일한 영역.")]

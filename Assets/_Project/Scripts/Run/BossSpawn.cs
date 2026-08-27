@@ -42,9 +42,9 @@ public class BossSpawn
          : enemy != null ? enemy.displayName
          : "Boss";
 
-    /// <summary>이 보스에게 얹을 배율. 경험치는 보스에 안 쓰므로 1로 둔다.</summary>
+    /// <summary>이 보스에게 얹을 배율.</summary>
     public EnemyScale Scale
-        => EnemyScale.Of(healthScale, speedScale, damageScale, sizeScale, 1f);
+        => EnemyScale.Of(healthScale, speedScale, damageScale, sizeScale);
 
     /// <summary>이미 내보냈나. RunDirector 가 관리한다.</summary>
     [System.NonSerialized] public bool Spawned;

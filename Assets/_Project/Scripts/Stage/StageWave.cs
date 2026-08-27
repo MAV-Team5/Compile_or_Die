@@ -47,8 +47,16 @@ public class StageWave
     [Tooltip("몸집 배율. EnemyData 의 크기에 곱해진다.")]
     public float sizeScale = 1f;
 
-    [Tooltip("경험치 배율. 세게 만들었으면 보상도 같이 올려야 한다.")]
-    public float expScale = 1f;
+    [Header("경험치 — 이 웨이브가 무엇을 얼마나 떨구나")]
+    [Tooltip("떨어질 경험치 오브 프리팹. 주는 값은 프리팹의 ExpMove.exp 가 갖는다.\n\n" +
+             "비우면 이 웨이브의 적은 경험치를 안 떨군다.")]
+    public GameObject expOrb;
+
+    [Tooltip("적 한 마리당 평균 몇 개를 떨구나.\n\n" +
+             "0.4 면 두세 마리에 하나. 1.0 이면 항상 하나. 2.7 이면 둘에 가끔 셋.\n" +
+             "★ 못 준 소수는 다음 처치로 이월되므로 총량이 정확히 맞는다 —\n" +
+             "   100마리 × 0.4 = 정확히 40개.")]
+    [Min(0f)] public float expPerKill = 1f;
 
     /// <summary>이번 런에서 이미 내보낸 수. 런타임 전용이라 저장하지 않는다.</summary>
     [System.NonSerialized] public int Spawned;
@@ -56,11 +64,35 @@ public class StageWave
     /// <summary>다음 발사까지 남은 시간.</summary>
     [System.NonSerialized] public float Timer;
 
+    /// <summary>
+    /// 아직 오브로 못 준 소수. 처치할 때마다 <see cref="expPerKill"/> 만큼 차고,
+    /// 1을 넘는 만큼만 오브로 나간다.
+    ///
+    /// <b>웨이브가 들고 있어야 한다.</b> 적은 죽으면 사라지므로 이월할 자리가 없다.
+    /// </summary>
+    [System.NonSerialized] public float ExpCarry;
+
     public bool IsValid => enemy != null && enemy.prefab != null;
 
     /// <summary>이 웨이브가 적에게 얹을 배율.</summary>
     public EnemyScale Scale
-        => EnemyScale.Of(healthScale, speedScale, damageScale, sizeScale, expScale);
+        => EnemyScale.Of(healthScale, speedScale, damageScale, sizeScale);
+
+    /// <summary>
+    /// 이번 처치로 나갈 오브 개수. 남은 소수는 다음 처치로 넘긴다.
+    /// <b>부를 때마다 상태가 변한다</b> — 세어 보기만 할 용도로 부르면 안 된다.
+    /// </summary>
+    public int TakeOrbCount()
+    {
+        if (expOrb == null || expPerKill <= 0f) return 0;
+
+        ExpCarry += expPerKill;
+
+        int count = Mathf.FloorToInt(ExpCarry);
+        ExpCarry -= count;
+
+        return count;
+    }
 
     /// <summary>지금 이 웨이브가 도는 중인가.</summary>
     public bool IsActive(float now)

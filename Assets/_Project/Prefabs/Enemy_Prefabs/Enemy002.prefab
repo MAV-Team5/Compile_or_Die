@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abef1080e19e8794bb51773b740d88e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarkAnchor
-  size: 2.3
+  size: 3
   ringGap: 0
   maxRing: 3
 --- !u!1 &3469445803652378370

@@ -43,7 +43,7 @@ public static class DamageTextSpawner
         if (pool == null) return;
 
         GameObject go = pool.Get(PoolType.Effect, 0);
-        go.transform.position = SpawnPosition(target);
+        go.transform.position = SpawnPosition(target, style.offset);
 
         if (go.TryGetComponent(out DamageText text)) text.Initialize(damage, style);
     }
@@ -52,13 +52,19 @@ public static class DamageTextSpawner
     public static void Show(float damage, Transform target)
         => Show(damage, target, DamageTextStyle.Default);
 
-    /// <summary>같은 자리에 겹쳐 떠서 숫자가 안 읽히는 것을 막는다.</summary>
-    static Vector3 SpawnPosition(Transform target)
+    /// <summary>
+    /// 같은 자리에 겹쳐 떠서 숫자가 안 읽히는 것을 막는다.
+    ///
+    /// 흔들림은 여러 발이 연달아 맞을 때를 위한 것이고,
+    /// <paramref name="offset"/> 은 "이 효과의 숫자는 저기 뜬다" 를 정하는 자리다 —
+    /// 추가 피해를 위로 올려두면 같은 순간에 떠도 둘 다 읽힌다.
+    /// </summary>
+    static Vector3 SpawnPosition(Transform target, Vector2 offset)
     {
         Vector3 pos = target.position + Vector3.up;
 
-        pos.x += Random.Range(-0.3f, 0.3f);
-        pos.y += Random.Range(-0.2f, 0.2f);
+        pos.x += offset.x + Random.Range(-0.3f, 0.3f);
+        pos.y += offset.y + Random.Range(-0.2f, 0.2f);
 
         return pos;
     }

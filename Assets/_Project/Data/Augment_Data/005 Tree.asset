@@ -142,7 +142,7 @@ MonoBehaviour:
       data:
         directionOffset: 0
         projectilePrefab: {fileID: 6824073935605403827, guid: 9cec361780a27ef4f89baecfbe47ff82, type: 3}
-        speed: 14
+        speed: 9
         pierce:
           value: 0
           scale: 1

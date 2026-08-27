@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 001 Bash
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: BASH
   displayName: Bash
@@ -26,6 +26,11 @@ MonoBehaviour:
     : {effectDamage * 100}%\n"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
+  extensionSlot: 
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
   levelStats:
   - damage: 3
     effectDamage: 0.15
@@ -123,8 +128,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 980040056421220425
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
@@ -188,6 +191,7 @@ MonoBehaviour:
           color: {r: 1, g: 1, b: 1, a: 1}
           scale: 1
           riseSpeed: 1.5
+          offset: {x: 0, y: 0}
     - rid: 980040160363151455
       type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -203,7 +207,7 @@ MonoBehaviour:
         - rid: 980040160363151458
         - rid: 980040160363151489
         finalEffects:
-        - rid: -2
+        - rid: 980040411806957678
     - rid: 980040160363151457
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
@@ -248,6 +252,7 @@ MonoBehaviour:
           color: {r: 1, g: 1, b: 0, a: 1}
           scale: 1
           riseSpeed: 1.5
+          offset: {x: 0, y: 0}
     - rid: 980040160363151461
       type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
       data:
@@ -266,3 +271,7 @@ MonoBehaviour:
       data:
         clip: {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
         volume: 0.2
+    - rid: 980040411806957678
+      type: {class: ExtensionEffect, ns: , asm: Assembly-CSharp}
+      data:
+        slot: KILL

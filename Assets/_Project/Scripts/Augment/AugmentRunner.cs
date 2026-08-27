@@ -35,6 +35,11 @@ public class AugmentRunner : MonoBehaviour
         Instance = instance;
 
         AugmentData d = instance.Data;
+
+        // 내부 증강은 스스로 발동하지 않고 뿌리에 얹히기만 한다 — 트리거가 없는 것이 정상이다.
+        // 뽑을 때마다 경고가 뜨면 진짜 미조립을 놓치게 된다
+        if (d.rootAugment != null) return;
+
         if (d.trigger == null)   Debug.LogWarning($"[{d.name}] trigger 미조립", this);
         if (d.targeting == null) Debug.LogWarning($"[{d.name}] targeting 미조립", this);
     }
@@ -59,7 +64,10 @@ public class AugmentRunner : MonoBehaviour
         ctx.Begin(transform, Instance);
 
         // ②③④ 타겟팅 → 전달 → 효과
-        bool fired = AugmentPipeline.Run(ctx, data.targeting, data.deliveries, data.effects);
+        // 조립은 Instance.Build 에서 온다 — 내부 증강이 축을 덮었으면 그 결과다
+        AugmentBuild build = Instance.Build;
+
+        bool fired = AugmentPipeline.Run(ctx, build.Targeting, build.Deliveries, build.Effects);
 
         if (!fired)
         {
