@@ -29,9 +29,6 @@ public class LevelSystem : MonoBehaviour
     {
         if (amount <= 0) return;
 
-        // RAM 업그레이드. 올림이라 배율이 걸려 있으면 1짜리도 최소 1은 더 받는다
-        amount = Mathf.CeilToInt(amount * HardwareBonus.ExpMultiplier);
-
         CurrentExp += amount;
 
         while (CurrentExp >= RequiredExp)

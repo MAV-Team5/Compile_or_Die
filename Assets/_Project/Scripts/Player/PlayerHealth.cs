@@ -80,6 +80,22 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
         if (Current <= 0f) Die();
     }
 
+    /// <summary>
+    /// 최대 체력에 배율을 건다. 하드웨어(SSD)가 런 시작 시 한 번 부른다.
+    ///
+    /// 늘어난 만큼 지금 체력도 함께 채운다 — 런이 시작되는 시점이라
+    /// 최대치만 늘고 현재 체력이 그대로면 시작부터 다친 채로 서 있게 된다.
+    /// </summary>
+    public void ScaleMaxHealth(float multiplier)
+    {
+        if (multiplier <= 0f || Mathf.Approximately(multiplier, 1f)) return;
+
+        maxHealth *= multiplier;
+        Current = maxHealth;
+
+        Changed?.Invoke(Current, maxHealth);
+    }
+
     public void Heal(float amount)
     {
         if (IsDead || amount <= 0f) return;

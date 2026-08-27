@@ -27,7 +27,7 @@ MonoBehaviour:
     icon: {fileID: 0}
   - kind: 1
     displayName: RAM
-    effectName: "경험치 획득량"
+    effectName: "쿨타임 감소"
     perLevel: 0.1
     percent: 1
     costs:
@@ -39,7 +39,7 @@ MonoBehaviour:
     icon: {fileID: 0}
   - kind: 2
     displayName: SSD
-    effectName: "쿨타임 감소"
+    effectName: "최대 체력"
     perLevel: 0.1
     percent: 1
     costs:

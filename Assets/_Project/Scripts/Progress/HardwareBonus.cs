@@ -21,9 +21,6 @@ public class HardwareBonus : MonoBehaviour
     /// </summary>
     public static float DamageMultiplier { get; private set; } = 1f;
 
-    /// <summary>경험치 배율. LevelSystem 이 읽는다.</summary>
-    public static float ExpMultiplier { get; private set; } = 1f;
-
     /// <summary>런 시작 시 추가로 받는 증강 수. 메인보드.</summary>
     public static int ExtraStartingAugments { get; private set; }
 
@@ -33,11 +30,16 @@ public class HardwareBonus : MonoBehaviour
     [Tooltip("켜면 이번 런에 무엇이 얼마나 걸렸는지 로그로 남긴다.")]
     [SerializeField] bool logApplied = true;
 
+    /// <summary>
+    /// 남이 읽어가는 값만 먼저 정한다. 표와 세이브만 보면 되는 계산이라 씬 순서를 안 탄다.
+    ///
+    /// AugmentManager 가 Start 에서 <see cref="ExtraStartingAugments"/> 를 읽으므로
+    /// 이 몫은 반드시 Awake 에 있어야 한다 — Start 끼리는 순서가 보장되지 않는다.
+    /// </summary>
     void Awake()
     {
         // 씬을 다시 시작해도 지난 런 값이 남지 않게 먼저 비운다
         DamageMultiplier = 1f;
-        ExpMultiplier = 1f;
         ExtraStartingAugments = 0;
 
         if (table == null)
@@ -46,22 +48,26 @@ public class HardwareBonus : MonoBehaviour
             return;
         }
 
-        Apply();
+        DamageMultiplier = 1f + BonusOf(HardwareKind.Power);
+        ExtraStartingAugments = Mathf.RoundToInt(BonusOf(HardwareKind.Mainboard));
     }
 
-    void Apply()
+    /// <summary>
+    /// 씬의 다른 컴포넌트를 건드리는 몫. Awake 가 아니라 여기여야 한다 —
+    /// PlayerStats.Current 는 그쪽 Awake 가 채우는데 Awake 끼리는 순서가 없다.
+    /// 모든 Awake 가 끝난 뒤에 Start 가 돌므로 여기서는 이미 준비돼 있다.
+    /// </summary>
+    void Start()
     {
+        if (table == null) return;
+
         // 증강 수치로 가는 것들. PlayerStats 를 거치면 보유 증강 전부에 한꺼번에 걸린다
         Feed(HardwareKind.Cpu, StatKind.Speed);
-        Feed(HardwareKind.Ssd, StatKind.Cooldown);
+        Feed(HardwareKind.Ram, StatKind.Cooldown);
         Feed(HardwareKind.Gpu, StatKind.Range);
         Feed(HardwareKind.Gpu, StatKind.EffectRange);
 
-        // 증강 수치가 아닌 것들. 각자 자기 시스템이 읽어간다
-        DamageMultiplier = 1f + BonusOf(HardwareKind.Power);
-        ExpMultiplier = 1f + BonusOf(HardwareKind.Ram);
-        ExtraStartingAugments = Mathf.RoundToInt(BonusOf(HardwareKind.Mainboard));
-
+        ApplyMaxHealth();
         ApplyMoveSpeed();
         ApplyView();
 
@@ -90,6 +96,19 @@ public class HardwareBonus : MonoBehaviour
 
         // Source 를 이 컴포넌트로 두면 나중에 통째로 걷어낼 수 있다
         PlayerStats.Current.Add(new StatModifier(stat, this, percent: bonus));
+    }
+
+    void ApplyMaxHealth()
+    {
+        float bonus = BonusOf(HardwareKind.Ssd);
+
+        if (Mathf.Approximately(bonus, 0f)) return;
+
+        Player player = GameManager.instance != null ? GameManager.instance.player : null;
+
+        if (player == null || !player.TryGetComponent(out PlayerHealth health)) return;
+
+        health.ScaleMaxHealth(1f + bonus);
     }
 
     void ApplyMoveSpeed()
