@@ -76,7 +76,12 @@ MonoBehaviour:
   - kind: 5
     displayName: "모니터"
     effectName: "시야 범위"
-    perLevel: 0.3333
+    perLevel: 0
+    bonuses:
+    - 0.125
+    - 0.3125
+    - 0.5
+    displayPerLevel: 0.3333
     percent: 1
     costs:
     - 500
