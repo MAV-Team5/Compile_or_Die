@@ -7,7 +7,12 @@
 /// </summary>
 public enum HardwareKind
 {
-    /// <summary>공격 속도.</summary>
+    /// <summary>
+    /// 투사체 속도.
+    ///
+    /// 기획서에는 공격 속도였지만, 뱀서라이크에서 공격 속도는 곧 쿨타임이라
+    /// SSD 와 같은 수치가 된다. 그래서 겹치지 않게 투사체 속도로 옮겼다.
+    /// </summary>
     Cpu,
 
     /// <summary>경험치 획득량.</summary>
