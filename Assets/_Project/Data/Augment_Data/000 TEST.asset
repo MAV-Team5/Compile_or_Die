@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 000 TEST
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  id: TEST
+  displayName: Test
+  category: 0
+  icon: {fileID: 21300000, guid: 41371d641e15d4160ba6d467569312a1, type: 3}
+  descriptionTemplate: 'Test '
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  levelStats:
+  - damage: 5
+    effectDamage: 2
+    cooldown: 1.1
+    range: 7
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 5
+    depth: 0
+  - damage: 6
+    effectDamage: 2.4
+    cooldown: 1
+    range: 7.3
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 5
+    depth: 0
+  - damage: 7
+    effectDamage: 2.8
+    cooldown: 0.9
+    range: 7.6
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 5.5
+    depth: 0
+  - damage: 8
+    effectDamage: 3.2
+    cooldown: 0.8
+    range: 7.9
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 5.5
+    depth: 0
+  - damage: 9
+    effectDamage: 3.6
+    cooldown: 0.7
+    range: 8.2
+    effectRange: 0
+    count: 6
+    pierce: 0
+    duration: 0
+    speed: 6
+    depth: 0
+  trigger:
+    rid: 980040160363151444
+  targeting:
+    rid: 928005772953518158
+  deliveries:
+  - rid: 928005772953518159
+  effects:
+  - rid: 928005772953518154
+  noTargetPolicy: 0
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 928005772953518154
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+    - rid: 928005772953518158
+      type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+        scatterRadius: 0
+    - rid: 928005772953518159
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        blastRadius: 3
+        halfAngle: 60
+        includeCenterTarget: 1
+        blastFx:
+          vfx: {fileID: 0}
+          vfxScale: 3
+          sfx: {fileID: 0}
+          sfxVolume: 1
+    - rid: 980040160363151444
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 3
+          sfx: {fileID: 0}
+          sfxVolume: 1
+    - rid: 980040160363151447
+      type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
+        speed: 12
+        pierce: 1
+        travelRangeMultiplier: 1.2
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        projectileCount: 0
+        spreadAngle: 139.5
+        aimBasis: 3
+        fixedAngle: 90
+        angleJitter: 0
+    - rid: 980040160363151448
+      type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+        distanceRatio: 0.6
+        fallbackAngle: 90
+    - rid: 980040160363151449
+      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 1.5
+        pull: 0
+        stunDuration: 0.2
+    - rid: 980040160363151450
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 2

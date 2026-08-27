@@ -21,8 +21,13 @@ public class AugmentContext
     /// <summary>연쇄 깊이. 최초 발동은 0.</summary>
     public int Depth { get; private set; }
 
-    /// <summary>연쇄 단계마다 누적되는 피해 배율.</summary>
-    public float DamageMultiplier { get; private set; } = 1f;
+    /// <summary>
+    /// 연쇄 단계마다 쌓이는 추가 피해. DamageEffect 가 마지막에 더한다.
+    ///
+    /// 곱하지 않고 더하는 이유 — 배율은 지수로 불어나 몇 단계만 지나도 손을 못 댄다.
+    /// 덧셈이면 "깊이 3이니 세 번 더해졌다"가 눈으로 검산된다.
+    /// </summary>
+    public float BonusDamage { get; private set; }
 
     /// <summary>
     /// 발동 1회를 구분하는 번호. 연쇄 단계는 최초 발동의 번호를 그대로 물려받는다.
@@ -62,7 +67,7 @@ public class AugmentContext
         Stat = instance.Stat;
 
         Depth = 0;
-        DamageMultiplier = 1f;
+        BonusDamage = 0f;
         FiringId = nextFiringId++;
 
         // 최초 발동은 "적을 찾아 도달하는 거리"가 기준이다
@@ -79,7 +84,7 @@ public class AugmentContext
     }
 
     /// <summary>연쇄 단계용 초기화. 제외 목록은 상위와 공유한다.</summary>
-    public void BeginChild(Transform owner, AugmentContext parent, float damageMultiplier,
+    public void BeginChild(Transform owner, AugmentContext parent, float bonusDamage,
                            Vector2 heading)
     {
         Heading = heading;
@@ -89,7 +94,7 @@ public class AugmentContext
         Stat = parent.Stat;
 
         Depth = parent.Depth + 1;
-        DamageMultiplier = damageMultiplier;
+        BonusDamage = bonusDamage;
         FiringId = parent.FiringId;
 
         // 이미 도달한 뒤이므로 여기서부터는 "퍼지는 크기"가 기준이 된다

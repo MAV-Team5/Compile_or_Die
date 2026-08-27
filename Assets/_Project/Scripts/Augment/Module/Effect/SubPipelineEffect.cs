@@ -16,8 +16,10 @@ public class SubPipelineEffect : EffectModule
     const int HardLimit = 8;
 
     [Header("설정")]
-    [Tooltip("시트의 피해량(damage)에 곱하는 하위 파이프라인 배율. 1이면 그대로, 0.5면 절반.")]
-    public float damageMultiplier = 1f;
+    [Tooltip("연쇄가 여기까지 쌓아온 추가 피해를 물려받을지.\n" +
+             "끄면 시트 피해량만으로 시작한다 — 폭발처럼 별개의 타격으로 보이게 할 때.\n\n" +
+             "하위 파이프라인이 얼마나 셀지는 그쪽 DamageEffect 의 damageScale 로 정한다.")]
+    public bool inheritBonus = true;
 
     // ── 아래는 접어두는 중첩 파이프라인. 길어지므로 설정 밑에 둔다 ──
 
@@ -34,8 +36,7 @@ public class SubPipelineEffect : EffectModule
 
         // 적중한 적을 원점으로 삼는다. 하위 타겟팅이 여기서부터 검색한다
         var sub = new AugmentContext();
-        sub.BeginChild(hit.Target, ctx, ctx.DamageMultiplier * damageMultiplier,
-                       hit.Direction);
+        sub.BeginChild(hit.Target, ctx, inheritBonus ? ctx.BonusDamage : 0f, hit.Direction);
 
         AugmentPipeline.Run(sub, targeting, deliveries, effects);
     }

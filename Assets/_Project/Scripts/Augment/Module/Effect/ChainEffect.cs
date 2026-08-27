@@ -19,9 +19,12 @@ public class ChainEffect : EffectModule
              "수량(count)은 '몇 개'고 깊이(depth)가 '몇 번'이다. 섞지 말 것.")]
     public int maxDepthOverride = 0;
 
-    [Tooltip("단계마다 누적되는 피해 배율. 0.2 면 2단계에서 1.2배, 3단계에서 1.44배.\n" +
-             "지수로 불어나므로 균일한 피해를 원하면 0.")]
-    public float amplifyPerDepth = 0.2f;
+    [Sheet("효과피해")]
+    [Tooltip("한 단계 번질 때마다 더해지는 추가 피해. 시트 피해량 대비 비율이다.\n" +
+             "0.15 면 한 단계마다 +15% — 깊이 3이면 마지막 대상이 +45% 를 받는다.\n" +
+             "비워두면 시트의 효과피해(effectDamage)를 쓴다.\n\n" +
+             "곱이 아니라 합이라서 깊어져도 계산이 터지지 않는다.")]
+    public Scalable damagePerDepth = Scalable.Ratio(1f);
 
     // ── 아래는 접어두는 중첩 파이프라인. 길어지므로 설정 밑에 둔다 ──
 
@@ -51,10 +54,13 @@ public class ChainEffect : EffectModule
             return;
         }
 
+        // 한 단계 더 갈 때마다 보너스가 한 번 더 쌓인다. 시트 피해량에 비례하므로
+        // 레벨이 올라 피해량이 커지면 보너스도 같이 커진다
+        float step = ctx.Stat.damage * damagePerDepth.Of(ctx.Stat.effectDamage);
+
         // 적중한 적을 원점으로 삼는다. 하위 타겟팅이 여기서부터 검색한다
         var sub = new AugmentContext();
-        sub.BeginChild(hit.Target, ctx, ctx.DamageMultiplier * (1f + amplifyPerDepth),
-                       hit.Direction);
+        sub.BeginChild(hit.Target, ctx, ctx.BonusDamage + step, hit.Direction);
 
         // 하위 효과에 자기 자신을 붙여야 다음 단계로 이어진다. 깊이 가드가 종료를 보장한다
         var chained = new List<EffectModule>(effects) { this };

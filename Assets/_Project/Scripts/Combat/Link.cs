@@ -41,22 +41,46 @@ public class Link
     /// <summary>이 시각이 지나면 끊긴다. 0이면 노드가 사라질 때까지 유지.</summary>
     public float ExpireAt;
 
+    /// <summary>
+    /// 이 길이를 넘으면 끊긴다. 0이면 제한 없음.
+    ///
+    /// 이을 때의 거리 제한과 별개로 필요하다 — 이어진 뒤에 두 적이 멀어지면
+    /// 선이 화면을 가로지른다. 특히 멀어진 적을 앞쪽으로 회수할 때 눈에 띈다.
+    /// </summary>
+    public float MaxLength;
+
     /// <summary>선 오브젝트. 한 쌍 중 만든 쪽만 들고 있다 — 안 그러면 선이 두 겹으로 그려진다.</summary>
     public GameObject Visual;
 
     /// <summary>선을 그리는 컴포넌트. 만들 때 한 번만 찾아둔다.</summary>
     public LineRenderer Line;
 
-    /// <summary>있으면 그리기를 이쪽에 맡긴다. 뭔가 지나갈 때 꿀렁이게 하는 담당.</summary>
+    /// <summary>
+    /// 있으면 그리기를 이쪽에 맡긴다. <b>선을 만든 쪽만</b> 들고 있다 —
+    /// 양쪽이 다 그리면 0번 점이 매 프레임 부모와 자식 사이를 오가며 뒤집힌다.
+    /// </summary>
     public LinkPulse Pulse;
+
+    /// <summary>
+    /// 꿀렁임을 울릴 대상. Pulse 와 같은 것을 가리키지만 <b>양쪽 간선이 함께</b> 들고 있다.
+    ///
+    /// 그리기는 한쪽만 맡아야 하지만, 피해는 자식에서 부모로도 흐른다.
+    /// 나눠두지 않으면 그래프처럼 사방으로 번지는 구조에서 절반이 조용히 지나간다.
+    /// </summary>
+    public LinkPulse Echo;
 
     /// <summary>이 간선을 타고 뭔가 지나갔다고 알린다. 연출이 없으면 조용히 넘어간다.</summary>
     public void Ripple(float strength)
     {
-        if (Pulse != null) Pulse.Pulse(strength);
+        if (Echo != null) Echo.Pulse(strength);
     }
 
     public bool IsExpired => ExpireAt > 0f && Time.time >= ExpireAt;
+
+    /// <summary>양 끝이 너무 벌어졌는가.</summary>
+    public bool IsStretched(Vector3 from)
+        => MaxLength > 0f && Other != null
+        && (Other.transform.position - from).sqrMagnitude > MaxLength * MaxLength;
 
     /// <summary>반대쪽이 죽었거나 풀로 돌아갔는지.</summary>
     public bool IsBroken => Other == null || !Other.isActiveAndEnabled;

@@ -49,6 +49,17 @@ public class AugmentProjectile : MonoBehaviour
                        Homing homingSetting = null, Transform launchTarget = null,
                        HashSet<Transform> volleyHits = null, bool endWithOrigin = false)
     {
+        // 쏘기도 전에 원점이 죽었으면 따라갈 것이 없다. 좌표는 이미 잡혔으므로 그냥 놓아준다.
+        //
+        // ＊ 이 가드가 없으면 연쇄가 통째로 사라진다 —
+        //   피해로 적이 죽은 직후 그 적을 원점으로 연쇄를 쏘기 때문에,
+        //   피해가 적 체력을 넘는 레벨부터 갑자기 연쇄가 안 되는 것처럼 보인다.
+        if (endWithOrigin && ignoreTarget != null && !ignoreTarget.gameObject.activeInHierarchy)
+        {
+            ignoreTarget = null;
+            endWithOrigin = false;
+        }
+
         dieWithOrigin = endWithOrigin;
 
         // 공용 집합을 받으면 그걸 쓰고, 없으면 혼자 기록한다

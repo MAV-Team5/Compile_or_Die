@@ -1,9 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <summary>증강 1개의 HUD 칸. 아이콘 · 쿨타임 · 레벨.</summary>
-public class AugmentHudSlot : MonoBehaviour
+/// <summary>
+/// 증강 1개의 HUD 칸. 아이콘 · 쿨타임 · 레벨.
+/// 마우스를 올리면 <see cref="AugmentTooltip"/> 이 설명을 띄운다.
+/// </summary>
+public class AugmentHudSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Image icon;
     [SerializeField] Image cooldownFill;
@@ -18,6 +22,27 @@ public class AugmentHudSlot : MonoBehaviour
 
     // 매 프레임 ToString() 하면 초당 수십 개 문자열이 GC로 간다
     int shownLevel = -1;
+
+    void Awake()
+    {
+        // 마우스를 받으려면 칸 전체를 덮는 판정면이 있어야 한다.
+        // 아이콘만 판정면이면 빈 구석에서는 툴팁이 안 뜬다
+        if (GetComponent<Graphic>() == null)
+        {
+            var hit = gameObject.AddComponent<Image>();
+            hit.color = Color.clear;
+            hit.raycastTarget = true;
+
+            // 아이콘·쿨타임 위로 올라오면 그림을 가린다. 맨 뒤로 보낸다
+            hit.rectTransform.SetAsFirstSibling();
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData _) => AugmentTooltip.Show(runner, (RectTransform)transform);
+
+    public void OnPointerExit(PointerEventData _) => AugmentTooltip.Hide(runner);
+
+    void OnDisable() => AugmentTooltip.Hide(runner);
 
     public void Bind(AugmentRunner target)
     {
@@ -37,6 +62,8 @@ public class AugmentHudSlot : MonoBehaviour
     void OnDestroy()
     {
         if (runner != null) runner.BecameReady -= OnBecameReady;
+
+        AugmentTooltip.Hide(runner);
     }
 
     void OnBecameReady() => flashRemain = flashDuration;

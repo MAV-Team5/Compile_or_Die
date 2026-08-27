@@ -182,17 +182,19 @@ public class MarkerHolder : MonoBehaviour
     /// </summary>
     void FitToAnchor(GameObject visual)
     {
-        if (anchor == null || anchor.size <= 0.0001f) return;
+        if (anchor == null || anchor.WorldSize <= 0.0001f) return;
 
         Renderer renderer = visual.GetComponentInChildren<Renderer>();
         if (renderer == null) return;
 
+        // bounds 는 월드 공간이다. 앵커 크기도 월드로 환산한 값을 써야 짝이 맞는다 —
+        // 예전에는 인스펙터 숫자를 그대로 써서, 적을 키우면 테두리만 작게 남았다
         Vector3 natural = renderer.bounds.size;
         float longest = Mathf.Max(natural.x, natural.y);
 
         if (longest <= 0.0001f) return;
 
-        visual.transform.localScale *= anchor.size / longest;
+        visual.transform.localScale *= anchor.WorldSize / longest;
     }
 
     /// <summary>

@@ -23,6 +23,10 @@ public class GameHud : MonoBehaviour
     [SerializeField] Vector2 augmentHudOffset = new(-40f, 40f);
     [SerializeField] float augmentCellSize = 128f;
 
+    [Header("증강 툴팁")]
+    [Tooltip("아이콘에 마우스를 올렸을 때 뜨는 설명창의 가로 폭(px). 세로는 내용에 맞춰 늘어난다.")]
+    [SerializeField] float tooltipWidth = 560f;
+
     [Header("로그 배치")]
     [Tooltip("로그 텍스트를 경험치바 위로 띄우는 여백. 경험치바 높이에 더해진다.")]
     [SerializeField] float logRaiseMargin = 40f;
@@ -35,8 +39,15 @@ public class GameHud : MonoBehaviour
     PlayerHealth playerHealth;
     LevelSystem levelSystem;
 
+    UiTheme theme;
+
     void Start()
     {
+        theme = UiTheme.Current;
+
+        // 인스펙터에 물려둔 게 있으면 그대로 두고, 비었을 때만 테마 글꼴로 채운다
+        if (font == null) font = theme.mono;
+
         if (canvas == null) canvas = FindAnyObjectByType<Canvas>();
         if (canvas == null)
         {
@@ -50,6 +61,9 @@ public class GameHud : MonoBehaviour
         BuildGameOver();
         PlaceAugmentHud();
         RaiseLogAboveExpBar();
+
+        // 증강 아이콘에 마우스를 올렸을 때 뜰 설명창. 화면에 하나면 된다
+        AugmentTooltip.Create(canvas, theme, font, tooltipWidth);
 
         levelSystem = GameManager.instance.levelSystem;
         levelSystem.ExpChanged += OnExpChanged;
@@ -76,13 +90,13 @@ public class GameHud : MonoBehaviour
 
     void BuildTimer()
     {
-        Image back = UiFactory.CreateImage("TimerBack", canvas.transform, new Color(0f, 0f, 0f, 0.45f));
+        Image back = UiFactory.CreateImage("TimerBack", canvas.transform, UiTheme.Fade(theme.background, 0.55f));
         UiFactory.Place((RectTransform)back.transform,
                         new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
                         new Vector2(0f, 0f), new Vector2(700f, 170f));
 
         timerText = UiFactory.CreateText("TimerText", back.transform, font,
-                                         120f, Color.white, TextAlignmentOptions.Center);
+                                         120f, theme.text, TextAlignmentOptions.Center);
         UiFactory.Stretch((RectTransform)timerText.transform, Vector2.zero, Vector2.one);
     }
 
@@ -100,7 +114,7 @@ public class GameHud : MonoBehaviour
         UiFactory.Stretch(expFill, Vector2.zero, new Vector2(0f, 1f));
 
         expText = UiFactory.CreateText("Label", back.transform, font,
-                                       46f, Color.white, TextAlignmentOptions.Center);
+                                       46f, theme.text, TextAlignmentOptions.Center);
         UiFactory.Stretch((RectTransform)expText.transform, Vector2.zero, Vector2.one);
 
         // 게이지가 배경(밝은 회색)이든 채움(청록)이든 항상 읽히게 테두리를 준다
@@ -111,25 +125,25 @@ public class GameHud : MonoBehaviour
 
     void BuildGameOver()
     {
-        Image dim = UiFactory.CreateImage("GameOverPanel", canvas.transform, new Color(0f, 0f, 0f, 0.65f));
+        Image dim = UiFactory.CreateImage("GameOverPanel", canvas.transform, UiTheme.Fade(theme.background, 0.75f));
         dim.raycastTarget = true;
 
         gameOverPanel = (RectTransform)dim.transform;
         UiFactory.Stretch(gameOverPanel, Vector2.zero, Vector2.one);
 
         TMP_Text title = UiFactory.CreateText("Title", gameOverPanel, font,
-                                              200f, new Color(1f, 0.27f, 0.27f), TextAlignmentOptions.Center);
+                                              200f, theme.warn, TextAlignmentOptions.Center);
         UiFactory.Place((RectTransform)title.transform,
                         new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                         new Vector2(0f, 80f), new Vector2(2400f, 260f));
         title.text = "GAME OVER";
 
         TMP_Text sub = UiFactory.CreateText("Sub", gameOverPanel, font,
-                                            64f, new Color(1f, 1f, 1f, 0.8f), TextAlignmentOptions.Center);
+                                            64f, theme.dim, TextAlignmentOptions.Center);
         UiFactory.Place((RectTransform)sub.transform,
                         new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                         new Vector2(0f, -120f), new Vector2(2400f, 100f));
-        sub.text = "> process terminated : PLAYER_01";
+        sub.text = " > process terminated : PLAYER_01";
 
         gameOverPanel.gameObject.SetActive(false);
     }
@@ -172,11 +186,8 @@ public class GameHud : MonoBehaviour
     {
         if (timerText == null) return;
 
-        float remain = GameManager.instance.RemainingTime;
-        int minutes = Mathf.FloorToInt(remain / 60f);
-        int seconds = Mathf.FloorToInt(remain % 60f);
-
-        timerText.text = $"{minutes:00}:{seconds:00}";
+        // 남은 시간이 아니라 버틴 시간이다. 런은 시간으로 끝나지 않는다
+        timerText.text = RunResult.Format(RunDirector.RunTime);
     }
 
     void RefreshStatusLine()
@@ -185,7 +196,7 @@ public class GameHud : MonoBehaviour
 
         LogManager.Instance.SetStatusLine(
             $"hp {Mathf.CeilToInt(playerHealth.Current)}/{playerHealth.Max:0} " +
-            $"lv {levelSystem.Level} kills {GameManager.instance.kills}");
+            $"lv {levelSystem.Level} kills {RunDirector.KillCount}");
     }
 
     void OnExpChanged(int level, int current, int required)
