@@ -149,8 +149,10 @@ public class HardwareUpgradePanel : MonoBehaviour
         Image edge = UiFactory.CreateImage("ResetButton", root, BuyEdgeOff);
         edge.raycastTarget = true;
 
+        // 보유 비트 글자는 오른쪽 정렬이라 상자 왼쪽이 비어 있다.
+        // 상자 기준으로 붙이면 눈에는 멀찍이 떨어져 보이므로 글자 쪽으로 당겨둔다
         UiFactory.Place(edge.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 0.5f),
-                        new Vector2(-1000f, -105f), new Vector2(260f, 78f));
+                        new Vector2(-640f, -105f), new Vector2(260f, 78f));
 
         Image face = UiFactory.CreateImage("Face", edge.rectTransform, BuyFaceOff);
         UiFactory.Stretch(face.rectTransform, Vector2.zero, Vector2.one,
