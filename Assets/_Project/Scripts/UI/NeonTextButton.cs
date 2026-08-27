@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;   // Selectable
 
 /// <summary>
 /// 글자 자체를 물들이는 네온 버튼 연출. Button 옆에 같이 붙인다 —
@@ -31,15 +32,28 @@ public class NeonTextButton : MonoBehaviour,
     [Tooltip("누르고 있을 때.")]
     [SerializeField] Color pressed = new(0.646f, 0.980f, 0.676f, 1f);
 
+    [Tooltip("못 누르는 상태. 아래 Selectable 이 물려 있을 때만 쓰인다.")]
+    [SerializeField] Color disabled = new(0.28f, 0.30f, 0.33f, 1f);
+
+    [Tooltip("이 버튼이 지금 눌릴 수 있는지 판단할 대상. 비우면 항상 눌리는 것으로 본다.")]
+    [SerializeField] Selectable selectable;
+
     bool over;
     bool down;
 
     /// <summary>코드로 붙일 때 쓴다. 인스펙터로 물렸으면 부를 필요 없다.</summary>
-    public void Bind(TMP_Text target)
+    public void Bind(TMP_Text target, Selectable owner = null)
     {
         label = target;
+        selectable = owner;
         Apply();
     }
+
+    /// <summary>
+    /// interactable 을 바꾼 뒤 부른다.
+    /// 색은 포인터가 드나들 때만 다시 계산되므로, 커서가 밖에 있으면 회색으로 안 바뀐다.
+    /// </summary>
+    public void Refresh() => Apply();
 
     void OnEnable()
     {
@@ -81,6 +95,12 @@ public class NeonTextButton : MonoBehaviour,
     void Apply()
     {
         if (label == null) return;
+
+        if (selectable != null && !selectable.interactable)
+        {
+            label.color = disabled;
+            return;
+        }
 
         label.color = down ? pressed : over ? hover : normal;
     }
