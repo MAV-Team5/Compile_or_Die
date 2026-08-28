@@ -31,8 +31,13 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <summary>어떤 적인가. 경험치·비트 보상이 여기서 나온다.</summary>
     EnemyData source;
 
-    /// <summary>이번 웨이브의 경험치 배율.</summary>
-    float expScale = 1f;
+    /// <summary>
+    /// 나를 낸 웨이브의 번호. 죽을 때 스포너에게 이 번호로 알린다.
+    ///
+    /// <b>웨이브 객체가 아니라 번호만 든다.</b> 적이 StageWave 를 직접 참조하면
+    /// 적 하나가 스테이지 구조 전체에 묶인다. 보스처럼 웨이브 소속이 아니면 -1.
+    /// </summary>
+    int waveIndex = -1;
 
     /// <summary>플레이어 쪽으로 뒤집을지. 글자 모양 적은 끈다.</summary>
     bool flipToFace = true;
@@ -109,8 +114,11 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     ///
     /// OnEnable 이 먼저 돌아 이전 개체의 값으로 살아나므로, 여기서 반드시 덮어써야 한다.
     /// </summary>
-    public void Init(EnemyData data, EnemyScale scale)
+    public void Init(EnemyData data, EnemyScale scale, int wave = -1)
     {
+        // 풀에서 재사용되므로 항상 다시 정해야 한다. 안 그러면 지난 개체의 웨이브로 집계된다
+        waveIndex = wave;
+
         if (data == null)
         {
             Debug.LogWarning($"[{name}] EnemyData 없이 스폰됐다. 이전 개체의 수치로 돌아다닌다.", this);
@@ -118,7 +126,6 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         }
 
         source = data;
-        expScale = scale.Exp;
         flipToFace = data.flipToFace;
 
         // 적마다 프리팹이 다르면 컨트롤러도 프리팹에 있다. 지정된 것이 있을 때만 갈아끼운다
@@ -158,12 +165,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
         if (RunDirector.Current != null) RunDirector.Current.AddKill();
 
-        GameObject exp = GameManager.instance.poolManager.Get(PoolType.Exp, 0);
-        exp.transform.position = transform.position;
-
-        // 경험치는 적마다 다르다. 프리팹에 박혀 있던 시절에는 잡몹도 엘리트도 똑같이 1이었다
-        if (source != null && exp.TryGetComponent(out ExpMove orb))
-            orb.exp = Mathf.Max(1, Mathf.RoundToInt(source.exp * expScale));
+        // 경험치는 웨이브가 정한다. 적은 자기가 뭘 떨구는지 모른다 —
+        // 이월(carry)은 죽으면 사라지는 적이 아니라 웨이브가 들고 있어야 하기 때문
+        if (Spawner.Current != null) Spawner.Current.ReportKill(waveIndex, transform.position);
 
         if (source != null && source.bits > 0 && RunDirector.Current != null)
             RunDirector.Current.AddBits(source.bits);

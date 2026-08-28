@@ -15,23 +15,44 @@ public class AugmentInstance
     /// </summary>
     public int LastSearchFiringId;
 
+    /// <summary>
+    /// 내부 증강이 준 보정. 증강을 뽑거나 레벨업할 때만 다시 접는다 —
+    /// <see cref="Stat"/> 은 매 프레임 여러 번 읽히므로 그때마다 목록을 훑으면 낭비다.
+    /// </summary>
+    public readonly float[] BonusAdd = StatMath.NewSlots();
+    public readonly float[] BonusPercent = StatMath.NewSlots();
+
+    /// <summary>
+    /// 이번에 쓸 3축. 내부 증강이 덮거나 더한 결과이며, 아무도 안 건드렸으면 뿌리 조립 그대로다.
+    /// </summary>
+    public AugmentBuild Build;
+
     public AugmentInstance(AugmentData data, int level = 1)
     {
         Data = data;
         Level = level;
+        Build = AugmentBuild.Of(data);
     }
 
     public int MaxLevel => Data.levelStats.Length;
 
     /// <summary>
-    /// 이 증강이 지금 쓰는 수치. 시트의 레벨 수치에 플레이어 전역 보정을 얹은 값이다.
-    /// 모든 모듈이 여기를 거치므로, 하드웨어 업그레이드 하나가 보유 증강 전부에 반영된다.
+    /// 이 증강이 지금 쓰는 수치.
+    ///
+    /// <code>
+    /// 시트 레벨 수치  →  내부 증강 보정  →  플레이어 전역 보정
+    /// </code>
+    ///
+    /// 내부가 먼저다 — 내부 증강은 "이 증강의 스펙" 을 바꾸고,
+    /// 전역 보정은 "플레이어가 얼마나 강한가" 라서 그 위에 얹혀야 한다.
     /// </summary>
     public AugmentLevelData Stat
     {
         get
         {
             AugmentLevelData raw = Data.levelStats[Mathf.Clamp(Level - 1, 0, MaxLevel - 1)];
+
+            raw = StatMath.Compose(raw, BonusAdd, BonusPercent);
 
             return PlayerStats.Current != null ? PlayerStats.Current.Apply(raw) : raw;
         }

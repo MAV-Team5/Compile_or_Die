@@ -11,7 +11,9 @@ public struct EnemyScale
     public float Speed;
     public float Damage;
     public float Size;
-    public float Exp;
+
+    // 경험치는 여기 없다. 배율이 아니라 웨이브가 "무엇을 몇 개" 떨굴지 직접 정한다 —
+    // 배율로 두면 오브에 그려진 값과 실제로 주는 값이 어긋난다
 
     /// <summary>전부 1배. 아무 배율도 안 얹은 기본 상태.</summary>
     public static EnemyScale One => new()
@@ -19,10 +21,9 @@ public struct EnemyScale
         Health = 1f,
         Speed = 1f,
         Damage = 1f,
-        Size = 1f,
-        Exp = 1f
+        Size = 1f
     };
 
-    public static EnemyScale Of(float health, float speed, float damage, float size, float exp)
-        => new() { Health = health, Speed = speed, Damage = damage, Size = size, Exp = exp };
+    public static EnemyScale Of(float health, float speed, float damage, float size)
+        => new() { Health = health, Speed = speed, Damage = damage, Size = size };
 }

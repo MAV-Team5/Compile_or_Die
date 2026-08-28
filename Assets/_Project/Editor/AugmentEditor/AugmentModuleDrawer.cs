@@ -27,6 +27,30 @@ public class AugmentModuleDrawer : PropertyDrawer
     /// <summary>None 인 칸의 버튼 배경. 비워두면 그 단계가 통째로 무시된다.</summary>
     static readonly Color MissingColor   = new(1.00f, 0.55f, 0.55f);
 
+    /// <summary>
+    /// 이 칸이 비어 있는 게 정상인가.
+    ///
+    /// <b>내부 증강은 3축을 대부분 비운다.</b> 스스로 발동하지 않고 뿌리에 얹히기만 하므로
+    /// 트리거·타겟팅이 없는 것이 맞는 상태다. 그런데도 붉게 칠하면 늘 붉어서
+    /// 진짜 실수를 놓치게 된다 — 경고는 드물어야 눈에 들어온다.
+    ///
+    /// 덮어쓰겠다고 해놓고(Patch ≠ None) 정작 비워둔 칸은 실수이므로 그대로 칠한다.
+    /// </summary>
+    static bool IsExpectedEmpty(SerializedProperty property)
+    {
+        if (property.serializedObject.targetObject is not AugmentData data) return false;
+
+        // 뿌리 증강이면 예전처럼 전부 필요하다
+        if (data.rootAugment == null) return false;
+
+        return property.propertyPath switch
+        {
+            "trigger" => true,
+            "targeting" => data.targetingPatch == BuildPatch.None,
+            _ => false
+        };
+    }
+
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);
@@ -54,9 +78,10 @@ public class AugmentModuleDrawer : PropertyDrawer
         else
             EditorGUI.LabelField(labelRect, label);
 
-        // 비어 있는 모듈 칸은 조용히 무시되므로 붉게 칠해 눈에 띄게 한다
+        // 비어 있는 모듈 칸은 조용히 무시되므로 붉게 칠해 눈에 띄게 한다.
+        // 다만 내부 증강은 비우는 것이 정상이라 칠하지 않는다 — 늘 붉으면 경고가 안 읽힌다
         Color previous = GUI.backgroundColor;
-        if (!hasValue) GUI.backgroundColor = MissingColor;
+        if (!hasValue && !IsExpectedEmpty(property)) GUI.backgroundColor = MissingColor;
 
         if (GUI.Button(buttonRect, DisplayName(property), EditorStyles.popup))
             ShowTypeMenu(property);

@@ -800,3 +800,290 @@ Unity 메뉴 → CoD → 증강 시트 가져오기
 
 임포터를 돌리기 전에도 `DFS` · `BFS` · `GRAPH` · `TREE` · `BRUTE_FORCE` 는
 시트 내용대로 8레벨이 채워져 있다. 시트를 고친 뒤 가져오기를 돌리면 갱신된다.
+
+---
+
+## 12. 하드웨어 업그레이드 배선 (오늘 작업)
+
+재화가 쌓이기만 하고 쓸 데가 없던 구멍을 메웠다. **메타 루프가 닫혔다.**
+
+```
+런 종료 → PlayerProgress.AddBits      (이미 있던 것)
+            ↓
+로비 UpgradeShop 에서 구매            ← 새로 만듦
+            ↓
+PlayerProgress 에 레벨 저장           (이미 있던 것)
+            ↓
+런 시작 HardwareLoader 가 주입        ← 새로 만듦
+            ↓
+PlayerStats · LevelSystem · Scanner · Player
+```
+
+### ⚠ 할 일 — 순서대로
+
+**1. 하드웨어 표 만들기**
+
+```
+Unity 메뉴 → CoD → 하드웨어 표 만들기
+```
+
+`Assets/_Project/Data/HardwareTable.asset` 에 부품 9종이 채워진 표가 생긴다.
+값은 **초안**이므로 에셋에서 바로 고치면 된다.
+
+**2. 런 씬(`augmentTest`)에 `HardwareLoader` 붙이기**
+
+`[Run]` 오브젝트에 컴포넌트를 추가하고 방금 만든 표를 물린다.
+
+```
+Table        HardwareTable
+Log Result   밸런싱 중에만 ✔ — 무엇이 얼마나 걸렸는지 콘솔에 찍힌다
+```
+
+**안 붙이면 상점에서 아무리 사도 런이 똑같다.** 이 컴포넌트가 메타 진행이
+게임에 닿는 유일한 지점이다.
+
+> `Player` 오브젝트에 `PlayerStats` 가 붙어 있어야 증강 수치 보정이 들어간다.
+> 없으면 콘솔에 경고가 뜨고 그 부분만 통째로 빠진다.
+
+**3. `MainB` 의 업그레이드 패널에 `UpgradeShop` 붙이기**
+
+`MenuManager` 의 `Upgarde Panel` 칸에 물려 있는 오브젝트에 컴포넌트를 추가한다.
+
+```
+Table   비워두면 씬의 HardwareLoader 에서 찾는다.
+        MainB 에는 HardwareLoader 가 없으므로 여기서는 직접 물릴 것
+```
+
+패널 밑에 `ShopBody` 를 만들어 그 안에만 그리므로 패널에 이미 있는 것은 안 건드린다.
+줄을 누르면 바로 구매되고 저장까지 끝난다.
+
+> 부품이 늘어 화면을 넘치면 스크롤을 붙여야 한다. 지금은 9줄이라 그냥 놓았다.
+
+**4. 테스트**
+
+재화가 없으면 전부 회색이라 확인이 안 된다. 잠깐 넣어 보려면:
+
+```csharp
+PlayerProgress.AddBits(5000);
+PlayerProgress.Save();
+```
+
+초기화는 `PlayerProgress.Wipe()`.
+
+### 표 읽는 법
+
+부품 한 줄이 **효과 여러 개**를 가진다. GPU 가 사거리와 효과범위를 같이 올리는 식이다.
+
+```
+Entry
+  Kind          Gpu
+  Display Name  GPU
+  Max Level     10        ← 0이면 상점에 LOCKED 로 뜬다
+  Base Cost     70
+  Cost Growth   1.55      ← 레벨마다 이만큼 비싸진다
+  Effects
+    [0] Target  Stat  /  Stat Kind  Range        /  Mode Percent  /  Per Level 0.04
+    [1] Target  Stat  /  Stat Kind  EffectRange  /  Mode Percent  /  Per Level 0.04
+```
+
+| Target | 어디로 가나 |
+|---|---|
+| `Stat` | `PlayerStats` → 보유 증강 전부 |
+| `Exp` | `LevelSystem.ExpMultiplier` |
+| `Vision` | `Scanner.RangeMultiplier` |
+| `MoveSpeed` | `Player.HardwareSpeed` |
+| `Critical` | 🔴 **판정기 없음** — 사도 아무 일도 안 일어난다 |
+| `StartingAugments` | 🔴 **캐릭터 시스템 없음** — 마찬가지 |
+
+`Critical`(마우스)과 `StartingAugments`(메인보드)는 `Max Level 0` 으로 잠가 뒀다.
+받아 줄 시스템을 만들면 그때 레벨을 올리면 된다.
+
+> 배율은 **합으로 쌓인다.** 부품 둘이 각각 +5% 면 +10% 지 +10.25% 가 아니다.
+> 표에 적힌 숫자와 실제가 어긋나지 않게 하려는 것.
+
+### 🔴 기획에서 정할 것 — CPU 와 SSD 가 겹친다
+
+기획서는 CPU 를 **공격속도**, SSD 를 **쿨타임 감소**로 적어 뒀는데,
+이 게임에는 그 둘이 나뉘어 있지 않다. 증강은 전부 쿨타임으로 발동하므로
+**두 부품이 같은 수치를 올린다.**
+
+지금은 둘 다 `Cooldown` 으로 채워 뒀지만, 부품 하나를 다른 역할로 바꾸는 편이 낫다.
+후보 — 상자 드랍률 · 증강 선택지 수 · 지속시간 · 리롤 획득.
+
+### 경험치 배율의 소수 이월
+
+`ExpMultiplier` 를 곱하면 소수가 남는다. 매번 버리면 **RAM 을 사도 아무 일도 안 일어난다** —
+경험치 1짜리 적을 1.05 로 받아도 내림하면 계속 1이기 때문이다.
+`LevelSystem` 이 남은 소수를 다음 획득으로 넘긴다.
+
+### 배율 칸을 따로 둔 이유
+
+`Scanner.scanRange` · `Player.speed` 를 직접 곱하지 않고 배율 칸을 새로 만들었다.
+인스펙터 값이 곧 원본이어야 두 번 주입하거나 씬을 다시 열었을 때 값이 누적되지 않는다.
+
+특히 `Player` 는 한시적 이동속도 버프(`0xCAFE`)가 끝날 때 배율을 1로 되돌리는데,
+칸을 같이 썼다면 **버프가 끝날 때마다 키보드 업그레이드도 사라졌을 것이다.**
+
+---
+
+## 13. 드랍 시스템 — 🔴 되돌림 (읽지 말 것)
+
+> **이 장의 내용은 전부 취소됐다.** 컴파일이 깨져 코드를 걷어냈다.
+> 경험치는 다시 `Enemy.Dead()` 가 오브를 직접 꺼내는 원래 방식이다.
+> 아래는 나중에 다시 시도할 때를 위한 기록으로만 남긴다.
+
+<details>
+<summary>(취소된 내용 펼치기)</summary>
+
+
+경험치가 적마다 무조건 오브 하나였던 것을 **확률로 등급을 뽑는 계단식**으로 바꿨고,
+아이템을 필드에 떨굴 통로를 만들었다.
+
+```
+적 사망
+  ├─ DropSpawner.Resolve()
+  │    ├─ BitOrbTable 이 랭크별 확률로 등급을 뽑는다 → 오브 하나 (또는 빈손)
+  │    ├─ EnemyData.drops[]      이 적만 떨구는 것
+  │    └─ StageData.commonDrops[] 스테이지 전체에 얹히는 것
+  └─ 비트(재화) 정산
+```
+
+### ⚠ 할 일 — 순서대로
+
+**1. 비트 오브 표 만들기**
+
+```
+Unity 메뉴 → CoD → 비트 오브 표 만들기
+```
+
+`Assets/Resources/BitOrbTable.asset` 에 값과 확률이 채워진 표가 생긴다.
+**Resources 안에 있어야 코드가 찾는다.** 표가 없으면 예전처럼(항상 1개, `EnemyData.exp` 값) 굴러간다.
+
+**프리팹은 안 만들어도 된다 — 하나를 돌려쓴다**
+
+`Exp01.prefab` 하나에 등급별 그림과 크기만 갈아끼운다. 표를 만들면 `Art/Sprite/exp_*`
+여섯 장이 자동으로 물린다.
+
+**애니메이션과 안 싸우는 이유** — 클립이 소유한 속성만 확인하면 된다.
+
+```
+Exp_idle.anim
+  m_PPtrCurves:   []                ← 스프라이트에 키가 없다 → 코드가 바꿔도 된다
+  m_ScaleCurves:  []                ← 크기에도 키가 없다   → 바꿔도 된다
+  m_FloatCurves:  m_Color.r/g/b/a   ← 색만 애니메이션한다
+```
+
+**애니메이션은 자기가 키를 찍은 속성만 매 프레임 덮어쓴다.** 키가 없는 속성은 건드리지
+않으므로 코드가 정한 값이 그대로 남는다.
+
+> 🔴 **색은 클립이 이긴다.** 등급을 색으로 구분하고 싶으면 `SpriteRenderer.color` 가 아니라
+> **스프라이트 자체를 다른 색으로** 준비할 것. `exp_*` 여섯 장이 이미 그렇게 돼 있다.
+
+특별한 연출이 필요한 등급(예: `0xFF` 보스 오브)만 표의 **Prefab** 칸에 따로 물리면 된다.
+비워두면 Exp 풀 0번에 그림·크기만 얹어 쓴다.
+
+**2. `0xBEEF` 프리팹의 스크립트 교체**
+
+지금 `Prefabs/Item_Prefabs/0xBEEF.prefab` 에 **`ExpMove` 가 붙어 있다.** 그대로 두면
+주웠을 때 경험치가 들어간다.
+
+```
+ExpMove 컴포넌트 우클릭 → Remove Component
+Add Component → FieldItem
+   Item        0xBEEF.asset  (Data/Augment_Data)
+   Base Speed  1.2
+   Accel       5
+   Fx G        효과음/이펙트
+```
+
+`0xCAFE` 는 프리팹이 없으므로 `0xBEEF` 를 복제해서 스프라이트(`cafe_1024_512`)와
+`Item` 만 바꾸면 된다.
+
+**3. 드랍 확률 채우기**
+
+```
+StageData → Common Drops
+  [0] Prefab  0xBEEF.prefab   Chance 0.015   Count 1   Spread 0.6
+  [1] Prefab  0xCAFE.prefab   Chance 0.01    Count 1   Spread 0.6
+```
+
+`0xBEEF` 는 회복이라 확률이 낮아도 체감이 크다. 0.015 면 **70마리에 한 번**쯤.
+
+**4. 엘리트용 `EnemyData` 만들기 — 안 하면 등급표가 안 먹는다**
+
+지금 `Stage 01` 의 엘리트 웨이브는 잡몹 `EnemyData` 를 배율만 올려 재사용한다.
+그런데 등급 확률은 **`EnemyData.rank`** 로 갈리므로, 엘리트 웨이브의 적도 여전히
+`Minion` 확률표를 탄다 — 큰 오브가 안 나온다.
+
+`001 No_Image` 를 복제(Ctrl+D)해서:
+
+```
+Display Name  memory leak
+Rank          Elite        ← 이것 때문에 만드는 것
+Kill Messages 엘리트다운 문구로
+```
+
+만든 뒤 `Stage 01` 의 엘리트 웨이브 두 줄에서 `Enemy` 를 새 에셋으로 바꾼다.
+
+### 등급표 읽는 법
+
+```
+Tiers  (값이 커지는 순서로 둘 것)
+  Label 0x01   Value 1     Sprite exp_01   Scale 0.6   Minion 70   Elite  0   Boss  0
+  Label 0x0A   Value 10    Sprite exp_0A   Scale 0.9   Minion  8   Elite 40   Boss  0
+  Label 0x0F   Value 15    Sprite exp_0F   Scale 1.1   Minion  2   Elite 40   Boss  0
+  Label 0x11   Value 17    Sprite exp_11   Scale 1.3   Minion  0   Elite 15   Boss  0
+  Label 0xAA   Value 170   Sprite exp_AA   Scale 1.8   Minion  0   Elite  5   Boss 30
+  Label 0xFF   Value 255   Sprite exp_FF   Scale 2.4   Minion  0   Elite  0   Boss 70
+
+No Drop Minion  20      ← 잡몹의 20%는 빈손
+Prefab          비워둘 것 — 특별한 연출이 필요한 등급만 채운다
+```
+
+가중치는 **비율이 아니라 저울**이다. 합이 100일 필요가 없고, 한 줄을 지워도 나머지가
+알아서 다시 나뉜다. 잡몹 기대값은 지금 **한 마리당 약 1.8**.
+
+**표시 이름과 값이 어긋나면 안 된다.** `0x0A` 가 10을 안 주면 16진수로 적은 의미가 없다.
+
+### 🔴 웨이브의 `Exp Scale` 은 지금 전부 1이다
+
+의미가 바뀌었다 — **값에 곱하는 배율이 아니라 등급을 몇 칸 위로 미는 값**이다.
+값에 곱하면 그림은 `0x0A` 인데 실제로 30을 주게 되어 표기가 거짓말이 된다.
+
+그런데 등급 간격이 `1 → 10` 처럼 10배씩이라 **잡몹에 한 칸만 밀어도 경험치가 폭주한다.**
+그래서 `Stage 01` 은 전부 1로 두었고, 후반 성장은 **적 밀도**(초당 1 → 7.8마리)가 맡는다.
+
+> 굳이 쓰려면 `2` 부터 한 칸씩 오른다. 쓰기 전에 반드시 한 판 돌려 레벨 수를 확인할 것.
+
+### 계산해둔 경제
+
+```
+총 스폰 2,314마리 × 처치율 60% ≈ 1,390킬 × 1.8  ≈ 2,500 exp
+엘리트 26마리 × 21                                ≈   550 exp
+                                                  ─────────
+                                                   3,050 exp
+```
+
+레벨 곡선 `base 10 / growth 10` 기준 **Lv 24** 근처에서 끝난다. 어제 목표(Lv 23)와 맞다.
+
+### 줍는 로직이 하나로 합쳐졌다
+
+`ExpMove` 안에만 있던 자석 코드를 `Pickup` 으로 뺐다. `ExpMove` · `FieldItem` 이 상속한다.
+**프리팹 값은 그대로 유지된다** — 유니티는 필드를 이름으로 찾으므로 부모 클래스로 올라가도 안 깨진다.
+
+같이 고친 것:
+
+- **매 프레임 `PLAYER NULL` 로그** — 플레이어를 `Start` 에서 한 번만 잡아서, 풀에서 꺼낸
+  두 번째 런부터 죽은 참조를 붙잡고 있었다. 이제 필요할 때 다시 찾는다
+- **`baseSpeed` 가 아무 일도 안 하고 있었다** — 프리팹에 1.2 로 맞춰뒀는데 코드가 0에서
+  출발했다. 이제 붙잡히는 순간 이 속도로 시작한다. 예전 느낌이 좋으면 **0으로 두면 된다**
+- **이펙트가 월드 원점에서 터지던 것** — `PlayAt(Vector2.zero)` 였다. 이제 오브 자리에서 난다
+
+### 즉시 효과가 UI 밖으로 나왔다
+
+`AugmentSelectUI.ApplyInstantEffect` → **`InstantItem.Apply(data)`**.
+
+카드로 먹든 필드에서 줍든 같은 코드를 탄다. 회복량을 고치려면 `AugmentData` 에셋 한 곳만
+고치면 되고, 새 아이템을 만들 때도 `FieldItem` 에 에셋만 물리면 된다.
+
+</details>

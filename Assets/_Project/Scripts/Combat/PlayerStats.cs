@@ -31,15 +31,13 @@ public class PlayerStats : MonoBehaviour
     [Tooltip("런 시작부터 걸려 있을 보정. 하드웨어 업그레이드가 붙으면 이 자리를 대신한다.")]
     [SerializeField] List<StartingBonus> startingBonuses = new();
 
-    static readonly int KindCount = System.Enum.GetValues(typeof(StatKind)).Length;
-
     readonly List<StatModifier> modifiers = new();
     readonly List<Timed> timed = new();
 
     // 매 프레임 수십 번 조회되므로 합계를 미리 접어둔다.
-    // StatKind 를 늘려도 자동으로 따라오게 KindCount 로 잡는다
-    readonly float[] addTotal = new float[KindCount];
-    readonly float[] percentTotal = new float[KindCount];
+    // StatKind 를 늘려도 자동으로 따라오게 StatMath 가 칸 수를 정한다
+    readonly float[] addTotal = StatMath.NewSlots();
+    readonly float[] percentTotal = StatMath.NewSlots();
 
     struct Timed
     {
@@ -132,7 +130,7 @@ public class PlayerStats : MonoBehaviour
 
     void Rebuild()
     {
-        for (int i = 0; i < KindCount; i++)
+        for (int i = 0; i < StatMath.KindCount; i++)
         {
             addTotal[i] = 0f;
             percentTotal[i] = 0f;
@@ -149,48 +147,14 @@ public class PlayerStats : MonoBehaviour
 
     // ── 적용 ──────────────────────────────────────────────
 
-    /// <summary>시트 수치에 전역 보정을 얹은 값. 구조체 복사본이라 원본은 안 변한다.</summary>
+    /// <summary>
+    /// 시트 수치에 전역 보정을 얹은 값. 구조체 복사본이라 원본은 안 변한다.
+    ///
+    /// 식은 <see cref="StatMath"/> 가 소유한다 — 내부 증강 보정도 같은 식을 쓰기 때문에,
+    /// 여기에 복사해 두면 언젠가 한쪽만 고쳐서 계산이 갈라진다.
+    /// </summary>
     public AugmentLevelData Apply(AugmentLevelData raw)
-    {
-        raw.damage       = Scale(StatKind.Damage,       raw.damage);
-        raw.effectDamage = Scale(StatKind.EffectDamage, raw.effectDamage);
-        raw.range        = Scale(StatKind.Range,        raw.range);
-        raw.effectRange  = Scale(StatKind.EffectRange,  raw.effectRange);
-        raw.duration     = Scale(StatKind.Duration,     raw.duration);
-        raw.speed        = Scale(StatKind.Speed,        raw.speed);
-
-        // 쿨타임만 반대다. 배율이 오를수록 짧아지고, 아무리 쌓아도 0에 닿지 않는다
-        raw.cooldown = Shorten(StatKind.Cooldown, raw.cooldown);
-
-        // 정수 수치는 가산만 받는다. 투사체 1.5개 같은 것이 없기 때문
-        raw.count  = Offset(StatKind.Count,  raw.count);
-        raw.pierce = Offset(StatKind.Pierce, raw.pierce);
-        raw.depth  = Offset(StatKind.Depth,  raw.depth);
-
-        return raw;
-    }
-
-    float Scale(StatKind kind, float value)
-    {
-        int k = (int)kind;
-        return (value + addTotal[k]) * (1f + percentTotal[k]);
-    }
-
-    float Shorten(StatKind kind, float value)
-    {
-        int k = (int)kind;
-
-        float speedUp = 1f + percentTotal[k];
-        if (speedUp < 0.01f) speedUp = 0.01f;   // 음수 보정이 커도 뒤집히지 않게
-
-        return (value + addTotal[k]) / speedUp;
-    }
-
-    int Offset(StatKind kind, int value)
-    {
-        int result = value + Mathf.RoundToInt(addTotal[(int)kind]);
-        return result < 0 ? 0 : result;
-    }
+        => StatMath.Compose(raw, addTotal, percentTotal);
 
     // ── 조회 ──────────────────────────────────────────────
 
@@ -212,7 +176,7 @@ public class PlayerStats : MonoBehaviour
     {
         var sb = new System.Text.StringBuilder();
 
-        for (int i = 0; i < KindCount; i++)
+        for (int i = 0; i < StatMath.KindCount; i++)
         {
             bool noAdd = Mathf.Approximately(addTotal[i], 0f);
             bool noPercent = Mathf.Approximately(percentTotal[i], 0f);

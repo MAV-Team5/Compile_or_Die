@@ -12,6 +12,11 @@ public struct DamageTextStyle
     [Tooltip("위로 떠오르는 속도. 클수록 멀리 튄다.")]
     public float riseSpeed;
 
+    [Tooltip("뜨는 자리를 밀어낸다(유닛). 대상 머리 위가 기준.\n\n" +
+             "★ 같은 순간에 두 숫자가 뜰 때 쓴다 — 추가 피해를 위로 올려두면 둘 다 읽힌다.\n" +
+             "   자리에는 ±0.3 정도의 흔들림이 섞이므로 0.5 이상은 벌려야 확실히 갈라진다.")]
+    public Vector2 offset;
+
     public static DamageTextStyle Default => new()
     {
         color = Color.white,

@@ -31,6 +31,20 @@ public class Spawner : MonoBehaviour
              "조금씩 나눠 옮겨야 사방에서 스며드는 모양이 된다.")]
     [SerializeField] int recycleBatch = 3;
 
+    [Header("경험치 오브 나열")]
+    [Tooltip("한 처치에서 오브가 여러 개 나올 때 서로 떨어질 간격(유닛).\n\n" +
+             "한 줄로 나란히 놓는다 — 무작위로 흩뿌리면 겹쳐서 몇 개인지 안 읽힌다.")]
+    [SerializeField] float orbSpacing = 0.45f;
+
+    /// <summary>
+    /// 씬에 하나. 적이 죽을 때 자기를 낸 웨이브를 찾아오는 통로다.
+    ///
+    /// <b>스스로 관리한다</b> — Awake 에서 잡고 OnDestroy 에서 놓는다.
+    /// RunLifecycle 에 넣지 않은 이유는 그쪽이 RunDirector.Awake 에서 도는데,
+    /// 순서에 따라 막 잡은 참조를 도로 비울 수 있기 때문이다.
+    /// </summary>
+    public static Spawner Current { get; private set; }
+
     StageData stage;
 
     /// <summary>이 스포너가 내보낸 적들. 죽은 것은 훑을 때 걸러낸다.</summary>
@@ -46,7 +60,14 @@ public class Spawner : MonoBehaviour
 
     void Awake()
     {
+        Current = this;
+
         if (spawnPoints == null || spawnPoints.Length == 0) CollectPoints();
+    }
+
+    void OnDestroy()
+    {
+        if (Current == this) Current = null;
     }
 
     void Start()
@@ -68,6 +89,7 @@ public class Spawner : MonoBehaviour
 
             stage.waves[i].Spawned = 0;
             stage.waves[i].Timer = 0f;
+            stage.waves[i].ExpCarry = 0f;
         }
     }
 
@@ -87,12 +109,12 @@ public class Spawner : MonoBehaviour
             if (wave == null || !wave.IsValid) continue;
             if (!wave.IsActive(now)) continue;
 
-            Advance(wave, dt);
+            Advance(wave, i, dt);
         }
     }
 
     /// <summary>웨이브 하나의 시계를 굴린다. 때가 되면 한 무더기 내보낸다.</summary>
-    void Advance(StageWave wave, float dt)
+    void Advance(StageWave wave, int index, float dt)
     {
         wave.Timer -= dt;
         if (wave.Timer > 0f) return;
@@ -105,10 +127,10 @@ public class Spawner : MonoBehaviour
         // 상한이 있으면 넘겨서 내보내지 않는다
         if (wave.maxSpawns > 0) count = Mathf.Min(count, wave.maxSpawns - wave.Spawned);
 
-        for (int i = 0; i < count; i++) Release(wave);
+        for (int i = 0; i < count; i++) Release(wave, index);
     }
 
-    void Release(StageWave wave)
+    void Release(StageWave wave, int index)
     {
         GameObject go = GameManager.instance.poolManager.Get(wave.enemy.prefab, PoolType.Enemy);
         if (go == null) return;
@@ -119,11 +141,55 @@ public class Spawner : MonoBehaviour
         // 그 사이에 증강이 사거리 검색을 하면 갓 스폰한 적이 원점에 있는 것으로 잡힌다
         Physics2D.SyncTransforms();
 
-        if (go.TryGetComponent(out Enemy enemy)) enemy.Init(wave.enemy, wave.Scale);
+        // 웨이브 번호를 새겨 둔다. 죽을 때 이 번호로 어느 웨이브가 낸 적인지 찾는다
+        if (go.TryGetComponent(out Enemy enemy)) enemy.Init(wave.enemy, wave.Scale, index);
 
         alive.Add(go.transform);
 
         wave.Spawned++;
+    }
+
+    // ── 경험치 ────────────────────────────────────────────
+
+    /// <summary>
+    /// 적이 죽었다고 알려온다. 그 적을 낸 웨이브가 이번에 오브를 몇 개 낼지 정한다.
+    ///
+    /// <b>왜 적이 직접 안 꺼내나</b> — 못 준 소수를 다음 처치로 넘겨야 총량이 정확해지는데,
+    /// 죽으면 사라지는 적은 그 값을 들고 있을 수 없다. 웨이브가 들어야 한다.
+    /// </summary>
+    /// <param name="waveIndex">보스처럼 웨이브 소속이 아니면 -1.</param>
+    public void ReportKill(int waveIndex, Vector3 at)
+    {
+        if (stage == null) return;
+        if (waveIndex < 0 || waveIndex >= stage.waves.Count) return;
+
+        StageWave wave = stage.waves[waveIndex];
+        if (wave == null) return;
+
+        int count = wave.TakeOrbCount();
+        if (count <= 0) return;
+
+        DropOrbs(wave.expOrb, count, at);
+    }
+
+    /// <summary>
+    /// 오브를 한 줄로 나란히 놓는다.
+    ///
+    /// <b>무작위로 흩뿌리지 않는다.</b> 겹치면 몇 개가 떨어졌는지 안 읽히고,
+    /// 같은 총량인데 매번 달라 보여 밸런싱할 때 눈으로 확인할 수가 없다.
+    /// </summary>
+    void DropOrbs(GameObject prefab, int count, Vector3 at)
+    {
+        // 가운데를 죽은 자리에 맞춘다. 1개면 정확히 그 자리
+        float start = -(count - 1) * 0.5f * orbSpacing;
+
+        for (int i = 0; i < count; i++)
+        {
+            GameObject orb = GameManager.instance.poolManager.Get(prefab, PoolType.Exp);
+            if (orb == null) return;
+
+            orb.transform.position = at + new Vector3(start + orbSpacing * i, 0f, 0f);
+        }
     }
 
     // ── 회수 ──────────────────────────────────────────────

@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 4929590294121933457}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.7, y: 3.52, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -272,5 +272,9 @@ MonoBehaviour:
   fxG:
     vfx: {fileID: 0}
     vfxScale: 1
+    scaleWithRange: 1
     sfx: {fileID: 8300000, guid: 53058888cbb760341abd92eb06dbd1f5, type: 3}
     sfxVolume: 0.4
+    attachToSource: 0
+    motionParameter: 
+    motionValue: 1
