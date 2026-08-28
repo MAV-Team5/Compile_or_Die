@@ -544,7 +544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &201602092
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3475,6 +3475,7 @@ GameObject:
   - component: {fileID: 1240989647}
   - component: {fileID: 1240989646}
   - component: {fileID: 1240989645}
+  - component: {fileID: 1900002001}
   m_Layer: 5
   m_Name: UpgradePanel
   m_TagString: Untagged
@@ -5890,6 +5891,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018645619}
   m_CullTransparentMesh: 1
+--- !u!114 &1900002001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240989643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d592300e6fe42f6a6f62cb34ad3567e, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::HardwareUpgradePanel
+  table: {fileID: 11400000, guid: 8bb3200f80a54f30b4b0f16421fcf875, type: 2}
+  fontOverride: {fileID: 0}
+  columns: 5
+  cardSize: {x: 660, y: 740}
+  cardGap: {x: 40, y: 40}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

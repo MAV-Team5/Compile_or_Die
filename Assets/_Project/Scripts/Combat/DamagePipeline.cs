@@ -22,7 +22,21 @@ public static class DamagePipeline
         }
 
         // 3. 비트 표식 보너스 — Bitwise 도입 시 여기에 연결
-        // 4. 크리티컬 판정 — 하드웨어 업그레이드 도입 시 여기에 연결
+        // 4. 크리티컬 판정 — 마우스 업그레이드 도입 시 여기에 연결
+
+        // 5. 하드웨어(파워) 최종 배율.
+        //
+        //    ＊ 반드시 표식·비트 보정을 다 더한 뒤에 곱한다.
+        //      먼저 곱하면 표식의 고정 추가피해가 배율을 못 받아
+        //      (10×1.2)+5 = 17 과 (10+5)×1.2 = 18 로 결과가 갈린다.
+        //
+        //    전이된 피해는 이미 곱해진 값을 물려받으므로 여기서 다시 곱하면 두 번 먹는다.
+        //    간선을 다섯 번만 타도 2.5배가 되어 파워가 기하급수로 불어난다
+        if (!dmg.HardwareApplied)
+        {
+            dmg.Amount *= HardwareBonus.DamageMultiplier;
+            dmg.HardwareApplied = true;
+        }
 
         if (dmg.Amount <= 0f) return;
 

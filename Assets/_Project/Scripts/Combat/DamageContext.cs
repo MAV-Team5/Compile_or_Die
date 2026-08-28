@@ -36,6 +36,14 @@ public class DamageContext
     /// </summary>
     public HashSet<Transform> LinkVisited;
 
+    /// <summary>
+    /// 하드웨어(파워) 배율을 이미 먹였는가.
+    ///
+    /// 전이 피해는 이미 배율이 곱해진 값을 기본값으로 물려받는데,
+    /// 그것이 파이프라인을 다시 통과하므로 표시가 없으면 홉마다 배율이 거듭 곱해진다.
+    /// </summary>
+    public bool HardwareApplied;
+
     public DamageContext(GameObject source, IDamageReceiver target, float baseAmount,
                          Transform targetTransform = null)
     {

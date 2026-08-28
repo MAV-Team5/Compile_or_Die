@@ -19,8 +19,14 @@ public class RunResultPanel : MonoBehaviour
     [SerializeField] TMP_FontAsset fontOverride;
 
     [Header("씬 이동")]
-    [SerializeField] string retryScene = "stage 1";
+    [Tooltip("다시 하기로 돌아갈 스테이지 씬.")]
+    [SerializeField] string retryScene = "stage1";
+
+    [Tooltip("하드웨어 업그레이드·스테이지 선택이 있는 로비.")]
     [SerializeField] string lobbyScene = "MainB";
+
+    [Tooltip("나가기로 돌아갈 첫 화면.")]
+    [SerializeField] string titleScene = "MainA";
 
     [Header("표")]
     [Tooltip("증강 표에 최대 몇 줄까지 보여줄지. 나머지는 '그 외'로 묶는다.")]
@@ -28,6 +34,9 @@ public class RunResultPanel : MonoBehaviour
 
     const float RowHeight = 30f;
     const float Margin = 40f;
+
+    const float ButtonWidth = 300f;
+    const float ButtonGap = 40f;
 
     RectTransform root;
 
@@ -219,34 +228,68 @@ public class RunResultPanel : MonoBehaviour
 
     void Buttons(RectTransform parent)
     {
-        Button(parent, new Vector2(-140f, 40f), "다시 하기", retryScene);
-        Button(parent, new Vector2(140f, 40f), "나가기", lobbyScene);
+        (string label, string scene, LobbyIntent.Screen open)[] entries =
+        {
+            ("다시 하기",   retryScene, LobbyIntent.Screen.None),
+            ("업그레이드", lobbyScene, LobbyIntent.Screen.Upgrade),
+            ("나가기",     titleScene, LobbyIntent.Screen.None)
+        };
+
+        // 가운데를 기준으로 좌우 대칭. 개수가 바뀌어도 자리가 알아서 맞는다
+        float step = ButtonWidth + ButtonGap;
+        float start = -(entries.Length - 1) * 0.5f * step;
+
+        for (int i = 0; i < entries.Length; i++)
+            Button(parent, new Vector2(start + step * i, 40f),
+                   entries[i].label, entries[i].scene, entries[i].open);
     }
 
-    void Button(RectTransform parent, Vector2 position, string text, string scene)
+    /// <summary>
+    /// 배경 상자 없이 글자만 있는 버튼. 씬의 기존 버튼과 같은 양식이다.
+    ///
+    /// <b>네온은 글자를 물들여서 낸다.</b> 최종 색 = 글자색 × 상태색 × 배수 라서,
+    /// 글자색을 어둡게 깔아두면 평소에는 잠긴 초록이고 커서를 올리면 형광으로 튄다.
+    /// 상자를 물들이는 방식으로는 이 느낌이 안 나온다.
+    /// </summary>
+    void Button(RectTransform parent, Vector2 position, string text, string scene,
+                LobbyIntent.Screen open = LobbyIntent.Screen.None)
     {
-        Image box = UiFactory.CreateImage($"Btn_{text}", parent, theme.surface);
-        box.raycastTarget = true;
+        // 글자에는 raycast 가 없다. 글자 사이 빈틈에서도 눌리도록 판정면을 따로 깐다.
+        // 완전히 투명하므로 상자로 보이지는 않는다
+        Image hitArea = UiFactory.CreateImage($"Btn_{text}", parent, Color.clear);
+        hitArea.raycastTarget = true;
 
-        UiFactory.Place(box.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
-                        position, new Vector2(240f, 56f));
+        UiFactory.Place(hitArea.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
+                        position, new Vector2(ButtonWidth, 56f));
 
-        TMP_Text label = UiFactory.CreateText("Label", box.rectTransform, font, 24f, theme.text,
-                                              TextAlignmentOptions.Center);
+        TMP_Text label = UiFactory.CreateText("Label", hitArea.rectTransform, font, 24f,
+                                              Color.white, TextAlignmentOptions.Center);
 
         UiFactory.Stretch(label.rectTransform, Vector2.zero, Vector2.one);
 
-        Button button = box.gameObject.AddComponent<Button>();
+        // 터미널 프롬프트. 씬의 기존 버튼도 같은 모양이다
+        label.text = $"> {text}";
 
-        // 코드로 붙이면 자동으로 안 물린다. 비어 있으면 눌러도 색이 안 바뀐다
-        button.targetGraphic = box;
-        button.colors = theme.ButtonColors(theme.surface);
+        Button button = hitArea.gameObject.AddComponent<Button>();
+        button.targetGraphic = hitArea;
+
+        // 색은 NeonTextButton 이 글자에 직접 넣는다.
+        // Button 의 ColorTint 로는 아틀라스가 갈린 한글에서 색이 따로 논다
+        button.transition = Selectable.Transition.None;
+
+        hitArea.gameObject.AddComponent<NeonTextButton>().Bind(label);
 
         string target = scene;
+        LobbyIntent.Screen intent = open;
 
         button.onClick.AddListener(() =>
         {
-            if (!string.IsNullOrEmpty(target)) SceneManager.LoadScene(target);
+            if (string.IsNullOrEmpty(target)) return;
+
+            // 로비에 도착해서 어느 화면을 열지 미리 적어둔다. 씬을 넘기기 전이어야 한다
+            LobbyIntent.Request(intent);
+
+            SceneManager.LoadScene(target);
         });
     }
 }
