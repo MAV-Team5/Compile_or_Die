@@ -38,6 +38,42 @@ public class AugmentManager : MonoBehaviour
     {
         foreach (AugmentData data in startingAugments)
             Grant(data);
+
+        GrantExtraStarters();
+    }
+
+    /// <summary>
+    /// 메인보드 업그레이드로 더 받는 스타트 증강.
+    ///
+    /// 스테이지 풀에서 평소와 같은 규칙으로 뽑으므로, 이미 들고 있는 것과
+    /// 아직 안 풀린 내부 증강은 저절로 걸러진다.
+    /// StageContext 는 StageSetup 이 Awake 에서 확정하므로 여기(Start)에서 읽어야 안전하다.
+    /// </summary>
+    void GrantExtraStarters()
+    {
+        int extra = HardwareBonus.ExtraStartingAugments;
+        if (extra <= 0) return;
+
+        AugmentPool pool = StageContext.Active != null ? StageContext.Active.augmentPool : null;
+
+        if (pool == null)
+        {
+            Debug.LogWarning("[AugmentManager] 스테이지에 증강 풀이 없어 추가 스타트 증강을 못 준다.", this);
+            return;
+        }
+
+        var picked = new List<AugmentData>();
+
+        new AugmentDraft(pool, this).Pick(extra, picked);
+
+        for (int i = 0; i < picked.Count; i++)
+        {
+            // 회복·이동속도 같은 즉시 아이템은 들고 시작할 물건이 아니다.
+            // 그만큼 수가 줄지만, 이런 것으로 스타트 증강을 채우면 없느니만 못하다
+            if (picked[i].instantEffect != InstantItemEffect.None) continue;
+
+            Grant(picked[i]);
+        }
     }
 
     void Update()

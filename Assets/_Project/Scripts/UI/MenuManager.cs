@@ -17,6 +17,12 @@ public class MenuManager : MonoBehaviour
 
     private bool setPause = false;
 
+    void Start()
+    {
+        // 결과 화면에서 "업그레이드"로 들어온 경우. 로비를 거치지 않고 바로 상점을 연다
+        if (LobbyIntent.Consume() == LobbyIntent.Screen.Upgrade) OnClickUpgradeMenu();
+    }
+
     public void OnClickCharacterMenu()
     {
         characterPanel.Open();
@@ -37,9 +43,20 @@ public class MenuManager : MonoBehaviour
         settingPanel.Open();
     }
 
+    [Header("씬 이름")]
+    [Tooltip("스테이지 버튼이 들어갈 씬. 스테이지가 늘면 아래 목록으로 옮긴다.")]
+    [SerializeField] string runScene = "stage1";
+
+    /// <summary>
+    /// 스테이지를 고르고 들어간다.
+    ///
+    /// TODO 스테이지 2 이상: 지금은 stageId 를 쓰지 않고 항상 같은 씬으로 간다.
+    /// 스테이지는 씬이 아니라 StageData 에셋이 정하므로(StageSetup),
+    /// 스테이지를 늘릴 때는 씬을 복제하지 말고 stageId 로 StageData 를 골라 넘길 것.
+    /// </summary>
     public void OnClickRun(int stageId)
     {
-        SceneManager.LoadScene("Run");
+        SceneManager.LoadScene(runScene);
     }
 
     public void OnClickPause()
@@ -85,8 +102,21 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainA");
     }
+    /// <summary>
+    /// 런을 그만두고 결과 화면으로. 일시정지 메뉴의 나가기가 부른다.
+    ///
+    /// 런 중이라면 씬을 직접 넘기지 않고 RunDirector 에 맡긴다 —
+    /// 정산을 거쳐야 이번 판에 모은 비트가 지급되고 성적표도 새로 채워진다.
+    /// 씬 이동은 정산이 끝난 뒤 RunDirector 가 알아서 한다.
+    /// </summary>
     public void OnClickStageExit()
     {
+        if (RunDirector.Current != null && RunDirector.IsPlaying)
+        {
+            RunDirector.Current.Abandon();
+            return;
+        }
+
         SceneManager.LoadScene("StageResult");
     }
 
