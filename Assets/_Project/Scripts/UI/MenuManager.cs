@@ -44,19 +44,45 @@ public class MenuManager : MonoBehaviour
     }
 
     [Header("씬 이름")]
-    [Tooltip("스테이지 버튼이 들어갈 씬. 스테이지가 늘면 아래 목록으로 옮긴다.")]
-    [SerializeField] string runScene = "stage1";
+    [Tooltip("스테이지가 도는 씬. 스테이지가 늘어도 이 씬 하나를 쓴다 —\n" +
+             "무엇이 나오는지는 StageData 가 정하므로 씬을 복제할 이유가 없다.")]
+    [SerializeField] string runScene = "Run";
+
+    [Tooltip("고를 수 있는 스테이지. 버튼이 넘긴 번호와 에셋의 Stage Id 로 맞춘다.\n\n" +
+             "★ 배열 순서가 아니라 Stage Id 로 찾는다 — 순서를 바꿔도 버튼이 안 어긋난다.")]
+    [SerializeField] StageData[] stages;
 
     /// <summary>
-    /// 스테이지를 고르고 들어간다.
+    /// 스테이지를 고르고 들어간다. 버튼의 OnClick 에 번호를 적어 부른다.
     ///
-    /// TODO 스테이지 2 이상: 지금은 stageId 를 쓰지 않고 항상 같은 씬으로 간다.
-    /// 스테이지는 씬이 아니라 StageData 에셋이 정하므로(StageSetup),
-    /// 스테이지를 늘릴 때는 씬을 복제하지 말고 stageId 로 StageData 를 골라 넘길 것.
+    /// <b>스테이지가 늘어도 씬은 하나다.</b> 무엇이 나오는지는 전부 StageData 가 정하므로
+    /// (배경·웨이브·보스·증강 풀·정산), 씬을 복제하면 버그를 고칠 때마다 사본을 다 고쳐야 한다.
     /// </summary>
     public void OnClickRun(int stageId)
     {
+        StageData stage = FindStage(stageId);
+
+        // 못 찾았는데 그냥 들어가면 엉뚱한 스테이지가 돌고 원인을 못 찾는다
+        if (stage == null)
+        {
+            Debug.LogWarning($"[MenuManager] Stage Id {stageId} 인 StageData 가 목록에 없다. "
+                           + "Stages 배열과 버튼 번호를 맞출 것.", this);
+            return;
+        }
+
+        StageContext.Choose(stage);
+
         SceneManager.LoadScene(runScene);
+    }
+
+    StageData FindStage(int stageId)
+    {
+        if (stages == null) return null;
+
+        for (int i = 0; i < stages.Length; i++)
+            if (stages[i] != null && stages[i].stageId == stageId) return stages[i];
+
+        return null;
     }
 
     public void OnClickPause()

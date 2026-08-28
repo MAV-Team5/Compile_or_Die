@@ -86,6 +86,21 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
     /// 늘어난 만큼 지금 체력도 함께 채운다 — 런이 시작되는 시점이라
     /// 최대치만 늘고 현재 체력이 그대로면 시작부터 다친 채로 서 있게 된다.
     /// </summary>
+    /// <summary>
+    /// 최대 체력을 다시 정하고 가득 채운다. 런 시작에 <see cref="PlayerSetup"/> 이 캐릭터 값으로 부른다.
+    ///
+    /// 인스펙터 필드를 직접 쓰지 않고 메서드로 두는 이유는 <c>Current</c> 때문이다 —
+    /// Awake 끼리는 순서가 없어서, 필드만 바꾸면 이미 지나간 Awake 가 채워둔
+    /// 옛 최대치가 현재 체력으로 남는다.
+    /// </summary>
+    public void SetMaxHealth(float value)
+    {
+        maxHealth = Mathf.Max(1f, value);
+        Current = maxHealth;
+
+        Changed?.Invoke(Current, maxHealth);
+    }
+
     public void ScaleMaxHealth(float multiplier)
     {
         if (multiplier <= 0f || Mathf.Approximately(multiplier, 1f)) return;

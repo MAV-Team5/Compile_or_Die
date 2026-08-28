@@ -4,12 +4,11 @@ using UnityEngine;
 /// <summary>
 /// 하드웨어 업그레이드 표. 부품마다 레벨당 얼마나 오르고 얼마가 드는지를 기획자가 여기서 정한다.
 ///
-/// <c>Create → CoD → Hardware Table</c> 로 만들거나, <c>CoD → 하드웨어 표 만들기</c> 로
-/// 기획서의 10종이 채워진 표를 한 번에 만든다.
+/// <c>Create → CoD → Hardware Table</c> 로 만든다.
 ///
-/// <b>무엇이 오르는지도 여기 적는다.</b> 부품 효과를 코드에 두면 밸런싱을 고칠 때마다
-/// 컴파일을 기다려야 하고, 기획자가 손댈 수 없다. <see cref="HardwareLoader"/> 는
-/// 이 표를 읽어 옮기기만 한다.
+/// <b>수치는 여기, 어디로 가는지는 <see cref="HardwareBonus"/> 에 있다.</b>
+/// 값·비용·이름은 이 표에서 고치고, 부품이 어느 능력치로 가는지는 코드에서 정한다.
+///
 /// <b>값은 레벨마다 직접 적는다.</b> 예전에는 기본값에 배수를 거듭 곱하는 식이었는데,
 /// 그러면 100·200·400 처럼 배수가 일정한 곡선만 만들 수 있다.
 /// 메인보드처럼 500·2000·5000 으로 확 뛰는 곡선을 적을 수 없어서 표로 바꿨다.
@@ -81,12 +80,12 @@ public class HardwareTable : ScriptableObject
         return entry.costs[currentLevel];
     }
 
-    /// <summary>잠긴 부품인가. 최대 레벨이 0이면 상점에 회색으로 뜬다.</summary>
-    public bool IsLocked(HardwareKind kind)
+    /// <summary>이 레벨에서 실제로 얹히는 총량. 레벨당 상승폭 × 레벨.</summary>
+    public float BonusAt(HardwareKind kind, int level)
     {
         Entry entry = Find(kind);
 
-        return entry == null || entry.maxLevel <= 0;
+        return entry == null ? 0f : entry.perLevel * level;
     }
 
     /// <summary>"투사체 속도 +30%" 처럼 화면에 그대로 쓸 문구.</summary>

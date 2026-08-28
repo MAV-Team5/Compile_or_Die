@@ -759,6 +759,52 @@ MonoBehaviour:
     Time: 0
     Smoothing: 0
     IgnoreY: 0
+--- !u!1 &318993571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 318993572}
+  - component: {fileID: 318993573}
+  m_Layer: 0
+  m_Name: HardwareBonus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &318993572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318993571}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 990314253}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &318993573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318993571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512cb6499e964ac696ba33f84f541092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HardwareBonus
+  table: {fileID: 11400000, guid: 8bb3200f80a54f30b4b0f16421fcf875, type: 2}
+  logApplied: 1
 --- !u!1 &332506850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,6 +1603,7 @@ GameObject:
   - component: {fileID: 1900000005}
   - component: {fileID: 1900000006}
   - component: {fileID: 1900000007}
+  - component: {fileID: 1900000009}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1642,11 +1689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74536d6c5d03636419570e84bbeb9607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  characterPrefab: {fileID: 8167401938833401509, guid: 2731f372bafc3c94588e48b416e8cefd, type: 3}
   inputVec: {x: 0, y: 0}
-  speed: 10
+  speed: 0
   scanner: {fileID: 0}
-  pickupRange: 4
+  pickupRange: 0
 --- !u!70 &836142189
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1959,6 +2005,7 @@ Transform:
   m_Children:
   - {fileID: 1500312215}
   - {fileID: 872369621}
+  - {fileID: 318993572}
   m_Father: {fileID: 851549254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1012747210
@@ -2478,9 +2525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ad154e2eeff074eb683b38a684b1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentManager
-  startingAugments:
-  - {fileID: 11400000, guid: 84c0fa5ca27bb4684866d588a47ab824, type: 2}
-  - {fileID: 11400000, guid: 5a553f0644269cb4fa7789b0d973018b, type: 2}
+  startingAugments: []
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -3292,7 +3337,7 @@ MonoBehaviour:
     percent: 0
   - kind: 2
     add: 0
-    percent: 0.5
+    percent: 0
   - kind: 3
     add: 0
     percent: 0
@@ -3302,6 +3347,20 @@ MonoBehaviour:
   - kind: 5
     add: 0
     percent: 0
+--- !u!114 &1900000009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836142184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad80e2d549f7f9c45a635505a76671b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSetup
+  defaultCharacter: {fileID: 11400000, guid: 2ea7bd855290a684b83a7d4276276f8c, type: 2}
+  visualRoot: {fileID: 0}
 --- !u!1 &1928696516
 GameObject:
   m_ObjectHideFlags: 0
@@ -3632,7 +3691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89627188b91b47640a0c769307fd0c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunDirector
-  endDelay: 3
+  endDelay: 2
   resultScene: StageResult
 --- !u!1 &2020898044
 GameObject:
@@ -3785,6 +3844,8 @@ MonoBehaviour:
   upgardePanel: {fileID: 0}
   pausePanel: {fileID: 584302720}
   logPanel: {fileID: 0}
+  runScene: stage1
+  stages: []
 --- !u!4 &2096917709
 Transform:
   m_ObjectHideFlags: 0

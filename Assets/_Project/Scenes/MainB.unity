@@ -2973,6 +2973,9 @@ MonoBehaviour:
   upgardePanel: {fileID: 1240989645}
   pausePanel: {fileID: 0}
   logPanel: {fileID: 0}
+  runScene: Run
+  stages:
+  - {fileID: 11400000, guid: 26b0a4b125664cd449bec688dcf753c6, type: 2}
 --- !u!4 &1062884573
 Transform:
   m_ObjectHideFlags: 0
@@ -4105,6 +4108,7 @@ GameObject:
   - component: {fileID: 1379470045}
   - component: {fileID: 1379470044}
   - component: {fileID: 1379470043}
+  - component: {fileID: 1379470046}
   m_Layer: 5
   m_Name: CharacterPanel
   m_TagString: Untagged
@@ -4182,6 +4186,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379470041}
   m_CullTransparentMesh: 1
+--- !u!114 &1379470046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379470041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16123cfd2596b5b4caced19b03195239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterSelectPanel
+  characters:
+  - {fileID: 11400000, guid: 2ea7bd855290a684b83a7d4276276f8c, type: 2}
+  - {fileID: 11400000, guid: e9fc2541e377bda42b614ba90d83caa0, type: 2}
+  - {fileID: 11400000, guid: 2afe7c3257936c64390b003273583ab0, type: 2}
+  fontOverride: {fileID: 11400000, guid: 5892d989ac6cc734cbdda122efecd17f, type: 2}
+  viewSize: {x: 1500, y: 960}
+  viewLift: 140
+  slotSpacing: 5
+  cameraSize: 2.8
+  scrollTime: 0.22
+  sideScale: 0.6
+  sideAlpha: 0.5
 --- !u!1 &1434814594
 GameObject:
   m_ObjectHideFlags: 0
@@ -5514,6 +5542,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825902736}
   m_CullTransparentMesh: 1
+--- !u!114 &1900002001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240989643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d592300e6fe42f6a6f62cb34ad3567e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HardwareUpgradePanel
+  table: {fileID: 11400000, guid: 8bb3200f80a54f30b4b0f16421fcf875, type: 2}
+  fontOverride: {fileID: 0}
+  columns: 5
+  cardSize: {x: 660, y: 740}
+  cardGap: {x: 40, y: 40}
 --- !u!1 &1956375228
 GameObject:
   m_ObjectHideFlags: 0
@@ -5891,23 +5936,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018645619}
   m_CullTransparentMesh: 1
---- !u!114 &1900002001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240989643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d592300e6fe42f6a6f62cb34ad3567e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::HardwareUpgradePanel
-  table: {fileID: 11400000, guid: 8bb3200f80a54f30b4b0f16421fcf875, type: 2}
-  fontOverride: {fileID: 0}
-  columns: 5
-  cardSize: {x: 660, y: 740}
-  cardGap: {x: 40, y: 40}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

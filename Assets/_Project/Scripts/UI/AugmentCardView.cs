@@ -310,6 +310,17 @@ public class AugmentCardView : MonoBehaviour
     }
 
     /// <summary>리롤 버튼의 잠금과 글자를 상태에 맞춘다.</summary>
+    /// <summary>
+    /// 리롤 칸 자체를 보이거나 감춘다.
+    ///
+    /// 런 시작의 캐릭터 고정 증강처럼 <b>고를 여지가 없는 카드</b>에서는 감춘다 —
+    /// 눌리지 않는 버튼을 남겨두면 "왜 안 되지"를 묻게 되고, 그 카드는 사실 확인 버튼이다.
+    /// </summary>
+    public void ShowReroll(bool on)
+    {
+        if (reroll != null) reroll.gameObject.SetActive(on);
+    }
+
     public void SetRerollState(RerollState state, int left)
     {
         bool ready = state == RerollState.Ready;

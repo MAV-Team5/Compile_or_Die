@@ -514,7 +514,7 @@ MonoBehaviour:
   m_text: '>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5892d989ac6cc734cbdda122efecd17f, type: 2}
-  m_sharedMaterial: {fileID: 5800718800004115987, guid: 2c6fbc5775020dd449ee8f2cd12d1e40, type: 2}
+  m_sharedMaterial: {fileID: -1091973885584130286, guid: 5892d989ac6cc734cbdda122efecd17f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_text: '  done'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5892d989ac6cc734cbdda122efecd17f, type: 2}
-  m_sharedMaterial: {fileID: 5800718800004115987, guid: 2c6fbc5775020dd449ee8f2cd12d1e40, type: 2}
+  m_sharedMaterial: {fileID: -1091973885584130286, guid: 5892d989ac6cc734cbdda122efecd17f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1225,6 +1225,8 @@ MonoBehaviour:
   upgardePanel: {fileID: 0}
   pausePanel: {fileID: 0}
   logPanel: {fileID: 1151446173}
+  runScene: Run
+  stages: []
 --- !u!4 &980167473
 Transform:
   m_ObjectHideFlags: 0
@@ -1258,7 +1260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1007765753
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1380,7 +1382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1022718913
 RectTransform:
   m_ObjectHideFlags: 0

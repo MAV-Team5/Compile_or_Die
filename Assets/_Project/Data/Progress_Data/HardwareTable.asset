@@ -15,107 +15,71 @@ MonoBehaviour:
   entries:
   - kind: 0
     displayName: CPU
-    effectName: "투사체 속도"
+    effectName: "\uD22C\uC0AC\uCCB4 \uC18D\uB3C4"
     perLevel: 0.1
     percent: 1
-    costs:
-    - 100
-    - 200
-    - 400
-    - 800
-    - 1600
+    costs: 64000000c8000000900100002003000040060000
     icon: {fileID: 0}
   - kind: 1
     displayName: RAM
-    effectName: "쿨타임 감소"
+    effectName: "\uCFE8\uD0C0\uC784 \uAC10\uC18C"
     perLevel: 0.1
     percent: 1
-    costs:
-    - 100
-    - 200
-    - 400
-    - 800
-    - 1600
+    costs: 64000000c8000000900100002003000040060000
     icon: {fileID: 0}
   - kind: 2
     displayName: SSD
-    effectName: "최대 체력"
+    effectName: "\uCD5C\uB300 \uCCB4\uB825"
     perLevel: 0.1
     percent: 1
-    costs:
-    - 100
-    - 200
-    - 400
-    - 800
-    - 1600
+    costs: 64000000c8000000900100002003000040060000
     icon: {fileID: 0}
   - kind: 3
     displayName: GPU
-    effectName: "공격 범위"
+    effectName: "\uACF5\uACA9 \uBC94\uC704"
     perLevel: 0.1
     percent: 1
-    costs:
-    - 100
-    - 200
-    - 400
-    - 800
-    - 1600
+    costs: 64000000c8000000900100002003000040060000
     icon: {fileID: 0}
   - kind: 4
-    displayName: "파워"
-    effectName: "전체 공격력"
+    displayName: "\uD30C\uC6CC"
+    effectName: "\uC804\uCCB4 \uACF5\uACA9\uB825"
     perLevel: 0.1
     percent: 1
-    costs:
-    - 100
-    - 200
-    - 400
-    - 800
-    - 1600
+    costs: 64000000c8000000900100002003000040060000
     icon: {fileID: 0}
   - kind: 5
-    displayName: "모니터"
-    effectName: "시야 범위"
-    perLevel: 0.3333
+    displayName: "\uBAA8\uB2C8\uD130"
+    effectName: "\uC2DC\uC57C \uBC94\uC704"
+    perLevel: 0.1
     percent: 1
-    costs:
-    - 500
-    - 2000
-    - 5000
+    costs: 64000000c8000000900100002003000040060000
     icon: {fileID: 0}
   - kind: 6
-    displayName: "마우스"
-    effectName: "크리티컬 확률"
+    displayName: "\uB9C8\uC6B0\uC2A4"
+    effectName: "\uD06C\uB9AC\uD2F0\uCEEC \uD655\uB960"
     perLevel: 0.1
     percent: 1
-    costs: []
+    costs: 
     icon: {fileID: 0}
   - kind: 7
-    displayName: "키보드"
-    effectName: "이동 속도"
+    displayName: "\uD0A4\uBCF4\uB4DC"
+    effectName: "\uC774\uB3D9 \uC18D\uB3C4"
     perLevel: 0.1
     percent: 1
-    costs:
-    - 100
-    - 200
-    - 400
-    - 800
-    - 1600
+    costs: 64000000c8000000900100002003000040060000
     icon: {fileID: 0}
   - kind: 8
-    displayName: "메인보드"
-    effectName: "스타트 증강"
+    displayName: "\uBA54\uC778\uBCF4\uB4DC"
+    effectName: "\uC2A4\uD0C0\uD2B8 \uC99D\uAC15"
     perLevel: 1
     percent: 0
-    costs:
-    - 500
-    - 2000
-    - 5000
+    costs: f4010000d007000088130000
     icon: {fileID: 0}
   - kind: 9
-    displayName: "쿨러"
-    effectName: "최대 에러량"
+    displayName: "\uCFE8\uB7EC"
+    effectName: "\uCD5C\uB300 \uC5D0\uB7EC\uB7C9"
     perLevel: 0.1
     percent: 1
-    costs: []
+    costs: 
     icon: {fileID: 0}

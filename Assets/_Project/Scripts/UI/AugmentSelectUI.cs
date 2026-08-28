@@ -72,6 +72,15 @@ public class AugmentSelectUI : MonoBehaviour
     /// <summary>이번 레벨업에서 이 슬롯을 이미 리롤했는가. 카드가 새로 깔릴 때마다 초기화된다.</summary>
     bool[] rerollUsed;
 
+    /// <summary>
+    /// 확정으로 줄 증강들. 하나씩 <b>카드 1장짜리 라운드</b>로 보여준다.
+    ///
+    /// 캐릭터 고정 증강이 여기 들어온다. 몰래 지급하면 무엇을 들고 시작하는지 모른 채
+    /// 게임이 도는데, 카드로 보여주면 반드시 한 번은 읽고 시작하게 된다.
+    /// 고를 여지가 없으므로 사실상 확인 버튼이고, 그래서 리롤 칸도 없다.
+    /// </summary>
+    readonly Queue<AugmentData> forced = new();
+
     AugmentDraft draft;
     LevelSystem levelSystem;
     UiTheme theme;
@@ -129,6 +138,44 @@ public class AugmentSelectUI : MonoBehaviour
 
         levelSystem = GameManager.instance.levelSystem;
         levelSystem.LeveledUp += OnLeveledUp;
+
+        StartCoroutine(OpenStartRounds());
+    }
+
+    // ── 런 시작 선택 ──────────────────────────────────────
+
+    /// <summary>
+    /// 런이 시작될 때 도는 증강 선택. 두 종류가 이어서 뜬다.
+    ///
+    /// <list type="number">
+    /// <item>캐릭터 고정 증강 — 카드 1장. 확인 버튼 성격이라 리롤이 없다</item>
+    /// <item>추가 선택 — 레벨업과 완전히 같은 3택. 메인보드 업그레이드분 + 캐릭터분</item>
+    /// </list>
+    ///
+    /// <b>한 프레임 미루는 이유</b> — AugmentManager 도 Start 에서 시험용 증강을 지급하는데,
+    /// Start 끼리는 순서가 없다. 여기서 바로 카드를 깔면 곧 받을 증강이 후보로 뜰 수 있다.
+    /// <c>yield return null</c> 은 timeScale 이 0이어도 도므로 한 프레임이면 충분하다.
+    /// </summary>
+    System.Collections.IEnumerator OpenStartRounds()
+    {
+        yield return null;
+
+        CharacterData character = CharacterContext.Active;
+
+        if (character != null)
+            for (int i = 0; i < character.startingAugments.Count; i++)
+                if (character.startingAugments[i] != null)
+                    forced.Enqueue(character.startingAugments[i]);
+
+        int rounds = forced.Count
+                   + HardwareBonus.ExtraStartRounds
+                   + (character != null ? character.extraStartRounds : 0);
+
+        if (rounds <= 0) yield break;
+
+        levelSystem.AddPendingSelection(rounds);
+
+        if (!open) TryOpen();
     }
 
     void OnDestroy()
@@ -178,6 +225,10 @@ public class AugmentSelectUI : MonoBehaviour
     void OnCardClicked(AugmentCardView card)
     {
         if (card.Data == null) return;
+
+        // 이번 라운드가 확정 라운드였다면 이 클릭으로 소진된다.
+        // Roll 이 Peek 으로 깔았고 그 사이에 큐를 건드리는 곳이 없으므로 맨 앞이 곧 이 카드다
+        if (forced.Count > 0) forced.Dequeue();
 
         if (card.Data.instantEffect != InstantItemEffect.None)
             ApplyInstantEffect(card.Data);
@@ -236,8 +287,22 @@ public class AugmentSelectUI : MonoBehaviour
     /// <summary>선택지를 새로 뽑아 카드에 싣는다. 뽑을 것이 없으면 false.</summary>
     bool Roll()
     {
-        int count = draft.Pick(choiceCount, shown);
-        if (count == 0) return false;
+        // 확정 증강이 대기 중이면 뽑지 않는다. 그것 한 장만 깔고 리롤도 막는다
+        AugmentData fixedPick = forced.Count > 0 ? forced.Peek() : null;
+
+        int count;
+
+        if (fixedPick != null)
+        {
+            shown.Clear();
+            shown.Add(fixedPick);
+            count = 1;
+        }
+        else
+        {
+            count = draft.Pick(choiceCount, shown);
+            if (count == 0) return false;
+        }
 
         for (int i = 0; i < cards.Count; i++)
         {
@@ -245,6 +310,8 @@ public class AugmentSelectUI : MonoBehaviour
             cards[i].Show(active);
 
             if (active) cards[i].Fill(shown[i], augmentManager);
+
+            cards[i].ShowReroll(fixedPick == null);
         }
 
         // 카드 수에 맞춰 가운데 정렬. 프리팹에서 폭을 바꿨으면 간격도 따라간다
@@ -253,15 +320,21 @@ public class AugmentSelectUI : MonoBehaviour
         for (int i = 0; i < count; i++)
             cards[i].PlaceAt((i - (count - 1) * 0.5f) * (width + cardGap));
 
+        string title = fixedPick != null ? "STARTING AUGMENT" : "AUGMENT SELECT";
+
         headerText.text = levelSystem.PendingLevelUps > 1
-            ? $"AUGMENT SELECT  (+{levelSystem.PendingLevelUps - 1} 대기)"
-            : "AUGMENT SELECT";
+            ? $"{title}  (+{levelSystem.PendingLevelUps - 1} 대기)"
+            : title;
 
         // 슬롯 잠금도 버린 목록도 이번 레벨업 한정이다. 새 카드가 깔렸으니 전부 푼다
         System.Array.Clear(rerollUsed, 0, rerollUsed.Length);
         rejected.Clear();
 
-        RefreshRerollButtons();
+        // 리롤이 없는 라운드에서는 남은 개수 표시도 감춘다. 쓸 수 없는 자원을 띄워두면
+        // 지금 리롤할 수 있는 줄 알고 버튼을 찾게 된다
+        rerollCountText.gameObject.SetActive(fixedPick == null);
+
+        if (fixedPick == null) RefreshRerollButtons();
 
         return true;
     }

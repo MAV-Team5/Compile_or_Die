@@ -20,14 +20,8 @@ public class LevelSystem : MonoBehaviour
 
     public int RequiredExp => baseRequired + growthPerLevel * (Level - 1);
 
-    /// <summary>하드웨어(RAM)가 올리는 경험치 배율. 1이면 보정 없음. HardwareLoader 가 채운다.</summary>
-    public float ExpMultiplier { get; set; } = 1f;
-
-    /// <summary>
-    /// 배율을 곱하고 남은 소수. 매번 버리면 <b>+5% 가 영영 한 번도 안 붙는다</b> —
-    /// 경험치 1짜리 적을 1.05 로 받아도 내림하면 계속 1이기 때문이다.
-    /// </summary>
-    float expCarry;
+    // 경험치에는 배율 보정을 걸지 않는다. 적이 떨구는 값이 대개 한 자리라
+    // +10% 만 걸어도 반올림 때문에 두 배로 뛴다. RAM 은 쿨타임으로 옮겼다
 
     /// <summary>(레벨, 현재 경험치, 필요 경험치)</summary>
     public event System.Action<int, int, int> ExpChanged;
@@ -39,7 +33,7 @@ public class LevelSystem : MonoBehaviour
     {
         if (amount <= 0) return;
 
-        CurrentExp += Boosted(amount);
+        CurrentExp += amount;
 
         while (CurrentExp >= RequiredExp)
         {
@@ -56,17 +50,17 @@ public class LevelSystem : MonoBehaviour
         ExpChanged?.Invoke(Level, CurrentExp, RequiredExp);
     }
 
-    /// <summary>배율을 먹인 실제 획득량. 남은 소수는 다음 획득으로 넘긴다.</summary>
-    int Boosted(int amount)
+    /// <summary>
+    /// 레벨과 무관하게 증강 선택 기회만 더한다. 런 시작 선택지가 쓴다.
+    ///
+    /// 레벨을 올리지 않는 것이 요점이다 — 시작 선택을 레벨업으로 처리하면
+    /// 아직 아무것도 안 했는데 Lv 3 으로 시작하고, 다음 레벨까지 필요한 경험치도 같이 뛴다.
+    /// </summary>
+    public void AddPendingSelection(int count)
     {
-        if (Mathf.Approximately(ExpMultiplier, 1f)) return amount;
+        if (count <= 0) return;
 
-        float scaled = amount * ExpMultiplier + expCarry;
-        int whole = Mathf.FloorToInt(scaled);
-
-        expCarry = scaled - whole;
-
-        return whole;
+        PendingLevelUps += count;
     }
 
     /// <summary>증강 선택 1회가 끝날 때 소비한다.</summary>

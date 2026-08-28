@@ -22,8 +22,14 @@ public class HardwareBonus : MonoBehaviour
     /// </summary>
     public static float DamageMultiplier { get; private set; } = 1f;
 
-    /// <summary>런 시작 시 추가로 받는 증강 수. 메인보드.</summary>
-    public static int ExtraStartingAugments { get; private set; }
+    /// <summary>
+    /// 런 시작 시 추가로 도는 증강 선택 횟수. 메인보드.
+    ///
+    /// 예전에는 여기서 몰래 뽑아 그냥 줬는데, 그러면 무엇을 받았는지 모른 채 시작한다.
+    /// 지금은 레벨업과 똑같은 3택 화면이 이 횟수만큼 뜬다 —
+    /// 업그레이드한 보람이 화면에 보여야 상점에 돌아올 이유가 생긴다.
+    /// </summary>
+    public static int ExtraStartRounds { get; private set; }
 
     [Tooltip("＊ 필수 — 부품별 상승폭과 값이 적힌 표. 비우면 하드웨어가 전혀 반영되지 않는다.")]
     [SerializeField] HardwareTable table;
@@ -34,14 +40,14 @@ public class HardwareBonus : MonoBehaviour
     /// <summary>
     /// 남이 읽어가는 값만 먼저 정한다. 표와 세이브만 보면 되는 계산이라 씬 순서를 안 탄다.
     ///
-    /// AugmentManager 가 Start 에서 <see cref="ExtraStartingAugments"/> 를 읽으므로
+    /// AugmentSelectUI 가 Start 에서 <see cref="ExtraStartRounds"/> 를 읽으므로
     /// 이 몫은 반드시 Awake 에 있어야 한다 — Start 끼리는 순서가 보장되지 않는다.
     /// </summary>
     void Awake()
     {
         // 씬을 다시 시작해도 지난 런 값이 남지 않게 먼저 비운다
         DamageMultiplier = 1f;
-        ExtraStartingAugments = 0;
+        ExtraStartRounds = 0;
 
         if (table == null)
         {
@@ -50,7 +56,7 @@ public class HardwareBonus : MonoBehaviour
         }
 
         DamageMultiplier = 1f + BonusOf(HardwareKind.Power);
-        ExtraStartingAugments = Mathf.RoundToInt(BonusOf(HardwareKind.Mainboard));
+        ExtraStartRounds = Mathf.RoundToInt(BonusOf(HardwareKind.Mainboard));
     }
 
     /// <summary>

@@ -10,7 +10,7 @@ public class GridRender : MonoBehaviour
     //float cellSize = 1f;
     int step = 8;
 
-    int range = 32; // 화면 밖 여유 범위
+    int range = 48; // 화면 밖 여유 범위
 
     private List<LineRenderer> lines = new List<LineRenderer>();
 
