@@ -25,7 +25,9 @@ public static class SfxPlayer
         lastPlayed[clip] = now;
 
         Ensure();
-        source.PlayOneShot(clip, volume);
+
+        // 전역 효과음 볼륨을 여기서 한 번만 곱한다. 부르는 쪽은 자기 소리의 상대 크기만 알면 된다
+        source.PlayOneShot(clip, volume * SoundSettings.SfxScale);
     }
 
     static void Ensure()

@@ -37,5 +37,8 @@ public enum UiCue
     CardPick,
 
     /// <summary>리롤했다.</summary>
-    Reroll
+    Reroll,
+
+    /// <summary>슬라이더를 끌거나 값이 한 칸 움직였다. 짧고 작아야 한다.</summary>
+    Tick
 }
