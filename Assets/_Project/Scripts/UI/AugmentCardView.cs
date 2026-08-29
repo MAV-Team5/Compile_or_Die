@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -9,8 +10,12 @@ using UnityEngine.UI;
 /// 밖에서 받는다 — 그래야 카드 아트가 나왔을 때 이 파일만 프리팹 방식으로 갈아끼우면 된다.
 ///
 /// 코드로 조립하지만 MonoBehaviour 라서, 나중에 프리팹을 만들고 슬롯만 물려도 그대로 돈다.
+///
+/// <b>연출은 전부 실제 시간으로 잰다.</b> 이 화면이 떠 있는 동안 게임은 멈춰 있어서
+/// <c>Time.deltaTime</c> 이 0이다 — 그걸 쓰면 애니메이션이 영영 시작되지 않는다.
 /// </summary>
-public class AugmentCardView : MonoBehaviour
+public class AugmentCardView : MonoBehaviour,
+    IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
     /// <summary>카드 한 장을 그리는 데 필요한 치수. 부모가 정한다.</summary>
     public struct Layout
@@ -62,10 +67,35 @@ public class AugmentCardView : MonoBehaviour
     public Button Reroll => reroll;
 
     RectTransform root;
+    CanvasGroup group;
 
     UiTheme theme;
     Layout layout;
     float spinTime;
+
+    // ── 연출 ──────────────────────────────────────────────
+
+    /// <summary>커서를 올렸을 때 커지는 배율.</summary>
+    const float HoverScale = 1.04f;
+
+    /// <summary>크기가 따라붙는 속도. 클수록 딱딱하게 붙는다.</summary>
+    const float ScaleSpeed = 14f;
+
+    /// <summary><see cref="PlaceAt"/> 이 정한 제자리. 등장 연출이 여기로 올라온다.</summary>
+    Vector2 restPosition;
+
+    bool over;
+    bool selected;
+
+    /// <summary>
+    /// 제어권이 있는 장치의 신호만 본다 — 둘을 더하면 커서가 올라간 카드와
+    /// 방향키가 고른 카드가 동시에 커져서, Enter 가 어느 쪽을 누를지 알 수 없다.
+    ///
+    /// 크기는 <see cref="Update"/> 가 매 프레임 따라가므로 제어권이 바뀌면 저절로 맞춰진다.
+    /// </summary>
+    bool Focused => UiFocus.MouseDriving ? over : selected;
+
+    Coroutine appearing;
 
     /// <summary>이 카드가 실제로 차지하는 크기. 프리팹에서 키웠으면 그 값이 나온다.</summary>
     public Vector2 Size => root != null ? root.rect.size : layout.CardSize;
@@ -272,7 +302,129 @@ public class AugmentCardView : MonoBehaviour
 
     public void Show(bool on) => gameObject.SetActive(on);
 
-    public void PlaceAt(float x) => root.anchoredPosition = new Vector2(x, 0f);
+    /// <summary>
+    /// 꺼질 때 연출 상태를 되돌린다.
+    ///
+    /// 등장 도중에 꺼지면 코루틴이 멈춘 자리에서 끝나므로, 그대로 두면
+    /// <b>다음에 켤 때 투명하거나 어긋난 자리에서 시작</b>한다.
+    /// </summary>
+    void OnDisable()
+    {
+        UiFocus.ReportHover(gameObject, false);
+
+        appearing = null;
+        over = false;
+        selected = false;
+
+        transform.localScale = Vector3.one;
+
+        if (group != null) group.alpha = 1f;
+    }
+
+    public void PlaceAt(float x)
+    {
+        restPosition = new Vector2(x, 0f);
+        root.anchoredPosition = restPosition;
+    }
+
+    // ── 연출 ──────────────────────────────────────────────
+
+    /// <summary>
+    /// 아래에서 올라오며 나타난다. 카드마다 <paramref name="delay"/> 를 어긋나게 주면
+    /// 세 장이 차례로 뽑히는 것처럼 읽힌다 — 한꺼번에 뜨면 그냥 화면이 바뀐 것으로 보인다.
+    /// </summary>
+    public void PlayAppear(float delay, float duration, float rise)
+    {
+        if (appearing != null) StopCoroutine(appearing);
+
+        appearing = StartCoroutine(Appear(delay, duration, rise));
+    }
+
+    System.Collections.IEnumerator Appear(float delay, float duration, float rise)
+    {
+        Group().alpha = 0f;
+        root.anchoredPosition = restPosition + new Vector2(0f, -rise);
+
+        for (float t = 0f; t < delay; t += Time.unscaledDeltaTime) yield return null;
+
+        UiSound.Play(UiCue.CardAppear);
+
+        for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+        {
+            // 끝에서 부드럽게 멎는다. 등속이면 툭 멈춘 것처럼 보인다
+            float k = 1f - Mathf.Pow(1f - Mathf.Clamp01(t / duration), 3f);
+
+            group.alpha = k;
+            root.anchoredPosition = restPosition + new Vector2(0f, -rise * (1f - k));
+
+            yield return null;
+        }
+
+        group.alpha = 1f;
+        root.anchoredPosition = restPosition;
+
+        appearing = null;
+    }
+
+    void Update()
+    {
+        // 커졌다 작아지는 것만 매 프레임 따라간다. 멈춘 화면이라 실제 시간으로
+        float target = Focused ? HoverScale : 1f;
+
+        transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * target,
+                                            1f - Mathf.Exp(-ScaleSpeed * Time.unscaledDeltaTime));
+    }
+
+    // 마우스 호버와 키보드 포커스를 같은 사건으로 본다 — NeonTextButton 과 같은 규칙
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UiFocus.ReportHover(gameObject, true);
+
+        SetOver(true);
+
+        // 커서를 올린 카드를 곧바로 선택해 둔다. 화면에서 커진 카드와 Enter 가 고르는 카드를 맞춘다
+        if (choose != null && choose.IsInteractable() && EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(gameObject);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UiFocus.ReportHover(gameObject, false);
+
+        SetOver(false);
+    }
+    public void OnSelect(BaseEventData eventData) => SetSelected(true);
+    public void OnDeselect(BaseEventData eventData) => SetSelected(false);
+
+    void SetOver(bool value)
+    {
+        if (over == value) return;
+
+        bool was = Focused;
+        over = value;
+
+        if (Focused && !was) UiSound.Play(UiCue.Hover);
+    }
+
+    void SetSelected(bool value)
+    {
+        if (selected == value) return;
+
+        bool was = Focused;
+        selected = value;
+
+        if (Focused && !was) UiSound.Play(UiCue.Hover);
+    }
+
+    /// <summary>알파를 만지려면 CanvasGroup 이 필요하다. 프리팹에 없으면 여기서 붙인다.</summary>
+    CanvasGroup Group()
+    {
+        if (group == null && !TryGetComponent(out group))
+            group = gameObject.AddComponent<CanvasGroup>();
+
+        return group;
+    }
 
     /// <summary>카드에 증강 하나를 싣는다.</summary>
     public void Fill(AugmentData data, AugmentManager owned)

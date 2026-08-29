@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -49,6 +50,17 @@ public class AugmentSelectUI : MonoBehaviour
 
     [SerializeField] float cardGap = 110f;
 
+    [Header("등장 연출")]
+    [Tooltip("카드 한 장이 올라오는 데 걸리는 시간(초).")]
+    [Min(0f)] [SerializeField] float appearTime = 0.22f;
+
+    [Tooltip("카드 사이의 시작 간격(초). 0이면 세 장이 한꺼번에 뜬다 —\n" +
+             "어긋나게 줘야 \"차례로 뽑힌다\"로 읽힌다.")]
+    [Min(0f)] [SerializeField] float appearStagger = 0.07f;
+
+    [Tooltip("얼마나 아래에서 올라올지(px).")]
+    [Min(0f)] [SerializeField] float appearRise = 90f;
+
     RectTransform overlay;
     TMP_Text headerText;
     TMP_Text rerollCountText;
@@ -85,6 +97,9 @@ public class AugmentSelectUI : MonoBehaviour
     LevelSystem levelSystem;
     UiTheme theme;
     bool open;
+
+    /// <summary>이번 라운드에 실제로 깔린 카드 수. 등장 연출이 이만큼만 돌린다.</summary>
+    int activeCount;
 
     /// <summary>보유 증강 아이콘 줄. 선택 화면 위로 올려 마우스를 받게 한다.</summary>
     AugmentHud hud;
@@ -206,6 +221,11 @@ public class AugmentSelectUI : MonoBehaviour
         overlay.SetAsLastSibling();
         overlay.gameObject.SetActive(true);
 
+        UiSound.Play(UiCue.LevelUp);
+
+        // 반드시 SetActive 뒤에 — 꺼진 오브젝트에서는 코루틴이 시작되지 않는다
+        PlayIntro();
+
         // 어둠 위로 아이콘 줄을 올린다. 무엇을 갖고 있는지 보면서 골라야 하고,
         // 밑에 깔려 있으면 오버레이가 마우스를 가로채 툴팁이 안 뜬다
         if (hud != null) hud.BringToFront();
@@ -214,10 +234,32 @@ public class AugmentSelectUI : MonoBehaviour
         if (UIManager.Current != null) UIManager.Current.Open(UIManager.Screen.AugmentSelect);
     }
 
+    /// <summary>
+    /// 카드를 차례로 띄운다.
+    ///
+    /// 여기서 포커스를 잡지는 않는다 — 마우스로 고르는 사람에게 카드 하나가 미리
+    /// 밝아져 있으면 그게 이미 골라진 것인지 헷갈린다. 방향키를 누르면 그때 나타난다
+    /// (<see cref="UiFocus"/>).
+    /// </summary>
+    void PlayIntro()
+    {
+        for (int i = 0; i < activeCount && i < cards.Count; i++)
+            cards[i].PlayAppear(appearStagger * i, appearTime, appearRise);
+    }
+
+    void Update()
+    {
+        // 카드가 깔려 있을 때만. 안 그러면 화면 밖에서 방향키를 눌러도 카드가 선택된다
+        if (open) UiFocus.Tick(overlay);
+    }
+
     void Close()
     {
         open = false;
         overlay.gameObject.SetActive(false);
+
+        // 사라진 카드가 선택된 채로 남으면 그때부터 방향키가 통째로 먹통이 된다
+        if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
 
         if (UIManager.Current != null) UIManager.Current.Close(UIManager.Screen.AugmentSelect);
     }
@@ -225,6 +267,8 @@ public class AugmentSelectUI : MonoBehaviour
     void OnCardClicked(AugmentCardView card)
     {
         if (card.Data == null) return;
+
+        UiSound.Play(UiCue.CardPick);
 
         // 이번 라운드가 확정 라운드였다면 이 클릭으로 소진된다.
         // Roll 이 Peek 으로 깔았고 그 사이에 큐를 건드리는 곳이 없으므로 맨 앞이 곧 이 카드다
@@ -238,7 +282,11 @@ public class AugmentSelectUI : MonoBehaviour
         levelSystem.ConsumePendingLevelUp();
 
         // 레벨업이 쌓여 있으면 닫지 않고 다음 선택지를 바로 깐다
-        if (levelSystem.PendingLevelUps > 0 && Roll()) return;
+        if (levelSystem.PendingLevelUps > 0 && Roll())
+        {
+            PlayIntro();
+            return;
+        }
 
         Close();
     }
@@ -304,6 +352,8 @@ public class AugmentSelectUI : MonoBehaviour
             if (count == 0) return false;
         }
 
+        activeCount = count;
+
         for (int i = 0; i < cards.Count; i++)
         {
             bool active = i < count;
@@ -353,7 +403,13 @@ public class AugmentSelectUI : MonoBehaviour
         if (picked == null) return;   // 버튼이 이미 잠겨 있어야 정상이라 안전장치용
 
         // 보유량을 먼저 깎는다. 실패하면 아무것도 안 바꾼 채로 끝나야 한다
-        if (RunDirector.Current == null || !RunDirector.Current.TrySpendReroll()) return;
+        if (RunDirector.Current == null || !RunDirector.Current.TrySpendReroll())
+        {
+            UiSound.Play(UiCue.Denied);
+            return;
+        }
+
+        UiSound.Play(UiCue.Reroll);
 
         // 버린 것을 기억해 둔다. 다른 칸을 리롤해도 되돌아오지 않게
         rejected.Add(shown[index]);

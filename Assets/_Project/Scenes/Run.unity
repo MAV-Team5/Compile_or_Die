@@ -1303,6 +1303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8cd5447141cae740976774a9cc19915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPanel
+  firstSelected: {fileID: 0}
+  takeFocus: 1
 --- !u!114 &584302721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2899,6 +2901,9 @@ MonoBehaviour:
   choiceCount: 3
   cardSize: {x: 640, y: 1100}
   cardGap: 110
+  appearTime: 0.22
+  appearStagger: 0.07
+  appearRise: 90
 --- !u!1 &1456463137
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,7 +3478,7 @@ MonoBehaviour:
   holdTime: 0.25
   fadeTime: 0.35
   hitParameter: Stop
-  retriggerInterval: 1
+  retriggerInterval: 0.75
   animatorDriver: {fileID: 1900000006}
 --- !u!1 &1928696516
 GameObject:
