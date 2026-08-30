@@ -8880,7 +8880,7 @@ MonoBehaviour:
     percent: 0.9
   - kind: 2
     add: 0
-    percent: 0.4
+    percent: 0
 --- !u!114 &1900000009
 MonoBehaviour:
   m_ObjectHideFlags: 0
