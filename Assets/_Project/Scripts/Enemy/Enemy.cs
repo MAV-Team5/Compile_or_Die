@@ -172,6 +172,10 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         if (source != null && source.bits > 0 && RunDirector.Current != null)
             RunDirector.Current.AddBits(source.bits);
 
+        // 소리도 적이 정한다. 잡몹과 보스가 같은 소리로 죽으면 무게가 안 실린다
+        if (source != null)
+            SfxPlayer.PlayAny(source.deathClips, source.deathVolume, source.deathInterval);
+
         if (LogManager.Instance != null)
         {
             // 문구도 종류도 적이 정한다. 잡몹과 보스가 같은 말투로 죽으면 무게가 안 실린다

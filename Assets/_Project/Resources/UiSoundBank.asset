@@ -15,10 +15,44 @@ MonoBehaviour:
   entries:
   - cue: 0
     clips:
-    - {fileID: 8300000, guid: 8f30ac777377f3642a6605b8c3170ba6, type: 3}
-    - {fileID: 8300000, guid: 5fb5076d599098341a850d3fcb71484a, type: 3}
-    - {fileID: 8300000, guid: 9191c3f0aa5f83b498da2653551518bd, type: 3}
-    - {fileID: 8300000, guid: db4561db865c151438bab12ea94290f2, type: 3}
-    - {fileID: 8300000, guid: 77e39ab3a0ee6a94596938841b80f9fe, type: 3}
-    volume: 1
+    - {fileID: 8300000, guid: 99e37baf8dd3f3e4abde9a329fb8c272, type: 3}
+    - {fileID: 8300000, guid: 9aa4b6bd579d53644afdbaa25e326fab, type: 3}
+    - {fileID: 8300000, guid: 871171dafc0a89848a4e5a947ccb53df, type: 3}
+    - {fileID: 8300000, guid: 00863e96d38c5b54785ae0758113846e, type: 3}
+    volume: 0.5
     minInterval: 0.06
+  - cue: 1
+    clips:
+    - {fileID: 8300000, guid: 5fb5076d599098341a850d3fcb71484a, type: 3}
+    volume: 0.5
+    minInterval: 0.06
+  - cue: 6
+    clips:
+    - {fileID: 8300000, guid: 50f496a309519104ba695767dccfff3c, type: 3}
+    volume: 0.5
+    minInterval: 0.06
+  - cue: 7
+    clips:
+    - {fileID: 8300000, guid: 1e2c1b5063bf0ed4ea20b7da9ad5cb9f, type: 3}
+    volume: 0.5
+    minInterval: 0.1
+  - cue: 8
+    clips:
+    - {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
+    volume: 0.5
+    minInterval: 0.4
+  - cue: 9
+    clips:
+    - {fileID: 8300000, guid: c66c87a4bf0131f44997d52619175e59, type: 3}
+    volume: 0.5
+    minInterval: 0.06
+  - cue: 10
+    clips:
+    - {fileID: 8300000, guid: 9f9b21a311cb8e044a35981f06d06805, type: 3}
+    volume: 0.5
+    minInterval: 0.06
+  - cue: 11
+    clips:
+    - {fileID: 8300000, guid: 06cdccde388c49c4e895dd7220bf2abd, type: 3}
+    volume: 0.5
+    minInterval: 1

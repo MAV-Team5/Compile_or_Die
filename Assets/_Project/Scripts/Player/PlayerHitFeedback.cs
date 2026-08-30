@@ -35,6 +35,13 @@ public class PlayerHitFeedback : MonoBehaviour
     [Tooltip("그 뒤 서서히 꺼지는 시간. 0이면 즉시 꺼진다.")]
     [Min(0f)] [SerializeField] float fadeTime = 0.35f;
 
+    [Header("소리")]
+    [Tooltip("피격음. 여러 개 넣으면 매번 하나를 랜덤으로 고른다.\n" +
+             "이 게임은 계속 맞기 때문에 같은 소리만 반복되면 빨리 피곤해진다.")]
+    [SerializeField] AudioClip[] hitClips;
+
+    [Range(0f, 1f)] [SerializeField] float hitVolume = 0.7f;
+
     [Header("애니메이션")]
     [Tooltip("비우면 애니메이션은 건드리지 않는다.")]
     [SerializeField] string hitParameter = "Stop";
@@ -74,6 +81,11 @@ public class PlayerHitFeedback : MonoBehaviour
 
         if (animatorDriver != null && !string.IsNullOrEmpty(hitParameter))
             animatorDriver.SetMotion(hitParameter, 1f);
+
+        // 애니메이션과 같은 게이트 안에 둔다. "방금 맞았다" 는 한 사건이므로
+        // 화면과 소리가 따로 놀면 안 되고, 간격을 조절하면 둘이 같이 조절돼야 한다.
+        // 적과 겹쳐 있는 것이 기본인 장르라 게이트가 없으면 런 내내 울린다
+        SfxPlayer.PlayAny(hitClips, hitVolume, retriggerInterval);
     }
 
     void Update()

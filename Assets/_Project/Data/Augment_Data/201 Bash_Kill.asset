@@ -19,16 +19,18 @@ MonoBehaviour:
   category: 3
   icon: {fileID: 21300000, guid: ae7785f19cc193a4d9ab24c58d63be2e, type: 3}
   descriptionTemplate: "\uC5F0\uC1C4 \uD6A8\uACFC \uAC00\uC7A5 \uB9C8\uC9C0\uB9C9
-    \uC801\uC911 \uB300\uC0C1\uC5D0\uAC8C \uAC15\uB825\uD55C \uCD94\uAC00 \uD53C\uD574"
+    \uC801\uC911 \uB300\uC0C1\uC5D0\uAC8C \uAC15\uB825\uD55C \uCD94\uAC00 \uD53C\uD574\uAC00
+    \uD55C\uBC88 \uB354 \uBC1C\uC0DD.\n\uCD94\uAC00 \uB370\uBBF8\uC9C0\t: {damage
+    * 100}%"
   rootAugment: {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
-  requiredRootLevel: 2
+  requiredRootLevel: 5
   extensionSlot: KILL
-  bonusIsPercent: 1
+  bonusIsPercent: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
-  - damage: 0
+  - damage: 1
     effectDamage: 0
     cooldown: 0
     range: 0
@@ -45,6 +47,7 @@ MonoBehaviour:
   deliveries: []
   effects:
   - rid: 980040411806957679
+  - rid: 980040481484308602
   instantEffect: 0
   instantValue: 0
   instantDuration: 0
@@ -56,10 +59,16 @@ MonoBehaviour:
     - rid: 980040411806957679
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damageScale: 1.3
+        damageScale: 1
         accentText: 1
         textStyle:
           color: {r: 1, g: 0, b: 0, a: 1}
           scale: 2
           riseSpeed: 1.5
           offset: {x: 0.3, y: 0.7}
+    - rid: 980040481484308602
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 1e2c1b5063bf0ed4ea20b7da9ad5cb9f, type: 3}
+        volume: 0.2
+        minInterval: 0

@@ -1320,7 +1320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelSystem
   baseRequired: 1
-  growthPerLevel: 1
+  growthPerLevel: 2
 --- !u!1 &296892101
 GameObject:
   m_ObjectHideFlags: 0
@@ -6915,6 +6915,9 @@ MonoBehaviour:
   appearRise: 200
   hoverScale: 1.2
   hoverSpeed: 10
+  pickTime: 0.2
+  pickPunch: 1.4
+  dimFadeTime: 0.2
 --- !u!1 &1443318907
 GameObject:
   m_ObjectHideFlags: 0
@@ -8874,22 +8877,10 @@ MonoBehaviour:
   startingBonuses:
   - kind: 0
     add: 0
-    percent: 0
-  - kind: 1
-    add: 0
-    percent: 0
+    percent: 0.9
   - kind: 2
     add: 0
-    percent: 0
-  - kind: 3
-    add: 0
-    percent: 0
-  - kind: 4
-    add: 0
-    percent: 0
-  - kind: 5
-    add: 0
-    percent: 0
+    percent: 0.4
 --- !u!114 &1900000009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8923,6 +8914,9 @@ MonoBehaviour:
   pulsesPerSecond: 6
   holdTime: 0.25
   fadeTime: 0.35
+  hitClips:
+  - {fileID: 8300000, guid: afe141b75d199a24d9258c6c62aebb24, type: 3}
+  hitVolume: 0.2
   hitParameter: Stop
   retriggerInterval: 0.75
   animatorDriver: {fileID: 1900000006}
@@ -9231,8 +9225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2958ba232209241b5859e80f5929b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BgmSource
-  clip: {fileID: 0}
-  volume: 1
+  clip: {fileID: 8300000, guid: c79bc3ed7734de24bb8d9c8c814cc958, type: 3}
+  volume: 0.1
   takeOver: 1
 --- !u!1 &2002346252
 GameObject:

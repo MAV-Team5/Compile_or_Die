@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 006 BruteForce
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: BRUTE_FORCE
   displayName: BruteForce
@@ -22,6 +22,11 @@ MonoBehaviour:
     {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC94\uC704\t: {effectRange}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
+  extensionSlot: 
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
   levelStats:
   - damage: 6
     effectDamage: 0
@@ -154,11 +159,13 @@ MonoBehaviour:
           color: {r: 1, g: 1, b: 1, a: 1}
           scale: 1
           riseSpeed: 1.5
+          offset: {x: 0, y: 0}
     - rid: 980040160363151492
       type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
       data:
-        clip: {fileID: 8300000, guid: dc0b3228654fb2445b9ee0b24c254df1, type: 3}
-        volume: 0.541
+        clip: {fileID: 8300000, guid: 4de4cd1123d643e44a40314ebdbc3bb6, type: 3}
+        volume: 0.05
+        minInterval: 0.13
     - rid: 980040206240448610
       type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
       data:
@@ -174,8 +181,8 @@ MonoBehaviour:
           vfx: {fileID: 0}
           vfxScale: 1
           scaleWithRange: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
+          sfx: {fileID: 8300000, guid: 4de4cd1123d643e44a40314ebdbc3bb6, type: 3}
+          sfxVolume: 0.2
           attachToSource: 0
           motionParameter: 
           motionValue: 1

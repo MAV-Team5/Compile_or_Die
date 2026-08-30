@@ -67,6 +67,17 @@ public class AugmentSelectUI : MonoBehaviour
     [Tooltip("그 크기로 따라붙는 속도. 크면 딱 붙고 작으면 물렁하게 따라온다.")]
     [Min(1f)] [SerializeField] float hoverSpeed = 14f;
 
+    [Header("선택 반응")]
+    [Tooltip("고른 뒤 다음 라운드나 닫기까지 기다리는 시간(초). 0이면 예전처럼 즉시 넘어간다.")]
+    [Min(0f)] [SerializeField] float pickTime = 0.28f;
+
+    [Tooltip("고른 카드가 부푸는 크기.")]
+    [Range(1f, 1.5f)] [SerializeField] float pickPunch = 1.18f;
+
+    [Header("배경 어둠")]
+    [Tooltip("화면이 어두워지는 데 걸리는 시간(초). 0이면 즉시.")]
+    [Min(0f)] [SerializeField] float dimFadeTime = 0.18f;
+
     RectTransform overlay;
     TMP_Text headerText;
     TMP_Text rerollCountText;
@@ -106,6 +117,15 @@ public class AugmentSelectUI : MonoBehaviour
 
     /// <summary>이번 라운드에 실제로 깔린 카드 수. 등장 연출이 이만큼만 돌린다.</summary>
     int activeCount;
+
+    /// <summary>배경 어둠. 알파를 페이드하려고 들고 있는다.</summary>
+    Image dimImage;
+
+    /// <summary>어둠이 다 깔렸을 때의 알파. 조립할 때 정해진 값을 기억해 둔다.</summary>
+    float dimAlpha;
+
+    /// <summary>선택 반응이 도는 중. 그동안 두 번 눌리는 것을 막는다.</summary>
+    bool picking;
 
     /// <summary>보유 증강 아이콘 줄. 선택 화면 위로 올려 마우스를 받게 한다.</summary>
     AugmentHud hud;
@@ -230,6 +250,9 @@ public class AugmentSelectUI : MonoBehaviour
         UiSound.Play(UiCue.LevelUp);
 
         // 반드시 SetActive 뒤에 — 꺼진 오브젝트에서는 코루틴이 시작되지 않는다
+        SetDim(0f);
+        StartCoroutine(FadeDim(0f, dimAlpha, dimFadeTime));
+
         PlayIntro();
 
         // 어둠 위로 아이콘 줄을 올린다. 무엇을 갖고 있는지 보면서 골라야 하고,
@@ -253,6 +276,39 @@ public class AugmentSelectUI : MonoBehaviour
             cards[i].PlayAppear(appearStagger * i, appearTime, appearRise);
     }
 
+    // ── 배경 어둠 ─────────────────────────────────────────
+
+    /// <summary>
+    /// 화면이 어두워지는 것도 시간을 들인다. 즉시 깔리면 화면이 툭 끊긴 것처럼 보이고,
+    /// 카드가 올라오는 연출과 따로 노는 느낌이 든다.
+    /// </summary>
+    System.Collections.IEnumerator FadeDim(float from, float to, float duration)
+    {
+        if (dimImage == null) yield break;
+
+        if (duration <= 0f)
+        {
+            SetDim(to);
+            yield break;
+        }
+
+        for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+        {
+            SetDim(Mathf.Lerp(from, to, Mathf.Clamp01(t / duration)));
+            yield return null;
+        }
+
+        SetDim(to);
+    }
+
+    void SetDim(float alpha)
+    {
+        if (dimImage == null) return;
+
+        Color c = dimImage.color;
+        dimImage.color = new Color(c.r, c.g, c.b, alpha);
+    }
+
     void Update()
     {
         // 카드가 깔려 있을 때만. 안 그러면 화면 밖에서 방향키를 눌러도 카드가 선택된다
@@ -274,6 +330,22 @@ public class AugmentSelectUI : MonoBehaviour
     {
         if (card.Data == null) return;
 
+        // 연출이 도는 동안 다른 카드가 눌리면 증강을 두 개 받는다
+        if (picking) return;
+
+        StartCoroutine(Pick(card));
+    }
+
+    /// <summary>
+    /// 고른 카드가 부풀고 나머지는 빠진다. 그 뒤에 실제 지급과 다음 라운드로 넘어간다.
+    ///
+    /// <b>지급을 연출 뒤로 미루지 않는다.</b> 화면이 도는 동안에도 증강은 이미 내 것이어야
+    /// 중간에 무슨 일이 생겨도 어긋나지 않는다. 미루는 것은 "다음 화면" 뿐이다.
+    /// </summary>
+    System.Collections.IEnumerator Pick(AugmentCardView card)
+    {
+        picking = true;
+
         UiSound.Play(UiCue.CardPick);
 
         // 이번 라운드가 확정 라운드였다면 이 클릭으로 소진된다.
@@ -287,11 +359,31 @@ public class AugmentSelectUI : MonoBehaviour
 
         levelSystem.ConsumePendingLevelUp();
 
-        // 레벨업이 쌓여 있으면 닫지 않고 다음 선택지를 바로 깐다
+        // 고른 것은 부풀고 나머지는 빠진다 — 눈이 고른 쪽으로 간다
+        for (int i = 0; i < cards.Count; i++)
+        {
+            if (!cards[i].IsShown) continue;
+
+            if (cards[i] == card) cards[i].PlayPicked(pickTime, pickPunch);
+            else cards[i].PlayDismiss(pickTime);
+        }
+
+        bool more = levelSystem.PendingLevelUps > 0;
+
+        // 닫을 거라면 어둠도 같이 걷는다. 카드만 사라지고 화면이 어두운 채로 남으면 어색하다
+        if (!more) StartCoroutine(FadeDim(dimAlpha, 0f, pickTime));
+
+        for (float t = 0f; t < pickTime; t += Time.unscaledDeltaTime) yield return null;
+
+        picking = false;
+
+        // 기다리는 동안 레벨이 또 올랐을 수 있다. 여기서 다시 본다 —
+        // 위에서 잰 값만 믿으면 그 레벨업이 영영 소비되지 않고 남는다
         if (levelSystem.PendingLevelUps > 0 && Roll())
         {
+            SetDim(dimAlpha);
             PlayIntro();
-            return;
+            yield break;
         }
 
         Close();
@@ -464,6 +556,9 @@ public class AugmentSelectUI : MonoBehaviour
         Image dim = UiFactory.CreateImage("AugmentSelect", canvas.transform,
                                           UiTheme.Fade(theme.background, 0.88f));
         dim.raycastTarget = true;   // 뒤쪽 UI 클릭 차단
+
+        dimImage = dim;
+        dimAlpha = dim.color.a;
 
         overlay = (RectTransform)dim.transform;
         UiFactory.Stretch(overlay, Vector2.zero, Vector2.one);

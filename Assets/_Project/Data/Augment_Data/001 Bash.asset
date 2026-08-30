@@ -164,8 +164,8 @@ MonoBehaviour:
           vfx: {fileID: 0}
           vfxScale: 1
           scaleWithRange: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
+          sfx: {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
+          sfxVolume: 0.2
           attachToSource: 0
           motionParameter: 
           motionValue: 1
@@ -266,11 +266,13 @@ MonoBehaviour:
       data:
         clip: {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
         volume: 0.2
+        minInterval: 0
     - rid: 980040160363151490
       type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
       data:
         clip: {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
         volume: 0.2
+        minInterval: 0
     - rid: 980040411806957678
       type: {class: ExtensionEffect, ns: , asm: Assembly-CSharp}
       data:
