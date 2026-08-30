@@ -33,6 +33,10 @@ public enum UiCue
     /// <summary>증강 카드 한 장이 나타났다. 여러 장이면 차례로 울린다.</summary>
     CardAppear,
 
+    /// <summary>증강 카드 위에 커서나 포커스가 왔다. 버튼 호버와 다른 소리를 쓴다 —
+    /// 카드는 메뉴가 아니라 이 게임의 알맹이라 같은 소리면 무게가 안 실린다.</summary>
+    CardHover,
+
     /// <summary>증강을 골랐다.</summary>
     CardPick,
 

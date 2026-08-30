@@ -23,6 +23,12 @@ public class AugmentCardView : MonoBehaviour,
         public Vector2 CardSize;
         public float ButtonSize;
         public float IconSize;
+
+        /// <summary>커서를 올렸을 때 커지는 배율. 0이면 기본값.</summary>
+        public float HoverScale;
+
+        /// <summary>그 크기로 따라붙는 속도. 클수록 딱딱하게 붙는다. 0이면 기본값.</summary>
+        public float HoverSpeed;
     }
 
     /// <summary>리롤 버튼이 왜 잠겼는지. 글자를 고르는 데만 쓴다.</summary>
@@ -75,11 +81,12 @@ public class AugmentCardView : MonoBehaviour,
 
     // ── 연출 ──────────────────────────────────────────────
 
-    /// <summary>커서를 올렸을 때 커지는 배율.</summary>
-    const float HoverScale = 1.04f;
+    /// <summary>Layout 에 값이 안 들어왔을 때 쓸 기본. 0이면 카드가 사라져 버린다.</summary>
+    const float DefaultHoverScale = 1.04f;
+    const float DefaultScaleSpeed = 14f;
 
-    /// <summary>크기가 따라붙는 속도. 클수록 딱딱하게 붙는다.</summary>
-    const float ScaleSpeed = 14f;
+    float HoverScale => layout.HoverScale > 0f ? layout.HoverScale : DefaultHoverScale;
+    float ScaleSpeed => layout.HoverSpeed > 0f ? layout.HoverSpeed : DefaultScaleSpeed;
 
     /// <summary><see cref="PlaceAt"/> 이 정한 제자리. 등장 연출이 여기로 올라온다.</summary>
     Vector2 restPosition;
@@ -404,7 +411,7 @@ public class AugmentCardView : MonoBehaviour,
         bool was = Focused;
         over = value;
 
-        if (Focused && !was) UiSound.Play(UiCue.Hover);
+        if (Focused && !was) UiSound.Play(UiCue.CardHover);
     }
 
     void SetSelected(bool value)
@@ -414,7 +421,7 @@ public class AugmentCardView : MonoBehaviour,
         bool was = Focused;
         selected = value;
 
-        if (Focused && !was) UiSound.Play(UiCue.Hover);
+        if (Focused && !was) UiSound.Play(UiCue.CardHover);
     }
 
     /// <summary>알파를 만지려면 CanvasGroup 이 필요하다. 프리팹에 없으면 여기서 붙인다.</summary>
@@ -443,6 +450,8 @@ public class AugmentCardView : MonoBehaviour,
 
         categoryText.text = $"[ {CategoryLabel(data.category)} ]";
         categoryText.color = theme.ColorOf(data.category);
+
+        TintBorder(theme.ColorOf(data.category));
 
         if (data.instantEffect != InstantItemEffect.None)
         {

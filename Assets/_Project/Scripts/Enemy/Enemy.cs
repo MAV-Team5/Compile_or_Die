@@ -11,12 +11,12 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     // 넉백 직후 스스로 못 움직이는 시간
     float moveSuppressRemain;
 
-    public float speed;
-    public float health;
-    public float maxHealth;
+    private float speed;
+    private float health;
+    private float maxHealth;
 
     /// <summary>플레이어와 닿아 있는 동안 초당 주는 피해.</summary>
-    public float contactDamage = 10f;
+    public float contactDamage = 1f;
     public Rigidbody2D target;
     bool isLive;
 

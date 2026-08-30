@@ -61,6 +61,12 @@ public class AugmentSelectUI : MonoBehaviour
     [Tooltip("얼마나 아래에서 올라올지(px).")]
     [Min(0f)] [SerializeField] float appearRise = 90f;
 
+    [Tooltip("커서를 올렸을 때 카드가 커지는 배율. 1이면 안 커진다.")]
+    [Range(1f, 1.3f)] [SerializeField] float hoverScale = 1.04f;
+
+    [Tooltip("그 크기로 따라붙는 속도. 크면 딱 붙고 작으면 물렁하게 따라온다.")]
+    [Min(1f)] [SerializeField] float hoverSpeed = 14f;
+
     RectTransform overlay;
     TMP_Text headerText;
     TMP_Text rerollCountText;
@@ -466,7 +472,9 @@ public class AugmentSelectUI : MonoBehaviour
         {
             CardSize = cardSize,
             ButtonSize = rerollButtonSize,
-            IconSize = rerollIconSize
+            IconSize = rerollIconSize,
+            HoverScale = hoverScale,
+            HoverSpeed = hoverSpeed
         };
 
         // 카드를 먼저 만든다. 머리글·남은 수의 자리가 카드 크기를 따라가기 때문
