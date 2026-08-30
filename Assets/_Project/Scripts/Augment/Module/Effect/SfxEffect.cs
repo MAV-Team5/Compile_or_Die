@@ -14,6 +14,11 @@ public class SfxEffect : EffectModule
 
     [Range(0f, 1f)] public float volume = 1f;
 
+    [Tooltip("같은 소리를 다시 내기까지의 최소 간격(초). 0이면 기본값 0.05.\n\n" +
+             "＊ 이 효과는 적중한 대상마다 불린다. 광역이 열 명을 맞히면 열 번 불리므로,\n" +
+             "  관통이나 광역 증강은 0.12 쯤으로 늘려야 시끄럽지 않다.")]
+    [Min(0f)] public float minInterval = 0f;
+
     public override void Apply(AugmentContext ctx, HitInfo hit)
-        => SfxPlayer.Play(clip, volume);
+        => SfxPlayer.Play(clip, volume, minInterval);
 }

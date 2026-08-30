@@ -13,17 +13,16 @@ MonoBehaviour:
   m_Name: 003 SemiColon
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   displayName: semicolon
-  prefab: {fileID: 0}
+  prefab: {fileID: 3469445803652378370, guid: 4c959a3372fa5af46866819769b7d705, type: 3}
   rank: 0
   health: 10
   speed: 2
   contactDamage: 10
   scale: 1
   animatorOverride: {fileID: 0}
-  flipToFace: 1
+  flipToFace: 0
   spawnMessage: 
   killMessages:
   - Clear {name}
   killLog: 1
-  exp: 1
   bits: 0

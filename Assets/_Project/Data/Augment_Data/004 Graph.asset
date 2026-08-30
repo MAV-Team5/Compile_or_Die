@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 004 Graph
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: GRAPH
   displayName: Graph
@@ -26,6 +26,11 @@ MonoBehaviour:
     {range}\n\uAC04\uC120 \uAE38\uC774\t: {effectRange}\n\uAE4A\uC774\t: {pierce}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
+  extensionSlot: 
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
   levelStats:
   - damage: 0
     effectDamage: 0.2
@@ -164,6 +169,7 @@ MonoBehaviour:
         linkRange:
           value: 0
           scale: 1
+        stretchLimit: 2
         maxChildren: 0
         maxLinksPerNode: 4
         allowCycles: 0
@@ -172,8 +178,8 @@ MonoBehaviour:
           vfx: {fileID: 0}
           vfxScale: 1
           scaleWithRange: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
+          sfx: {fileID: 8300000, guid: 58f49e719437cc148919859d9e7d1510, type: 3}
+          sfxVolume: 0.2
           attachToSource: 0
           motionParameter: 
           motionValue: 1

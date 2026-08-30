@@ -69,6 +69,18 @@ public class EnemyData : ScriptableObject
              "잡몹은 Combat, 보스는 System 이 어울린다.")]
     public GameLogType killLog = GameLogType.Combat;
 
+    [Header("처치 소리")]
+    [Tooltip("죽을 때 낼 소리. 여러 개 넣으면 매번 하나를 랜덤으로 고른다.\n" +
+             "잡몹은 초당 수십 마리가 죽으므로 변형이 없으면 금방 귀에 박힌다.")]
+    public AudioClip[] deathClips;
+
+    [Range(0f, 1f)] public float deathVolume = 0.5f;
+
+    [Tooltip("같은 소리를 다시 내기까지의 최소 간격(초). 0이면 기본값 0.05.\n\n" +
+             "＊ 잡몹은 0.08 쯤으로 늘리는 편이 낫다 — 한꺼번에 죽을 때 소리가 뭉개진다.\n" +
+             "  보스는 0으로 두어 반드시 들리게 한다.")]
+    [Min(0f)] public float deathInterval = 0f;
+
     [Header("보상")]
     // 경험치는 여기 없다. 무엇을 얼마나 떨굴지는 StageWave 가 정한다 —
     // 같은 적이라도 웨이브마다 다른 오브를 떨궈야 하기 때문

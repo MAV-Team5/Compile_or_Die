@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 002 DFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: DFS
   displayName: DFS
@@ -25,6 +25,11 @@ MonoBehaviour:
     \uAC70\uB9AC\t: {range}\n"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
+  extensionSlot: 
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
   levelStats:
   - damage: 0
     effectDamage: 0.2
@@ -159,8 +164,8 @@ MonoBehaviour:
           vfx: {fileID: 0}
           vfxScale: 1
           scaleWithRange: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
+          sfx: {fileID: 8300000, guid: 0aa57d6d9bdf78245b1d5b92dde4239f, type: 3}
+          sfxVolume: 0.2
           attachToSource: 0
           motionParameter: 
           motionValue: 1
@@ -275,6 +280,7 @@ MonoBehaviour:
       data:
         clip: {fileID: 8300000, guid: 9191c3f0aa5f83b498da2653551518bd, type: 3}
         volume: 1
+        minInterval: 0
     - rid: 980040206240448588
       type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
       data:

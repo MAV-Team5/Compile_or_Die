@@ -14,6 +14,17 @@ public class ExpMove : MonoBehaviour
 
     public FxGroup fxG = new();
 
+    [Header("획득 소리")]
+    [Tooltip("여러 개 넣으면 매번 하나를 랜덤으로 고른다. 비우면 소리가 안 난다.")]
+    [SerializeField] AudioClip[] pickupClips;
+
+    [Range(0f, 1f)] [SerializeField] float pickupVolume = 0.35f;
+
+    [Tooltip("최소 간격(초). ＊ 이걸 짧게 두면 안 된다 —\n" +
+             "자석 범위에 들어오면 오브 수십 개가 한꺼번에 빨려와서 소리가 폭발한다.\n" +
+             "0.08 쯤이면 여러 개를 먹어도 \"드르륵\" 한 번으로 들린다.")]
+    [Min(0f)] [SerializeField] float pickupInterval = 0.08f;
+
     void Start()
     {
         player = GameManager.instance.player;
@@ -58,6 +69,9 @@ public class ExpMove : MonoBehaviour
 
         GameManager.instance.player.GetExp(exp);
         fxG.PlayAt(Vector2.zero);
+
+        SfxPlayer.PlayAny(pickupClips, pickupVolume, pickupInterval);
+
         gameObject.SetActive(false);
     }
 }

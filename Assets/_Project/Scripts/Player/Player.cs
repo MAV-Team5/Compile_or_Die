@@ -3,22 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// 플레이어 본체. 입력을 받아 움직이는 일만 한다.
+///
+/// <b>인스펙터에 조절할 칸이 없다.</b> 능력치는 <see cref="CharacterData"/> 가 갖고 있고
+/// <see cref="PlayerSetup"/> 이 Awake 에서 깔아준다. 씬에 칸을 두면 매 런 덮어쓰이는 값을
+/// 고치고 왜 안 바뀌냐고 묻게 된다.
+/// </summary>
 public class Player : MonoBehaviour, IFacingProvider
 {
     // 캐릭터 비주얼을 붙이는 일은 PlayerSetup 이 한다 —
     // 어떤 캐릭터인지는 CharacterData 가 정하므로 여기서 알 필요가 없다
 
-    public Vector2 inputVec;
+    /// <summary>이번 프레임의 입력. PlayerInput 이 채운다.</summary>
+    [System.NonSerialized] public Vector2 inputVec;
+
+    /// <summary>이동속도. PlayerSetup 이 캐릭터 값으로 깔고 하드웨어가 그 위에 곱한다.</summary>
+    [System.NonSerialized] public float speed;
+
+    /// <summary>경험치를 끌어당기는 반경. 출처는 speed 와 같다.</summary>
+    [System.NonSerialized] public float pickupRange;
+
+    /// <summary>주변 적 탐색기. Awake 에서 잡는다.</summary>
+    [System.NonSerialized] public Scanner scanner;
 
     /// <summary>마지막으로 향했던 방향. 손을 떼도 유지된다. 증강이 이 방향으로 발동한다.</summary>
     Vector2 facing = Vector2.right;
 
     public Vector2 Facing => facing;
-    public float speed;
-    public Scanner scanner;
 
-
-    public float pickupRange;
     Rigidbody2D rigid;
 
     // 0xCAFE 같은 한시적 이동속도 버프. 배율 하나만 유지하면 되니 스택 없이 덮어쓴다
