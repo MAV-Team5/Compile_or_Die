@@ -1,0 +1,2591 @@
+fileFormatVersion: 2
+guid: c9f8ec1cd5486374184774e757d54123
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 73958632324409469
+    second: ShapesBlackSoft_0
+  - first:
+      213: -3083004777881181445
+    second: ShapesBlackSoft_1
+  - first:
+      213: 4937767453454077619
+    second: ShapesBlackSoft_2
+  - first:
+      213: 7234437563621874332
+    second: ShapesBlackSoft_3
+  - first:
+      213: -3652800975123326183
+    second: ShapesBlackSoft_4
+  - first:
+      213: 6325492502115613228
+    second: ShapesBlackSoft_5
+  - first:
+      213: -8044151740353441687
+    second: ShapesBlackSoft_6
+  - first:
+      213: -5190237510118447577
+    second: ShapesBlackSoft_7
+  - first:
+      213: 550106996260062488
+    second: ShapesBlackSoft_8
+  - first:
+      213: 6244838035342910619
+    second: ShapesBlackSoft_9
+  - first:
+      213: -1232922032244701249
+    second: ShapesBlackSoft_10
+  - first:
+      213: 1224598884865708495
+    second: ShapesBlackSoft_11
+  - first:
+      213: 4865415045166714471
+    second: ShapesBlackSoft_12
+  - first:
+      213: -4361543332987522409
+    second: ShapesBlackSoft_13
+  - first:
+      213: -378151215281557105
+    second: ShapesBlackSoft_14
+  - first:
+      213: 5791986508908795376
+    second: ShapesBlackSoft_15
+  - first:
+      213: 5056957096970748011
+    second: ShapesBlackSoft_16
+  - first:
+      213: -7435498375711667478
+    second: ShapesBlackSoft_17
+  - first:
+      213: 144010570762479271
+    second: ShapesBlackSoft_18
+  - first:
+      213: 1613306499343539180
+    second: ShapesBlackSoft_19
+  - first:
+      213: -5139309461898052621
+    second: ShapesBlackSoft_20
+  - first:
+      213: -789146525107220580
+    second: ShapesBlackSoft_21
+  - first:
+      213: -2235771729946081224
+    second: ShapesBlackSoft_22
+  - first:
+      213: -8569426486435666565
+    second: ShapesBlackSoft_23
+  - first:
+      213: 4846705839886765266
+    second: ShapesBlackSoft_24
+  - first:
+      213: -6076098095395712290
+    second: ShapesBlackSoft_25
+  - first:
+      213: 7550839173901102145
+    second: ShapesBlackSoft_26
+  - first:
+      213: 5512951651202595233
+    second: ShapesBlackSoft_27
+  - first:
+      213: -1549155931547034336
+    second: ShapesBlackSoft_28
+  - first:
+      213: 4734682168255476666
+    second: ShapesBlackSoft_29
+  - first:
+      213: -9071568857986572266
+    second: ShapesBlackSoft_30
+  - first:
+      213: -8053364442146668250
+    second: ShapesBlackSoft_31
+  - first:
+      213: 2346332484583035374
+    second: ShapesBlackSoft_32
+  - first:
+      213: 1568203875369767936
+    second: ShapesBlackSoft_33
+  - first:
+      213: 8528058495162189595
+    second: ShapesBlackSoft_34
+  - first:
+      213: 483850683172254026
+    second: ShapesBlackSoft_35
+  - first:
+      213: 7472005741092559958
+    second: ShapesBlackSoft_36
+  - first:
+      213: -4237537809595876993
+    second: ShapesBlackSoft_37
+  - first:
+      213: -4010848742982380858
+    second: ShapesBlackSoft_38
+  - first:
+      213: -6179768258434146474
+    second: ShapesBlackSoft_39
+  - first:
+      213: 3302589794476064169
+    second: ShapesBlackSoft_40
+  - first:
+      213: 5341951884314347845
+    second: ShapesBlackSoft_41
+  - first:
+      213: -6758882280269477016
+    second: ShapesBlackSoft_42
+  - first:
+      213: 9024962005801684944
+    second: ShapesBlackSoft_43
+  - first:
+      213: 8245540826388385392
+    second: ShapesBlackSoft_44
+  - first:
+      213: 1813687069489418719
+    second: ShapesBlackSoft_45
+  - first:
+      213: 2977590195437497857
+    second: ShapesBlackSoft_46
+  - first:
+      213: -4677568995638593732
+    second: ShapesBlackSoft_47
+  - first:
+      213: -280907615409533934
+    second: ShapesBlackSoft_48
+  - first:
+      213: 2750956827045217331
+    second: ShapesBlackSoft_49
+  - first:
+      213: -7944353715140794448
+    second: ShapesBlackSoft_50
+  - first:
+      213: -4275862999564932505
+    second: ShapesBlackSoft_51
+  - first:
+      213: 999220757427389049
+    second: ShapesBlackSoft_52
+  - first:
+      213: 709356892739751485
+    second: ShapesBlackSoft_53
+  - first:
+      213: 2883037313100281280
+    second: ShapesBlackSoft_54
+  - first:
+      213: -5624938689585649895
+    second: ShapesBlackSoft_55
+  - first:
+      213: -1123553411877675161
+    second: ShapesBlackSoft_56
+  - first:
+      213: 6832866782408417432
+    second: ShapesBlackSoft_57
+  - first:
+      213: -4014068572783012083
+    second: ShapesBlackSoft_58
+  - first:
+      213: -5644539095409642279
+    second: ShapesBlackSoft_59
+  - first:
+      213: 2408051374002366944
+    second: ShapesBlackSoft_60
+  - first:
+      213: 8061673609594417797
+    second: ShapesBlackSoft_61
+  - first:
+      213: -6466450260343395455
+    second: ShapesBlackSoft_62
+  - first:
+      213: -233252432933767105
+    second: ShapesBlackSoft_63
+  - first:
+      213: -9203026503128882938
+    second: ShapesBlackSoft_64
+  - first:
+      213: 4699445795882957086
+    second: ShapesBlackSoft_65
+  - first:
+      213: 493130739083880889
+    second: ShapesBlackSoft_66
+  - first:
+      213: 3193030652523246797
+    second: ShapesBlackSoft_67
+  - first:
+      213: -1577648208729086434
+    second: ShapesBlackSoft_68
+  - first:
+      213: 2038964260476724485
+    second: ShapesBlackSoft_69
+  - first:
+      213: -6520851799480673552
+    second: ShapesBlackSoft_70
+  - first:
+      213: -7105263751823690545
+    second: ShapesBlackSoft_71
+  - first:
+      213: 725223780023957050
+    second: ShapesBlackSoft_72
+  - first:
+      213: 1174520453365474438
+    second: ShapesBlackSoft_73
+  - first:
+      213: 2500516568391436555
+    second: ShapesBlackSoft_74
+  - first:
+      213: -2010634359979540383
+    second: ShapesBlackSoft_75
+  - first:
+      213: 5168033284714791327
+    second: ShapesBlackSoft_76
+  - first:
+      213: -3829965065585486770
+    second: ShapesBlackSoft_77
+  - first:
+      213: -5375672297218188793
+    second: ShapesBlackSoft_78
+  - first:
+      213: -4338740641431068162
+    second: ShapesBlackSoft_79
+  - first:
+      213: 198381752466017099
+    second: ShapesBlackSoft_80
+  - first:
+      213: 9031403233396383275
+    second: ShapesBlackSoft_81
+  - first:
+      213: -2280159882866313386
+    second: ShapesBlackSoft_82
+  - first:
+      213: 3365772864378617027
+    second: ShapesBlackSoft_83
+  - first:
+      213: 6395751804379752018
+    second: ShapesBlackSoft_84
+  - first:
+      213: -2039254676296444908
+    second: ShapesBlackSoft_85
+  - first:
+      213: -5118215109445439205
+    second: ShapesBlackSoft_86
+  - first:
+      213: -9180990436075593249
+    second: ShapesBlackSoft_87
+  - first:
+      213: -5791136411383356573
+    second: ShapesBlackSoft_88
+  - first:
+      213: 2229903716656632893
+    second: ShapesBlackSoft_89
+  - first:
+      213: -588429087974078304
+    second: ShapesBlackSoft_90
+  - first:
+      213: 3101521856404490215
+    second: ShapesBlackSoft_91
+  - first:
+      213: -2485001533860273635
+    second: ShapesBlackSoft_92
+  - first:
+      213: -6480455546753047744
+    second: ShapesBlackSoft_93
+  - first:
+      213: 1872753144345277363
+    second: ShapesBlackSoft_94
+  - first:
+      213: -3840652576053997494
+    second: ShapesBlackSoft_95
+  - first:
+      213: 7265955166774321099
+    second: ShapesBlackSoft_96
+  - first:
+      213: 6841497544178402242
+    second: ShapesBlackSoft_97
+  - first:
+      213: -4504587034122566820
+    second: ShapesBlackSoft_98
+  - first:
+      213: 7395449567454177478
+    second: ShapesBlackSoft_99
+  - first:
+      213: 6234673887776306616
+    second: ShapesBlackSoft_100
+  - first:
+      213: 3742530589995362738
+    second: ShapesBlackSoft_101
+  - first:
+      213: 6815335561472960712
+    second: ShapesBlackSoft_102
+  - first:
+      213: 8739889850606962342
+    second: ShapesBlackSoft_103
+  - first:
+      213: 9100098964523212210
+    second: ShapesBlackSoft_104
+  - first:
+      213: -4667273694863806731
+    second: ShapesBlackSoft_105
+  - first:
+      213: -8479153938397485341
+    second: ShapesBlackSoft_106
+  - first:
+      213: -3203583096732211152
+    second: ShapesBlackSoft_107
+  - first:
+      213: 1700477929709525615
+    second: ShapesBlackSoft_108
+  - first:
+      213: -3117524750910603786
+    second: ShapesBlackSoft_109
+  - first:
+      213: -178303460792188804
+    second: ShapesBlackSoft_110
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ShapesBlackSoft_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7825c7fbf0c60100800000000000000
+      internalID: 73958632324409469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf26f8d2d77f635d0800000000000000
+      internalID: -3083004777881181445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be8d966659768440800000000000000
+      internalID: 4937767453454077619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9a9c6962a2e56460800000000000000
+      internalID: 7234437563621874332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91bd292ddd4ae4dc0800000000000000
+      internalID: -3652800975123326183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2a7ff1bae9a8c750800000000000000
+      internalID: 6325492502115613228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96094e4ac9e6d5090800000000000000
+      internalID: -8044151740353441687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7266b7dcb7298f7b0800000000000000
+      internalID: -5190237510118447577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 815c984066f52a700800000000000000
+      internalID: 550106996260062488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_9
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9466784b1f1aa650800000000000000
+      internalID: 6244838035342910619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb74d48a1f7c3eee0800000000000000
+      internalID: -1232922032244701249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc192c49236aef010800000000000000
+      internalID: 1224598884865708495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_12
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76ec00c943d658340800000000000000
+      internalID: 4865415045166714471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_13
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7923ec4727fa873c0800000000000000
+      internalID: -4361543332987522409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_14
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f81b2c5297980caf0800000000000000
+      internalID: -378151215281557105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_15
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f51d57ea05416050800000000000000
+      internalID: 5791986508908795376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_16
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b600551dfabed2640800000000000000
+      internalID: 5056957096970748011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_17
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aea46bb4f9dcfc890800000000000000
+      internalID: -7435498375711667478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_18
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a6e232e9d0aff100800000000000000
+      internalID: 144010570762479271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_19
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb5337a6bd936610800000000000000
+      internalID: 1613306499343539180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fb33cc06418da8b0800000000000000
+      internalID: -5139309461898052621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_21
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9f004f9a636c05f0800000000000000
+      internalID: -789146525107220580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_22
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83804bd0571f8f0e0800000000000000
+      internalID: -2235771729946081224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_23
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b75ad2b6308431980800000000000000
+      internalID: -8569426486435666565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_24
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dc034d4845f24340800000000000000
+      internalID: 4846705839886765266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_25
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed2d28b89fc5daba0800000000000000
+      internalID: -6076098095395712290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_26
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14caa7cf838f9c860800000000000000
+      internalID: 7550839173901102145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_27
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a975d16150f18c40800000000000000
+      internalID: 5512951651202595233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_28
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02d137653ea408ae0800000000000000
+      internalID: -1549155931547034336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_29
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab37e3bb858f4b140800000000000000
+      internalID: 4734682168255476666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 610e638df205b1280800000000000000
+      internalID: -9071568857986572266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_31
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 621061b55b3bc3090800000000000000
+      internalID: -8053364442146668250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_32
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee1188c96f8df8020800000000000000
+      internalID: 2346332484583035374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_33
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0045ecead1163c510800000000000000
+      internalID: 1568203875369767936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_34
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1705eb8400c95670800000000000000
+      internalID: 8528058495162189595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_35
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a41ffcef1abf6b600800000000000000
+      internalID: 483850683172254026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_36
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65c508512a5e1b760800000000000000
+      internalID: 7472005741092559958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_37
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7930c840dd3135c0800000000000000
+      internalID: -4237537809595876993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_38
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c296b2915a9658c0800000000000000
+      internalID: -4010848742982380858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_39
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65f5cc1c28d0d3aa0800000000000000
+      internalID: -6179768258434146474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ad73929be725dd20800000000000000
+      internalID: 3302589794476064169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_41
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54909c79fec622a40800000000000000
+      internalID: 5341951884314347845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_42
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86b0bdd4060a332a0800000000000000
+      internalID: -6758882280269477016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_43
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dfc433c02b1f3d70800000000000000
+      internalID: 9024962005801684944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_44
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e4cd1e1bb0e6270800000000000000
+      internalID: 8245540826388385392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_45
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd1d2a6c7c28b2910800000000000000
+      internalID: 1813687069489418719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_46
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10eecbdb186825920800000000000000
+      internalID: 2977590195437497857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_47
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c37b49208cfe51fb0800000000000000
+      internalID: -4677568995638593732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_48
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21c00d813040a1cf0800000000000000
+      internalID: -280907615409533934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_49
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3344774b8ac5d2620800000000000000
+      internalID: 2750956827045217331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b76af6136cffb190800000000000000
+      internalID: -7944353715140794448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_51
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76a22b2a14519a4c0800000000000000
+      internalID: -4275862999564932505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_52
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97208aa1cf1fddd00800000000000000
+      internalID: 999220757427389049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_53
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3e4abae55428d900800000000000000
+      internalID: 709356892739751485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_54
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c5f989492b920820800000000000000
+      internalID: 2883037313100281280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_55
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91765e3601430f1b0800000000000000
+      internalID: -5624938689585649895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_56
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76f5adeef165860f0800000000000000
+      internalID: -1123553411877675161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_57
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8902503f22833de50800000000000000
+      internalID: 6832866782408417432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_58
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d07953786e92b48c0800000000000000
+      internalID: -4014068572783012083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_59
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d4bd4949919aa1b0800000000000000
+      internalID: -5644539095409642279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e96d4c57fd1b6120800000000000000
+      internalID: 2408051374002366944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_61
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58234037f61d0ef60800000000000000
+      internalID: 8061673609594417797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_62
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18bef7abfbd8246a0800000000000000
+      internalID: -6466450260343395455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_63
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f38bcf7e52253ccf0800000000000000
+      internalID: -233252432933767105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_64
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6016f76b728484080800000000000000
+      internalID: -9203026503128882938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_65
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e197ec87d09c73140800000000000000
+      internalID: 4699445795882957086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_66
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b9abe26bc3f7d600800000000000000
+      internalID: 493130739083880889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_67
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc4f498067cef4c20800000000000000
+      internalID: 3193030652523246797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_68
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e16eb2a10511b1ae0800000000000000
+      internalID: -1577648208729086434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_69
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 505ae67213bdb4c10800000000000000
+      internalID: 2038964260476724485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_70
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fadcfa56d74185a0800000000000000
+      internalID: -6520851799480673552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_71
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc4f6155348056d90800000000000000
+      internalID: -7105263751823690545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_72
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a367efe7f23801a00800000000000000
+      internalID: 725223780023957050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_73
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 684a744212cbc4010800000000000000
+      internalID: 1174520453365474438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_74
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0943f5129e93b220800000000000000
+      internalID: 2500516568391436555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_75
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1608930d3bac814e0800000000000000
+      internalID: -2010634359979540383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_76
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9102da14ea88b740800000000000000
+      internalID: 5168033284714791327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_77
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e441f9b901b39dac0800000000000000
+      internalID: -3829965065585486770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_78
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70ad667f686c565b0800000000000000
+      internalID: -5375672297218188793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_79
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef163fecf52b9c3c0800000000000000
+      internalID: -4338740641431068162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b08ad172bc0c200800000000000000
+      internalID: 198381752466017099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_81
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2ed7ede36df55d70800000000000000
+      internalID: 9031403233396383275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_82
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65738a6daae3b50e0800000000000000
+      internalID: -2280159882866313386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_83
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ccbfe76690a5be20800000000000000
+      internalID: 3365772864378617027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_84
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2566e93416642c850800000000000000
+      internalID: 6395751804379752018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_85
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 414dbc42dac13b3e0800000000000000
+      internalID: -2039254676296444908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_86
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b11b775b97278f8b0800000000000000
+      internalID: -5118215109445439205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_87
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd1a47367d1969080800000000000000
+      internalID: -9180990436075593249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_88
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3632aa9dd10c1afa0800000000000000
+      internalID: -5791136411383356573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_89
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3454a2ad9532fe10800000000000000
+      internalID: 2229903716656632893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_90
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a84cc3bcda75d7f0800000000000000
+      internalID: -588429087974078304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_91
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e7891222b1da0b20800000000000000
+      internalID: 3101521856404490215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapesBlackSoft_92
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1225f36540838dd0800000000000000
+      internalID: -2485001533860273635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: af00e09cad1d1564285232306ae5360a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      ShapesBlackSoft_0: 73958632324409469
+      ShapesBlackSoft_1: -3083004777881181445
+      ShapesBlackSoft_10: -1232922032244701249
+      ShapesBlackSoft_11: 1224598884865708495
+      ShapesBlackSoft_12: 4865415045166714471
+      ShapesBlackSoft_13: -4361543332987522409
+      ShapesBlackSoft_14: -378151215281557105
+      ShapesBlackSoft_15: 5791986508908795376
+      ShapesBlackSoft_16: 5056957096970748011
+      ShapesBlackSoft_17: -7435498375711667478
+      ShapesBlackSoft_18: 144010570762479271
+      ShapesBlackSoft_19: 1613306499343539180
+      ShapesBlackSoft_2: 4937767453454077619
+      ShapesBlackSoft_20: -5139309461898052621
+      ShapesBlackSoft_21: -789146525107220580
+      ShapesBlackSoft_22: -2235771729946081224
+      ShapesBlackSoft_23: -8569426486435666565
+      ShapesBlackSoft_24: 4846705839886765266
+      ShapesBlackSoft_25: -6076098095395712290
+      ShapesBlackSoft_26: 7550839173901102145
+      ShapesBlackSoft_27: 5512951651202595233
+      ShapesBlackSoft_28: -1549155931547034336
+      ShapesBlackSoft_29: 4734682168255476666
+      ShapesBlackSoft_3: 7234437563621874332
+      ShapesBlackSoft_30: -9071568857986572266
+      ShapesBlackSoft_31: -8053364442146668250
+      ShapesBlackSoft_32: 2346332484583035374
+      ShapesBlackSoft_33: 1568203875369767936
+      ShapesBlackSoft_34: 8528058495162189595
+      ShapesBlackSoft_35: 483850683172254026
+      ShapesBlackSoft_36: 7472005741092559958
+      ShapesBlackSoft_37: -4237537809595876993
+      ShapesBlackSoft_38: -4010848742982380858
+      ShapesBlackSoft_39: -6179768258434146474
+      ShapesBlackSoft_4: -3652800975123326183
+      ShapesBlackSoft_40: 3302589794476064169
+      ShapesBlackSoft_41: 5341951884314347845
+      ShapesBlackSoft_42: -6758882280269477016
+      ShapesBlackSoft_43: 9024962005801684944
+      ShapesBlackSoft_44: 8245540826388385392
+      ShapesBlackSoft_45: 1813687069489418719
+      ShapesBlackSoft_46: 2977590195437497857
+      ShapesBlackSoft_47: -4677568995638593732
+      ShapesBlackSoft_48: -280907615409533934
+      ShapesBlackSoft_49: 2750956827045217331
+      ShapesBlackSoft_5: 6325492502115613228
+      ShapesBlackSoft_50: -7944353715140794448
+      ShapesBlackSoft_51: -4275862999564932505
+      ShapesBlackSoft_52: 999220757427389049
+      ShapesBlackSoft_53: 709356892739751485
+      ShapesBlackSoft_54: 2883037313100281280
+      ShapesBlackSoft_55: -5624938689585649895
+      ShapesBlackSoft_56: -1123553411877675161
+      ShapesBlackSoft_57: 6832866782408417432
+      ShapesBlackSoft_58: -4014068572783012083
+      ShapesBlackSoft_59: -5644539095409642279
+      ShapesBlackSoft_6: -8044151740353441687
+      ShapesBlackSoft_60: 2408051374002366944
+      ShapesBlackSoft_61: 8061673609594417797
+      ShapesBlackSoft_62: -6466450260343395455
+      ShapesBlackSoft_63: -233252432933767105
+      ShapesBlackSoft_64: -9203026503128882938
+      ShapesBlackSoft_65: 4699445795882957086
+      ShapesBlackSoft_66: 493130739083880889
+      ShapesBlackSoft_67: 3193030652523246797
+      ShapesBlackSoft_68: -1577648208729086434
+      ShapesBlackSoft_69: 2038964260476724485
+      ShapesBlackSoft_7: -5190237510118447577
+      ShapesBlackSoft_70: -6520851799480673552
+      ShapesBlackSoft_71: -7105263751823690545
+      ShapesBlackSoft_72: 725223780023957050
+      ShapesBlackSoft_73: 1174520453365474438
+      ShapesBlackSoft_74: 2500516568391436555
+      ShapesBlackSoft_75: -2010634359979540383
+      ShapesBlackSoft_76: 5168033284714791327
+      ShapesBlackSoft_77: -3829965065585486770
+      ShapesBlackSoft_78: -5375672297218188793
+      ShapesBlackSoft_79: -4338740641431068162
+      ShapesBlackSoft_8: 550106996260062488
+      ShapesBlackSoft_80: 198381752466017099
+      ShapesBlackSoft_81: 9031403233396383275
+      ShapesBlackSoft_82: -2280159882866313386
+      ShapesBlackSoft_83: 3365772864378617027
+      ShapesBlackSoft_84: 6395751804379752018
+      ShapesBlackSoft_85: -2039254676296444908
+      ShapesBlackSoft_86: -5118215109445439205
+      ShapesBlackSoft_87: -9180990436075593249
+      ShapesBlackSoft_88: -5791136411383356573
+      ShapesBlackSoft_89: 2229903716656632893
+      ShapesBlackSoft_9: 6244838035342910619
+      ShapesBlackSoft_90: -588429087974078304
+      ShapesBlackSoft_91: 3101521856404490215
+      ShapesBlackSoft_92: -2485001533860273635
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

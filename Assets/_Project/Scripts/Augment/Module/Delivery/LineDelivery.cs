@@ -1,0 +1,114 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// 원점에서 타겟 방향으로 직선 판정. 비행 없이 한 프레임에 선상 전체를 관통한다.
+/// Java JIT 레이저 · C 포인터 전용.
+/// </summary>
+[System.Serializable]
+[ModuleInfo("원점에서 직선 관통", "한 프레임에 선상 전체를 훑는다")]
+public class LineDelivery : DeliveryModule
+{
+    [Header("레이저")]
+    [Required("판정은 나가지만 레이저가 보이지 않는다")]
+    [Tooltip("레이저 본체 프리팹. BeamVisual 컴포넌트가 붙어 있으면 길이·굵기·페이드를 알아서 맞춘다.")]
+    public GameObject beamPrefab;
+
+    [Tooltip("레이저 굵기(유닛). 시트와 무관한 고정값. 이 폭 안에 걸친 적이 전부 맞는다.")]
+    public float width = 0.6f;
+
+    [Tooltip("레이저 길이(유닛). 비워두면 타겟팅이 정한 사거리를 쓴다.\n" +
+             "배수만 주면 그 사거리에 비례한다.")]
+    public Scalable length = Scalable.Ratio(1f);
+
+    [Sheet("관통력")]
+    [Tooltip("최대 관통 수. 0 × 1 이면 시트 그대로, 0 × 2 면 두 배.\n" +
+             "시트도 0이면 선상 전부를 맞힌다.")]
+    public Scalable maxHits = Scalable.Ratio(1f);
+
+    [Detail]
+    [Tooltip("켜면 타겟마다 따로 쏜다. 끄면 첫 타겟 방향으로 한 줄만.")]
+    public bool beamPerTarget = false;
+
+    [Fx("발사 연출", "발사 원점")]
+    public FxGroup fireFx = new();
+
+    public override void Execute(AugmentContext ctx, System.Action<HitInfo> onHit)
+    {
+        Vector2 origin = ctx.Owner.position;
+        float beamLength = length.Of(ctx.EffectiveRange);
+
+        if (beamLength <= 0f || width <= 0f) return;
+
+        // 타겟 목록을 먼저 복사한다. 아래 판정이 공용 버퍼를 덮어쓰기 때문
+        List<TargetRef> targets = new(ctx.Targets.Items);
+        int index = 0;
+
+        for (int t = 0; t < targets.Count; t++)
+        {
+            Vector2 delta = targets[t].Position - origin;
+            if (delta.sqrMagnitude < 0.0001f) continue;
+
+            Fire(ctx, origin, Aim(delta.normalized), beamLength, ref index, onHit);
+
+            if (!beamPerTarget) return;
+        }
+    }
+
+    void Fire(AugmentContext ctx, Vector2 origin, Vector2 dir, float length,
+              ref int index, System.Action<HitInfo> onHit)
+    {
+        SpawnBeam(ctx, origin, dir, length);
+        fireFx.PlayAt(origin, dir, width, ctx.Owner);
+
+        // 원점에서 dir 방향으로 뻗은 직사각형 안의 적을 한 번에 잡는다
+        Vector2 center = origin + dir * (length * 0.5f);
+        Vector2 size = new(width, length);
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+
+        List<Transform> ordered = new();
+        TargetQuery.OverlapBoxInto(center, size, angle, ctx.Owner, ordered);
+
+        // 가까운 순으로 관통 순서를 만든다
+        ordered.Sort((a, b) =>
+            ((Vector2)a.position - origin).sqrMagnitude
+            .CompareTo(((Vector2)b.position - origin).sqrMagnitude));
+
+        int limit = maxHits.IntOf(ctx.Stat.pierce, ordered.Count);
+
+        for (int i = 0; i < ordered.Count && i < limit; i++)
+        {
+            onHit(new HitInfo
+            {
+                Target    = ordered[i],
+                Point     = ordered[i].position,
+                Index     = index++,
+                Direction = dir
+            });
+        }
+    }
+
+    /// <summary>레이저 본체를 띄운다. 연출이 아니라 이 모듈의 결과물이다.</summary>
+    void SpawnBeam(AugmentContext ctx, Vector2 origin, Vector2 dir, float length)
+    {
+        if (beamPrefab == null) return;
+
+        GameObject go = PooledSpawner.Spawn(beamPrefab, origin, PoolType.Bullet);
+
+        if (go.TryGetComponent(out BeamVisual beam))
+        {
+            beam.Play(origin, dir, length, width);
+            return;
+        }
+
+        // BeamVisual 이 없는 프리팹도 일단 보이게는 해준다. 위치와 회전만 맞추고 짧게 정리
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+
+        go.transform.SetPositionAndRotation(
+            origin + dir * (length * 0.5f), Quaternion.Euler(0f, 0f, angle));
+
+        // BeamVisual 이 없으면 수명을 관리할 주체가 없다. 프리팹에 FxAutoDespawn 을 붙일 것
+        ModuleWarning.Once(ctx, "빔 프리팹에 BeamVisual 이 없습니다. " +
+                                "FxAutoDespawn 이라도 붙여야 선이 안 쌓입니다");
+    }
+}

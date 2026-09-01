@@ -1,0 +1,26 @@
+using UnityEngine;
+
+/// <summary>한 타겟에 여러 발을 쏠 때의 배치 설정.</summary>
+[System.Serializable]
+public class MultiShot
+{
+    [Sheet("수량")]
+    [Tooltip("타겟 1명당 몇 발.\n" +
+             "0 × 1 이면 시트 그대로, 0 × 2 면 시트의 두 배 — 레벨업을 따라간다.")]
+    public Scalable shotsPerTarget = Scalable.Ratio(1f);
+
+    [Tooltip("여러 발을 어떻게 배치할지. 나란히 또는 줄줄이.")]
+    public ShotFormation formation = ShotFormation.Parallel;
+
+    [Tooltip("발 사이 간격(유닛). 0이면 한 자리에서 겹쳐 나간다.")]
+    public float spacing = 0.4f;
+
+    [Tooltip("발 사이 각도(도). 0이면 완전히 평행, 값을 주면 부채꼴로 퍼진다.")]
+    public float spreadPerShot = 0f;
+
+    /// <summary>실제로 쏠 발 수. 0 규칙을 여기서 푼다.</summary>
+    public int Resolve(AugmentContext ctx)
+    {
+        return shotsPerTarget.IntOf(ctx.Stat.count);
+    }
+}

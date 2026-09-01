@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
+  m_Name: 001 No_Image
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  displayName: No Image
+  prefab: {fileID: 3469445803652378370, guid: 1d812709218d34f4597ef12367253a2a, type: 3}
+  rank: 0
+  health: 10
+  speed: 2
+  contactDamage: 1
+  scale: 1
+  animatorOverride: {fileID: 0}
+  flipToFace: 1
+  spawnMessage: 
+  killMessages:
+  - '{name}: asset not found.'
+  - null sprite released.
+  - missing texture resolved.
+  - 'sprite assigned: {name}'
+  killLog: 1
+  exp: 1
+  bits: 0

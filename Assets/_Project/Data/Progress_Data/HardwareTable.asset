@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90da61df98d4674b8a51bcbe4ecebaf, type: 3}
+  m_Name: HardwareTable
+  m_EditorClassIdentifier: Assembly-CSharp::HardwareTable
+  entries:
+  - kind: 0
+    displayName: CPU
+    effectName: "\uD22C\uC0AC\uCCB4 \uC18D\uB3C4"
+    perLevel: 0.1
+    percent: 1
+    costs: 64000000c8000000900100002003000040060000
+    icon: {fileID: 0}
+  - kind: 1
+    displayName: RAM
+    effectName: "\uCFE8\uD0C0\uC784 \uAC10\uC18C"
+    perLevel: 0.1
+    percent: 1
+    costs: 64000000c8000000900100002003000040060000
+    icon: {fileID: 0}
+  - kind: 2
+    displayName: SSD
+    effectName: "\uCD5C\uB300 \uCCB4\uB825"
+    perLevel: 0.1
+    percent: 1
+    costs: 64000000c8000000900100002003000040060000
+    icon: {fileID: 0}
+  - kind: 3
+    displayName: GPU
+    effectName: "\uACF5\uACA9 \uBC94\uC704"
+    perLevel: 0.1
+    percent: 1
+    costs: 64000000c8000000900100002003000040060000
+    icon: {fileID: 0}
+  - kind: 4
+    displayName: "\uD30C\uC6CC"
+    effectName: "\uC804\uCCB4 \uACF5\uACA9\uB825"
+    perLevel: 0.1
+    percent: 1
+    costs: 64000000c8000000900100002003000040060000
+    icon: {fileID: 0}
+  - kind: 5
+    displayName: "\uBAA8\uB2C8\uD130"
+    effectName: "\uC2DC\uC57C \uBC94\uC704"
+    perLevel: 0.1
+    percent: 1
+    costs: 64000000c8000000900100002003000040060000
+    icon: {fileID: 0}
+  - kind: 6
+    displayName: "\uB9C8\uC6B0\uC2A4"
+    effectName: "\uD06C\uB9AC\uD2F0\uCEEC \uD655\uB960"
+    perLevel: 0.1
+    percent: 1
+    costs: 
+    icon: {fileID: 0}
+  - kind: 7
+    displayName: "\uD0A4\uBCF4\uB4DC"
+    effectName: "\uC774\uB3D9 \uC18D\uB3C4"
+    perLevel: 0.1
+    percent: 1
+    costs: 64000000c8000000900100002003000040060000
+    icon: {fileID: 0}
+  - kind: 8
+    displayName: "\uBA54\uC778\uBCF4\uB4DC"
+    effectName: "\uC2A4\uD0C0\uD2B8 \uC99D\uAC15"
+    perLevel: 1
+    percent: 0
+    costs: f4010000d007000088130000
+    icon: {fileID: 0}
+  - kind: 9
+    displayName: "\uCFE8\uB7EC"
+    effectName: "\uCD5C\uB300 \uC5D0\uB7EC\uB7C9"
+    perLevel: 0.1
+    percent: 1
+    costs: 
+    icon: {fileID: 0}

@@ -1,0 +1,200 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 004 Graph
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 1
+  id: GRAPH
+  displayName: Graph
+  category: 2
+  icon: {fileID: 21300000, guid: dade702cf85314a13ae63b5c8452b230, type: 3}
+  descriptionTemplate: "\uB2E4\uC74C \uD0D0\uC0C9 \uC99D\uAC15\uC5D0 \uBD99\uC5B4
+    \uC885\uC18D\uC801 \uBC1C\uB3D9.\n\uD0D0\uC0C9\uB41C \uB300\uC0C1 \uAC04 \uAC04\uC120\uC744
+    \uC5F0\uACB0\uD55C\uB2E4.\n\uAC04\uC120\uC774 \uC5F0\uACB0\uB418\uC5B4 \uC788\uB2E4\uBA74
+    \uD53C\uD574\uB97C \uC804\uC774\uD55C\uB2E4.\n\uD53C\uD574 \uC804\uC774\uC728
+    : {effectDamage*100}%\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC1C\uB3D9 \uAC70\uB9AC\t:
+    {range}\n\uAC04\uC120 \uAE38\uC774\t: {effectRange}\n\uAE4A\uC774\t: {pierce}"
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  extensionSlot: 
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
+  levelStats:
+  - damage: 0
+    effectDamage: 0.2
+    cooldown: 14
+    range: 8
+    effectRange: 6
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.23
+    cooldown: 13.7
+    range: 8.5
+    effectRange: 6.3
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.26
+    cooldown: 13.4
+    range: 9
+    effectRange: 6.6
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.29
+    cooldown: 13.1
+    range: 9.5
+    effectRange: 6.9
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.32
+    cooldown: 12.8
+    range: 10
+    effectRange: 7.2
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.35
+    cooldown: 12.5
+    range: 10.5
+    effectRange: 7.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.38
+    cooldown: 12.2
+    range: 11
+    effectRange: 7.8
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.41
+    cooldown: 11.9
+    range: 11.5
+    effectRange: 8.1
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  trigger:
+    rid: 980040206240448621
+  targeting:
+    rid: 980040206240448622
+  deliveries:
+  - rid: 980040230645006408
+  effects:
+  - rid: 980040206240448625
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 980040206240448621
+      type: {class: SearchTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        noTargetPolicy: 0
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        cooldownScale: 1
+        settleDelay: 0.5
+    - rid: 980040206240448622
+      type: {class: SearchPoolTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+        targetLimit:
+          value: 0
+          scale: 1
+        nearestFirst: 1
+        minTargets: 2
+        logFunnel: 0
+    - rid: 980040206240448625
+      type: {class: LinkEffect, ns: , asm: Assembly-CSharp}
+      data:
+        parentMode: 0
+        transfer:
+          value: 0
+          scale: 0.1
+        isPercent: 1
+        hopsOverride: 0
+        duration:
+          value: 0
+          scale: 1
+        neighborsPerNode: 4
+        linkRange:
+          value: 0
+          scale: 1
+        stretchLimit: 2
+        maxChildren: 0
+        maxLinksPerNode: 4
+        allowCycles: 0
+        linePrefab: {fileID: 8426094270902924539, guid: 95824c0d8dc85ca4eb65fe9bd4f0c35f, type: 3}
+        connectFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 8300000, guid: 58f49e719437cc148919859d9e7d1510, type: 3}
+          sfxVolume: 0.2
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        logLinks: 0
+    - rid: 980040230645006408
+      type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        pointSearchRadius: 1
+        hitFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
