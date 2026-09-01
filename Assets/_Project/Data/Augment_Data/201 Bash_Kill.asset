@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 201 Bash_Kill
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
+  id: BASH:KILL
+  displayName: Bash:Kill
+  category: 3
+  icon: {fileID: 21300000, guid: ae7785f19cc193a4d9ab24c58d63be2e, type: 3}
+  descriptionTemplate: "\uC5F0\uC1C4 \uD6A8\uACFC \uAC00\uC7A5 \uB9C8\uC9C0\uB9C9
+    \uC801\uC911 \uB300\uC0C1\uC5D0\uAC8C \uAC15\uB825\uD55C \uCD94\uAC00 \uD53C\uD574\uAC00
+    \uD55C\uBC88 \uB354 \uBC1C\uC0DD.\n\uCD94\uAC00 \uB370\uBBF8\uC9C0\t: {effectDamage
+    * 100}%"
+  rootAugment: {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
+  requiredRootLevel: 1
+  extensionSlot: KILL
+  mergeStatsIntoRoot: 0
+  bonusIsPercent: 0
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
+  levelStats:
+  - damage: 0
+    effectDamage: 1.3
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.35
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.4
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.45
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.5
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  trigger:
+    rid: -2
+  targeting:
+    rid: -2
+  deliveries: []
+  effects:
+  - rid: 980040488182349913
+  - rid: 980040481484308602
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 980040481484308602
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 1e2c1b5063bf0ed4ea20b7da9ad5cb9f, type: 3}
+        volume: 0.2
+        minInterval: 0
+    - rid: 980040488182349913
+      type: {class: RelayDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        ratio:
+          value: 0
+          scale: 1
+          offset: 0
+        accentText: 1
+        textStyle:
+          color: {r: 1, g: 0, b: 0, a: 1}
+          scale: 1.5
+          riseSpeed: 0.8
+          offset: {x: 0.5, y: 0.5}

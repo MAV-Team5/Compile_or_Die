@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90da61df98d4674b8a51bcbe4ecebaf, type: 3}
+  m_Name: HardwareTable
+  m_EditorClassIdentifier: Assembly-CSharp::HardwareTable
+  entries:
+  - kind: 0
+    displayName: CPU
+    effectName: "\uCFE8\uD0C0\uC784 \uAC10\uC18C"
+    perLevel: 0.06
+    percent: 1
+    costs: c800000020030000800c00000019000000320000
+    icon: {fileID: 0}
+  - kind: 1
+    displayName: RAM
+    effectName: "\uD22C\uC0AC\uCCB4 \uC218 \uC99D\uAC00"
+    perLevel: 1
+    percent: 0
+    costs: 0019000000640000
+    icon: {fileID: 0}
+  - kind: 2
+    displayName: SSD
+    effectName: "\uD68D\uB4DD \uBC94\uC704 \uC99D\uAC00"
+    perLevel: 0.1
+    percent: 1
+    costs: 640000009001000040060000800c000000190000
+    icon: {fileID: 0}
+  - kind: 3
+    displayName: GPU
+    effectName: "\uACF5\uACA9 \uBC94\uC704 \uC99D\uAC00"
+    perLevel: 0.1
+    percent: 1
+    costs: 9001000040060000001900000032000000640000
+    icon: {fileID: 0}
+  - kind: 4
+    displayName: Power
+    effectName: "\uACF5\uACA9\uB825 \uC99D\uAC00"
+    perLevel: 0.1
+    percent: 1
+    costs: 2003000040060000800c00000019000000320000
+    icon: {fileID: 0}
+  - kind: 5
+    displayName: Monitor
+    effectName: "\uC2DC\uC57C \uBC94\uC704 \uC99D\uAC00"
+    perLevel: 0.08
+    percent: 1
+    costs: 2003000040060000800c00000019000000320000
+    icon: {fileID: 0}
+  - kind: 6
+    displayName: Mouse
+    effectName: "\uC0AC\uC815\uAC70\uB9AC \uC99D\uAC00"
+    perLevel: 0.1
+    percent: 1
+    costs: 9001000020030000400600000019000000320000
+    icon: {fileID: 0}
+  - kind: 7
+    displayName: Keyboard
+    effectName: "\uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00"
+    perLevel: 0.05
+    percent: 1
+    costs: 9001000020030000400600000019000000320000
+    icon: {fileID: 0}
+  - kind: 8
+    displayName: Mainboard
+    effectName: "\uC2DC\uC791 \uC120\uD0DD \uC99D\uAC00"
+    perLevel: 1
+    percent: 0
+    costs: 40060000800c0000001900000032000000640000
+    icon: {fileID: 0}
+  - kind: 9
+    displayName: Cooler
+    effectName: "\uCD5C\uB300 \uCCB4\uB825 \uC99D\uAC00"
+    perLevel: 0.2
+    percent: 1
+    costs: c80000009001000020030000800c000000320000
+    icon: {fileID: 0}

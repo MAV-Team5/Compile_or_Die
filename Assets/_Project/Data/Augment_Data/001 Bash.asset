@@ -1,0 +1,518 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 001 Bash
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 1
+  lockStats: 1
+  id: BASH
+  displayName: Bash
+  category: 3
+  icon: {fileID: 21300000, guid: 5707f96afda134a17b072fd155347b9d, type: 3}
+  descriptionTemplate: "\uD30C\uC774\uD504\uB77C\uC778\uC744 \uBC1C\uC0AC\uD55C\uB2E4.
+    \n\uC801\uC911 \uB300\uC0C1\uC740 \uC785\uB825 \uB178\uB4DC\uAC00 \uB418\uC5B4
+    \n\uB354 \uAC15\uD574\uC9C4 \uD30C\uC774\uD504\uB77C\uC778\uC744 \uBC1C\uC0AC\uD55C\uB2E4.\n\uD53C\uD574\uB7C9\t:
+    {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uC0AC\uC815\uAC70\uB9AC\t: {range}\n\uC5F0\uC1C4
+    \uC218\t: {depth} \n\uD53C\uD574 \uC99D\uAC00\uC728 : {effectDamage * 100}%\n"
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  extensionSlot: 
+  mergeStatsIntoRoot: 1
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
+  levelStats:
+  - damage: 5
+    effectDamage: 0.15
+    cooldown: 3
+    range: 6
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 1
+  - damage: 7
+    effectDamage: 0.16
+    cooldown: 3
+    range: 7
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 1
+  - damage: 9
+    effectDamage: 0.17
+    cooldown: 2.9
+    range: 8
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 1
+  - damage: 14
+    effectDamage: 0.2
+    cooldown: 2.8
+    range: 8
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 2
+  - damage: 17
+    effectDamage: 0.21
+    cooldown: 2.8
+    range: 9
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 2
+  - damage: 20
+    effectDamage: 0.22
+    cooldown: 2.7
+    range: 10
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 2
+  - damage: 27
+    effectDamage: 0.25
+    cooldown: 2.6
+    range: 11
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 3
+  - damage: 31
+    effectDamage: 0.26
+    cooldown: 2.6
+    range: 11
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 3
+  - damage: 35
+    effectDamage: 0.27
+    cooldown: 2.5
+    range: 11
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 3
+  - damage: 44
+    effectDamage: 0.3
+    cooldown: 2.4
+    range: 12
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 4
+  - damage: 49
+    effectDamage: 0.31
+    cooldown: 2.4
+    range: 12
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 4
+  - damage: 54
+    effectDamage: 0.32
+    cooldown: 2.3
+    range: 12
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 4
+  - damage: 65
+    effectDamage: 0.35
+    cooldown: 2.2
+    range: 13
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 5
+  - damage: 71
+    effectDamage: 0.36
+    cooldown: 2.2
+    range: 13
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 5
+  - damage: 77
+    effectDamage: 0.37
+    cooldown: 2.2
+    range: 13
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 5
+  - damage: 90
+    effectDamage: 0.4
+    cooldown: 2.1
+    range: 14
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 6
+  - damage: 97
+    effectDamage: 0.41
+    cooldown: 2.1
+    range: 14
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 6
+  - damage: 104
+    effectDamage: 0.42
+    cooldown: 2.1
+    range: 14
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 6
+  - damage: 119
+    effectDamage: 0.45
+    cooldown: 2
+    range: 15
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 7
+  - damage: 127
+    effectDamage: 0.46
+    cooldown: 2
+    range: 15
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 7
+  - damage: 135
+    effectDamage: 0.47
+    cooldown: 2
+    range: 15
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 7
+  - damage: 152
+    effectDamage: 0.5
+    cooldown: 1.9
+    range: 16
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 161
+    effectDamage: 0.51
+    cooldown: 1.9
+    range: 16
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 170
+    effectDamage: 0.52
+    cooldown: 1.9
+    range: 16
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 189
+    effectDamage: 0.55
+    cooldown: 1.8
+    range: 17
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 199
+    effectDamage: 0.6
+    cooldown: 1.8
+    range: 17
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 209
+    effectDamage: 0.65
+    cooldown: 1.8
+    range: 17
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 230
+    effectDamage: 0.7
+    cooldown: 1.7
+    range: 18
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 241
+    effectDamage: 0.75
+    cooldown: 1.7
+    range: 18
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 252
+    effectDamage: 0.8
+    cooldown: 1.7
+    range: 18
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 275
+    effectDamage: 0.9
+    cooldown: 1.5
+    range: 19
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 9
+  trigger:
+    rid: 980040056421220425
+  targeting:
+    rid: 980040080136339577
+  deliveries:
+  - rid: 980040056421220427
+  effects:
+  - rid: 980040160363151451
+  - rid: 980040160363151490
+  - rid: 980040160363151455
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 980040056421220425
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        noTargetPolicy: 0
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 980040056421220427
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
+        speed: 9
+        pierce:
+          value: 0
+          scale: 1
+          offset: 0
+        travelRange:
+          value: 0
+          scale: 1.2
+          offset: 0
+        lifetime: 3
+        oneHitPerTarget: 0
+        dieWithOrigin: 1
+        homing:
+          turnSpeed: 0
+          seekRadius: 0
+          retargetInterval: 0.15
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
+          sfxVolume: 0.2
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        multiShot:
+          shotsPerTarget:
+            value: 0
+            scale: 1
+            offset: 0
+          formation: 1
+          spacing: 0.7
+          spreadPerShot: 90
+    - rid: 980040080136339577
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+    - rid: 980040160363151451
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+        accentText: 0
+        textStyle:
+          color: {r: 1, g: 1, b: 1, a: 1}
+          scale: 1
+          riseSpeed: 1.5
+          offset: {x: 0, y: 0}
+    - rid: 980040160363151455
+      type: {class: ChainEffect, ns: , asm: Assembly-CSharp}
+      data:
+        maxDepthOverride: 0
+        damagePerDepth:
+          value: 0
+          scale: 1
+          offset: 0
+        targeting:
+          rid: 980040160363151461
+        deliveries:
+        - rid: 980040160363151457
+        effects:
+        - rid: 980040160363151458
+        - rid: 980040160363151489
+        finalEffects:
+        - rid: 980040411806957678
+    - rid: 980040160363151457
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        projectilePrefab: {fileID: 6824073935605403827, guid: fcd070da3dbcf834f89d377b71b55709, type: 3}
+        speed: 9
+        pierce:
+          value: 0
+          scale: 1
+          offset: 0
+        travelRange:
+          value: 0
+          scale: 1.2
+          offset: 0
+        lifetime: 3
+        oneHitPerTarget: 0
+        dieWithOrigin: 1
+        homing:
+          turnSpeed: 0
+          seekRadius: 0
+          retargetInterval: 0.15
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 8300000, guid: b8331d17c3f83df4aaafd971f96d7b6d, type: 3}
+          sfxVolume: 0.2
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        multiShot:
+          shotsPerTarget:
+            value: 1
+            scale: 1
+            offset: 0
+          formation: 0
+          spacing: 0.4
+          spreadPerShot: 0
+    - rid: 980040160363151458
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+        accentText: 1
+        textStyle:
+          color: {r: 1, g: 1, b: 0, a: 1}
+          scale: 1
+          riseSpeed: 1.5
+          offset: {x: 0, y: 0}
+    - rid: 980040160363151461
+      type: {class: DirectionPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+        distanceRatio: 0.1
+        fallbackAngle: 90
+    - rid: 980040160363151489
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
+        volume: 0.2
+        minInterval: 0
+    - rid: 980040160363151490
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
+        volume: 0.2
+        minInterval: 0
+    - rid: 980040411806957678
+      type: {class: ExtensionEffect, ns: , asm: Assembly-CSharp}
+      data:
+        slot: KILL
