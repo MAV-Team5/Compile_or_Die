@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 009 Iteration
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  id: 009
+  displayName: Iteration
+  category: 5
+  icon: {fileID: 0}
+  descriptionTemplate: "\uCFE8\uD0C0\uC784\uB9C8\uB2E4 \" i \" \uD22C\uC0AC\uCCB4\uB97C
+    \uBC18\uBCF5 \uD69F\uC218\uB9CC\uD07C \uC5F0\uC18D \uBC1C\uC0AC. \uBC1C\uC0AC\uB294
+    \uC0AC\uAC70\uB9AC \uB0B4 \uCD5C\uADFC\uC811\uC744 \uD5A5\uD568. \uBC18\uBCF5\uC744
+    \uB2E4 \uC18C\uC9C4\uD558\uBA74 \uCFE8\uD0C0\uC784 \uC2DC\uC791."
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  levelStats:
+  - damage: 5
+    effectDamage: 0
+    cooldown: 10
+    range: 10
+    effectRange: 0
+    count: 3
+    pierce: 1
+    duration: 30
+    speed: 10
+    depth: 1
+  - damage: 5
+    effectDamage: 0
+    cooldown: 10
+    range: 10
+    effectRange: 0
+    count: 6
+    pierce: 1
+    duration: 30
+    speed: 10
+    depth: 1
+  - damage: 5
+    effectDamage: 0
+    cooldown: 10
+    range: 10
+    effectRange: 0
+    count: 9
+    pierce: 1
+    duration: 30
+    speed: 10
+    depth: 1
+  - damage: 5
+    effectDamage: 0
+    cooldown: 10
+    range: 10
+    effectRange: 0
+    count: 12
+    pierce: 1
+    duration: 30
+    speed: 10
+    depth: 1
+  - damage: 5
+    effectDamage: 0
+    cooldown: 10
+    range: 10
+    effectRange: 0
+    count: 15
+    pierce: 1
+    duration: 30
+    speed: 10
+    depth: 1
+  trigger:
+    rid: 2928020390176882692
+  targeting:
+    rid: 5795977263385149531
+  deliveries:
+  - rid: 5795977263385149532
+  effects:
+  - rid: 5795977263385149533
+  noTargetPolicy: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2928020390176882692
+      type: {class: BurstCooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        burstInterval: 0.2
+        burstCountOverride: 0
+    - rid: 5795977263385149531
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride: 0
+    - rid: 5795977263385149532
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 6824073935605403827, guid: 8042f9423cf971741b77c5948b1b3b13, type: 3}
+        speed: 12
+        pierce: 1
+        travelRangeMultiplier: 1.2
+        lifetime: 3
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+        multiShot:
+          shotsPerTarget: 1
+          formation: 0
+          spacing: 1
+          spreadPerShot: 0
+    - rid: 5795977263385149533
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
