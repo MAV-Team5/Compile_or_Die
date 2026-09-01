@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 002 DFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   lockModules: 0
-  lockStats: 1
+  lockStats: 0
   id: DFS
   displayName: DFS
   category: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
   targetingPatch: 0
   deliveryPatch: 0
@@ -46,66 +47,6 @@ MonoBehaviour:
     cooldown: 6.8
     range: 8.5
     effectRange: 12.5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.26
-    cooldown: 6.6
-    range: 9
-    effectRange: 13
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.29
-    cooldown: 6.4
-    range: 9.5
-    effectRange: 13.5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.32
-    cooldown: 6.2
-    range: 10
-    effectRange: 14
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.35
-    cooldown: 6
-    range: 10.5
-    effectRange: 14.5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.38
-    cooldown: 5.8
-    range: 11
-    effectRange: 15
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.41
-    cooldown: 5.6
-    range: 11.5
-    effectRange: 15.5
     count: 0
     pierce: 0
     duration: 0
@@ -150,9 +91,11 @@ MonoBehaviour:
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1.2
+          offset: 0
         lifetime: 3
         oneHitPerTarget: 0
         dieWithOrigin: 1
@@ -173,6 +116,7 @@ MonoBehaviour:
           shotsPerTarget:
             value: 0
             scale: 1
+            offset: 0
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
@@ -182,10 +126,12 @@ MonoBehaviour:
         bonus:
           value: 0
           scale: 0.1
+          offset: 0
         isPercent: 1
         duration:
           value: 0
           scale: 1
+          offset: 0
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
         burstFx:
@@ -201,7 +147,7 @@ MonoBehaviour:
     - rid: 980040160363151474
       type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
       data:
-        inheritBonus: 1
+        inheritBonus: 0
         targeting:
           rid: 980040160363151478
         deliveries:
@@ -219,9 +165,11 @@ MonoBehaviour:
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1
+          offset: 0
         lifetime: 3
         oneHitPerTarget: 0
         dieWithOrigin: 1
@@ -242,6 +190,7 @@ MonoBehaviour:
           shotsPerTarget:
             value: 0
             scale: 1
+            offset: 0
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
@@ -251,10 +200,12 @@ MonoBehaviour:
         bonus:
           value: 0
           scale: 0.1
+          offset: 0
         isPercent: 1
         duration:
           value: 0
           scale: 1
+          offset: 0
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
         burstFx:
@@ -273,6 +224,7 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         distanceRatio: 0.1
         fallbackAngle: 90
     - rid: 980040160363151488
@@ -287,6 +239,7 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         targetCount: 1
     - rid: 980040206240448589
       type: {class: LineDelivery, ns: , asm: Assembly-CSharp}
@@ -297,9 +250,11 @@ MonoBehaviour:
         length:
           value: 0
           scale: 1
+          offset: 0
         maxHits:
           value: 0
           scale: 1
+          offset: 0
         beamPerTarget: 0
         fireFx:
           vfx: {fileID: 0}

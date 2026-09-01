@@ -143,9 +143,16 @@ public class AugmentManager : MonoBehaviour
         }
     }
 
-    /// <summary>내부 증강의 레벨 수치가 곧 뿌리의 보정치다.</summary>
+    /// <summary>
+    /// 내부 증강의 레벨 수치가 곧 뿌리의 보정치다 — <b>합치기를 켠 증강만.</b>
+    ///
+    /// 끈 증강은 자기 수치를 자기 효과에서만 쓴다. 슬롯에 꽂혀
+    /// "뿌리가 준 피해의 몇 %" 같은 계산을 하는 증강이 여기 해당한다 —
+    /// 그런 수치를 뿌리에 얹으면 뿌리의 평타와 연쇄까지 같이 세져 버린다.
+    /// </summary>
     static void ApplyBonus(AugmentInstance root, AugmentInstance inner)
     {
+        if (!inner.Data.mergeStatsIntoRoot) return;
         if (inner.Data.levelStats == null || inner.Data.levelStats.Length == 0) return;
 
         StatMath.Accumulate(inner.BaseStat, inner.Data.bonusIsPercent,

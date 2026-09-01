@@ -69,17 +69,18 @@ public class HardwareBonus : MonoBehaviour
         if (table == null) return;
 
         // 증강 수치로 가는 것들. PlayerStats 를 거치면 보유 증강 전부에 한꺼번에 걸린다
-        Feed(HardwareKind.Cpu, StatKind.Speed);
-        Feed(HardwareKind.Ram, StatKind.Cooldown);
-        Feed(HardwareKind.Gpu, StatKind.Range);
+        Feed(HardwareKind.Cpu, StatKind.Cooldown);
         Feed(HardwareKind.Gpu, StatKind.EffectRange);
+        Feed(HardwareKind.Mouse, StatKind.Range);
+
+        // ★ 수량은 반드시 가산이다. 정수 수치는 StatMath 가 승산을 아예 안 보므로
+        //   percent 로 넣으면 조용히 아무 일도 안 일어난다
+        Feed(HardwareKind.Ram, StatKind.Count, additive: true);
 
         ApplyMaxHealth();
         ApplyMoveSpeed();
+        ApplyPickupRange();
         ApplyView();
-
-        // 마우스(크리티컬)·쿨러(에러율)는 받을 시스템이 아직 없다.
-        // 표에서 최대 레벨 0으로 잠가두었으므로 여기서는 아무것도 안 한다
 
         if (logApplied) LogSummary();
     }
@@ -88,8 +89,17 @@ public class HardwareBonus : MonoBehaviour
     float BonusOf(HardwareKind kind)
         => table.BonusAt(kind, PlayerProgress.ActiveLevel(kind));
 
-    /// <summary>증강 수치 하나에 비율 보정을 건다. 0이면 걸지 않는다.</summary>
-    void Feed(HardwareKind kind, StatKind stat)
+    /// <summary>
+    /// 증강 수치 하나에 보정을 건다. 0이면 걸지 않는다.
+    /// </summary>
+    /// <param name="additive">
+    /// 켜면 비율이 아니라 <b>더하는 값</b>으로 넣는다.
+    ///
+    /// 정수 수치(수량·관통·깊이)는 반드시 이쪽이어야 한다 —
+    /// <see cref="StatMath"/> 가 정수 칸에는 승산을 아예 적용하지 않기 때문에,
+    /// percent 로 넣으면 경고도 없이 아무 일이 안 일어난다.
+    /// </param>
+    void Feed(HardwareKind kind, StatKind stat, bool additive = false)
     {
         float bonus = BonusOf(kind);
 
@@ -102,12 +112,14 @@ public class HardwareBonus : MonoBehaviour
         }
 
         // Source 를 이 컴포넌트로 두면 나중에 통째로 걷어낼 수 있다
-        PlayerStats.Current.Add(new StatModifier(stat, this, percent: bonus));
+        PlayerStats.Current.Add(additive
+            ? new StatModifier(stat, this, add: bonus)
+            : new StatModifier(stat, this, percent: bonus));
     }
 
     void ApplyMaxHealth()
     {
-        float bonus = BonusOf(HardwareKind.Ssd);
+        float bonus = BonusOf(HardwareKind.Cooler);
 
         if (Mathf.Approximately(bonus, 0f)) return;
 
@@ -128,6 +140,23 @@ public class HardwareBonus : MonoBehaviour
         if (player == null) return;
 
         player.speed *= 1f + bonus;
+    }
+
+    /// <summary>
+    /// 경험치를 끌어당기는 반경. SSD — 데이터 접근 속도.
+    ///
+    /// <see cref="PlayerSetup"/> 이 Awake 에서 캐릭터 값을 깔아두므로 여기서 곱해도 누적되지 않는다.
+    /// </summary>
+    void ApplyPickupRange()
+    {
+        float bonus = BonusOf(HardwareKind.Ssd);
+
+        if (Mathf.Approximately(bonus, 0f)) return;
+
+        Player player = GameManager.instance != null ? GameManager.instance.player : null;
+        if (player == null) return;
+
+        player.pickupRange *= 1f + bonus;
     }
 
     /// <summary>

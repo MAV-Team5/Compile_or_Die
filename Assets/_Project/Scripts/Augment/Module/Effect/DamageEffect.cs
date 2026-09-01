@@ -42,5 +42,9 @@ public class DamageEffect : EffectModule
         };
 
         DamagePipeline.Process(dmg);
+
+        // 파이프라인이 표식·하드웨어 배율까지 얹은 뒤의 값이다.
+        // 간선 전이가 쓰는 기준과 같아야 내부 증강의 "그 몇 %" 가 어긋나지 않는다
+        ctx.LastDamage = dmg.Amount;
     }
 }

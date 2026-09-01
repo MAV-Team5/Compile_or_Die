@@ -158,6 +158,13 @@ public class AugmentSelectUI : MonoBehaviour
 
         hud = FindAnyObjectByType<AugmentHud>();
 
+        // 오른 값에 입힐 강조색. 문구 해석기는 테마를 모르므로 여기서 알려준다.
+        //
+        // ★ 카드 조립 방식(코드 / 프리팹)과 무관하게 정해져야 한다 —
+        //   예전에는 Create 안에서만 넣어서, 카드 프리팹을 물리는 순간
+        //   Create 가 안 불려 색이 조용히 사라졌다
+        AugmentText.ChangeColor = "#" + ColorUtility.ToHtmlStringRGB(theme.accent);
+
         rerollUsed = new bool[choiceCount];
         BuildOverlay();
     }

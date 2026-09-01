@@ -131,9 +131,6 @@ public class AugmentCardView : MonoBehaviour,
         view.spinTime = spinTime;
         view.root = (RectTransform)border.transform;
 
-        // 오른 값에 강조색을 입힌다. 문구 해석기는 테마를 모르므로 여기서 알려준다
-        AugmentText.ChangeColor = "#" + ColorUtility.ToHtmlStringRGB(theme.accent);
-
         UiFactory.Place(view.root, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                         Vector2.zero, layout.CardSize);
 
@@ -507,6 +504,21 @@ public class AugmentCardView : MonoBehaviour,
     }
 
     /// <summary>
+    /// 몇 레벨마다 크게 오르나. 시트의 성장 규칙과 같은 값이어야 한다 —
+    /// 표시만 3레벨 간격인데 수치는 아니면, 카드가 거짓말을 하게 된다.
+    /// </summary>
+    const int MilestoneEvery = 3;
+
+    /// <summary>
+    /// 이번에 오르는 레벨이 크게 뛰는 레벨인가. 4 · 7 · 10 …
+    ///
+    /// 1레벨은 뺀다 — 그건 "신규 획득"이라 이미 다르게 보이고,
+    /// 오르는 것이 아니라 처음 얻는 것이라 성장폭이라는 말이 안 맞는다.
+    /// </summary>
+    static bool IsMilestone(int level)
+        => level > 1 && (level - 1) % MilestoneEvery == 0;
+
+    /// <summary>
     /// 테두리를 그 증강의 분류 색으로 물들인다.
     ///
     /// 평소에는 흐리게, 고르려 할 때 제 색으로 튄다 — 세 장이 깔렸을 때
@@ -568,10 +580,34 @@ public class AugmentCardView : MonoBehaviour,
         int current = mine != null ? mine.Instance.Level : 0;
         int nextLevel = current + 1;
 
-        levelText.text = mine != null ? $"Lv {current} → Lv {nextLevel}" : "신규 획득";
+        // 줄 전체가 아니라 올라갈 레벨만 물들인다. 줄째로 밝히면
+        // "Lv 3 →" 까지 같이 떠서 무엇이 특별한지가 흐려진다
+        levelText.color = theme.dim;
+
+        // 마지막 레벨은 MAJOR 보다 앞선다. 둘 다 해당해도 "더 못 올린다"가 더 중요한 정보다
+        bool last = mine != null && nextLevel >= mine.Instance.MaxLevel;
+
+        string maxColor = "#" + ColorUtility.ToHtmlStringRGB(theme.good);
+
+        levelText.text = mine == null ? $"<color={AugmentText.ChangeColor}>신규 획득</color>"
+                       : last
+                           ? $"Lv {current} → <color={maxColor}>Lv {nextLevel} MAX</color>"
+                       : IsMilestone(nextLevel)
+                           ? $"Lv {current} → <color={AugmentText.ChangeColor}>Lv {nextLevel} MAJOR</color>"
+                           : $"Lv {current} → Lv {nextLevel}";
+
+        // 설명 안의 상승 수치도 같은 색으로 맞춘다. 레벨 줄은 초록인데
+        // 정작 오르는 숫자가 하늘색이면 두 색이 무슨 뜻인지 읽히지 않는다.
+        //
+        // ★ 전역 값이라 반드시 되돌려야 한다. 안 그러면 이 뒤에 그려지는 카드까지 초록이 된다
+        string carryColor = AugmentText.ChangeColor;
+
+        if (last) AugmentText.ChangeColor = maxColor;
 
         // 이미 가진 증강이면 무엇이 오르는지 나란히 보여준다. 신규면 한쪽 값만
         descriptionText.text = AugmentText.Compare(data, current, nextLevel);
+
+        AugmentText.ChangeColor = carryColor;
     }
 
     /// <summary>리롤 버튼의 잠금과 글자를 상태에 맞춘다.</summary>

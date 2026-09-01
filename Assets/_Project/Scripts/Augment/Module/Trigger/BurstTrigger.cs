@@ -39,6 +39,9 @@ public class BurstTrigger : TriggerModule
     {
         public float timer;
         public int left;
+
+        /// <summary>첫 판정을 지났는가. 상태 주머니는 증강을 얻을 때 처음 만들어진다.</summary>
+        public bool started;
     }
 
     public override bool Evaluate(AugmentInstance instance, float deltaTime)
@@ -57,6 +60,19 @@ public class BurstTrigger : TriggerModule
 
         // 쿨타임 미입력(0)은 매 프레임 발동이 되므로 차단
         if (cd <= 0f) return false;
+
+        // 얻자마자 첫 장전을 건너뛴다. Consume 이 이어서 탄창을 채우므로
+        // 한 발이 아니라 한 탄창이 통째로 나간다
+        if (!s.started)
+        {
+            s.started = true;
+
+            if (fireOnAcquire)
+            {
+                s.timer = cd;
+                return true;
+            }
+        }
 
         s.timer = Mathf.Min(s.timer + deltaTime, cd);
         return s.timer >= cd;

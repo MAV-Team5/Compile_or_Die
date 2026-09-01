@@ -15,71 +15,71 @@ MonoBehaviour:
   entries:
   - kind: 0
     displayName: CPU
-    effectName: "\uD22C\uC0AC\uCCB4 \uC18D\uB3C4"
-    perLevel: 0.1
+    effectName: "\uCFE8\uD0C0\uC784 \uAC10\uC18C"
+    perLevel: 0.06
     percent: 1
-    costs: 64000000c8000000900100002003000040060000
+    costs: c800000020030000800c00000019000000320000
     icon: {fileID: 0}
   - kind: 1
     displayName: RAM
-    effectName: "\uCFE8\uD0C0\uC784 \uAC10\uC18C"
-    perLevel: 0.1
-    percent: 1
-    costs: 64000000c8000000900100002003000040060000
+    effectName: "\uD22C\uC0AC\uCCB4 \uC218 \uC99D\uAC00"
+    perLevel: 1
+    percent: 0
+    costs: 0019000000640000
     icon: {fileID: 0}
   - kind: 2
     displayName: SSD
-    effectName: "\uCD5C\uB300 \uCCB4\uB825"
+    effectName: "\uD68D\uB4DD \uBC94\uC704 \uC99D\uAC00"
     perLevel: 0.1
     percent: 1
-    costs: 64000000c8000000900100002003000040060000
+    costs: 640000009001000040060000800c000000190000
     icon: {fileID: 0}
   - kind: 3
     displayName: GPU
-    effectName: "\uACF5\uACA9 \uBC94\uC704"
+    effectName: "\uACF5\uACA9 \uBC94\uC704 \uC99D\uAC00"
     perLevel: 0.1
     percent: 1
-    costs: 64000000c8000000900100002003000040060000
+    costs: 9001000040060000001900000032000000640000
     icon: {fileID: 0}
   - kind: 4
-    displayName: "\uD30C\uC6CC"
-    effectName: "\uC804\uCCB4 \uACF5\uACA9\uB825"
+    displayName: Power
+    effectName: "\uACF5\uACA9\uB825 \uC99D\uAC00"
     perLevel: 0.1
     percent: 1
-    costs: 64000000c8000000900100002003000040060000
+    costs: 2003000040060000800c00000019000000320000
     icon: {fileID: 0}
   - kind: 5
-    displayName: "\uBAA8\uB2C8\uD130"
-    effectName: "\uC2DC\uC57C \uBC94\uC704"
-    perLevel: 0.1
+    displayName: Monitor
+    effectName: "\uC2DC\uC57C \uBC94\uC704 \uC99D\uAC00"
+    perLevel: 0.08
     percent: 1
-    costs: 64000000c8000000900100002003000040060000
+    costs: 2003000040060000800c00000019000000320000
     icon: {fileID: 0}
   - kind: 6
-    displayName: "\uB9C8\uC6B0\uC2A4"
-    effectName: "\uD06C\uB9AC\uD2F0\uCEEC \uD655\uB960"
+    displayName: Mouse
+    effectName: "\uC0AC\uC815\uAC70\uB9AC \uC99D\uAC00"
     perLevel: 0.1
     percent: 1
-    costs: 
+    costs: 9001000020030000400600000019000000320000
     icon: {fileID: 0}
   - kind: 7
-    displayName: "\uD0A4\uBCF4\uB4DC"
-    effectName: "\uC774\uB3D9 \uC18D\uB3C4"
-    perLevel: 0.1
+    displayName: Keyboard
+    effectName: "\uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00"
+    perLevel: 0.05
     percent: 1
-    costs: 64000000c8000000900100002003000040060000
+    costs: 9001000020030000400600000019000000320000
     icon: {fileID: 0}
   - kind: 8
-    displayName: "\uBA54\uC778\uBCF4\uB4DC"
-    effectName: "\uC2A4\uD0C0\uD2B8 \uC99D\uAC15"
+    displayName: Mainboard
+    effectName: "\uC2DC\uC791 \uC120\uD0DD \uC99D\uAC00"
     perLevel: 1
     percent: 0
-    costs: f4010000d007000088130000
+    costs: 40060000800c0000001900000032000000640000
     icon: {fileID: 0}
   - kind: 9
-    displayName: "\uCFE8\uB7EC"
-    effectName: "\uCD5C\uB300 \uC5D0\uB7EC\uB7C9"
-    perLevel: 0.1
+    displayName: Cooler
+    effectName: "\uCD5C\uB300 \uCCB4\uB825 \uC99D\uAC00"
+    perLevel: 0.2
     percent: 1
-    costs: 
+    costs: c80000009001000020030000800c000000320000
     icon: {fileID: 0}

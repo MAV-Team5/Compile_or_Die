@@ -1320,7 +1320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelSystem
   baseRequired: 1
-  growthPerLevel: 0
+  growthPerLevel: 2
 --- !u!1 &296892101
 GameObject:
   m_ObjectHideFlags: 0
@@ -8874,7 +8874,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b285157c928181488d2a8c470107324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  startingBonuses: []
+  startingBonuses:
+  - kind: 0
+    add: 0
+    percent: 0.9
+  - kind: 2
+    add: 0
+    percent: 0
 --- !u!114 &1900000009
 MonoBehaviour:
   m_ObjectHideFlags: 0
