@@ -165,9 +165,9 @@ MonoBehaviour:
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
   bosses:
-  - enemy: {fileID: 11400000, guid: d188cf35eecd7c348ae0e8c4ee7c1a03, type: 2}
+  - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
     nameOverride: UNHANDLED WARNING
-    atSeconds: 80
+    atSeconds: 3
     spawnDistance: 15
     endsRun: 1
     healthScale: 40

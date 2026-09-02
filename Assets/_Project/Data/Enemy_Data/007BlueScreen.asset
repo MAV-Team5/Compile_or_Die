@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
   m_Name: 007BlueScreen
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  displayName: Bug
-  prefab: {fileID: 0}
-  rank: 0
+  displayName: BlueScreen
+  prefab: {fileID: 3469445803652378370, guid: a854c19adc38e4372895a2317f71c417, type: 3}
+  rank: 2
   health: 10
   speed: 2
   contactDamage: 10
