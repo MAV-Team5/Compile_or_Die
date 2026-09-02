@@ -34,6 +34,9 @@ public class Player : MonoBehaviour, IFacingProvider
 
     Rigidbody2D rigid;
 
+    /// <summary>블루스크린 재부팅 중일 때 이동 입력을 상하좌우 다 반전시킨다. PlayerRebootController 가 켠다.</summary>
+    [System.NonSerialized] public bool invertX;
+
     // 0xCAFE 같은 한시적 이동속도 버프. 배율 하나만 유지하면 되니 스택 없이 덮어쓴다
     float speedMultiplier = 1f;
     float speedBoostRemain;
@@ -66,7 +69,10 @@ public class Player : MonoBehaviour, IFacingProvider
 
     private void FixedUpdate()
     {
-        Vector2 nextvec = inputVec * CurrentSpeed * Time.fixedDeltaTime;
+        Vector2 vec = inputVec;
+        if (invertX) vec = -vec;
+
+        Vector2 nextvec = vec * CurrentSpeed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextvec);
     }
 
