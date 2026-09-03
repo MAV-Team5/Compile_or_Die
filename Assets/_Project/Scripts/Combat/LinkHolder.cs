@@ -148,6 +148,7 @@ public class LinkHolder : MonoBehaviour
         Hops = source.Hops,
         MaxPerNode = source.MaxPerNode,
         ExpireAt = source.ExpireAt,
+        TransferFx = source.TransferFx,
         Visual = visual,
         Line = visual != null ? visual.GetComponentInChildren<LineRenderer>() : null,
         Pulse = visual != null ? visual.GetComponentInChildren<LinkPulse>() : null,
@@ -415,6 +416,10 @@ public class LinkHolder : MonoBehaviour
 
             // 피해가 실제로 이 간선을 탔다. 세게 꿀렁인다
             link.Ripple(1f);
+
+            // 전이 연출. connectFx 와 달리 이미 있는 간선을 타고 매번 재생된다 —
+            // "계속 퍼지는" 느낌은 이 한 줄이 만든다
+            link.TransferFx?.PlayAt(link.Other.transform.position, default, 0f, link.Other.transform);
 
             DamagePipeline.Process(
                 new DamageContext(source.Source, link.Other.Receiver, amount,

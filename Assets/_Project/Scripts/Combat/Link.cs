@@ -69,6 +69,13 @@ public class Link
     /// </summary>
     public LinkPulse Echo;
 
+    /// <summary>
+    /// 이 간선을 타고 피해가 전이될 때마다 맞은 자리에서 재생할 연출.
+    /// 연결되는 순간 한 번만 나가는 connectFx 와 달리, 이미 있는 간선을 타고
+    /// 매 공격마다 반복해서 재생된다 — "계속 퍼지는" 느낌은 이쪽이 담당한다.
+    /// </summary>
+    public FxGroup TransferFx;
+
     /// <summary>이 간선을 타고 뭔가 지나갔다고 알린다. 연출이 없으면 조용히 넘어간다.</summary>
     public void Ripple(float strength)
     {

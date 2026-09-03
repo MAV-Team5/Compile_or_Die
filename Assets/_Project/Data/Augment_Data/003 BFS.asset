@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 003 BFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: BFS
   displayName: BFS
@@ -24,6 +24,11 @@ MonoBehaviour:
     \uAC70\uB9AC\t: {range}\n\uAE4A\uC774\t: {pierce}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
+  extensionSlot: 
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
   levelStats:
   - damage: 0
     effectDamage: 0.2
@@ -161,6 +166,7 @@ MonoBehaviour:
       data:
         clip: {fileID: 8300000, guid: 5fb5076d599098341a850d3fcb71484a, type: 3}
         volume: 1
+        minInterval: 0
     - rid: 980040206240448602
       type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
       data:
