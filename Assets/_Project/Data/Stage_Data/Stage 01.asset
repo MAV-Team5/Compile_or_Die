@@ -47,19 +47,6 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: 1막 증식 - semicolon
-    startAt: 16
-    duration: 30
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 1.5
-    burst: 2
-    maxSpawns: 0
-    healthScale: 1.2
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
   - label: 1막 오타 - 작은 prontf
     startAt: 16
     duration: 104
@@ -73,27 +60,27 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 2
-  - label: 1막 증식 - colon
+  - label: 1막 증식 - semicolon
     startAt: 20
-    duration: 30
-    enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
-    interval: 1.7
+    duration: 35
+    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
+    interval: 2
     burst: 2
     maxSpawns: 0
-    healthScale: 0.8
+    healthScale: 1.2
     speedScale: 1
     damageScale: 1
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: 1막 증식 - sound note
+  - label: 1막 증식 - colon
     startAt: 30
-    duration: 25
-    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
-    interval: 1.9
+    duration: 32
+    enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
+    interval: 2.2
     burst: 2
     maxSpawns: 0
-    healthScale: 1.2
+    healthScale: 0.8
     speedScale: 1
     damageScale: 1
     sizeScale: 1
@@ -125,9 +112,22 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 5
+  - label: 1막 증식 - sound note
+    startAt: 42
+    duration: 28
+    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
+    interval: 2.4
+    burst: 2
+    maxSpawns: 0
+    healthScale: 1.2
+    speedScale: 1
+    damageScale: 1
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 1막 압박 - semicolon
-    startAt: 50
-    duration: 70
+    startAt: 55
+    duration: 65
     enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
     interval: 2.4
     burst: 3
@@ -139,8 +139,8 @@ MonoBehaviour:
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
   - label: 1막 압박 - colon
-    startAt: 52
-    duration: 68
+    startAt: 62
+    duration: 58
     enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
     interval: 2.8
     burst: 3
@@ -152,8 +152,8 @@ MonoBehaviour:
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
   - label: 1막 과부하 - sound note
-    startAt: 64
-    duration: 56
+    startAt: 70
+    duration: 50
     enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
     interval: 2.2
     burst: 3
@@ -190,19 +190,6 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 2
-  - label: 2막 - sound note
-    startAt: 130
-    duration: 110
-    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
-    interval: 2
-    burst: 3
-    maxSpawns: 0
-    healthScale: 4.4
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 2
   - label: 2막 - 작은 prontf
     startAt: 120
     duration: 120
@@ -216,6 +203,19 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 4
+  - label: 2막 - sound note
+    startAt: 130
+    duration: 110
+    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
+    interval: 2
+    burst: 3
+    maxSpawns: 0
+    healthScale: 4.4
+    speedScale: 1
+    damageScale: 1
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 2
   - label: 2막 - 큰 prontf
     startAt: 140
     duration: 100
@@ -244,7 +244,7 @@ MonoBehaviour:
     expPerKill: 12
   - label: 3막 - semicolon
     startAt: 240
-    duration: 0
+    duration: 60
     enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
     interval: 1.8
     burst: 3
@@ -257,7 +257,7 @@ MonoBehaviour:
     expPerKill: 3
   - label: 3막 - colon
     startAt: 240
-    duration: 0
+    duration: 60
     enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
     interval: 2
     burst: 3
@@ -270,7 +270,7 @@ MonoBehaviour:
     expPerKill: 3
   - label: 3막 - sound note
     startAt: 245
-    duration: 0
+    duration: 55
     enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
     interval: 1.6
     burst: 3
@@ -283,7 +283,7 @@ MonoBehaviour:
     expPerKill: 3
   - label: 3막 - 큰 prontf
     startAt: 250
-    duration: 0
+    duration: 50
     enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
     interval: 10
     burst: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
     expPerKill: 15
   - label: 3막 - 자란 no image
     startAt: 255
-    duration: 0
+    duration: 45
     enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
     interval: 12
     burst: 2
