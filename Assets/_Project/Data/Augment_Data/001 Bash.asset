@@ -32,8 +32,8 @@ MonoBehaviour:
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
-  - damage: 4
-    effectDamage: 0.15
+  - damage: 5
+    effectDamage: 0.2
     cooldown: 3
     range: 6
     effectRange: 0
@@ -42,9 +42,9 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 1
-  - damage: 5.2
-    effectDamage: 0.17
-    cooldown: 2.85
+  - damage: 6.2
+    effectDamage: 0.25
+    cooldown: 2.8
     range: 6.5
     effectRange: 0
     count: 0
@@ -52,9 +52,9 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 1
-  - damage: 6.4
-    effectDamage: 0.19
-    cooldown: 2.7
+  - damage: 7.4
+    effectDamage: 0.3
+    cooldown: 2.6
     range: 7
     effectRange: 0
     count: 0
@@ -62,9 +62,9 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 2
-  - damage: 7.6
-    effectDamage: 0.21000001
-    cooldown: 2.55
+  - damage: 8.6
+    effectDamage: 0.35
+    cooldown: 2.4
     range: 7.5
     effectRange: 0
     count: 0
@@ -72,9 +72,9 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 2
-  - damage: 8.8
-    effectDamage: 0.23
-    cooldown: 2.4
+  - damage: 9.8
+    effectDamage: 0.4
+    cooldown: 2.2
     range: 8
     effectRange: 0
     count: 0
@@ -82,9 +82,9 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 3
-  - damage: 10
-    effectDamage: 0.25
-    cooldown: 2.25
+  - damage: 11
+    effectDamage: 0.45
+    cooldown: 2
     range: 8.5
     effectRange: 0
     count: 0
@@ -92,9 +92,9 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 3
-  - damage: 11.2
-    effectDamage: 0.27
-    cooldown: 2.1
+  - damage: 12.2
+    effectDamage: 0.5
+    cooldown: 1.8
     range: 9
     effectRange: 0
     count: 0
@@ -102,9 +102,9 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 4
-  - damage: 12.4
-    effectDamage: 0.29
-    cooldown: 2
+  - damage: 13.4
+    effectDamage: 0.55
+    cooldown: 1.5
     range: 9.5
     effectRange: 0
     count: 0
