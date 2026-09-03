@@ -32,7 +32,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 1막 도입 - no image
     startAt: 4
     duration: 20
@@ -44,7 +45,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 1막 증식 - semicolon
     startAt: 16
     duration: 30
@@ -56,7 +58,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 1막 오타 - 작은 prontf
     startAt: 16
     duration: 104
@@ -68,7 +71,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 2
   - label: 1막 증식 - colon
     startAt: 20
     duration: 30
@@ -80,7 +84,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 1막 증식 - sound note
     startAt: 30
     duration: 25
@@ -92,7 +97,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 1막 자란 no image
     startAt: 30
     duration: 90
@@ -104,7 +110,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 6
   - label: 1막 오타 - 큰 prontf
     startAt: 38
     duration: 82
@@ -116,7 +123,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 5
   - label: 1막 압박 - semicolon
     startAt: 50
     duration: 70
@@ -128,7 +136,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 1막 압박 - colon
     startAt: 52
     duration: 68
@@ -140,7 +149,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 1막 과부하 - sound note
     startAt: 64
     duration: 56
@@ -152,7 +162,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
   - label: 2막 - semicolon
     startAt: 120
     duration: 120
@@ -164,7 +175,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 2
   - label: 2막 - colon
     startAt: 120
     duration: 120
@@ -176,7 +188,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 2
   - label: 2막 - sound note
     startAt: 130
     duration: 110
@@ -188,7 +201,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 2
   - label: 2막 - 작은 prontf
     startAt: 120
     duration: 120
@@ -200,7 +214,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 4
   - label: 2막 - 큰 prontf
     startAt: 140
     duration: 100
@@ -212,7 +227,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 10
   - label: 2막 - 자란 no image
     startAt: 150
     duration: 90
@@ -224,7 +240,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 12
   - label: 3막 - semicolon
     startAt: 240
     duration: 0
@@ -236,7 +253,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 3
   - label: 3막 - colon
     startAt: 240
     duration: 0
@@ -248,7 +266,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 3
   - label: 3막 - sound note
     startAt: 245
     duration: 0
@@ -260,7 +279,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 3
   - label: 3막 - 큰 prontf
     startAt: 250
     duration: 0
@@ -272,7 +292,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 15
   - label: 3막 - 자란 no image
     startAt: 255
     duration: 0
@@ -284,7 +305,8 @@ MonoBehaviour:
     speedScale: 1
     damageScale: 1
     sizeScale: 1
-    expScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 18
   bosses:
   - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
     nameOverride: UNHANDLED WARNING
