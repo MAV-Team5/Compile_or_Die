@@ -37,7 +37,7 @@ MonoBehaviour:
   levelStats:
   - damage: 0
     effectDamage: 0.5
-    cooldown: 7
+    cooldown: 1
     range: 8
     effectRange: 6
     count: 2
@@ -270,13 +270,13 @@ MonoBehaviour:
           scale: 1
         travelRange:
           value: 0
-          scale: 1.2
+          scale: 1.5
         lifetime: 3
         oneHitPerTarget: 1
         dieWithOrigin: 1
         homing:
-          turnSpeed: 30
-          seekRadius: 6
+          turnSpeed: 90
+          seekRadius: 9
           retargetInterval: 0.15
         launchFx:
           vfx: {fileID: 0}

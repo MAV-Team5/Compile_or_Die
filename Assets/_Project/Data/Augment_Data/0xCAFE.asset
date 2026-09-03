@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 0xCAFE
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
   id: ITEM_0XCAFE
   displayName: 0xCAFE
   category: 6
@@ -20,6 +22,11 @@ MonoBehaviour:
     20% \uC99D\uAC00\uD55C\uB2E4."
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
+  extensionSlot: 
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
   levelStats: []
   trigger:
     rid: 498243485617620902
@@ -27,23 +34,29 @@ MonoBehaviour:
     rid: 745815476213138694
   deliveries: []
   effects: []
-  noTargetPolicy: 0
+  instantEffect: 2
+  instantValue: 0.5
+  instantDuration: 10
   references:
     version: 2
     RefIds:
     - rid: 498243485617620902
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
+        noTargetPolicy: 0
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
+          scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
     - rid: 745815476213138694
       type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
       data:
-        rangeOverride: 0
+        rangeOverride:
+          value: 0
+          scale: 1
         scatterRadius: 0
-  instantEffect: 2
-  instantValue: 0.2
-  instantDuration: 10

@@ -5168,7 +5168,9 @@ MonoBehaviour:
   recycleDistance: 50
   recycleInterval: 2
   recycleBatch: 8
-  orbSpacing: 0.45
+  stationaryMinDistance: 20
+  stationaryMaxDistance: 30
+  orbSpacing: 1
 --- !u!1 &1178571355
 GameObject:
   m_ObjectHideFlags: 0
@@ -6242,7 +6244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ad154e2eeff074eb683b38a684b1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentManager
-  startingAugments: []
+  startingAugments:
+  - {fileID: 11400000, guid: 5a553f0644269cb4fa7789b0d973018b, type: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

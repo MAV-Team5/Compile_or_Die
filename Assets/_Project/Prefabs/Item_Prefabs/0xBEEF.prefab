@@ -102,8 +102,8 @@ GameObject:
   - component: {fileID: 2069378887078180702}
   - component: {fileID: 3672861163975865960}
   - component: {fileID: 1791987007636913030}
-  - component: {fileID: 1905468279150247976}
   - component: {fileID: 6018384965856574774}
+  - component: {fileID: 2576991032572809268}
   m_Layer: 0
   m_Name: 0xBEEF
   m_TagString: Untagged
@@ -233,30 +233,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 32, y: 16}
   m_EdgeRadius: 0
---- !u!114 &1905468279150247976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4929590294121933457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c877f4ac174403645882fbfe867c7c33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExpMove
-  exp: 1
-  baseSpeed: 1.2
-  accel: 5
-  fxG:
-    vfx: {fileID: 0}
-    vfxScale: 1
-    scaleWithRange: 1
-    sfx: {fileID: 8300000, guid: 53058888cbb760341abd92eb06dbd1f5, type: 3}
-    sfxVolume: 0.4
-    attachToSource: 0
-    motionParameter: 
-    motionValue: 1
 --- !u!95 &6018384965856574774
 Animator:
   serializedVersion: 7
@@ -279,6 +255,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2576991032572809268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929590294121933457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b48a64270135c40bf8f5543163ac2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  item: {fileID: 11400000, guid: 19538555e3e74b6c9b8399e754011d38, type: 2}
+  magnetRange: 3
+  accel: 6
+  pickupFx:
+    vfx: {fileID: 0}
+    vfxScale: 1
+    scaleWithRange: 1
+    sfx: {fileID: 0}
+    sfxVolume: 1
+    attachToSource: 0
+    motionParameter: 
+    motionValue: 1
+  pickupClips: []
+  pickupVolume: 0.5
 --- !u!1 &6961387121375487307
 GameObject:
   m_ObjectHideFlags: 0

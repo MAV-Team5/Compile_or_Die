@@ -352,10 +352,7 @@ public class AugmentSelectUI : MonoBehaviour
         // Roll 이 Peek 으로 깔았고 그 사이에 큐를 건드리는 곳이 없으므로 맨 앞이 곧 이 카드다
         if (forced.Count > 0) forced.Dequeue();
 
-        if (card.Data.instantEffect != InstantItemEffect.None)
-            ApplyInstantEffect(card.Data);
-        else
-            GrantAugment(card.Data);
+        GrantAugment(card.Data);
 
         levelSystem.ConsumePendingLevelUp();
 
@@ -396,36 +393,6 @@ public class AugmentSelectUI : MonoBehaviour
         if (LogManager.Instance != null && runner != null)
             LogManager.Instance.Skill(
                 $"AUGMENT LOADED: {data.displayName} Lv.{runner.Instance.Level}");
-    }
-
-    /// <summary>보유 개념 없이 선택 즉시 한 번 적용되고 사라지는 아이템 효과.</summary>
-    void ApplyInstantEffect(AugmentData data)
-    {
-        Player player = GameManager.instance.player;
-        if (player == null) return;
-
-        switch (data.instantEffect)
-        {
-            case InstantItemEffect.Heal:
-                if (player.TryGetComponent(out PlayerHealth health))
-                {
-                    float amount = health.Max * data.instantValue;
-                    health.Heal(amount);
-
-                    if (LogManager.Instance != null)
-                        LogManager.Instance.Skill(
-                            $"{data.displayName}: HP +{amount:0} ({data.instantValue:P0})");
-                }
-                break;
-
-            case InstantItemEffect.SpeedBoost:
-                player.ApplySpeedBoost(1f + data.instantValue, data.instantDuration);
-
-                if (LogManager.Instance != null)
-                    LogManager.Instance.Skill(
-                        $"{data.displayName}: SPEED +{data.instantValue:P0} ({data.instantDuration:0}s)");
-                break;
-        }
     }
 
     // ── 선택지 깔기 ───────────────────────────────────────

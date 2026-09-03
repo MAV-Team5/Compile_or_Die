@@ -28,5 +28,12 @@ MonoBehaviour:
   - missing texture resolved.
   - 'sprite assigned: {name}'
   killLog: 1
-  exp: 1
+  deathClips: []
+  deathVolume: 0.5
+  deathInterval: 0
   bits: 0
+  countsAsKill: 1
+  dropTable: []
+  dropChance: 1
+  dropCount: 1
+  stationary: 0
