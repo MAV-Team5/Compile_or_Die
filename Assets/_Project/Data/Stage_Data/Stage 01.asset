@@ -167,8 +167,8 @@ MonoBehaviour:
   bosses:
   - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
     nameOverride: UNHANDLED WARNING
-    atSeconds: 3
-    spawnDistance: 15
+    atSeconds: 180
+    spawnDistance: 20
     endsRun: 1
     healthScale: 40
     speedScale: 0.7
