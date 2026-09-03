@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 2781135165584353903}
   - component: {fileID: 842049183227924160}
   - component: {fileID: 4263603399801751320}
+  - component: {fileID: 9125390814790640638}
   m_Layer: 6
   m_Name: DATA_BOX 201
   m_TagString: Enemy
@@ -277,6 +278,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   contactDamage: 0
   target: {fileID: 0}
+--- !u!114 &9125390814790640638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469445803652378370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa4f7f5043e91a4aa1a4f620729a072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OffscreenTarget
+  icon: {fileID: 21300000, guid: 5988a2020badc834c96521b52b6a08f5, type: 3}
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  showWithin: 22
+  showDistance: 1
 --- !u!1 &6219502514949774746
 GameObject:
   m_ObjectHideFlags: 0

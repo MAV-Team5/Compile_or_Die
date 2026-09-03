@@ -37,7 +37,7 @@ MonoBehaviour:
   levelStats:
   - damage: 0
     effectDamage: 0.5
-    cooldown: 1
+    cooldown: 7
     range: 8
     effectRange: 6
     count: 2
