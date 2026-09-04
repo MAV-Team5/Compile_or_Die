@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 004 Graph
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: GRAPH
   displayName: Graph
   category: 2
@@ -99,16 +99,6 @@ MonoBehaviour:
     cooldown: 12.2
     range: 11
     effectRange: 7.8
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.41
-    cooldown: 11.9
-    range: 11.5
-    effectRange: 8.1
     count: 0
     pierce: 0
     duration: 0

@@ -16,6 +16,15 @@ public class Spawner : MonoBehaviour
              "자기 자신은 빠지므로 Point 들만 자식으로 두면 된다.")]
     [SerializeField] Transform[] spawnPoints;
 
+    [Header("동시 생존 상한")]
+    [Tooltip("화면에 동시에 살아 있을 수 있는 적의 수. 0이면 제한 없음.\n\n" +
+             "★ 웨이브의 maxSpawns 는 <b>누적</b>이라 동시 수를 못 막는다.\n" +
+             "  처치 속도가 스폰 속도를 못 따라가면 개체가 끝없이 늘어 결국 프레임이 죽는다.\n" +
+             "  회수(Recycle)는 자리만 옮기지 수를 줄이지 않으므로 상한이 따로 필요하다.\n\n" +
+             "＊ 설치물(상자)은 이 상한을 안 센다 — 잡몹이 상한을 채우면\n" +
+             "  상자가 영영 안 나오게 된다.")]
+    [Min(0)] [SerializeField] int maxAlive = 150;
+
     [Header("멀어진 적 회수")]
     [Tooltip("플레이어에게서 이만큼 멀어지면 앞쪽 스폰 지점으로 옮긴다.\n\n" +
              "★ 화면 대각선보다 넉넉히 크게 둘 것 — 보이는 자리에서 사라지면 순간이동이 들킨다.\n" +
@@ -147,6 +156,10 @@ public class Spawner : MonoBehaviour
 
     void Release(StageWave wave, int index)
     {
+        // 상한에 걸리면 이번 마리는 그냥 건너뛴다. 웨이브 시계는 계속 돌아가므로
+        // 자리가 나면 다음 주기에 알아서 다시 나온다
+        if (maxAlive > 0 && !wave.enemy.stationary && alive.Count >= maxAlive) return;
+
         GameObject go = GameManager.instance.poolManager.Get(wave.enemy.prefab, PoolType.Enemy);
         if (go == null) return;
 

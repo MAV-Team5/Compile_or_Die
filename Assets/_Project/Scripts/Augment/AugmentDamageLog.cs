@@ -14,8 +14,24 @@ using UnityEngine;
 /// </summary>
 public static class AugmentDamageLog
 {
+    /// <summary>
+    /// 기록을 원하는 증강이 하나라도 있는가.
+    ///
+    /// <b>없으면 아무것도 안 한다.</b> 피해는 초당 수백 번 지나가는 자리라,
+    /// 아무도 안 듣는데 매번 러너 목록을 훑으면 그 자체가 비용이 된다.
+    /// 스택 증강을 뽑는 순간 <see cref="Enable"/> 로 켜진다.
+    /// </summary>
+    public static bool Listening { get; private set; }
+
+    public static void Enable() => Listening = true;
+
+    /// <summary>런이 다시 시작될 때 끈다. static 이라 씬을 넘어 살아남는다.</summary>
+    public static void Reset() => Listening = false;
+
     public static void Record(DamageContext dmg)
     {
+        if (!Listening) return;
+
         if (dmg == null || dmg.Amount <= 0f) return;
 
         AugmentManager manager = AugmentManager.Current;

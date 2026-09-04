@@ -108,23 +108,15 @@ public class PoolManager : MonoBehaviour
             prefabPools[prefab] = pool;
         }
 
-        for (int i = pool.Count - 1; i >= 0; i--)
+        GameObject found = TakeFree(pool);
+
+        if (found != null)
         {
-            // 누군가 Destroy 로 없앤 항목이 섞이면 activeSelf 를 읽는 순간 터진다
-            if (pool[i] == null)
-            {
-                pool.RemoveAt(i);
-                continue;
-            }
-
-            if (pool[i].activeSelf) continue;
-
             // 지난번에 적에게 붙었을 수 있다. 안 떼면 그 적이 되살아날 때 같이 떠오른다
             Transform parent = ParentOf(category);
-            if (pool[i].transform.parent != parent) pool[i].transform.SetParent(parent, false);
+            if (found.transform.parent != parent) found.transform.SetParent(parent, false);
 
-            pool[i].SetActive(true);
-            return pool[i];
+            return found;
         }
 
         GameObject created = Instantiate(prefab, ParentOf(category));
@@ -148,25 +140,56 @@ public class PoolManager : MonoBehaviour
     /// <param name="prefabs"></param>
     /// <param name="index"></param>
     /// <returns></returns>
+    /// <summary>
+    /// 풀별로 "지난번에 꺼낸 자리". 여기서부터 이어서 찾는다.
+    ///
+    /// <b>매번 0번부터 훑으면 풀이 커질수록 느려진다.</b> 풀은 줄어들지 않으므로
+    /// 런이 길어질수록 한 번 꺼내는 비용이 계속 오르고, 광역기로 수십 마리가
+    /// 동시에 맞아 피해 숫자를 한꺼번에 꺼낼 때 그게 프레임으로 나타난다.
+    /// 쓰고 반납하는 순서가 대체로 비슷하므로, 이어서 찾으면 보통 한두 번에 걸린다.
+    /// </summary>
+    readonly Dictionary<List<GameObject>, int> cursors = new();
+
     public GameObject GetObject(List<GameObject>[] pools, GameObject[] prefabs, int index, Transform parent)
     {
-        GameObject select = null;
+        List<GameObject> pool = pools[index];
 
-        foreach(GameObject item in pools[index])
-        {
-            if (!item.activeSelf)
-            {
-                select = item;
-                select.SetActive(true);
-                break;
-            }
-        }
-        if(select == null)
+        GameObject select = TakeFree(pool);
+
+        if (select == null)
         {
             select = Instantiate(prefabs[index], parent);
-            pools[index].Add(select);
+            pool.Add(select);
         }
 
         return select;
+    }
+
+    /// <summary>커서 자리에서 시작해 한 바퀴만 돌며 쉬고 있는 것을 찾는다.</summary>
+    GameObject TakeFree(List<GameObject> pool)
+    {
+        if (pool.Count == 0) return null;
+
+        cursors.TryGetValue(pool, out int cursor);
+
+        for (int step = 0; step < pool.Count; step++)
+        {
+            int i = (cursor + step) % pool.Count;
+            GameObject item = pool[i];
+
+            // 누군가 Destroy 로 없앤 항목이 섞이면 activeSelf 를 읽는 순간 터진다
+            if (item == null) continue;
+            if (item.activeSelf) continue;
+
+            cursors[pool] = (i + 1) % pool.Count;
+
+            item.SetActive(true);
+            return item;
+        }
+
+        // 한 바퀴 다 돌았는데 없다. 다음엔 새로 만든 것(맨 뒤)부터 보게 둔다
+        cursors[pool] = pool.Count;
+
+        return null;
     }
 }

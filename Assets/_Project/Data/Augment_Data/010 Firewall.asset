@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 010 Firewall
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: FIREWALL
   displayName: FireWall
   category: 4
   icon: {fileID: 21300000, guid: b6795c96fef3b01439d1de6a75d33651, type: 3}
-  descriptionTemplate: 
+  descriptionTemplate: "\uCFE8\uD0C0\uC784\uB9C8\uB2E4 \uC8FC\uC704\uC801\uC5D0\uAC8C
+    \uB370\uBBF8\uC9C0\uB97C \uC8FC\uACE0 \uBC00\uC5B4\uB0B8\uB2E4.\n\uD53C\uD574\uB7C9\t:
+    {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC94\uC704\t: {effectRange}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 

@@ -1321,7 +1321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelSystem
   baseRequired: 2
-  growthPerLevel: 1
+  growthPerLevel: 2
 --- !u!1 &296892101
 GameObject:
   m_ObjectHideFlags: 0

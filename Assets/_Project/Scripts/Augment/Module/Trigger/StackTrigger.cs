@@ -72,6 +72,10 @@ public class StackTrigger : TriggerModule
     {
         StackState s = instance.GetShared<StackState>();
 
+        // 스택을 가진 증강이 생겼으니 이제 피해를 흘려받아야 한다.
+        // 아무도 안 들을 때는 파이프라인이 이 일을 건너뛴다
+        AugmentDamageLog.Enable();
+
         switch (s.Now)
         {
             case StackState.Phase.Filling:

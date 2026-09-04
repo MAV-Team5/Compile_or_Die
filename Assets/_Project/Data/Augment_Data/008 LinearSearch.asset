@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 008 LinearSearch
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: 008
   displayName: LinearSearch
   category: 0
@@ -39,78 +39,68 @@ MonoBehaviour:
     range: 10
     effectRange: 15
     count: 0
-    pierce: 5
-    duration: 3
+    pierce: 0
+    duration: 0
     speed: 0
     depth: 0
   - damage: 0
     effectDamage: 0.18
     cooldown: 3.4
     range: 11
-    effectRange: 18
+    effectRange: 16
     count: 0
-    pierce: 5
-    duration: 3.2
+    pierce: 0
+    duration: 0
     speed: 0
     depth: 0
   - damage: 0
     effectDamage: 0.21
     cooldown: 3.3
     range: 12
-    effectRange: 21
+    effectRange: 17
     count: 0
     pierce: 6
-    duration: 3.4
+    duration: 0
     speed: 0
     depth: 0
   - damage: 0
     effectDamage: 0.24
     cooldown: 3.2
     range: 13
-    effectRange: 24
+    effectRange: 18
     count: 0
-    pierce: 6
-    duration: 3.6
+    pierce: 0
+    duration: 0
     speed: 0
     depth: 0
   - damage: 0
     effectDamage: 0.27
     cooldown: 3.1
     range: 14
-    effectRange: 27
+    effectRange: 19
     count: 0
-    pierce: 7
-    duration: 3.8
+    pierce: 0
+    duration: 0
     speed: 0
     depth: 0
   - damage: 0
     effectDamage: 0.3
     cooldown: 3
     range: 15
-    effectRange: 30
+    effectRange: 20
     count: 0
-    pierce: 7
-    duration: 4
+    pierce: 0
+    duration: 0
     speed: 0
     depth: 0
   - damage: 0
     effectDamage: 0.33
     cooldown: 2.9
     range: 16
-    effectRange: 33
+    effectRange: 21
     count: 0
-    pierce: 8
-    duration: 4.2
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.36
-    cooldown: 2.8
-    range: 17
-    effectRange: 36
-    count: 0
-    pierce: 8
-    duration: 4.4
+    pierce: 0
+    duration: 0
     speed: 0
     depth: 0
   trigger:

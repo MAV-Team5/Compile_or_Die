@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 005 Tree
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: TREE
   displayName: Tree
   category: 2
@@ -24,9 +24,8 @@ MonoBehaviour:
     \uC5F0\uACB0\uD55C\uB2E4. \uD2B8\uB9AC\uAC00 \uAD6C\uC131\uB41C \uB178\uB4DC\uB294
     \uC790\uC2DD \uB178\uB4DC\uC5D0\uAC8C 50%\uD53C\uD574\uB97C \uC804\uC774\uD55C\uB2E4.\n\uD53C\uD574
     \uC804\uC774\uC728 : {effectDamage*100}%\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC1C\uB3D9
-    \uAC70\uB9AC\t: {range}\n\uAC04\uC120 \uAE38\uC774\t: {effectRange}\n\uD22C\uC0AC\uCCB4
-    \uC218\t: {count *0.2}\n\uAC04\uC120 \uC218\t: {count}\n\uCD5C\uB300 \uAE4A\uC774\t:
-    {depth}"
+    \uAC70\uB9AC\t: {range}\n\uAC04\uC120 \uAE38\uC774\t: {effectRange}\n\uAC04\uC120
+    \uC218\t: {count}\n\uCD5C\uB300 \uAE4A\uC774\t: {depth}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
