@@ -5,6 +5,9 @@ using UnityEngine;
 /// 타겟 좌표를 중심으로 한 직선(가로/세로) 판정. 원점(시전자)이 아니라 타겟팅이 찍은
 /// 좌표 자체에서 빔이 발생한다. LineDelivery 는 "원점→타겟 방향"으로 쏘지만
 /// 이건 "타겟 위치가 곧 빔의 중심"이라는 점이 다르다. Linear Search 전용.
+///
+/// [수정] 타겟 위치가 빔의 "중심"이 아니라 "시작점"이 되도록 변경.
+/// 방향 정보가 없을 때(예: Random Targeting) 고정 방향 대신 매 발마다 랜덤 방향을 사용.
 /// </summary>
 [System.Serializable]
 [ModuleInfo("타겟 좌표를 중심으로 직선 관통", "원점이 아니라 타겟 위치에서 빔이 생긴다. 원점 기준이면 Line")]
@@ -33,35 +36,40 @@ public class AxisBeamDelivery : DeliveryModule
         float len = length > 0f ? length : ctx.Stat.effectRange;
         if (len <= 0f || width <= 0f) return;
 
-        // 방향을 모르면(전방위 발동) 가로로 물러난다 — 정상 흐름에선 타겟팅이 채워준다
-        Vector2 dir = ctx.HasDirection ? ctx.Heading.normalized : Vector2.right;
-
         // 타겟 목록을 먼저 복사한다. 아래 판정이 공용 버퍼를 덮어쓰기 때문
         List<TargetRef> targets = new(ctx.Targets.Items);
         int index = 0;
 
         for (int t = 0; t < targets.Count; t++)
-            Fire(ctx, targets[t].Position, dir, len, ref index, onHit);
+            Fire(ctx, targets[t].Position, len, ref index, onHit);
     }
 
-    /// <summary>center 를 빔의 "중심"으로 삼아 dir 방향 직사각형 판정을 한 프레임에 낸다.</summary>
-    void Fire(AugmentContext ctx, Vector2 center, Vector2 dir, float len,
-              ref int index, System.Action<HitInfo> onHit)
+    /// <summary>
+    /// origin(타겟 위치)을 빔의 "시작점"으로 삼아 dir 방향으로 len 만큼 뻗는 직사각형 판정을
+    /// 한 프레임에 낸다. 방향 정보가 없으면(Random Targeting 등) 발마다 랜덤 각도를 새로 뽑는다.
+    /// </summary>
+    void Fire(AugmentContext ctx, Vector2 origin, float len, ref int index, System.Action<HitInfo> onHit)
     {
-        SpawnBeam(center, dir, len);
-        fireFx.PlayAt(center, dir);
+        // 방향 정보가 있으면(예: Chain 하위, Nearest 등) 그 방향을 쓰고,
+        // 없으면(Random 타겟팅처럼 ctx.Heading을 안 채우는 경우) 매 발마다 랜덤 각도
+        Vector2 dir = ctx.HasDirection ? ctx.Heading.normalized : Random.insideUnitCircle.normalized;
+
+        // origin이 빔의 "끝"이 아니라 "시작점"이 되도록, 판정 박스 중심은 dir 방향으로 절반만큼 밀어준다
+        Vector2 boxCenter = origin + dir * (len * 0.5f);
+
+        SpawnBeam(origin, dir, len);
+        fireFx.PlayAt(origin, dir);
 
         Vector2 size = new(width, len);
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
 
         List<Transform> ordered = new();
-        TargetQuery.OverlapBoxInto(center, size, angle, ctx.Owner, ordered);
+        TargetQuery.OverlapBoxInto(boxCenter, size, angle, ctx.Owner, ordered);
 
-        // 빔 시작점(center 에서 dir 반대쪽 끝) 기준 가까운 순으로 관통 순서를 만든다
-        Vector2 beamStart = center - dir * (len * 0.5f);
+        // origin(타겟 위치) 기준 가까운 순으로 관통 순서를 만든다
         ordered.Sort((a, b) =>
-            ((Vector2)a.position - beamStart).sqrMagnitude
-            .CompareTo(((Vector2)b.position - beamStart).sqrMagnitude));
+            ((Vector2)a.position - origin).sqrMagnitude
+            .CompareTo(((Vector2)b.position - origin).sqrMagnitude));
 
         int limit = maxHits > 0 ? maxHits : ctx.Stat.pierce;
         if (limit <= 0) limit = ordered.Count;
@@ -70,21 +78,20 @@ public class AxisBeamDelivery : DeliveryModule
         {
             onHit(new HitInfo
             {
-                Target    = ordered[i],
-                Point     = ordered[i].position,
-                Index     = index++,
+                Target = ordered[i],
+                Point = ordered[i].position,
+                Index = index++,
                 Direction = dir
             });
         }
     }
 
     /// <summary>레이저 본체를 띄운다. 연출이 아니라 이 모듈의 결과물이다.</summary>
-    void SpawnBeam(Vector2 center, Vector2 dir, float len)
+    void SpawnBeam(Vector2 beamStart, Vector2 dir, float len)
     {
         if (beamPrefab == null) return;
 
-        Vector2 beamStart = center - dir * (len * 0.5f);
-        GameObject go = Object.Instantiate(beamPrefab, center, Quaternion.identity);
+        GameObject go = Object.Instantiate(beamPrefab, beamStart, Quaternion.identity);
 
         if (go.TryGetComponent(out BeamVisual beam))
         {
@@ -95,7 +102,7 @@ public class AxisBeamDelivery : DeliveryModule
         // BeamVisual 이 없는 프리팹도 일단 보이게는 해준다. 위치와 회전만 맞추고 짧게 정리
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
 
-        go.transform.SetPositionAndRotation(center, Quaternion.Euler(0f, 0f, angle));
+        go.transform.SetPositionAndRotation(beamStart, Quaternion.Euler(0f, 0f, angle));
 
         Object.Destroy(go, 0.15f);
     }
