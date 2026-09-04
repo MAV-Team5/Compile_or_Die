@@ -22,6 +22,9 @@ public class SearchTrigger : TriggerModule
 
         /// <summary>탐색이 멎은 뒤 남은 대기 시간.</summary>
         public float settle;
+
+        /// <summary>첫 판정을 지났는가. 상태 주머니는 증강을 얻을 때 처음 만들어진다.</summary>
+        public bool started;
     }
 
     [Tooltip("탐색을 기다리기까지의 쿨타임 배수. 1이면 시트 쿨타임 그대로.\n" +
@@ -39,6 +42,19 @@ public class SearchTrigger : TriggerModule
         var s = instance.GetState<State>(this);
 
         float cd = instance.Stat.cooldown * (cooldownScale > 0f ? cooldownScale : 1f);
+
+        // 얻자마자 쿨타임을 채워둔다. 이 트리거는 스스로 나가지 않고 남의 탐색에 반응하므로
+        // "즉시 발동" 이 아니라 "다음 탐색을 바로 받을 수 있는 상태" 가 된다
+        if (!s.started)
+        {
+            s.started = true;
+
+            if (fireOnAcquire)
+            {
+                s.timer = cd;
+                s.seenVersion = SearchRegistry.Version;
+            }
+        }
 
         // 탐색을 오래 기다려도 타이머가 무한히 자라지 않게 막는다
         s.timer = Mathf.Min(s.timer + deltaTime, cd);

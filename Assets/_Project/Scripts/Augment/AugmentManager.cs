@@ -146,6 +146,10 @@ public class AugmentManager : MonoBehaviour
     /// <summary>내부 증강의 레벨 수치가 곧 뿌리의 보정치다.</summary>
     static void ApplyBonus(AugmentInstance root, AugmentInstance inner)
     {
+        // 자기 수치를 자기 효과에만 쓰는 내부 증강은 뿌리에 안 섞는다.
+        // 안 그러면 "직전 피해의 30%" 가 뿌리의 효과피해에도 더해져 평타까지 세진다
+        if (!inner.Data.mergeStatsIntoRoot) return;
+
         if (inner.Data.levelStats == null || inner.Data.levelStats.Length == 0) return;
 
         StatMath.Accumulate(inner.BaseStat, inner.Data.bonusIsPercent,

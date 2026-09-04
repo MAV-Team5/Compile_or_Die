@@ -568,11 +568,46 @@ public class AugmentCardView : MonoBehaviour,
         int current = mine != null ? mine.Instance.Level : 0;
         int nextLevel = current + 1;
 
-        levelText.text = mine != null ? $"Lv {current} → Lv {nextLevel}" : "신규 획득";
+        levelText.color = theme.dim;
+
+        bool last = mine != null && nextLevel >= mine.Instance.MaxLevel;
+
+        // ★ 전역(AugmentText.ChangeColor)을 쓰지 않는다. 그것이 비어 있으면
+        //   <color=> 라는 깨진 태그가 되어 글자로 그대로 찍힌다. 여기서는 테마에서 직접 뽑는다
+        string maxColor = "#" + ColorUtility.ToHtmlStringRGB(theme.good);
+        string accent   = "#" + ColorUtility.ToHtmlStringRGB(theme.accent);
+
+        levelText.text = mine == null
+                ? $"<color={accent}>신규 획득</color>"
+            : last
+                ? $"Lv {current} → <color={maxColor}>Lv {nextLevel} MAX</color>"
+            : IsMilestone(nextLevel)
+                ? $"Lv {current} → <color={accent}>Lv {nextLevel} MAJOR</color>"
+                : $"Lv {current} → Lv {nextLevel}";
+
+        // 만렙으로 가는 카드는 바뀌는 수치도 같은 색으로 물들인다.
+        // ★ ChangeColor 는 전역이라 반드시 원래대로 되돌려야 다음 카드가 안 물든다
+        //   (평소 값은 AugmentSelectUI.Awake 가 채운다)
+        string carryColor = AugmentText.ChangeColor;
+        if (last) AugmentText.ChangeColor = maxColor;
 
         // 이미 가진 증강이면 무엇이 오르는지 나란히 보여준다. 신규면 한쪽 값만
         descriptionText.text = AugmentText.Compare(data, current, nextLevel);
+
+        AugmentText.ChangeColor = carryColor;
     }
+
+    /// <summary>성장폭이 큰 레벨의 간격. 1 · 4 · 7 · 10 … 이 특별 레벨이 된다.</summary>
+    const int MilestoneEvery = 3;
+
+    /// <summary>
+    /// 이 레벨이 성장폭이 큰 구간인가.
+    ///
+    /// 표시를 두는 이유 — 레벨업이 다 똑같아 보이면 "지금 올려야 하나 다음에 올려야 하나" 를
+    /// 판단할 근거가 없다. 특별 레벨을 알려주면 <b>기다렸다 몰아 올리는</b> 선택이 생긴다.
+    /// Lv1 은 획득 자체가 이벤트라 제외한다.
+    /// </summary>
+    static bool IsMilestone(int level) => level > 1 && (level - 1) % MilestoneEvery == 0;
 
     /// <summary>리롤 버튼의 잠금과 글자를 상태에 맞춘다.</summary>
     /// <summary>

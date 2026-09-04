@@ -52,6 +52,9 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
     public float Current { get; private set; }
     public bool IsDead { get; private set; }
 
+    /// <summary>죽은 뒤에는 피해가 안 들어간다. 무적 프레임이 생기면 여기에 얹는다.</summary>
+    public bool AcceptsDamage => !IsDead;
+
     /// <summary>(현재, 최대). 피해·회복 모두 알린다.</summary>
     public event System.Action<float, float> Changed;
     public event System.Action Died;
@@ -197,7 +200,8 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
 
             if (enemy == null) continue;
 
-            perSecond += enemy.contactDamage;
+            perSecond += enemy.GetContectDamage()
+;
         }
 
         // 안 닿았으면 타이머를 소모하지 않는다 — 그래야 처음 닿는 순간 바로 아프다

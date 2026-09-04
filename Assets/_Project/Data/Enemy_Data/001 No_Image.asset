@@ -15,8 +15,8 @@ MonoBehaviour:
   displayName: No Image
   prefab: {fileID: 3469445803652378370, guid: 1d812709218d34f4597ef12367253a2a, type: 3}
   rank: 0
-  health: 10
-  speed: 2
+  health: 1
+  speed: 1
   contactDamage: 1
   scale: 1
   animatorOverride: {fileID: 0}
@@ -28,6 +28,8 @@ MonoBehaviour:
   - missing texture resolved.
   - 'sprite assigned: {name}'
   killLog: 1
+  deathState: 
+  deathDuration: 0
   deathClips: []
   deathVolume: 0.5
   deathInterval: 0

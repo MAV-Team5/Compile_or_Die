@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 001 Bash
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   lockModules: 0
-  lockStats: 1
+  lockStats: 0
   id: BASH
   displayName: Bash
   category: 3
@@ -21,12 +21,12 @@ MonoBehaviour:
   descriptionTemplate: "\uD30C\uC774\uD504\uB77C\uC778\uC744 \uBC1C\uC0AC\uD55C\uB2E4.
     \n\uC801\uC911 \uB300\uC0C1\uC740 \uC785\uB825 \uB178\uB4DC\uAC00 \uB418\uC5B4
     \n\uB354 \uAC15\uD574\uC9C4 \uD30C\uC774\uD504\uB77C\uC778\uC744 \uBC1C\uC0AC\uD55C\uB2E4.\n\uD53C\uD574\uB7C9\t:
-    {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uC0AC\uC815\uAC70\uB9AC\t: {range}\n\uD22C\uC0AC\uCCB4
-    \uC218\t: {count}\n\uC5F0\uC1C4 \uC218\t: {depth} \n\uD53C\uD574 \uC99D\uAC00\uC728
-    : {effectDamage * 100}%\n"
+    {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uC0AC\uC815\uAC70\uB9AC\t: {range}\n\uC5F0\uC1C4
+    \uC218\t: {depth} \n\uD53C\uD574 \uC99D\uAC00\uC728 : {effectDamage * 100}%\n"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
   targetingPatch: 0
   deliveryPatch: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     cooldown: 3
     range: 6
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
     speed: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     cooldown: 2.8
     range: 6.5
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
     speed: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
     cooldown: 2.6
     range: 7
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
     speed: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
     cooldown: 2.4
     range: 7.5
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
     speed: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
     cooldown: 2.2
     range: 8
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
     speed: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
     cooldown: 2
     range: 8.5
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
     speed: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
     cooldown: 1.8
     range: 9
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
     speed: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
     cooldown: 1.5
     range: 9.5
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
     speed: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
         noTargetPolicy: 0
+        fireOnAcquire: 1
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -150,9 +151,11 @@ MonoBehaviour:
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1.2
+          offset: 0
         lifetime: 3
         oneHitPerTarget: 0
         dieWithOrigin: 1
@@ -173,15 +176,17 @@ MonoBehaviour:
           shotsPerTarget:
             value: 0
             scale: 1
+            offset: 0
           formation: 1
           spacing: 0.7
-          spreadPerShot: 90
+          spreadPerShot: 0
     - rid: 980040080136339577
       type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
       data:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
     - rid: 980040160363151451
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -199,6 +204,7 @@ MonoBehaviour:
         damagePerDepth:
           value: 0
           scale: 1
+          offset: 0
         targeting:
           rid: 980040160363151461
         deliveries:
@@ -217,9 +223,11 @@ MonoBehaviour:
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1.2
+          offset: 0
         lifetime: 3
         oneHitPerTarget: 0
         dieWithOrigin: 1
@@ -240,6 +248,7 @@ MonoBehaviour:
           shotsPerTarget:
             value: 1
             scale: 1
+            offset: 0
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
@@ -259,6 +268,7 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         distanceRatio: 0.1
         fallbackAngle: 90
     - rid: 980040160363151489

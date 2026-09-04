@@ -5166,12 +5166,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   spawnPoints: []
-  recycleDistance: 50
-  recycleInterval: 2
-  recycleBatch: 8
-  stationaryMinDistance: 20
-  stationaryMaxDistance: 30
-  orbSpacing: 1
+  recycleDistance: 60
+  recycleInterval: 1
+  recycleBatch: 16
+  stationaryMinDistance: 40
+  stationaryMaxDistance: 50
+  orbSpacing: 0.75
 --- !u!1 &1178571355
 GameObject:
   m_ObjectHideFlags: 0
@@ -6245,8 +6245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ad154e2eeff074eb683b38a684b1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentManager
-  startingAugments:
-  - {fileID: 11400000, guid: 5a553f0644269cb4fa7789b0d973018b, type: 2}
+  startingAugments: []
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -9806,10 +9805,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OffscreenMarkerHud
   canvas: {fileID: 0}
-  markerPrefab: {fileID: 6989300053128186114, guid: f79d3ad320f6c2542bb4dd62e7038c2d, type: 3}
-  edgeMargin: 60
+  markerPrefab: {fileID: 4030998260379910641, guid: c75de5f544aa8464cb4caa5b18f0f839, type: 3}
+  edgeMargin: 120
   fallbackSize: {x: 36, y: 36}
-  rotateIcon: 1
+  rotateIcon: 0
 --- !u!1 &2075393043
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,9 +15,9 @@ MonoBehaviour:
   displayName: prontf
   prefab: {fileID: 3469445803652378370, guid: 2afeb4c902422384897b83546fe8c527, type: 3}
   rank: 0
-  health: 15
-  speed: 4
-  contactDamage: 3
+  health: 1
+  speed: 1
+  contactDamage: 1
   scale: 1
   animatorOverride: {fileID: 0}
   flipToFace: 0
@@ -28,5 +28,14 @@ MonoBehaviour:
   - "{name} \u2192 printf"
   - implicit declaration resolved.
   killLog: 1
-  exp: 1
+  deathState: 
+  deathDuration: 0
+  deathClips: []
+  deathVolume: 0.5
+  deathInterval: 0
   bits: 0
+  countsAsKill: 1
+  dropTable: []
+  dropChance: 1
+  dropCount: 1
+  stationary: 0

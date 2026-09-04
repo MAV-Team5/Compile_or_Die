@@ -19,9 +19,9 @@ using UnityEngine;
 /// <b>런타임에 붙지만 자리는 에셋에 보인다.</b> 아무 데나 끼어드는 방식이면
 /// 무엇이 언제 실행되는지 추적할 수가 없다 — 뿌리가 허락한 자리에만 꽂히게 한 이유다.
 ///
-/// <b>수치는 뿌리 것을 쓴다.</b> <see cref="AugmentContext"/> 를 그대로 넘기므로
-/// 내부 증강의 <c>damageScale 3</c> 은 뿌리의 피해량에 곱해진다 —
-/// 뿌리를 올리면 평타가 세지고, 내부를 올리면 배수만 커지는 구조.
+/// <b>수치는 내부 증강 자기 것을 쓴다.</b> 뿌리의 ctx 를 그대로 넘기면 내부 증강의 시트가
+/// 통째로 무시되어 레벨을 올려도 아무 변화가 없다. 그래서 <see cref="AugmentContext.BeginExtension"/>
+/// 으로 <b>상황은 물려받고 수치만 갈아끼운</b> 맥락을 새로 만들어 넘긴다.
 /// </summary>
 [System.Serializable]
 [ModuleInfo("내부 증강이 꽂히는 자리", "뽑지 않았으면 아무 일도 안 한다")]
@@ -52,7 +52,15 @@ public class ExtensionEffect : EffectModule
         List<EffectModule> effects = inner.Instance.Data.effects;
         if (effects == null) return;
 
+        // 상황(적중 대상·방향·연쇄 깊이)은 물려받고 수치만 내부 증강 것으로 바꾼다
+        var sub = new AugmentContext();
+        sub.BeginExtension(ctx, inner.Instance);
+
         // 같은 적중에 얹기만 한다. 새로 타겟팅하면 "추가 효과" 가 아니라 별개의 공격이 된다
-        for (int i = 0; i < effects.Count; i++) effects[i]?.Apply(ctx, hit);
+        for (int i = 0; i < effects.Count; i++) effects[i]?.Apply(sub, hit);
+
+        // 내부 증강이 준 피해를 뿌리 쪽에도 알려준다. 그래야 그 뒤에 오는 효과가
+        // "직전 피해" 를 물을 때 내부 증강 몫까지 포함된 값을 본다
+        ctx.LastDamage = sub.LastDamage;
     }
 }

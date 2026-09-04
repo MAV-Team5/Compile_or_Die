@@ -150,6 +150,12 @@ public class AugmentSelectUI : MonoBehaviour
         // BuildOverlay 가 색·글꼴을 쓰므로 반드시 그 전에 잡는다
         theme = UiTheme.Current;
 
+        // 오른 값에 입힐 강조색. 문구 해석기는 테마를 모르므로 여기서 알려준다.
+        //
+        // ★ AugmentCardView.Create 안에 두면 안 된다 — 카드 프리팹을 물려두면
+        //   그 경로를 아예 안 타서 색이 null 로 남고, 화면에 <color=> 가 글자로 찍힌다
+        AugmentText.ChangeColor = "#" + ColorUtility.ToHtmlStringRGB(theme.accent);
+
         // 인스펙터에 물려둔 게 있으면 그대로 두고, 비었을 때만 테마 글꼴로 채운다
         if (font == null) font = theme.mono;
 

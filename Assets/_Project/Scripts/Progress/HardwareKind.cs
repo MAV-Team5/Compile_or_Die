@@ -7,44 +7,38 @@
 /// </summary>
 public enum HardwareKind
 {
-    /// <summary>
-    /// 투사체 속도.
-    ///
-    /// 기획서에는 공격 속도였지만, 뱀서라이크에서 공격 속도는 곧 쿨타임이라
-    /// RAM 과 같은 수치가 된다. 그래서 겹치지 않게 투사체 속도로 옮겼다.
-    /// </summary>
+    /// <summary>쿨타임 감소 — 연산 처리.</summary>
     Cpu,
 
-    /// <summary>쿨타임 감소.</summary>
+    /// <summary>
+    /// 투사체 수 증가 — 동시 처리 데이터 양.
+    ///
+    /// <b>정수 수치라 반드시 가산으로 넣는다.</b> StatMath 는 수량·관통·깊이에
+    /// 승산을 아예 적용하지 않아서, 비율로 넣으면 경고도 없이 아무 일이 안 일어난다.
+    /// </summary>
     Ram,
 
-    /// <summary>
-    /// 최대 체력.
-    ///
-    /// 원래 RAM 이 경험치 획득량이었는데, 잡몹이 떨구는 경험치가 대개 1이라
-    /// +10% 만 걸려도 올림 때문에 2가 되어 두 배로 뛰었다.
-    /// 정수 한 자리에는 비율 보정을 걸 자리가 없어 경험치는 아예 빼고 자리를 옮겼다.
-    /// </summary>
+    /// <summary>경험치 획득 범위 — 데이터 접근 속도.</summary>
     Ssd,
 
-    /// <summary>공격 범위.</summary>
+    /// <summary>공격(효과) 범위 — 그래픽 처리.</summary>
     Gpu,
 
-    /// <summary>전체 공격력.</summary>
+    /// <summary>전체 공격력 — 전력 공급.</summary>
     Power,
 
-    /// <summary>시야 범위.</summary>
+    /// <summary>시야 범위 — 화면 표시.</summary>
     Monitor,
 
-    /// <summary>크리티컬 확률.</summary>
+    /// <summary>사정거리 — 입력 조준.</summary>
     Mouse,
 
-    /// <summary>이동 속도.</summary>
+    /// <summary>이동 속도 — 입력 반응.</summary>
     Keyboard,
 
-    /// <summary>런 시작 시 스타트 증강 수.</summary>
+    /// <summary>런 시작 시 증강 선택 횟수 — 부품 연결/확장.</summary>
     Mainboard,
 
-    /// <summary>최대 에러량. 에러율 시스템이 생기기 전까지는 잠가둔다.</summary>
+    /// <summary>최대 체력 — 발열 안정성.</summary>
     Cooler
 }

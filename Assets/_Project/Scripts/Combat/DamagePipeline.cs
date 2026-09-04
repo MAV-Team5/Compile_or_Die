@@ -11,6 +11,10 @@ public static class DamagePipeline
     {
         if (dmg == null || dmg.Target == null) return;
 
+        // 무적이면 여기서 끝낸다. 표식 소비도 숫자 표시도 하지 않아야
+        // "막혔다" 가 화면에 정직하게 보인다
+        if (!dmg.Target.AcceptsDamage) return;
+
         // 1. 기본값에서 시작
         dmg.Amount = dmg.BaseAmount;
 
