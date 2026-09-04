@@ -31,6 +31,16 @@ public class Spawner : MonoBehaviour
              "조금씩 나눠 옮겨야 사방에서 스며드는 모양이 된다.")]
     [SerializeField] int recycleBatch = 3;
 
+    [Header("설치물(상자) 배치")]
+    [Tooltip("플레이어에게서 최소 이만큼 떨어져 나온다.\n\n" +
+             "★ 화면 밖이 기본이다 — 화면 안에 두면 몇 발짝이라 지나가다 저절로 먹히고,\n" +
+             "  \"주우러 갈까\" 라는 판단이 사라진다. 어디 있는지는 OffscreenTarget 이 알려준다.")]
+    [SerializeField] float stationaryMinDistance = 10f;
+
+    [Tooltip("최대 이만큼. 화살표가 뜨는 거리(OffscreenTarget.showWithin)보다 작아야\n" +
+             "나오자마자 표시된다.")]
+    [SerializeField] float stationaryMaxDistance = 18f;
+
     [Header("경험치 오브 나열")]
     [Tooltip("한 처치에서 오브가 여러 개 나올 때 서로 떨어질 간격(유닛).\n\n" +
              "한 줄로 나란히 놓는다 — 무작위로 흩뿌리면 겹쳐서 몇 개인지 안 읽힌다.")]
@@ -135,7 +145,8 @@ public class Spawner : MonoBehaviour
         GameObject go = GameManager.instance.poolManager.Get(wave.enemy.prefab, PoolType.Enemy);
         if (go == null) return;
 
-        go.transform.position = PickPoint();
+        // 설치물은 안 움직이므로 화면 밖 링에 두면 영영 못 본다. 눈에 보이는 자리에 놓는다
+        go.transform.position = wave.enemy.stationary ? PickNearPoint() : PickPoint();
 
         // 물리 좌표는 다음 FixedUpdate 까지 transform 을 따라오지 않는다.
         // 그 사이에 증강이 사거리 검색을 하면 갓 스폰한 적이 원점에 있는 것으로 잡힌다
@@ -232,6 +243,10 @@ public class Spawner : MonoBehaviour
 
             if ((t.position - center).sqrMagnitude < limit) continue;
 
+            // 설치물은 옮기지 않는다. 주우러 걸어가는 중에 눈앞에서 사라지면 최악이다 —
+            // 멀어진 것은 그냥 두고, 플레이어가 돌아오면 그 자리에 그대로 있다
+            if (t.TryGetComponent(out Enemy body) && body.IsStationary) continue;
+
             // 자리만 옮기면 간선이 따라와 화면을 가로지른다. 옮기기 전에 끊는다
             if (t.TryGetComponent(out LinkHolder links)) links.CutAll();
 
@@ -259,6 +274,24 @@ public class Spawner : MonoBehaviour
         // 목록이 줄면 커서가 범위를 벗어난다
         if (alive.Count > 0) scanCursor %= alive.Count;
         else scanCursor = 0;
+    }
+
+    /// <summary>
+    /// 설치물이 나올 자리. 플레이어 주변 <b>화면 밖</b>이다.
+    ///
+    /// 안 움직이는 것을 화면 안에 두면 몇 발짝이라 그냥 지나가다 먹힌다 —
+    /// 상자가 "가끔 뜨는 버프" 가 되고 만다. 화면 밖에 두어야
+    /// <b>갈까 말까</b> 라는 판단이 생기고, 어디 있는지는 화면 가장자리 화살표가 알려준다.
+    /// </summary>
+    Vector3 PickNearPoint()
+    {
+        Vector2 dir = Random.insideUnitCircle;
+
+        if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
+
+        float distance = Random.Range(stationaryMinDistance, stationaryMaxDistance);
+
+        return transform.position + (Vector3)(dir.normalized * distance);
     }
 
     Vector3 PickPoint()

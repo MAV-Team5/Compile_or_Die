@@ -77,7 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff30fbbf5845348459142cca625f2936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridRender
-  cam: {fileID: 0}
   linePrefab: {fileID: 3946886807988801656, guid: 8b88acd936472474db856628a76a650b, type: 3}
 --- !u!1 &1162270668860362012
 GameObject:

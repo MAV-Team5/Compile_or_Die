@@ -114,6 +114,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     ///
     /// OnEnable 이 먼저 돌아 이전 개체의 값으로 살아나므로, 여기서 반드시 덮어써야 한다.
     /// </summary>
+    /// <summary>안 움직이는 설치물인가. 스포너가 스폰 위치와 회수 규칙을 가를 때 본다.</summary>
+    public bool IsStationary => source != null && source.stationary;
+
     public void Init(EnemyData data, EnemyScale scale, int wave = -1)
     {
         // 풀에서 재사용되므로 항상 다시 정해야 한다. 안 그러면 지난 개체의 웨이브로 집계된다
@@ -131,6 +134,14 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         // 적마다 프리팹이 다르면 컨트롤러도 프리팹에 있다. 지정된 것이 있을 때만 갈아끼운다
         if (data.animatorOverride != null && anim != null)
             anim.runtimeAnimatorController = data.animatorOverride;
+
+        // 풀에서 꺼낸 개체는 지난번 죽음 상태의 마지막 프레임에 멈춰 있다.
+        // 되감지 않으면 새로 나온 적이 죽은 모습으로 살아난다
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+            anim.Rebind();
+            anim.Update(0f);
+        }
 
         speed = data.speed * scale.Speed;
         maxHealth = data.health * scale.Health;
@@ -163,7 +174,15 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     {
         isLive = false;
 
-        if (RunDirector.Current != null) RunDirector.Current.AddKill();
+        // 판정을 먼저 끊는다. 죽음 연출이 도는 동안 증강이 시체를 계속 겨누거나,
+        // 시체에 닿아서 피가 깎이면 안 된다
+        if (coll != null) coll.enabled = false;
+
+        // 상자 같은 설치물은 처치 수에 안 센다. 재화가 처치 수를 기준으로 계산되기 때문
+        if (RunDirector.Current != null && (source == null || source.countsAsKill))
+            RunDirector.Current.AddKill();
+
+        DropLoot();
 
         // 경험치는 웨이브가 정한다. 적은 자기가 뭘 떨구는지 모른다 —
         // 이월(carry)은 죽으면 사라지는 적이 아니라 웨이브가 들고 있어야 하기 때문
@@ -182,6 +201,60 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
             if (source != null) LogManager.Instance.AddLog(source.killLog, source.PickKillMessage());
             else LogManager.Instance.Combat($"Clear {name}");
         }
+
+        Despawn();
+    }
+
+    /// <summary>
+    /// 죽음 연출이 있으면 그동안 남았다가 사라진다. 없으면 지금 바로.
+    ///
+    /// <b>보상은 이미 다 나갔다.</b> 경험치·드롭·비트는 연출을 기다리지 않는다 —
+    /// 때린 순간과 보상 사이가 벌어지면 뭘 맞혀서 얻은 건지 연결이 끊긴다.
+    /// </summary>
+    void Despawn()
+    {
+        float wait = source != null ? source.deathDuration : 0f;
+
+        if (wait <= 0f)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        if (anim != null && !string.IsNullOrEmpty(source.deathState))
+            anim.Play(source.deathState, 0, 0f);
+
+        StartCoroutine(DespawnAfter(wait));
+    }
+
+    System.Collections.IEnumerator DespawnAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
         gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 죽은 자리에 픽업을 떨군다. 무엇을 떨굴지는 <see cref="EnemyData.dropTable"/> 이 정한다.
+    ///
+    /// 경험치(<see cref="Spawner.ReportKill"/>)와 따로 두는 이유 — 경험치는 웨이브가 정하고
+    /// 드롭은 적이 정한다. 상자는 어느 웨이브에서 나왔든 같은 것을 떨궈야 한다.
+    /// </summary>
+    void DropLoot()
+    {
+        if (source == null || source.dropCount <= 0) return;
+        if (Random.value > source.dropChance) return;
+
+        for (int i = 0; i < source.dropCount; i++)
+        {
+            GameObject prefab = source.PickDrop();
+            if (prefab == null) continue;
+
+            // 여러 개면 겹쳐서 몇 개인지 안 읽힌다. 조금씩 흩어 놓는다
+            Vector2 at = (Vector2)transform.position
+                       + (source.dropCount > 1 ? Random.insideUnitCircle * 0.5f : Vector2.zero);
+
+            PooledSpawner.Spawn(prefab, at, PoolType.Item);
+        }
     }
 }

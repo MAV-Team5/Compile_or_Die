@@ -27,7 +27,7 @@ public class SearchEffect : EffectModule
     public bool releaseOnRefire = true;
 
     [Tooltip("적 위에 붙일 표식 오브젝트. 여러 표식은 자동으로 위로 쌓인다.\n" +
-             "위치와 크기는 적 프리팹의 MarkAnchor 가 정한다.\n" +
+             "어느 자리에 붙을지는 이 프리팹의 MarkSlot 이, 그 자리의 위치·크기는 적 프리팹의 MarkMount 가 정한다.\n" +
              "비워도 추가 피해는 그대로 들어간다 — 눈에 안 보일 뿐이다.")]
     public GameObject markVfx;
 
@@ -63,7 +63,7 @@ public class SearchEffect : EffectModule
         float amount = bonus.Of(ctx.Stat.effectDamage);
         float life = duration.Of(ctx.Stat.duration);
 
-        // 표식 오브젝트 생성은 MarkerHolder 가 맡는다. 적 프리팹의 MarkAnchor 를 알아야 하므로
+        // 표식 오브젝트 생성은 MarkerHolder 가 맡는다. 적 프리팹의 자리를 알아야 하므로
         holder.Apply(new SearchMark
         {
             Owner         = ctx.Instance,

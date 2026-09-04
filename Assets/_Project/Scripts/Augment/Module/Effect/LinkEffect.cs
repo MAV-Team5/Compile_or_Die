@@ -121,6 +121,12 @@ public class LinkEffect : EffectModule
     [Fx("연결 연출", "새로 이어진 노드")]
     public FxGroup connectFx = new();
 
+    [Fx("전이 연출", "피해를 받은 노드")]
+    [Tooltip("이미 있는 간선을 타고 피해가 전이될 때마다 재생된다.\n" +
+             "connectFx 가 \"새로 연결될 때\" 단 한 번이라면, 이쪽은 \"이미 있는 연결로 공격이 흘러갈 때\"마다 반복된다.\n" +
+             "계속 퍼지는 느낌은 이쪽이 만든다.")]
+    public FxGroup transferFx = new();
+
     [Detail]
     [Tooltip("적중이 들어올 때마다 무슨 일이 있었는지 콘솔에 찍는다. 확인이 끝나면 끌 것.\n" +
              "로그가 아예 없으면 하위 투사체가 아무것도 못 맞힌 것이다.")]
@@ -148,6 +154,7 @@ public class LinkEffect : EffectModule
             Hops = ResolveHops(ctx),
             MaxPerNode = maxLinksPerNode,
             ExpireAt = ResolveExpireAt(ctx),
+            TransferFx = transferFx,
 
             // 이을 때보다 넉넉히 준다. 조금 벌어졌다고 바로 끊기면 간선이 깜빡인다
             MaxLength = linkRange.Of(ctx.Stat.effectRange) * stretchLimit

@@ -20,6 +20,12 @@ public class SearchMark
     /// <summary>띄울 표식 프리팹. 실제 생성은 MarkerHolder 가 맡는다.</summary>
     public GameObject VisualPrefab;
 
+    /// <summary>
+    /// 적의 어느 자리(<see cref="MarkMount"/>)에 붙을지.
+    /// 표식 프리팹의 <see cref="MarkSlot"/> 을 보고 MarkerHolder 가 채운다.
+    /// </summary>
+    public int Slot;
+
     /// <summary>적에 붙은 표식 오브젝트. MarkerHolder 가 채운다.</summary>
     public GameObject Visual;
 
