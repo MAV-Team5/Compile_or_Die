@@ -101,7 +101,7 @@ MonoBehaviour:
     expPerKill: 1
   - label: "2\uD30C \uC0C1\uC2DC - colon"
     startAt: 60
-    duration: 60
+    duration: 0
     enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
     interval: 2.2
     burst: 2
@@ -166,7 +166,7 @@ MonoBehaviour:
     expPerKill: 0
   - label: "\uC624\uD0C0 - \uD070 prontf"
     startAt: 70
-    duration: 110
+    duration: 0
     enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
     interval: 14
     burst: 1
@@ -231,10 +231,10 @@ MonoBehaviour:
     expPerKill: 1
   - label: "3\uD30C \uAC15\uD654 warning"
     startAt: 140
-    duration: 40
+    duration: 0
     enemy: {fileID: 11400000, guid: d188cf35eecd7c348ae0e8c4ee7c1a03, type: 2}
     interval: 10
-    burst: 2
+    burst: 1
     maxSpawns: 0
     healthScale: 25
     speedScale: 0.9
@@ -296,7 +296,7 @@ MonoBehaviour:
     expPerKill: 3
   - label: No image
     startAt: 30
-    duration: 120
+    duration: 0
     enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
     interval: 3
     burst: 2
@@ -318,7 +318,7 @@ MonoBehaviour:
     damageScale: 15
     sizeScale: 4
   augmentPool: {fileID: 11400000, guid: 14de165c4bff2634d9c9cf1b6bf1927e, type: 2}
-  startingRerolls: 8
+  startingRerolls: 16
   killValue: 1
   timeValue: 0.5
   clearBonus: 100

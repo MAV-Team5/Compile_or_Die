@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 203 Iteration_While
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   lockModules: 1
-  lockStats: 0
+  lockStats: 1
   id: ITERATION_WHILE
   displayName: Iteration:While
   category: 5
@@ -23,7 +23,7 @@ MonoBehaviour:
     \uC788\uB2E4\uBA74 \uCFE8\uD0C0\uC784\uC774 \uC5C6\uC5B4\uC838 \uC5F0\uC18D\uC73C\uB85C
     \uBC1C\uC0AC\uD55C\uB2E4\n\uC870\uAC74 \uBC94\uC704\t: {range}\n"
   rootAugment: {fileID: 11400000, guid: 2f372be2f00a4904c995b1036503849c, type: 2}
-  requiredRootLevel: 4
+  requiredRootLevel: 3
   extensionSlot: 
   mergeStatsIntoRoot: 0
   bonusIsPercent: 1

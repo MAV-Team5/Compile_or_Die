@@ -23,7 +23,7 @@ MonoBehaviour:
     \uD55C\uBC88 \uB354 \uBC1C\uC0DD.\n\uCD94\uAC00 \uB370\uBBF8\uC9C0\t: {effectDamage
     * 100}%"
   rootAugment: {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
-  requiredRootLevel: 4
+  requiredRootLevel: 3
   extensionSlot: KILL
   mergeStatsIntoRoot: 0
   bonusIsPercent: 0
