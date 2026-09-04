@@ -17,7 +17,7 @@ MonoBehaviour:
   id: 008
   displayName: LinearSearch
   category: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 4800731ef4eae344c85a8e9b24fb7278, type: 3}
   descriptionTemplate: "\uAC00\uB85C \uB610\uB294 \uC138\uB85C\uB85C \uC9C1\uC120
     \uD30C\uB3D9\uC744 \uAE0B\uB294\uB2E4.\r\n\uD30C\uB3D9\uC5D0 \uC801\uC911\uD55C
     \uB300\uC0C1\uC740 \uD45C\uC2DD\uC774 \uB0A8\uC544 \uCD94\uAC00 \uD53C\uD574\uB97C
@@ -28,6 +28,7 @@ MonoBehaviour:
   extensionSlot: 
   mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
@@ -120,6 +121,7 @@ MonoBehaviour:
   - rid: 2928020390176882778
   effects:
   - rid: 2928020390176882779
+  - rid: 4883397436454469737
   instantEffect: 0
   instantValue: 0
   instantDuration: 0
@@ -145,7 +147,7 @@ MonoBehaviour:
       data:
         directionOffset: 0
         beamPrefab: {fileID: 6824073935605403827, guid: 809d337b3aa8adc47950391cfa7c14ab, type: 3}
-        width: 1
+        width: 0.5
         length: 0
         maxHits: 0
         fireFx:
@@ -189,3 +191,9 @@ MonoBehaviour:
           scale: 1
           offset: 0
         targetCount: 1
+    - rid: 4883397436454469737
+      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 0
+        pull: 0
+        stunDuration: 0.5

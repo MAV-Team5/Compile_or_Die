@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
   m_Name: 003 Using SemiColon
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  displayName: Bug
+  displayName: "semicolon"
   prefab: {fileID: 3469445803652378370, guid: d9e4054b61f8e4dfe9125c55c95d8765, type: 3}
   rank: 0
   health: 1
@@ -23,7 +23,10 @@ MonoBehaviour:
   flipToFace: 1
   spawnMessage: 
   killMessages:
-  - Clear {name}
+  - "stray ';' removed."
+  - "empty statement deleted."
+  - "redundant {name} cleaned."
+  - "for(;;) \u2014 loop exited."
   killLog: 1
   deathState: 
   deathDuration: 0

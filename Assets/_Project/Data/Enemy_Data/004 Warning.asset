@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
   m_Name: 004 Warning
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  displayName: Warning
+  displayName: "Warning"
   prefab: {fileID: 3469445803652378370, guid: c27960c124cd6a545972370e5cf987da, type: 3}
   rank: 0
   health: 1
@@ -21,9 +21,12 @@ MonoBehaviour:
   scale: 1
   animatorOverride: {fileID: 0}
   flipToFace: 0
-  spawnMessage: 
+  spawnMessage: "warning escalated to error \u2014 {name} DETECTED."
   killMessages:
-  - Clear {name}
+  - "warning suppressed."
+  - "-W{name} disabled."
+  - "{name} downgraded to note."
+  - "0 warnings remaining."
   killLog: 1
   deathState: 
   deathDuration: 0

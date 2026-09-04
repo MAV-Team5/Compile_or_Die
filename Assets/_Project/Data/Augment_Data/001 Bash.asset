@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 001 Bash
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: BASH
   displayName: Bash
   category: 3
@@ -28,90 +28,81 @@ MonoBehaviour:
   extensionSlot: 
   mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
-  - damage: 6
+  - damage: 8
     effectDamage: 0.2
-    cooldown: 3
-    range: 6
-    effectRange: 0
-    count: 1
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 1
-  - damage: 7.4
-    effectDamage: 0.25
-    cooldown: 2.8
-    range: 6.5
-    effectRange: 0
-    count: 1
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 1
-  - damage: 8.8
-    effectDamage: 0.3
-    cooldown: 2.6
+    cooldown: 3.1
     range: 7
     effectRange: 0
     count: 1
     pierce: 0
     duration: 0
     speed: 0
-    depth: 2
-  - damage: 10.2
-    effectDamage: 0.35
-    cooldown: 2.4
-    range: 7.5
+    depth: 4
+  - damage: 8.8
+    effectDamage: 0.2
+    cooldown: 3
+    range: 7.3
     effectRange: 0
     count: 1
     pierce: 0
     duration: 0
     speed: 0
-    depth: 2
-  - damage: 11.6
-    effectDamage: 0.4
-    cooldown: 2.2
+    depth: 4
+  - damage: 9.6
+    effectDamage: 0.2
+    cooldown: 2.9
+    range: 7.6
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 4
+  - damage: 14
+    effectDamage: 0.25
+    cooldown: 2.5
     range: 8
     effectRange: 0
     count: 1
     pierce: 0
     duration: 0
     speed: 0
-    depth: 3
-  - damage: 13
-    effectDamage: 0.45
+    depth: 5
+  - damage: 15.4
+    effectDamage: 0.25
+    cooldown: 2.4
+    range: 8.4
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 5
+  - damage: 16.8
+    effectDamage: 0.25
+    cooldown: 2.3
+    range: 8.8
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 5
+  - damage: 19
+    effectDamage: 0.3
     cooldown: 2
-    range: 8.5
-    effectRange: 0
-    count: 1
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 3
-  - damage: 14.4
-    effectDamage: 0.5
-    cooldown: 1.8
-    range: 9
-    effectRange: 0
-    count: 1
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 4
-  - damage: 16
-    effectDamage: 0.55
-    cooldown: 1.5
     range: 9.5
     effectRange: 0
     count: 1
     pierce: 0
     duration: 0
     speed: 0
-    depth: 4
+    depth: 6
   trigger:
     rid: 980040056421220425
   targeting:

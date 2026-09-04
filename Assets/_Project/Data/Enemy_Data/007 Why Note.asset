@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
   m_Name: 007 Why Note
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  displayName: semicolon
+  displayName: "note"
   prefab: {fileID: 3469445803652378370, guid: 469865a5878337142ab4b1c87986c7fb, type: 3}
   rank: 0
   health: 1
@@ -23,7 +23,10 @@ MonoBehaviour:
   flipToFace: 0
   spawnMessage: 
   killMessages:
-  - Clear {name}
+  - "why not? \u2014 it won't compile."
+  - "{name} silenced."
+  - "audio thread joined."
+  - "unreachable \u266a removed."
   killLog: 1
   deathState: 
   deathDuration: 0

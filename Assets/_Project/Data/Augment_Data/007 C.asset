@@ -32,90 +32,91 @@ MonoBehaviour:
   extensionSlot: 
   mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
   - damage: 3
     effectDamage: 0
-    cooldown: 2.5
+    cooldown: 4
     range: 15
     effectRange: 0
     count: 0
-    pierce: 1
+    pierce: 0
     duration: 0
-    speed: 10
-    depth: 1
+    speed: 0
+    depth: 0
   - damage: 4
     effectDamage: 0
-    cooldown: 2.4
+    cooldown: 4
     range: 15
     effectRange: 0
     count: 0
-    pierce: 2
+    pierce: 0
     duration: 0
-    speed: 10.5
-    depth: 1
+    speed: 0
+    depth: 0
   - damage: 5
     effectDamage: 0
-    cooldown: 2.3
+    cooldown: 4
     range: 15
     effectRange: 0
     count: 0
-    pierce: 3
+    pierce: 0
     duration: 0
-    speed: 11
-    depth: 2
+    speed: 0
+    depth: 0
   - damage: 6
     effectDamage: 0
-    cooldown: 2.2
+    cooldown: 4
     range: 16
     effectRange: 0
     count: 0
-    pierce: 3
+    pierce: 0
     duration: 0
-    speed: 11.5
-    depth: 2
+    speed: 0
+    depth: 0
   - damage: 7
     effectDamage: 0
-    cooldown: 2.1
+    cooldown: 4
     range: 16
     effectRange: 0
     count: 0
-    pierce: 4
+    pierce: 0
     duration: 0
-    speed: 12
-    depth: 3
+    speed: 0
+    depth: 0
   - damage: 8
     effectDamage: 0
-    cooldown: 2
+    cooldown: 4
     range: 16
     effectRange: 0
     count: 0
-    pierce: 4
+    pierce: 0
     duration: 0
-    speed: 12.5
-    depth: 3
+    speed: 0
+    depth: 0
   - damage: 9
     effectDamage: 0
-    cooldown: 1.9
+    cooldown: 4
     range: 17
     effectRange: 0
     count: 0
-    pierce: 5
+    pierce: 0
     duration: 0
-    speed: 13
-    depth: 4
+    speed: 0
+    depth: 0
   - damage: 10
     effectDamage: 0
-    cooldown: 1.8
+    cooldown: 4
     range: 17
     effectRange: 0
     count: 0
-    pierce: 5
+    pierce: 0
     duration: 0
-    speed: 13.5
-    depth: 4
+    speed: 0
+    depth: 0
   trigger:
     rid: 2928020390176882767
   targeting:
@@ -150,9 +151,9 @@ MonoBehaviour:
       data:
         directionOffset: 0
         projectilePrefab: {fileID: 6824073935605403827, guid: 6e55f53e38f350f448c00f6f0db256dc, type: 3}
-        speed: 0
+        speed: 10
         pierce:
-          value: 0
+          value: 1
           scale: 1
           offset: 0
         travelRange:
@@ -203,29 +204,21 @@ MonoBehaviour:
     - rid: 2928020430539718731
       type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
       data:
-        inheritBonus: 1
+        inheritBonus: 0
         targeting:
-          rid: 2928020430539718732
+          rid: 4883397436454469718
         deliveries:
         - rid: 2928020430539718733
         effects:
         - rid: 2928020430539718734
-    - rid: 2928020430539718732
-      type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride:
-          value: 0
-          scale: 1
-          offset: 0
-        targetCount: 1
     - rid: 2928020430539718733
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
         projectilePrefab: {fileID: 6824073935605403827, guid: 6e55f53e38f350f448c00f6f0db256dc, type: 3}
-        speed: 0
+        speed: 10
         pierce:
-          value: 0
+          value: 5
           scale: 1
           offset: 0
         travelRange:
@@ -266,3 +259,10 @@ MonoBehaviour:
           scale: 1
           riseSpeed: 1.5
           offset: {x: 0, y: 0}
+    - rid: 4883397436454469718
+      type: {class: NearestMarkedTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0

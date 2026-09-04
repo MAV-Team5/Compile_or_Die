@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
   m_Name: 008 DeadLock
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  displayName: DeadLock
+  displayName: "DeadLock"
   prefab: {fileID: 8491237237329590773, guid: 657dd0363d6058f4b8d17cd3c32694be, type: 3}
   rank: 0
   health: 1
@@ -21,9 +21,12 @@ MonoBehaviour:
   scale: 1
   animatorOverride: {fileID: 0}
   flipToFace: 1
-  spawnMessage: 
+  spawnMessage: "THREAD BLOCKED \u2014 {name} holds the lock."
   killMessages:
-  - Clear {name}
+  - "lock released."
+  - "{name} \u2014 resource freed."
+  - "threads resumed."
+  - "mutex unlocked."
   killLog: 1
   deathState: 
   deathDuration: 0

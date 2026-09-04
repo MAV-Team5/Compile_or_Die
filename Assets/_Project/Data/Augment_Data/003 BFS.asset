@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 003 BFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   lockModules: 0
-  lockStats: 1
+  lockStats: 0
   id: BFS
   displayName: BFS
   category: 0
@@ -25,14 +25,16 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
   - damage: 0
     effectDamage: 0.2
-    cooldown: 11
+    cooldown: 9
     range: 4
     effectRange: 0
     count: 0
@@ -42,7 +44,7 @@ MonoBehaviour:
     depth: 0
   - damage: 0
     effectDamage: 0.23
-    cooldown: 10.8
+    cooldown: 8.9
     range: 4.5
     effectRange: 0
     count: 0
@@ -52,7 +54,7 @@ MonoBehaviour:
     depth: 0
   - damage: 0
     effectDamage: 0.26
-    cooldown: 10.6
+    cooldown: 8.8
     range: 5
     effectRange: 0
     count: 0
@@ -61,18 +63,8 @@ MonoBehaviour:
     speed: 0
     depth: 0
   - damage: 0
-    effectDamage: 0.29
-    cooldown: 10.4
-    range: 5.5
-    effectRange: 0
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.32
-    cooldown: 10.2
+    effectDamage: 0.36
+    cooldown: 8.2
     range: 6
     effectRange: 0
     count: 0
@@ -81,8 +73,8 @@ MonoBehaviour:
     speed: 0
     depth: 0
   - damage: 0
-    effectDamage: 0.35
-    cooldown: 10
+    effectDamage: 0.39
+    cooldown: 8.1
     range: 6.5
     effectRange: 0
     count: 0
@@ -91,8 +83,8 @@ MonoBehaviour:
     speed: 0
     depth: 0
   - damage: 0
-    effectDamage: 0.38
-    cooldown: 9.8
+    effectDamage: 0.42
+    cooldown: 8
     range: 7
     effectRange: 0
     count: 0
@@ -101,9 +93,9 @@ MonoBehaviour:
     speed: 0
     depth: 0
   - damage: 0
-    effectDamage: 0.41
-    cooldown: 9.6
-    range: 7.5
+    effectDamage: 0.55
+    cooldown: 7.4
+    range: 8
     effectRange: 0
     count: 0
     pierce: 1
@@ -132,10 +124,12 @@ MonoBehaviour:
         bonus:
           value: 0
           scale: 1
+          offset: 0
         isPercent: 1
         duration:
           value: 0
           scale: 1
+          offset: 0
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 966d70b2bada0984b8e5ebaaddcabee3, type: 3}
         burstFx:
@@ -152,6 +146,7 @@ MonoBehaviour:
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
         noTargetPolicy: 0
+        fireOnAcquire: 1
         castFx:
           vfx: {fileID: 7149702136754606959, guid: fee88dbdf32cf6d45a7d7ba8eb1e8c8f, type: 3}
           vfxScale: 1
@@ -176,9 +171,11 @@ MonoBehaviour:
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1
+          offset: 0
         lifetime: 5
         oneHitPerTarget: 1
         dieWithOrigin: 1
@@ -198,6 +195,7 @@ MonoBehaviour:
         projectileCount:
           value: 24
           scale: 1
+          offset: 0
         spreadAngle: 360
         aimBasis: 1
         fixedAngle: 90
@@ -208,6 +206,7 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         targetCount: 1
     - rid: 980040319459655753
       type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}

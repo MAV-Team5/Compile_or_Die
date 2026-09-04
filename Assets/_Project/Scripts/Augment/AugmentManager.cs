@@ -128,6 +128,9 @@ public class AugmentManager : MonoBehaviour
             StatMath.Clear(inst.BonusAdd);
             StatMath.Clear(inst.BonusPercent);
             inst.Build = AugmentBuild.Of(inst.Data);
+
+            // 트리거를 갈아끼운 내부 증강을 잃으면 수치 출처도 같이 놓아야 한다
+            inst.TriggerSource = null;
         }
 
         for (int i = 0; i < runners.Count; i++)
@@ -160,6 +163,15 @@ public class AugmentManager : MonoBehaviour
     static void ApplyPatch(AugmentInstance root, AugmentInstance inner)
     {
         AugmentData d = inner.Data;
+
+        if (d.triggerPatch == BuildPatch.Replace && d.trigger != null)
+        {
+            root.Build.Trigger = d.trigger;
+
+            // 갈아끼운 트리거가 자기 시트를 읽을 수 있게 출처를 남긴다.
+            // 이게 없으면 while 반경 같은 값이 뿌리 수치로 계산돼 엉뚱한 크기가 된다
+            root.TriggerSource = inner;
+        }
 
         if (d.targetingPatch == BuildPatch.Replace && d.targeting != null)
             root.Build.Targeting = d.targeting;

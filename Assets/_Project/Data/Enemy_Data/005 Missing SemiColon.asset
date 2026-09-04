@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
   m_Name: 005 Missing SemiColon
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  displayName: semicolon
+  displayName: "missing semicolon"
   prefab: {fileID: 3469445803652378370, guid: 4c959a3372fa5af46866819769b7d705, type: 3}
   rank: 0
   health: 1
@@ -23,7 +23,10 @@ MonoBehaviour:
   flipToFace: 0
   spawnMessage: 
   killMessages:
-  - Clear {name}
+  - "expected ';' \u2014 inserted."
+  - "{name} before end of line. [fixed]"
+  - "parse error resolved."
+  - "line terminated."
   killLog: 1
   deathState: 
   deathDuration: 0

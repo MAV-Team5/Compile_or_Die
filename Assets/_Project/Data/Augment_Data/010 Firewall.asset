@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 010 Firewall
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
+  id: FIREWALL
+  displayName: FireWall
+  category: 4
+  icon: {fileID: 21300000, guid: b6795c96fef3b01439d1de6a75d33651, type: 3}
+  descriptionTemplate: 
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  extensionSlot: 
+  mergeStatsIntoRoot: 1
+  bonusIsPercent: 1
+  triggerPatch: 0
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
+  levelStats:
+  - damage: 1
+    effectDamage: 0
+    cooldown: 1.5
+    range: 0
+    effectRange: 3
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 1.5
+    effectDamage: 0
+    cooldown: 1.5
+    range: 0
+    effectRange: 3.1
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 2
+    effectDamage: 0
+    cooldown: 1.5
+    range: 0
+    effectRange: 3.2
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 3.4
+    effectDamage: 0
+    cooldown: 1.3
+    range: 0
+    effectRange: 3.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 4.2
+    effectDamage: 0
+    cooldown: 1.3
+    range: 0
+    effectRange: 3.6
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 5
+    effectDamage: 0
+    cooldown: 1.3
+    range: 0
+    effectRange: 3.7
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 6.5
+    effectDamage: 0
+    cooldown: 1.1
+    range: 0
+    effectRange: 4.1
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  trigger:
+    rid: 4883397436454469810
+  targeting:
+    rid: 4883397436454469811
+  deliveries:
+  - rid: 4883397436454469812
+  effects:
+  - rid: 4883397436454469813
+  - rid: 4883397436454469814
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4883397436454469810
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        noTargetPolicy: 0
+        fireOnAcquire: 1
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4883397436454469811
+      type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+        scatterRadius: 0
+    - rid: 4883397436454469812
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        blastRadius:
+          value: 0
+          scale: 1
+          offset: 0
+        halfAngle: 180
+        includeCenterTarget: 1
+        bodyPrefab: {fileID: 1969577514468553733, guid: 6dcc6251c66836b4da4ba25377dddf1e, type: 3}
+        attachBodyToOwner: 1
+        blastFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4883397436454469813
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+        accentText: 0
+        textStyle:
+          color: {r: 1, g: 1, b: 1, a: 1}
+          scale: 1
+          riseSpeed: 1.5
+          offset: {x: 0, y: 0}
+    - rid: 4883397436454469814
+      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 1
+        pull: 0
+        stunDuration: 0.2

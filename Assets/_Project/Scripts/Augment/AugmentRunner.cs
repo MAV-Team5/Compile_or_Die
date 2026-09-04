@@ -34,6 +34,9 @@ public class AugmentRunner : MonoBehaviour
     {
         Instance = instance;
 
+        // 트리거가 "내 주변" 을 물을 수 있게 원점을 알려준다
+        instance.Owner = transform;
+
         AugmentData d = instance.Data;
 
         // 내부 증강은 스스로 발동하지 않고 뿌리에 얹히기만 한다 — 트리거가 없는 것이 정상이다.
@@ -49,10 +52,14 @@ public class AugmentRunner : MonoBehaviour
         if (Instance == null) return;
 
         AugmentData data = Instance.Data;
-        if (data.trigger == null || data.targeting == null) return;
+
+        // ★ 에셋이 아니라 Build 를 본다. 내부 증강이 트리거를 갈아끼웠으면 그쪽이 정답이다
+        AugmentBuild build = Instance.Build;
+
+        if (build.Trigger == null || build.Targeting == null) return;
 
         // ① 발동 판정. 쿨타임은 아직 소비하지 않는다
-        bool ready = data.trigger.Evaluate(Instance, deltaTime);
+        bool ready = build.Trigger.Evaluate(Instance, deltaTime);
 
         // 준비 완료로 전환된 프레임에만 알림
         if (ready && !wasReady) BecameReady?.Invoke();
@@ -63,22 +70,22 @@ public class AugmentRunner : MonoBehaviour
         var ctx = new AugmentContext();
         ctx.Begin(transform, Instance);
 
-        // ②③④ 타겟팅 → 전달 → 효과
-        // 조립은 Instance.Build 에서 온다 — 내부 증강이 축을 덮었으면 그 결과다
-        AugmentBuild build = Instance.Build;
+        // 이번 발동이 이 주기의 첫 발인가. 장탄식에서 "회차마다 첫 발만 강화" 를 만들 수 있게
+        ctx.FirstOfCycle = build.Trigger.FirstOfCycle(Instance);
 
+        // ②③④ 타겟팅 → 전달 → 효과
         bool fired = AugmentPipeline.Run(ctx, build.Targeting, build.Deliveries, build.Effects);
 
         if (!fired)
         {
             // 대상이 없을 때 쿨타임을 버릴지 유지할지는 발동 조건이 정한다
-            if (data.trigger.noTargetPolicy == NoTargetPolicy.Consume)
-                data.trigger.Consume(ctx);
+            if (build.Trigger.noTargetPolicy == NoTargetPolicy.Consume)
+                build.Trigger.Consume(ctx);
 
             return;
         }
 
-        data.trigger.Consume(ctx);
+        build.Trigger.Consume(ctx);
 
         if (logTrigger)
             Debug.Log($"[{data.displayName}] Lv.{Instance.Level} 발동", this);

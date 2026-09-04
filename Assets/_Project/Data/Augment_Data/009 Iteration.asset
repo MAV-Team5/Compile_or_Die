@@ -17,7 +17,7 @@ MonoBehaviour:
   id: 009
   displayName: Iteration
   category: 5
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: cf194120b78b1c14d899901db1f3d5cc, type: 3}
   descriptionTemplate: "\uCFE8\uD0C0\uC784\uB9C8\uB2E4 \" i \" \uD22C\uC0AC\uCCB4\uB97C
     \uBC18\uBCF5 \uD69F\uC218\uB9CC\uD07C \uC5F0\uC18D \uBC1C\uC0AC\uD55C\uB2E4.\n\uBC1C\uC0AC\uB41C
     \uD22C\uC0AC\uCCB4\uB294 \uC0AC\uAC70\uB9AC \uB0B4 \uCD5C\uADFC\uC811 \uB300\uC0C1\uC744
@@ -30,89 +30,80 @@ MonoBehaviour:
   extensionSlot: 
   mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
+  - damage: 1
+    effectDamage: 0
+    cooldown: 4
+    range: 9
+    effectRange: 0
+    count: 4
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 1.6
+    effectDamage: 0
+    cooldown: 4
+    range: 10
+    effectRange: 0
+    count: 4
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 2.2
+    effectDamage: 0
+    cooldown: 4
+    range: 11
+    effectRange: 0
+    count: 4
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
   - damage: 3
     effectDamage: 0
-    cooldown: 1.8
-    range: 4.5
-    effectRange: 0
-    count: 3
-    pierce: 1
-    duration: 0
-    speed: 11
-    depth: 0
-  - damage: 3.6
-    effectDamage: 0
-    cooldown: 1.8
-    range: 4.7
-    effectRange: 0
-    count: 3
-    pierce: 1
-    duration: 0
-    speed: 11.3
-    depth: 0
-  - damage: 4.2
-    effectDamage: 0
-    cooldown: 1.7
-    range: 4.9
-    effectRange: 0
-    count: 4
-    pierce: 1
-    duration: 0
-    speed: 11.6
-    depth: 0
-  - damage: 4.8
-    effectDamage: 0
-    cooldown: 1.7
-    range: 5.1
-    effectRange: 0
-    count: 4
-    pierce: 1
-    duration: 0
-    speed: 11.9
-    depth: 0
-  - damage: 5.4
-    effectDamage: 0
-    cooldown: 1.6
-    range: 5.3
+    cooldown: 3.7
+    range: 13
     effectRange: 0
     count: 5
-    pierce: 1
+    pierce: 0
     duration: 0
-    speed: 12.2
+    speed: 0
+    depth: 0
+  - damage: 4
+    effectDamage: 0
+    cooldown: 3.7
+    range: 14
+    effectRange: 0
+    count: 5
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 5
+    effectDamage: 0
+    cooldown: 3.7
+    range: 15
+    effectRange: 0
+    count: 5
+    pierce: 0
+    duration: 0
+    speed: 0
     depth: 0
   - damage: 6
     effectDamage: 0
-    cooldown: 1.6
-    range: 5.5
-    effectRange: 0
-    count: 5
-    pierce: 1
-    duration: 0
-    speed: 12.5
-    depth: 0
-  - damage: 6.6
-    effectDamage: 0
-    cooldown: 1.5
-    range: 5.7
+    cooldown: 3.3
+    range: 17
     effectRange: 0
     count: 6
-    pierce: 1
+    pierce: 0
     duration: 0
-    speed: 12.8
-    depth: 0
-  - damage: 7.2
-    effectDamage: 0
-    cooldown: 1.5
-    range: 5.9
-    effectRange: 0
-    count: 6
-    pierce: 1
-    duration: 0
-    speed: 13.1
+    speed: 0
     depth: 0
   trigger:
     rid: 2928020390176882780
@@ -149,7 +140,11 @@ MonoBehaviour:
           offset: 0
         interval:
           value: 0
-          scale: 0.14
+          scale: 0.04
+          offset: 0
+        whileRange:
+          value: 0
+          scale: 0
           offset: 0
     - rid: 2928020390176882781
       type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
@@ -163,7 +158,7 @@ MonoBehaviour:
       data:
         directionOffset: 0
         projectilePrefab: {fileID: 6824073935605403827, guid: 33d9263b535f41a4c8e05375a7e45c3a, type: 3}
-        speed: 0
+        speed: 10
         pierce:
           value: 0
           scale: 1

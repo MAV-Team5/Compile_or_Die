@@ -62,6 +62,9 @@ public static class DamagePipeline
         // 7. 증강별 집계. 모든 피해가 여기를 지나므로 이 한 줄이면 증강이 늘어도 따라온다
         RunStats.Record(dmg.SourceAugment, dmg.Amount);
 
+        // 7-2. 피해를 모아두는 증강(스택)에게도 같은 이유로 여기서 흘려준다
+        AugmentDamageLog.Record(dmg);
+
         // 8. 숫자 표시. 여기서 해야 크리티컬·증강 분류에 따라 색을 고를 수 있다
         ShowNumber(dmg);
     }

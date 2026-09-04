@@ -39,6 +39,24 @@ using UnityEngine;
 
     /// <summary>0~1 진행률. HUD 표시용.</summary>
     public virtual float Progress(AugmentInstance instance) => 1f;
+
+    /// <summary>
+    /// 이번 발동이 <b>한 주기의 첫 발</b>인가. 장탄식에서만 뜻이 있다.
+    ///
+    /// "매 회차 첫 발만 강화" 같은 효과를 만들려면 효과 쪽에서 이걸 알아야 하는데,
+    /// 트리거의 내부 상태(남은 탄)를 밖에서 들여다볼 방법이 없어서 여기로 노출한다.
+    /// 주기 개념이 없는 트리거는 늘 첫 발이다.
+    /// </summary>
+    public virtual bool FirstOfCycle(AugmentInstance instance) => true;
+
+    /// <summary>
+    /// 화면에 그려줄 반경(월드 유닛). 0이면 그릴 것이 없다.
+    ///
+    /// 사거리 표시는 <b>플레이어가 의식해야 하는 거리</b>만 그려야 한다 —
+    /// 예를 들어 <c>while</c> 조건 사거리는 그 안에 적을 두는 것이 곧 조작이라 보여줘야 하지만,
+    /// 평범한 탐색 사거리를 다 그리면 화면이 동심원으로 덮인다.
+    /// </summary>
+    public virtual float DisplayRadius(AugmentInstance instance) => 0f;
 }
 
 /// <summary>

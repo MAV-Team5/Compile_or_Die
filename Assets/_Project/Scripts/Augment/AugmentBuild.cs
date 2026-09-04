@@ -24,6 +24,13 @@ public enum BuildPatch
 /// </summary>
 public struct AugmentBuild
 {
+    /// <summary>
+    /// 발동 조건. 내부 증강이 갈아끼울 수 있다 —
+    /// <c>Iteration:while</c> 처럼 "언제 나가는가" 자체를 바꾸는 증강이 있기 때문이다.
+    /// 타겟팅·전달·효과만 바꿀 수 있으면 그런 증강은 만들 길이 없다.
+    /// </summary>
+    public TriggerModule Trigger;
+
     public TargetingModule Targeting;
     public List<DeliveryModule> Deliveries;
     public List<EffectModule> Effects;
@@ -31,6 +38,7 @@ public struct AugmentBuild
     /// <summary>아무도 안 덮은 상태. 뿌리 조립 그대로.</summary>
     public static AugmentBuild Of(AugmentData data) => new()
     {
+        Trigger = data.trigger,
         Targeting = data.targeting,
         Deliveries = data.deliveries,
         Effects = data.effects

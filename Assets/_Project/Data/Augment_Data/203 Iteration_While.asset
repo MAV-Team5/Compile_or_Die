@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 203 Iteration_While
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
+  id: ITERATION_WHILE
+  displayName: Iteration:While
+  category: 5
+  icon: {fileID: 21300000, guid: cf194120b78b1c14d899901db1f3d5cc, type: 3}
+  descriptionTemplate: "Iteration:whil\n\uBC18\uBCF5 \uC870\uAC74\uC758 \uC0AC\uC815\uAC70\uB9AC\uAC00
+    \uC0DD\uAE30\uACE0 \uD574\uB2F9 \uC0AC\uC815\uAC70\uB9AC \uB0B4\uC758 \uB300\uC0C1\uC774
+    \uC788\uB2E4\uBA74 \uCFE8\uD0C0\uC784\uC774 \uC5C6\uC5B4\uC838 \uC5F0\uC18D\uC73C\uB85C
+    \uBC1C\uC0AC\uD55C\uB2E4.\n"
+  rootAugment: {fileID: 11400000, guid: 2f372be2f00a4904c995b1036503849c, type: 2}
+  requiredRootLevel: 4
+  extensionSlot: 
+  mergeStatsIntoRoot: 0
+  bonusIsPercent: 1
+  triggerPatch: 1
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
+  levelStats:
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 2.5
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 2.8
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 3.1
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 3.7
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 4
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 4.3
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 5
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  trigger:
+    rid: 2928020390176882780
+  targeting:
+    rid: -2
+  deliveries: []
+  effects: []
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2928020390176882780
+      type: {class: BurstTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        noTargetPolicy: 0
+        fireOnAcquire: 1
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        count:
+          value: 0
+          scale: 1
+          offset: 0
+        interval:
+          value: 0
+          scale: 0.04
+          offset: 0
+        whileRange:
+          value: 0
+          scale: 1
+          offset: 0

@@ -34,6 +34,19 @@ public class BurstTrigger : TriggerModule
              "   그러면 쿨타임 감소 하나가 재장전과 연사를 같이 당겨준다.")]
     public Scalable interval = Scalable.Ratio(0.04f);
 
+    [Header("while 조건")]
+    [Sheet("사거리")]
+    [Tooltip("이 반경 안에 적이 있으면 장전을 기다리지 않고 계속 쏜다.\n\n" +
+             "＊ while(대상이 있는 동안) 반복 — 반경 안에 적을 두는 것이 곧 조작이 된다.\n" +
+             "  붙으면 화력이 폭발하고 떨어지면 원래 장전 주기로 돌아간다.\n\n" +
+             "★ 기본값(0 × 0 + 0)은 '안 적음' 이라 조건이 꺼져 있다.\n" +
+             "   켜려면 배수를 1로 둘 것 — 0 × 1 이면 시트의 사거리를 그대로 쓴다.\n" +
+             "★ 이 트리거를 들고 온 증강의 사거리를 읽는다 —\n" +
+             "   내부 증강으로 갈아끼웠으면 뿌리가 아니라 그 증강의 시트다.\n" +
+             "   그래서 내부 증강을 레벨업하면 반경이 자란다.\n" +
+             "   짧게 잡을수록 붙어야 하는 위험이 커진다.")]
+    public Scalable whileRange;
+
     /// <summary>남은 탄과 마지막 발 이후 흐른 시간. 증강 개체마다 따로 산다.</summary>
     class State
     {
@@ -75,8 +88,55 @@ public class BurstTrigger : TriggerModule
         }
 
         s.timer = Mathf.Min(s.timer + deltaTime, cd);
+
+        // while 조건 — 반경 안에 적이 있으면 장전을 건너뛴다.
+        // 타이머를 채워두는 이유는 Progress 가 꽉 찬 게이지를 보여주게 하려는 것 (연사 중 표시)
+        if (WhileHolds(instance))
+        {
+            s.timer = cd;
+            return true;
+        }
+
         return s.timer >= cd;
     }
+
+    /// <summary>
+    /// while 반경(월드 유닛). 아무것도 안 적었으면 0 — 조건 자체가 없다.
+    ///
+    /// <b>뿌리가 아니라 <see cref="AugmentInstance.TriggerStat"/> 를 읽는다.</b>
+    /// while 은 내부 증강이 들고 온 조건이라 사거리도 그 증강의 시트에서 나와야 한다 —
+    /// 뿌리 사거리를 쓰면 "짧은 반경 안에 붙어야 한다" 는 설계가 통째로 무너진다.
+    /// 그리고 그래야 내부 증강을 레벨업할 때 반경이 자란다.
+    /// </summary>
+    float WhileRadius(AugmentInstance instance)
+    {
+        // 셋 다 0이면 "안 적었다" 라서 조건 자체가 없다.
+        // ＊ 인스펙터에서 새로 만들면 기본이 이 상태다 — 켜려면 배수를 1로 둘 것
+        if (whileRange.IsUntouched) return 0f;
+
+        return whileRange.Of(instance.TriggerStat.range);
+    }
+
+    /// <summary>while 반경 안에 적이 있는가.</summary>
+    bool WhileHolds(AugmentInstance instance)
+    {
+        if (instance.Owner == null) return false;
+
+        float radius = WhileRadius(instance);
+        if (radius <= 0f) return false;
+
+        return TargetQuery.Nearest(instance.Owner.position, radius) != null;
+    }
+
+    /// <summary>
+    /// 탄창을 새로 채우는 발이 곧 이번 회차의 첫 발이다.
+    /// <see cref="Consume"/> 이 <c>left &lt;= 0</c> 일 때 탄창을 채우므로 판정 기준이 같다.
+    /// </summary>
+    public override bool FirstOfCycle(AugmentInstance instance)
+        => instance.GetState<State>(this).left <= 0;
+
+    /// <summary>while 반경은 플레이어가 의식해야 하는 거리다. 있으면 그려준다.</summary>
+    public override float DisplayRadius(AugmentInstance instance) => WhileRadius(instance);
 
     public override void Consume(AugmentContext ctx)
     {

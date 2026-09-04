@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 004 Graph
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   lockModules: 0
-  lockStats: 1
+  lockStats: 0
   id: GRAPH
   displayName: Graph
   category: 2
@@ -29,6 +29,7 @@ MonoBehaviour:
   extensionSlot: 
   mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
@@ -192,8 +193,8 @@ MonoBehaviour:
           motionValue: 1
         transferFx:
           vfx: {fileID: 6824073935605403827, guid: e8a9423f0e21a4504b6ebb1dff3e8724, type: 3}
-          vfxScale: 1
-          scaleWithRange: 1
+          vfxScale: 0.2
+          scaleWithRange: 0
           sfx: {fileID: 0}
           sfxVolume: 1
           attachToSource: 0

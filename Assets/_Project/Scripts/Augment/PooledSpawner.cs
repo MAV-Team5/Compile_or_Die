@@ -25,6 +25,13 @@ public static class PooledSpawner
 
         go.transform.SetPositionAndRotation(position, Quaternion.identity);
 
+        // ★ 크기도 프리팹 상태로 되돌린다.
+        //
+        // 안 되돌리면 지난번에 커진 채로 나온다. 반경에 맞추는 쪽이 대개
+        // localScale *= radius 처럼 곱하기라, 재사용할 때마다 2 → 4 → 8 → 16 으로
+        // 불어나서 몇 번 만에 화면을 덮는다. 위치·회전만 챙기고 크기를 빠뜨리기 쉬운 자리다
+        go.transform.localScale = prefab.transform.localScale;
+
         // 풀링된 콜라이더(특히 Kinematic Rigidbody2D)를 새 위치로 재배치했는데,
         // 물리 엔진이 브로드페이즈 위치를 다음 FixedUpdate 까지 냥게 들고 있을 수 있다.
         // 그러면 화면에는 새 위치에 보이지만(Transform 기반 렌더링은 즉시 반영되므로),

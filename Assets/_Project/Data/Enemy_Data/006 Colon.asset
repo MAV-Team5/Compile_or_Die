@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
   m_Name: 006 Colon
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  displayName: semicolon
+  displayName: "colon"
   prefab: {fileID: 3469445803652378370, guid: ea702fe8b0240d84c9ab53736ae20344, type: 3}
   rank: 0
   health: 1
@@ -23,7 +23,10 @@ MonoBehaviour:
   flipToFace: 0
   spawnMessage: 
   killMessages:
-  - Clear {name}
+  - "':' matched."
+  - "label resolved: {name}"
+  - "unexpected ':' removed."
+  - "block scope closed."
   killLog: 1
   deathState: 
   deathDuration: 0

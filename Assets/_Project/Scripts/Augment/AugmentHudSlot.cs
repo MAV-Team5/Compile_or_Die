@@ -73,7 +73,8 @@ public class AugmentHudSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (runner == null || runner.Instance == null) return;
 
         AugmentInstance inst = runner.Instance;
-        TriggerModule trigger = inst.Data.trigger;
+        // 에셋이 아니라 Build 를 본다. 내부 증강이 트리거를 갈아끼웠으면 게이지도 그쪽을 따라야 한다
+        TriggerModule trigger = inst.Build.Trigger;
 
         float progress = trigger != null ? trigger.Progress(inst) : 1f;
 

@@ -91,7 +91,11 @@ public class AxisBeamDelivery : DeliveryModule
     {
         if (beamPrefab == null) return;
 
-        GameObject go = Object.Instantiate(beamPrefab, beamStart, Quaternion.identity);
+        // ★ 반드시 풀에서 꺼낸다. Instantiate 로 만들면 BeamVisual 이 끝나며 부르는
+        //   PooledSpawner.Despawn 이 SetActive(false) 만 해서, 풀에 없는 오브젝트가
+        //   비활성인 채로 씬에 영원히 쌓인다
+        GameObject go = PooledSpawner.Spawn(beamPrefab, beamStart, PoolType.Effect);
+        if (go == null) return;
 
         if (go.TryGetComponent(out BeamVisual beam))
         {

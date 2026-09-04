@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: 006 BruteForce
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   lockModules: 0
-  lockStats: 1
+  lockStats: 0
   id: BRUTE_FORCE
   displayName: BruteForce
   category: 4
-  icon: {fileID: 21300000, guid: 2d6eb0d84bae142f48ce52c79a988807, type: 3}
+  icon: {fileID: 21300000, guid: 3c9b3630227e34c8bbd3095b4609f237, type: 3}
   descriptionTemplate: "\uBCF4\uB294 \uBC29\uD5A5\uC73C\uB85C \uADFC\uC811 \uD0C0\uACA9\n\uD53C\uD574\uB7C9\t:
     {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC94\uC704\t: {effectRange}"
   rootAugment: {fileID: 0}
@@ -25,51 +25,12 @@ MonoBehaviour:
   extensionSlot: 
   mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
-  - damage: 6
-    effectDamage: 0
-    cooldown: 3
-    range: 0
-    effectRange: 4
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 7.2
-    effectDamage: 0
-    cooldown: 1.9
-    range: 0
-    effectRange: 4.5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 8.4
-    effectDamage: 0
-    cooldown: 1.8
-    range: 0
-    effectRange: 5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 9.6
-    effectDamage: 0
-    cooldown: 1.7
-    range: 0
-    effectRange: 5.5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 10.8
+  - damage: 2
     effectDamage: 0
     cooldown: 1.6
     range: 0
@@ -79,31 +40,61 @@ MonoBehaviour:
     duration: 0
     speed: 0
     depth: 0
-  - damage: 12
+  - damage: 2.5
     effectDamage: 0
-    cooldown: 1.5
+    cooldown: 1.6
     range: 0
-    effectRange: 6.5
+    effectRange: 6.4
     count: 0
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 13.2
+  - damage: 3
+    effectDamage: 0
+    cooldown: 1.6
+    range: 0
+    effectRange: 6.8
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 5
     effectDamage: 0
     cooldown: 1.4
     range: 0
-    effectRange: 7
+    effectRange: 7.5
     count: 0
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 14.4
+  - damage: 6
     effectDamage: 0
-    cooldown: 1.3
+    cooldown: 1.4
     range: 0
-    effectRange: 7.5
+    effectRange: 8
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 7
+    effectDamage: 0
+    cooldown: 1.4
+    range: 0
+    effectRange: 8.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 10
+    effectDamage: 0
+    cooldown: 1.2
+    range: 0
+    effectRange: 9.5
     count: 0
     pierce: 0
     duration: 0

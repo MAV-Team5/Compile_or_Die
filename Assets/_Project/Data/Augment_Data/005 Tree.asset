@@ -30,14 +30,16 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
   - damage: 0
     effectDamage: 0.5
-    cooldown: 1
+    cooldown: 2
     range: 8
     effectRange: 6
     count: 2
@@ -47,9 +49,9 @@ MonoBehaviour:
     depth: 2
   - damage: 0
     effectDamage: 0.5
-    cooldown: 6.7
+    cooldown: 2
     range: 8.5
-    effectRange: 6.3
+    effectRange: 6.5
     count: 2
     pierce: 0
     duration: 0
@@ -57,9 +59,9 @@ MonoBehaviour:
     depth: 2
   - damage: 0
     effectDamage: 0.5
-    cooldown: 6.4
+    cooldown: 2
     range: 9
-    effectRange: 6.6
+    effectRange: 7
     count: 2
     pierce: 0
     duration: 0
@@ -67,19 +69,9 @@ MonoBehaviour:
     depth: 2
   - damage: 0
     effectDamage: 0.5
-    cooldown: 6.1
-    range: 9.5
-    effectRange: 6.9
-    count: 3
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 3
-  - damage: 0
-    effectDamage: 0.5
-    cooldown: 5.8
+    cooldown: 1.6
     range: 10
-    effectRange: 7.2
+    effectRange: 8
     count: 3
     pierce: 0
     duration: 0
@@ -87,38 +79,38 @@ MonoBehaviour:
     depth: 3
   - damage: 0
     effectDamage: 0.5
-    cooldown: 5.5
+    cooldown: 1.6
     range: 10.5
-    effectRange: 7.5
-    count: 4
+    effectRange: 8.5
+    count: 3
     pierce: 0
     duration: 0
     speed: 0
     depth: 3
   - damage: 0
     effectDamage: 0.5
-    cooldown: 5.2
+    cooldown: 1.6
     range: 11
-    effectRange: 7.8
-    count: 4
+    effectRange: 9
+    count: 3
     pierce: 0
     duration: 0
     speed: 0
-    depth: 4
+    depth: 3
   - damage: 0
     effectDamage: 0.5
-    cooldown: 3.9
+    cooldown: 1.4
     range: 11.5
-    effectRange: 8.1
-    count: 4
+    effectRange: 9.5
+    count: 3
     pierce: 0
     duration: 0
     speed: 0
-    depth: 4
+    depth: 3
   trigger:
     rid: 980040230645006410
   targeting:
-    rid: 980040319459655752
+    rid: 4883397436454469758
   deliveries:
   - rid: 980040230645006417
   effects:
@@ -133,6 +125,7 @@ MonoBehaviour:
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
         noTargetPolicy: 0
+        fireOnAcquire: 1
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -151,9 +144,11 @@ MonoBehaviour:
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1.2
+          offset: 0
         lifetime: 3
         oneHitPerTarget: 1
         dieWithOrigin: 1
@@ -172,7 +167,8 @@ MonoBehaviour:
           motionValue: 1
         projectileCount:
           value: 0
-          scale: 0.4
+          scale: 1
+          offset: 0
         spreadAngle: 360
         aimBasis: 1
         fixedAngle: 90
@@ -193,9 +189,11 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         maxDepth:
           value: 0
           scale: 1
+          offset: 0
         targetLimit: 0
     - rid: 980040230645006427
       type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
@@ -228,15 +226,18 @@ MonoBehaviour:
         transfer:
           value: 0
           scale: 1
+          offset: 0
         isPercent: 1
         hopsOverride: 0
         duration:
           value: 0
           scale: 1
+          offset: 0
         neighborsPerNode: 1
         linkRange:
           value: 0
           scale: 1
+          offset: 0
         stretchLimit: 2
         maxChildren: 0
         maxLinksPerNode: 0
@@ -267,7 +268,8 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
-        scatterRadius: 0
+          offset: 0
+        scatterRadius: 0.01
     - rid: 980040253629792353
       type: {class: RadialDelivery, ns: , asm: Assembly-CSharp}
       data:
@@ -277,20 +279,22 @@ MonoBehaviour:
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1.2
+          offset: 0
         lifetime: 3
         oneHitPerTarget: 1
         dieWithOrigin: 1
         homing:
-          turnSpeed: 30
-          seekRadius: 20
+          turnSpeed: 90
+          seekRadius: 10
           retargetInterval: 0.15
         launchFx:
-          vfx: {fileID: 0}
-          vfxScale: 1
-          scaleWithRange: 1
+          vfx: {fileID: 6824073935605403827, guid: e8a9423f0e21a4504b6ebb1dff3e8724, type: 3}
+          vfxScale: 0
+          scaleWithRange: 0
           sfx: {fileID: 0}
           sfxVolume: 1
           attachToSource: 0
@@ -299,14 +303,17 @@ MonoBehaviour:
         projectileCount:
           value: 0
           scale: 1
+          offset: 0
         spreadAngle: 30
         aimBasis: 3
         fixedAngle: 90
         angleJitter: 15
-    - rid: 980040319459655752
-      type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
+    - rid: 4883397436454469758
+      type: {class: RandomPointTargeting, ns: , asm: Assembly-CSharp}
       data:
         rangeOverride:
           value: 0
           scale: 1
-        targetCount: 1
+          offset: 0
+        pointCount: 1
+        minDistanceRatio: 0

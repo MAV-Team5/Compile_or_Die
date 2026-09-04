@@ -1320,8 +1320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909b848ce2974bd29459683a23b55398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelSystem
-  baseRequired: 1
-  growthPerLevel: 2
+  baseRequired: 2
+  growthPerLevel: 1
 --- !u!1 &296892101
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,6 +3933,7 @@ Transform:
   - {fileID: 269439773}
   - {fileID: 1884342969}
   - {fileID: 118440796}
+  - {fileID: 1384359044}
   m_Father: {fileID: 1681014419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &836142186
@@ -6675,6 +6676,62 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1384359043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1384359044}
+  - component: {fileID: 1384359045}
+  m_Layer: 3
+  m_Name: RangeRing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1384359044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384359043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 836142185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1384359045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384359043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5917b686f65b82a4f9afc5758dda9ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRangeRing
+  watch: {fileID: 11400000, guid: 279b3aaac3266c64fbd76452b6ce4449, type: 2}
+  showWhen: 0
+  readyThreshold: 0.999
+  dotSprite: {fileID: 21300000, guid: 43765e442e6de7442aa7b65027a1a7ad, type: 3}
+  dotCount: 32
+  dotSize: 0.12
+  idleColor: {r: 0.3, g: 0.82, b: 0.88, a: 0.18}
+  filledColor: {r: 0.3, g: 0.82, b: 0.88, a: 0.85}
+  spinSpeed: 10
+  sortingLayerName: UI
+  sortingOrder: 1
+  rangeScale: 1
 --- !u!1 &1387747822
 GameObject:
   m_ObjectHideFlags: 0
@@ -9032,7 +9089,7 @@ MonoBehaviour:
   holdTime: 0.25
   fadeTime: 0.35
   hitClips:
-  - {fileID: 8300000, guid: afe141b75d199a24d9258c6c62aebb24, type: 3}
+  - {fileID: 8300000, guid: daf34a0e7dc9ddf46879063ce658dd49, type: 3}
   hitVolume: 0.2
   hitParameter: Stop
   retriggerInterval: 0.75

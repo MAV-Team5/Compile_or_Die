@@ -37,6 +37,8 @@ MonoBehaviour:
     weight: 0.5
   - prefab: {fileID: 4929590294121933457, guid: 206279b7a85f0cc4caf6b8aa985b610b, type: 3}
     weight: 0.5
+  - prefab: {fileID: 4929590294121933457, guid: b3ec30181c560a14eb2ccb4530af2a7b, type: 3}
+    weight: 0.5
   dropChance: 1
   dropCount: 1
   stationary: 1

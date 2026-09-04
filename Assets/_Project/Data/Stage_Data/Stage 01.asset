@@ -21,37 +21,37 @@ MonoBehaviour:
   - '> ERROR: 2,138 issues found'
   - '> attaching debugger : PLAYER_01'
   waves:
-  - label: 1파 상시 - semicolon
+  - label: "1\uD30C \uC0C1\uC2DC - semicolon"
     startAt: 0
     duration: 60
     enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
     interval: 2.5
     burst: 2
-    maxSpawns: 0
-    healthScale: 0.2
-    speedScale: 1
+    maxSpawns: 60
+    healthScale: 2
+    speedScale: 2
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 0.6
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: 1파 상시 - no image
+  - label: "1\uD30C \uC0C1\uC2DC - no image"
     startAt: 5
     duration: 55
     enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
-    interval: 4
-    burst: 1
-    maxSpawns: 0
-    healthScale: 1
-    speedScale: 1
+    interval: 5
+    burst: 2
+    maxSpawns: 60
+    healthScale: 5
+    speedScale: 1.2
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 0.8
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
   - label: Item box
-    startAt: 5
-    duration: 10
+    startAt: 20
+    duration: 0
     enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
-    interval: 2
+    interval: 20
     burst: 1
     maxSpawns: 0
     healthScale: 1
@@ -60,102 +60,102 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 0}
     expPerKill: 0
-  - label: 오타 - 작은 prontf
+  - label: "\uC624\uD0C0 - \uC791\uC740 prontf"
     startAt: 15
     duration: 150
     enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
     interval: 8
-    burst: 1
-    maxSpawns: 0
-    healthScale: 1
-    speedScale: 1
+    burst: 3
+    maxSpawns: 60
+    healthScale: 5
+    speedScale: 0.7
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 0.8
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 2
-  - label: 1파 몰림 A
+  - label: "1\uD30C \uBAB0\uB9BC A"
     startAt: 22
     duration: 10
     enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
     interval: 1
     burst: 6
-    maxSpawns: 0
-    healthScale: 0.3
-    speedScale: 1
+    maxSpawns: 50
+    healthScale: 5
+    speedScale: 2.3
     damageScale: 1
     sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: 1파 몰림 B
+    expOrb: {fileID: 0}
+    expPerKill: 0
+  - label: "1\uD30C \uBAB0\uB9BC B"
     startAt: 45
     duration: 10
     enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
     interval: 1.2
     burst: 6
     maxSpawns: 0
-    healthScale: 0.4
-    speedScale: 1
+    healthScale: 4
+    speedScale: 2.1
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 0.4
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: 2파 상시 - colon
+  - label: "2\uD30C \uC0C1\uC2DC - colon"
     startAt: 60
     duration: 60
     enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
     interval: 2.2
     burst: 2
-    maxSpawns: 0
-    healthScale: 1.2
-    speedScale: 1
+    maxSpawns: 60
+    healthScale: 6
+    speedScale: 3
     damageScale: 1
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: 2파 상시 - sound note
+  - label: "2\uD30C \uC0C1\uC2DC - sound note"
     startAt: 60
-    duration: 60
+    duration: 15
     enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
-    interval: 2.5
+    interval: 3
     burst: 2
     maxSpawns: 0
-    healthScale: 1.2
-    speedScale: 1
+    healthScale: 12
+    speedScale: 2.7
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 0.4
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: 2파 원거리 - semicolon
+  - label: "2\uD30C \uC6D0\uAC70\uB9AC - semicolon"
     startAt: 65
     duration: 115
     enemy: {fileID: 11400000, guid: 0e1a499bd5f7447569db8d20299d9cb8, type: 2}
     interval: 6
-    burst: 1
+    burst: 3
     maxSpawns: 0
-    healthScale: 1.5
-    speedScale: 1
+    healthScale: 15
+    speedScale: 1.3
     damageScale: 1
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 3
-  - label: 자란 warning
+  - label: "\uC790\uB780 warning"
     startAt: 60
     duration: 120
     enemy: {fileID: 11400000, guid: d188cf35eecd7c348ae0e8c4ee7c1a03, type: 2}
     interval: 12
     burst: 1
-    maxSpawns: 0
-    healthScale: 6
-    speedScale: 1
+    maxSpawns: 5
+    healthScale: 17
+    speedScale: 2
     damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 6
+    sizeScale: 3
+    expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
+    expPerKill: 1
   - label: Item box 2
-    startAt: 68
-    duration: 8
+    startAt: 80
+    duration: 0
     enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
-    interval: 2.5
+    interval: 20
     burst: 1
     maxSpawns: 0
     healthScale: 1
@@ -164,121 +164,147 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 0}
     expPerKill: 0
-  - label: 2파 몰림 C
-    startAt: 75
-    duration: 12
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 1
-    burst: 8
-    maxSpawns: 0
-    healthScale: 0.5
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: 오타 - 큰 prontf
+  - label: "\uC624\uD0C0 - \uD070 prontf"
     startAt: 70
     duration: 110
     enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
     interval: 14
     burst: 1
     maxSpawns: 0
-    healthScale: 3
-    speedScale: 1
+    healthScale: 19
+    speedScale: 1.3
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 2
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 5
-  - label: 2파 몰림 D
+    expPerKill: 2
+  - label: "2\uD30C \uBAB0\uB9BC D"
     startAt: 102
     duration: 12
     enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
     interval: 1
     burst: 8
     maxSpawns: 0
-    healthScale: 0.6
-    speedScale: 1
+    healthScale: 7
+    speedScale: 3.1
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 0.4
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: 3파 상시 - semicolon
+  - label: "3\uD30C \uC0C1\uC2DC - semicolon"
     startAt: 120
     duration: 60
     enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
     interval: 2
     burst: 3
     maxSpawns: 0
-    healthScale: 2.5
-    speedScale: 1
+    healthScale: 11
+    speedScale: 2.5
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 1.3
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 2
-  - label: 3파 상시 - colon
+  - label: "3\uD30C \uC0C1\uC2DC - colon"
     startAt: 120
     duration: 60
     enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
     interval: 2.2
     burst: 3
     maxSpawns: 0
-    healthScale: 2.5
-    speedScale: 1
+    healthScale: 11
+    speedScale: 2
     damageScale: 1
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 2
-  - label: Item box 3
-    startAt: 128
-    duration: 8
-    enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
-    interval: 2.5
-    burst: 1
-    maxSpawns: 0
-    healthScale: 1
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 0}
-    expPerKill: 0
-  - label: 3파 몰림 E
+  - label: "3\uD30C \uBAB0\uB9BC E"
     startAt: 133
     duration: 13
     enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
     interval: 1
     burst: 10
     maxSpawns: 0
-    healthScale: 0.8
-    speedScale: 1
+    healthScale: 7
+    speedScale: 2.3
     damageScale: 1
-    sizeScale: 1
+    sizeScale: 0.5
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: 3파 강화 warning
+  - label: "3\uD30C \uAC15\uD654 warning"
     startAt: 140
     duration: 40
     enemy: {fileID: 11400000, guid: d188cf35eecd7c348ae0e8c4ee7c1a03, type: 2}
     interval: 10
     burst: 2
     maxSpawns: 0
-    healthScale: 10
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 10
-  - label: 3파 최종 몰림 F
+    healthScale: 25
+    speedScale: 0.9
+    damageScale: 4
+    sizeScale: 3
+    expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
+    expPerKill: 1
+  - label: "3\uD30C \uCD5C\uC885 \uBAB0\uB9BC F"
     startAt: 160
     duration: 18
     enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
     interval: 0.9
     burst: 12
     maxSpawns: 0
-    healthScale: 1
-    speedScale: 1
+    healthScale: 9
+    speedScale: 1.7
     damageScale: 1
     sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
+  - label: "2\uD30C \uBAB0\uB9BC C"
+    startAt: 75
+    duration: 12
+    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
+    interval: 1
+    burst: 8
+    maxSpawns: 0
+    healthScale: 20
+    speedScale: 1.4
+    damageScale: 1
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
+  - label: DeadLock
+    startAt: 80
+    duration: 2
+    enemy: {fileID: 11400000, guid: 25a23036b96e55b4d8877e8db12bac04, type: 2}
+    interval: 1
+    burst: 16
+    maxSpawns: 32
+    healthScale: 30
+    speedScale: 0.5
+    damageScale: 5
+    sizeScale: 1.5
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
+  - label: DeadLock 2
+    startAt: 150
+    duration: 2
+    enemy: {fileID: 11400000, guid: 25a23036b96e55b4d8877e8db12bac04, type: 2}
+    interval: 1
+    burst: 16
+    maxSpawns: 32
+    healthScale: 50
+    speedScale: 0.5
+    damageScale: 5
+    sizeScale: 1.5
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
+  - label: No image
+    startAt: 55
+    duration: 120
+    enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
+    interval: 3
+    burst: 2
+    maxSpawns: 0
+    healthScale: 5
+    speedScale: 1
+    damageScale: 2
+    sizeScale: 2
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
   bosses:
@@ -287,12 +313,12 @@ MonoBehaviour:
     atSeconds: 180
     spawnDistance: 40
     endsRun: 1
-    healthScale: 40
+    healthScale: 300
     speedScale: 0.7
-    damageScale: 2
+    damageScale: 15
     sizeScale: 4
   augmentPool: {fileID: 11400000, guid: 14de165c4bff2634d9c9cf1b6bf1927e, type: 2}
-  startingRerolls: 10
+  startingRerolls: 8
   killValue: 1
   timeValue: 0.5
   clearBonus: 100

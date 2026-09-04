@@ -26,9 +26,45 @@ public static class InstantItem
 
             case InstantItemEffect.SpeedBoost:
                 return SpeedBoost(player, data);
+
+            case InstantItemEffect.CollectExp:
+                return CollectExp(player, data);
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// 흩어진 경험치를 전부 끌어온다. 오브를 순간이동시키지 않고 <b>끌리게만</b> 한다 —
+    /// 사방에서 빨려오는 그림이 곧 이 아이템의 보상이고, 즉시 사라지면 뭘 먹었는지 모른다.
+    ///
+    /// <paramref name="data"/>.instantValue 가 0보다 크면 그 반경 안만 부른다.
+    /// </summary>
+    static bool CollectExp(Player player, AugmentData data)
+    {
+        ExpMove[] orbs = Object.FindObjectsByType<ExpMove>(FindObjectsSortMode.None);
+
+        if (orbs.Length == 0) return false;
+
+        float limit = data.instantValue;
+        Vector2 from = player.transform.position;
+
+        int pulled = 0;
+
+        for (int i = 0; i < orbs.Length; i++)
+        {
+            if (orbs[i] == null) continue;
+
+            if (limit > 0f &&
+                Vector2.Distance(from, orbs[i].transform.position) > limit) continue;
+
+            orbs[i].forcedMagnet = true;
+            pulled++;
+        }
+
+        Log($"{data.displayName}: collected {pulled} object(s)");
+
+        return pulled > 0;
     }
 
     static bool Heal(Player player, AugmentData data)

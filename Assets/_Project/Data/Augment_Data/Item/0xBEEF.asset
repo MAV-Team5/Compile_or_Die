@@ -23,15 +23,17 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats: []
   trigger:
-    rid: 528938056091472511
+    rid: -2
   targeting:
-    rid: 476394991422621031
+    rid: -2
   deliveries: []
   effects: []
   instantEffect: 1
@@ -40,23 +42,5 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 476394991422621031
-      type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride:
-          value: 0
-          scale: 1
-        scatterRadius: 0
-    - rid: 528938056091472511
-      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
-      data:
-        noTargetPolicy: 0
-        castFx:
-          vfx: {fileID: 0}
-          vfxScale: 1
-          scaleWithRange: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
-          attachToSource: 0
-          motionParameter: 
-          motionValue: 1
+    - rid: -2
+      type: {class: , ns: , asm: }

@@ -23,16 +23,77 @@ MonoBehaviour:
     \uD55C\uBC88 \uB354 \uBC1C\uC0DD.\n\uCD94\uAC00 \uB370\uBBF8\uC9C0\t: {effectDamage
     * 100}%"
   rootAugment: {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
-  requiredRootLevel: 1
+  requiredRootLevel: 4
   extensionSlot: KILL
   mergeStatsIntoRoot: 0
   bonusIsPercent: 0
+  triggerPatch: 0
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
   - damage: 0
     effectDamage: 0.3
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.33
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.36
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.45
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.48
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.51
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.65
     cooldown: 0
     range: 0
     effectRange: 0

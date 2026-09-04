@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   item: {fileID: 11400000, guid: 19538555e3e74b6c9b8399e754011d38, type: 2}
-  magnetRange: 3
+  magnetRange: 4
   accel: 6
   pickupFx:
     vfx: {fileID: 0}

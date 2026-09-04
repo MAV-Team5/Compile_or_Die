@@ -30,6 +30,16 @@ public class AugmentContext
     public float BonusDamage { get; private set; }
 
     /// <summary>
+    /// 이번 발동에 추가 피해를 얹는다. <see cref="DamageEffect"/> 가 마지막에 더한다.
+    ///
+    /// <b>타겟팅이 값을 정하는 증강을 위해 열어둔다.</b> 스택의 "그 좌표에 기억해둔 피해",
+    /// 큐의 "기다린 시간만큼" 처럼, <b>무엇을 고르느냐</b>와 <b>얼마를 주느냐</b>가
+    /// 같이 정해지는 경우가 있다. 그럴 때 효과 모듈을 새로 만들지 않고 이 값에 얹으면
+    /// 기존 DamageEffect 를 그대로 쓸 수 있다.
+    /// </summary>
+    public void AddBonus(float amount) => BonusDamage += amount;
+
+    /// <summary>
     /// 발동 1회를 구분하는 번호. 연쇄 단계는 최초 발동의 번호를 그대로 물려받는다.
     /// 표식 해제처럼 "이번 발동인가 지난 발동인가"를 가릴 때 쓴다.
     /// </summary>
@@ -43,6 +53,12 @@ public class AugmentContext
     /// 둘이 다르면 표식 걸린 적에서 전이는 반영되고 내부 증강은 안 되는, 설명 못 할 차이가 생긴다.
     /// </summary>
     public float LastDamage;
+
+    /// <summary>
+    /// 이번 발동이 한 주기의 첫 발인가. 장탄식(BurstTrigger)에서만 갈린다.
+    /// <see cref="FirstShotEffect"/> 가 이 값을 보고 강화 효과를 낼지 정한다.
+    /// </summary>
+    public bool FirstOfCycle = true;
 
     /// <summary>
     /// 이 단계의 기본 사거리. 최초 발동은 사거리(range), 하위 파이프라인은 효과 범위(effectRange).

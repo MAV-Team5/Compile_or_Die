@@ -10,7 +10,22 @@ public class ExpMove : MonoBehaviour
     private float currentSpeed = 0f;
     private bool isMagneted = false;
 
+    /// <summary>
+    /// 거리와 무관하게 끌려오는 상태. GC 아이템이 켠다.
+    ///
+    /// <b>풀에서 재사용되므로 켜질 때마다 반드시 꺼야 한다.</b>
+    /// 안 그러면 다음에 나온 오브가 스폰되자마자 플레이어에게 날아온다.
+    /// </summary>
+    [System.NonSerialized] public bool forcedMagnet;
+
     private Player player;
+
+    void OnEnable()
+    {
+        forcedMagnet = false;
+        isMagneted = false;
+        currentSpeed = 0f;
+    }
 
     public FxGroup fxG = new();
 
@@ -39,7 +54,10 @@ public class ExpMove : MonoBehaviour
         }
 
         float distance = Vector2.Distance(transform.position, player.transform.position);
-        if (distance < player.pickupRange)
+
+        // 한 번 강제로 끌리기 시작하면 거리와 무관하게 끝까지 온다.
+        // 도중에 풀리면 화면 밖에서 멈춰 서 있는 오브가 생긴다
+        if (forcedMagnet || distance < player.pickupRange)
         {
             isMagneted = true;
         }

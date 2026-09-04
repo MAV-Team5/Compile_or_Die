@@ -14,7 +14,15 @@ public enum InstantItemEffect
     Heal,
 
     /// <summary>instantDuration초 동안 이동속도를 (1 + instantValue)배로.</summary>
-    SpeedBoost
+    SpeedBoost,
+
+    /// <summary>
+    /// 바닥에 흩어진 경험치를 전부 끌어온다. instantValue 가 0보다 크면 그 반경 안만.
+    ///
+    /// ★ 새 값은 반드시 맨 뒤에 붙인다 — 에셋이 이 순서를 숫자로 저장하므로,
+    ///   중간에 끼워 넣으면 지난 에셋의 회복이 이동속도로 바뀐다.
+    /// </summary>
+    CollectExp
 }
 
 /// <summary>
@@ -84,6 +92,12 @@ public class AugmentData : ScriptableObject
     public bool bonusIsPercent = true;
 
     [Header("뿌리 조립 덮어쓰기")]
+    [Tooltip("아래 Trigger 로 뿌리의 발동 조건을 갈아끼울지. 단수라 Add 는 뜻이 없다.\n\n" +
+             "＊ 수치는 그대로 따라온다 — 갈아끼운 트리거도 도는 것은 뿌리의 러너라서,\n" +
+             "  시트값(장탄 수·쿨타임·사거리)과 레벨을 뿌리에서 읽는다.\n" +
+             "  다시 채워야 하는 것은 시트를 안 보는 칸뿐이다 (fireOnAcquire · 시전 연출 등).")]
+    public BuildPatch triggerPatch = BuildPatch.None;
+
     [Tooltip("아래 Targeting 으로 뿌리의 것을 갈아끼울지. 단수라 Add 는 뜻이 없다.")]
     public BuildPatch targetingPatch = BuildPatch.None;
 
