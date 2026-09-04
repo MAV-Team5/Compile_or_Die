@@ -14,72 +14,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HardwareTable
   entries:
   - kind: 0
-    displayName: CPU
-    effectName: "\uD22C\uC0AC\uCCB4 \uC18D\uB3C4"
-    perLevel: 0.1
+    displayName: "CPU"
+    effectName: "\ucfe8\ud0c0\uc784 \uac10\uc18c"
+    perLevel: 0.06
     percent: 1
-    costs: 64000000c8000000900100002003000040060000
+    costs: c800000020030000800c00000019000000320000
     icon: {fileID: 0}
   - kind: 1
-    displayName: RAM
-    effectName: "\uCFE8\uD0C0\uC784 \uAC10\uC18C"
-    perLevel: 0.1
-    percent: 1
-    costs: 64000000c8000000900100002003000040060000
-    icon: {fileID: 0}
-  - kind: 2
-    displayName: SSD
-    effectName: "\uCD5C\uB300 \uCCB4\uB825"
-    perLevel: 0.1
-    percent: 1
-    costs: 64000000c8000000900100002003000040060000
-    icon: {fileID: 0}
-  - kind: 3
-    displayName: GPU
-    effectName: "\uACF5\uACA9 \uBC94\uC704"
-    perLevel: 0.1
-    percent: 1
-    costs: 64000000c8000000900100002003000040060000
-    icon: {fileID: 0}
-  - kind: 4
-    displayName: "\uD30C\uC6CC"
-    effectName: "\uC804\uCCB4 \uACF5\uACA9\uB825"
-    perLevel: 0.1
-    percent: 1
-    costs: 64000000c8000000900100002003000040060000
-    icon: {fileID: 0}
-  - kind: 5
-    displayName: "\uBAA8\uB2C8\uD130"
-    effectName: "\uC2DC\uC57C \uBC94\uC704"
-    perLevel: 0.1
-    percent: 1
-    costs: 64000000c8000000900100002003000040060000
-    icon: {fileID: 0}
-  - kind: 6
-    displayName: "\uB9C8\uC6B0\uC2A4"
-    effectName: "\uD06C\uB9AC\uD2F0\uCEEC \uD655\uB960"
-    perLevel: 0.1
-    percent: 1
-    costs: 
-    icon: {fileID: 0}
-  - kind: 7
-    displayName: "\uD0A4\uBCF4\uB4DC"
-    effectName: "\uC774\uB3D9 \uC18D\uB3C4"
-    perLevel: 0.1
-    percent: 1
-    costs: 64000000c8000000900100002003000040060000
-    icon: {fileID: 0}
-  - kind: 8
-    displayName: "\uBA54\uC778\uBCF4\uB4DC"
-    effectName: "\uC2A4\uD0C0\uD2B8 \uC99D\uAC15"
+    displayName: "RAM"
+    effectName: "\ud22c\uc0ac\uccb4 \uc218 \uc99d\uac00"
     perLevel: 1
     percent: 0
-    costs: f4010000d007000088130000
+    costs: 0019000000640000
     icon: {fileID: 0}
-  - kind: 9
-    displayName: "\uCFE8\uB7EC"
-    effectName: "\uCD5C\uB300 \uC5D0\uB7EC\uB7C9"
+  - kind: 2
+    displayName: "SSD"
+    effectName: "\ud68d\ub4dd \ubc94\uc704 \uc99d\uac00"
     perLevel: 0.1
     percent: 1
-    costs: 
+    costs: 640000009001000040060000800c000000190000
+    icon: {fileID: 0}
+  - kind: 3
+    displayName: "GPU"
+    effectName: "\uacf5\uaca9 \ubc94\uc704 \uc99d\uac00"
+    perLevel: 0.1
+    percent: 1
+    costs: 9001000040060000001900000032000000640000
+    icon: {fileID: 0}
+  - kind: 4
+    displayName: "\ud30c\uc6cc"
+    effectName: "\uacf5\uaca9\ub825 \uc99d\uac00"
+    perLevel: 0.1
+    percent: 1
+    costs: 2003000040060000800c00000019000000320000
+    icon: {fileID: 0}
+  - kind: 5
+    displayName: "\ubaa8\ub2c8\ud130"
+    effectName: "\uc2dc\uc57c \ubc94\uc704 \uc99d\uac00"
+    perLevel: 0.08
+    percent: 1
+    costs: 2003000040060000800c00000019000000320000
+    icon: {fileID: 0}
+  - kind: 6
+    displayName: "\ub9c8\uc6b0\uc2a4"
+    effectName: "\uc0ac\uc815\uac70\ub9ac \uc99d\uac00"
+    perLevel: 0.1
+    percent: 1
+    costs: 9001000020030000400600000019000000320000
+    icon: {fileID: 0}
+  - kind: 7
+    displayName: "\ud0a4\ubcf4\ub4dc"
+    effectName: "\uc774\ub3d9\uc18d\ub3c4 \uc99d\uac00"
+    perLevel: 0.05
+    percent: 1
+    costs: 9001000020030000400600000019000000320000
+    icon: {fileID: 0}
+  - kind: 8
+    displayName: "\uba54\uc778\ubcf4\ub4dc"
+    effectName: "\uc2dc\uc791 \uc120\ud0dd\uc9c0 \ucd94\uac00"
+    perLevel: 1
+    percent: 0
+    costs: 40060000800c0000001900000032000000640000
+    icon: {fileID: 0}
+  - kind: 9
+    displayName: "\ucfe8\ub7ec"
+    effectName: "\ucd5c\ub300 \uccb4\ub825 \uc99d\uac00"
+    perLevel: 0.2
+    percent: 1
+    costs: c80000009001000020030000800c000000320000
     icon: {fileID: 0}

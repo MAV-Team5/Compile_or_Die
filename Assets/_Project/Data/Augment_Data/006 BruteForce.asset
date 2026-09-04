@@ -23,6 +23,7 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
   targetingPatch: 0
   deliveryPatch: 0
@@ -128,6 +129,7 @@ MonoBehaviour:
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
         noTargetPolicy: 1
+        fireOnAcquire: 1
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -143,6 +145,7 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         scatterRadius: 0
     - rid: 928005772953518174
       type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
@@ -173,6 +176,7 @@ MonoBehaviour:
         blastRadius:
           value: 0
           scale: 1
+          offset: 0
         halfAngle: 30
         includeCenterTarget: 1
         bodyPrefab: {fileID: 3957709228793655409, guid: 1c59fe9830681a7438847527d3d5c01f, type: 3}

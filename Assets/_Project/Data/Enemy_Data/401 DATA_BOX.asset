@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
+  m_Name: 401 DATA_BOX
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  displayName: DATA
+  prefab: {fileID: 3469445803652378370, guid: 1d1ac8409a14f87448ffaeb5f85f8af2, type: 3}
+  rank: 1
+  health: 1
+  speed: 0
+  contactDamage: 0
+  scale: 1
+  animatorOverride: {fileID: 0}
+  flipToFace: 0
+  spawnMessage: 
+  killMessages:
+  - Open DATA.
+  killLog: 2
+  deathState: 
+  deathDuration: 0
+  deathClips: []
+  deathVolume: 0.5
+  deathInterval: 0
+  bits: 0
+  countsAsKill: 0
+  dropTable:
+  - prefab: {fileID: 4929590294121933457, guid: 9bf5856950901ea458604c3a25be90a6, type: 3}
+    weight: 0.5
+  - prefab: {fileID: 4929590294121933457, guid: 206279b7a85f0cc4caf6b8aa985b610b, type: 3}
+    weight: 0.5
+  dropChance: 1
+  dropCount: 1
+  stationary: 1

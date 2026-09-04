@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 202 BruteForce_Optimal
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
+  id: BRUTE_FORCE_OPTIAML
+  displayName: BruteForce:Optimal
+  category: 4
+  icon: {fileID: 21300000, guid: 2d6eb0d84bae142f48ce52c79a988807, type: 3}
+  descriptionTemplate: "\uBC18\uB300 \uBC29\uD5A5 \uD0C0\uACA9 \uCD94\uAC00."
+  rootAugment: {fileID: 11400000, guid: 84c0fa5ca27bb4684866d588a47ab824, type: 2}
+  requiredRootLevel: 0
+  extensionSlot: OPTIMAL
+  mergeStatsIntoRoot: 0
+  bonusIsPercent: 1
+  targetingPatch: 0
+  deliveryPatch: 2
+  effectPatch: 0
+  levelStats:
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  trigger:
+    rid: -2
+  targeting:
+    rid: -2
+  deliveries:
+  - rid: 980040206240448610
+  effects:
+  - rid: 980040160363151492
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 980040160363151492
+      type: {class: SfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        clip: {fileID: 8300000, guid: 4de4cd1123d643e44a40314ebdbc3bb6, type: 3}
+        volume: 0.05
+        minInterval: 0.13
+    - rid: 980040206240448610
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 180
+        blastRadius:
+          value: 0
+          scale: 1
+          offset: 0
+        halfAngle: 30
+        includeCenterTarget: 1
+        bodyPrefab: {fileID: 3957709228793655409, guid: 1c59fe9830681a7438847527d3d5c01f, type: 3}
+        attachBodyToOwner: 1
+        blastFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 8300000, guid: 4de4cd1123d643e44a40314ebdbc3bb6, type: 3}
+          sfxVolume: 0.2
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1

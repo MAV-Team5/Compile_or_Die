@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 004 Graph
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: GRAPH
   displayName: Graph
@@ -27,6 +27,7 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
   targetingPatch: 0
   deliveryPatch: 0
@@ -130,6 +131,7 @@ MonoBehaviour:
       type: {class: SearchTrigger, ns: , asm: Assembly-CSharp}
       data:
         noTargetPolicy: 0
+        fireOnAcquire: 1
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -147,9 +149,11 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         targetLimit:
           value: 0
           scale: 1
+          offset: 0
         nearestFirst: 1
         minTargets: 2
         logFunnel: 0
@@ -160,22 +164,25 @@ MonoBehaviour:
         transfer:
           value: 0
           scale: 0.1
+          offset: 0
         isPercent: 1
         hopsOverride: 0
         duration:
           value: 0
           scale: 1
+          offset: 0
         neighborsPerNode: 4
         linkRange:
           value: 0
           scale: 1
+          offset: 0
         stretchLimit: 2
         maxChildren: 0
         maxLinksPerNode: 4
         allowCycles: 0
         linePrefab: {fileID: 8426094270902924539, guid: 95824c0d8dc85ca4eb65fe9bd4f0c35f, type: 3}
         connectFx:
-          vfx: {fileID: 6824073935605403827, guid: e8a9423f0e21a4504b6ebb1dff3e8724, type: 3}
+          vfx: {fileID: 0}
           vfxScale: 1
           scaleWithRange: 1
           sfx: {fileID: 8300000, guid: 58f49e719437cc148919859d9e7d1510, type: 3}

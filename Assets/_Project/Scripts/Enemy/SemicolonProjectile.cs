@@ -81,6 +81,9 @@ public class SemicolonProjectile : MonoBehaviour
         // 몬스터끼리는 서로 안 맞아야 한다
         if (receiver is Enemy) return;
 
+        // 무적 상태면 통과시킨다 — 여기서 안 막으면 총알만 조용히 사라진다
+        if (!receiver.AcceptsDamage) return;
+
         receiver.TakeDamage(damage);
         Despawn();
     }

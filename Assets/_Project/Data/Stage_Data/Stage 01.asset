@@ -21,25 +21,12 @@ MonoBehaviour:
   - '> ERROR: 2,138 issues found'
   - '> attaching debugger : PLAYER_01'
   waves:
-  - label: "1 \uB3C4\uC785 - semicolon"
-    startAt: 0
-    duration: 40
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 2
-    burst: 5
-    maxSpawns: 0
-    healthScale: 0.2
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "1 \uB3C4\uC785 - no image"
-    startAt: 4
-    duration: 20
+  - label: 
+    startAt: 1
+    duration: 0
     enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
-    interval: 3
-    burst: 1
+    interval: 1
+    burst: 4
     maxSpawns: 0
     healthScale: 1
     speedScale: 1
@@ -47,136 +34,6 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: "2 \uC99D\uC2DD - colon"
-    startAt: 20
-    duration: 30
-    enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
-    interval: 1.7
-    burst: 2
-    maxSpawns: 0
-    healthScale: 0.8
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "2 \uC99D\uC2DD - semicolon"
-    startAt: 16
-    duration: 30
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 1.5
-    burst: 2
-    maxSpawns: 0
-    healthScale: 1.2
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "2 \uC99D\uC2DD - sound note"
-    startAt: 30
-    duration: 25
-    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
-    interval: 1.9
-    burst: 2
-    maxSpawns: 0
-    healthScale: 1.2
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "\uC624\uD0C0 - \uC791\uC740 prontf"
-    startAt: 16
-    duration: 64
-    enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
-    interval: 7
-    burst: 1
-    maxSpawns: 0
-    healthScale: 1
-    speedScale: 1.1
-    damageScale: 1
-    sizeScale: 0.8
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 2
-  - label: "\uC624\uD0C0 - \uD070 prontf"
-    startAt: 38
-    duration: 42
-    enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
-    interval: 13
-    burst: 1
-    maxSpawns: 0
-    healthScale: 3
-    speedScale: 0.85
-    damageScale: 1.5
-    sizeScale: 1.7
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 5
-  - label: "\uC790\uB780 no image"
-    startAt: 30
-    duration: 50
-    enemy: {fileID: 11400000, guid: d188cf35eecd7c348ae0e8c4ee7c1a03, type: 2}
-    interval: 15
-    burst: 1
-    maxSpawns: 0
-    healthScale: 6
-    speedScale: 0.8
-    damageScale: 4
-    sizeScale: 2.3
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 6
-  - label: "3 \uC555\uBC15 - semicolon"
-    startAt: 50
-    duration: 30
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 1.2
-    burst: 3
-    maxSpawns: 0
-    healthScale: 1.8
-    speedScale: 1.05
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "3 \uC555\uBC15 - colon"
-    startAt: 52
-    duration: 28
-    enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
-    interval: 1.4
-    burst: 3
-    maxSpawns: 0
-    healthScale: 1.8
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "4 \uACFC\uBD80\uD558 - sound note"
-    startAt: 64
-    duration: 16
-    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
-    interval: 1.1
-    burst: 3
-    maxSpawns: 0
-    healthScale: 2.2
-    speedScale: 1.1
-    damageScale: 1
-    sizeScale: 0.9
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: Item box
-    startAt: 5
-    duration: 10
-    enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
-    interval: 2
-    burst: 1
-    maxSpawns: 0
-    healthScale: 1
-    speedScale: 1
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 0}
-    expPerKill: 0
   bosses:
   - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
     nameOverride: Blue

@@ -36,6 +36,15 @@ public class AugmentContext
     public int FiringId { get; private set; }
 
     /// <summary>
+    /// 직전 피해가 <b>실제로 들어간 양</b>. <see cref="RelayDamageEffect"/> 가 "그 몇 %" 를 뗄 때 쓴다.
+    ///
+    /// <b>파이프라인을 통과한 뒤의 값이다.</b> 표식 추가피해와 하드웨어 배율까지 다 반영된 수치라,
+    /// 간선 전이(<see cref="LinkHolder.Propagate"/>)가 쓰는 기준과 같다 —
+    /// 둘이 다르면 표식 걸린 적에서 전이는 반영되고 내부 증강은 안 되는, 설명 못 할 차이가 생긴다.
+    /// </summary>
+    public float LastDamage;
+
+    /// <summary>
     /// 이 단계의 기본 사거리. 최초 발동은 사거리(range), 하위 파이프라인은 효과 범위(effectRange).
     /// 타겟팅의 rangeOverride 가 0일 때 이 값을 쓴다.
     /// </summary>
@@ -68,6 +77,7 @@ public class AugmentContext
 
         Depth = 0;
         BonusDamage = 0f;
+        LastDamage = 0f;
         FiringId = nextFiringId++;
 
         // 최초 발동은 "적을 찾아 도달하는 거리"가 기준이다
@@ -100,6 +110,37 @@ public class AugmentContext
         // 이미 도달한 뒤이므로 여기서부터는 "퍼지는 크기"가 기준이 된다
         BaseRange = Stat.effectRange > 0f ? Stat.effectRange : Stat.range;
         EffectiveRange = BaseRange;
+
+        ChainVisited = parent.ChainVisited;
+        Targets.Clear();
+    }
+
+    /// <summary>
+    /// 내부 증강용 초기화. 뿌리가 만든 <b>상황</b>은 물려받되 <b>수치</b>는 자기 것을 쓴다.
+    ///
+    /// 이렇게 갈라야 내부 증강이 레벨을 탄다 — 뿌리의 ctx 를 그대로 넘기면
+    /// 내부 증강의 시트가 통째로 무시되고, 반대로 스탯을 뿌리에 접어 넣으면
+    /// 뿌리의 평타까지 세져서 둘 다 원하는 그림이 아니다.
+    ///
+    /// <see cref="BonusDamage"/> 는 물려받지 않는다. 연쇄로 쌓인 그 값은
+    /// <see cref="LastDamage"/> 안에 이미 녹아 있어서, 또 더하면 두 번 세는 셈이 된다.
+    /// </summary>
+    public void BeginExtension(AugmentContext parent, AugmentInstance inner)
+    {
+        Owner = parent.Owner;
+
+        // 여기가 핵심 — 수치와 상태 주머니가 내부 증강 것으로 바뀐다
+        Instance = inner;
+        Stat = inner.Stat;
+
+        Depth = parent.Depth;
+        BonusDamage = 0f;
+        LastDamage = parent.LastDamage;
+        FiringId = parent.FiringId;
+
+        Heading = parent.Heading;
+        BaseRange = Stat.range;
+        EffectiveRange = parent.EffectiveRange;
 
         ChainVisited = parent.ChainVisited;
         Targets.Clear();

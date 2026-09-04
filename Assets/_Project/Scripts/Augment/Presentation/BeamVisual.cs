@@ -17,6 +17,13 @@ public class BeamVisual : MonoBehaviour
     [Tooltip("시간에 따른 투명도 배수.")]
     [SerializeField] AnimationCurve alphaCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
 
+    [Tooltip("시간에 따른 길이 배수. 시작점은 고정이고 끝만 자란다.\n\n" +
+             "기본값은 1로 평평해서 지금까지처럼 전체 길이로 즉시 나온다.\n" +
+             "0에서 1로 오르는 커브를 넣으면 <b>쭉 그어지듯</b> 뻗어나간다 —\n" +
+             "선형 탐색처럼 \"훑고 지나간다\" 를 보여줘야 하는 연출에 쓴다.\n\n" +
+             "＊ 판정은 발동 순간에 이미 끝나 있다. 이건 눈에 보이는 것만 바꾼다.")]
+    [SerializeField] AnimationCurve lengthCurve = AnimationCurve.Constant(0f, 1f, 1f);
+
     float elapsed;
     float baseWidth;
     float beamLength;
@@ -24,6 +31,11 @@ public class BeamVisual : MonoBehaviour
     Color baseColor;
     bool playing;
     bool captured;
+
+    /// <summary>빔이 시작되는 자리. 길이가 자라도 여기는 안 움직인다.</summary>
+    Vector3 origin;
+
+    Vector2 heading;
 
     // 풀에서 재사용되므로 원래 색은 처음 한 번만 기억한다.
     // Play 에서 잡으면 이전 재생이 알파를 0으로 만들어둔 상태를 원본으로 착각한다
@@ -64,12 +76,13 @@ public class BeamVisual : MonoBehaviour
         elapsed    = 0f;
         playing    = true;
 
-        // 중간 지점에 놓으면 스프라이트 피벗이 어디든 상관없어진다
+        // 자리는 매 프레임 ApplyFrame 이 다시 잡는다. 길이가 자라도 시작점이 안 밀리게
+        this.origin  = new Vector3(origin.x, origin.y, transform.position.z);
+        this.heading = direction;
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
 
-        transform.SetPositionAndRotation(
-            origin + direction * (length * 0.5f),
-            Quaternion.Euler(0f, 0f, angle));
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
         ApplyFrame(0f);
     }
@@ -104,9 +117,15 @@ public class BeamVisual : MonoBehaviour
     {
         float width = baseWidth * widthCurve.Evaluate(t);
 
+        // 길이가 0이 되면 스케일도 0이라 그 프레임에 사라져 보인다. 아주 얇게라도 남긴다
+        float length = Mathf.Max(0.0001f, beamLength * lengthCurve.Evaluate(t));
+
+        // 스프라이트 중심이 기준이라, 시작점을 붙박이로 두려면 절반만큼 앞으로 민다
+        transform.position = origin + (Vector3)(heading * (length * 0.5f));
+
         transform.localScale = new Vector3(
             width / spriteUnit.x,
-            beamLength / spriteUnit.y,
+            length / spriteUnit.y,
             1f);
 
         Color c = baseColor;

@@ -68,6 +68,11 @@ public class Spawner : MonoBehaviour
     /// </summary>
     int scanCursor;
 
+    /// <summary>스폰 지점을 도는 순번. 섞어놓고 한 바퀴씩 쓴다.</summary>
+    int[] pointOrder;
+
+    int pointCursor;
+
     void Awake()
     {
         Current = this;
@@ -294,13 +299,48 @@ public class Spawner : MonoBehaviour
         return transform.position + (Vector3)(dir.normalized * distance);
     }
 
+    /// <summary>
+    /// 다음 스폰 지점. <b>매번 무작위로 고르지 않는다.</b>
+    ///
+    /// 무작위는 중복 추출이라 16곳이 있어도 16마리를 내보내면 평균 10곳쯤만 쓰고
+    /// 어떤 지점은 서너 번 겹친다 — 한쪽에서 뭉텅이로 쏟아지고 반대쪽은 조용해진다.
+    /// 그래서 <b>순번을 섞어놓고 한 바퀴를 다 돈 뒤에 다시 섞는다.</b>
+    /// 모든 지점이 정확히 한 번씩 쓰이면서도 순서는 매번 달라진다.
+    /// </summary>
     Vector3 PickPoint()
     {
         if (spawnPoints == null || spawnPoints.Length == 0) return transform.position;
 
-        Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        // 지점 수가 바뀌었거나 한 바퀴를 다 돌았으면 새로 섞는다
+        if (pointOrder == null || pointOrder.Length != spawnPoints.Length ||
+            pointCursor >= pointOrder.Length)
+            ShufflePoints();
 
-        return point != null ? point.position : transform.position;
+        Transform point = spawnPoints[pointOrder[pointCursor++]];
+
+        // 비어 있는 칸은 건너뛰고 다음 것을 쓴다. 한 바퀴 안에서만 재시도한다
+        if (point == null)
+            return pointCursor < pointOrder.Length ? PickPoint() : transform.position;
+
+        return point.position;
+    }
+
+    /// <summary>순번을 새로 섞는다(피셔-예이츠).</summary>
+    void ShufflePoints()
+    {
+        if (pointOrder == null || pointOrder.Length != spawnPoints.Length)
+            pointOrder = new int[spawnPoints.Length];
+
+        for (int i = 0; i < pointOrder.Length; i++) pointOrder[i] = i;
+
+        for (int i = pointOrder.Length - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+
+            (pointOrder[i], pointOrder[j]) = (pointOrder[j], pointOrder[i]);
+        }
+
+        pointCursor = 0;
     }
 
     /// <summary>

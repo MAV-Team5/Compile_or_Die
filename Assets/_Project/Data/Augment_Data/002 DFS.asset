@@ -181,7 +181,7 @@ MonoBehaviour:
       data:
         bonus:
           value: 0
-          scale: 0.1
+          scale: 1
         isPercent: 1
         duration:
           value: 0

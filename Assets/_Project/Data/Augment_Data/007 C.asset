@@ -30,6 +30,7 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
   targetingPatch: 0
   deliveryPatch: 0
@@ -38,7 +39,7 @@ MonoBehaviour:
   - damage: 3
     effectDamage: 0
     cooldown: 2.5
-    range: 10
+    range: 15
     effectRange: 0
     count: 0
     pierce: 1
@@ -48,7 +49,7 @@ MonoBehaviour:
   - damage: 4
     effectDamage: 0
     cooldown: 2.4
-    range: 10.3
+    range: 15
     effectRange: 0
     count: 0
     pierce: 2
@@ -58,7 +59,7 @@ MonoBehaviour:
   - damage: 5
     effectDamage: 0
     cooldown: 2.3
-    range: 10.6
+    range: 15
     effectRange: 0
     count: 0
     pierce: 3
@@ -68,7 +69,7 @@ MonoBehaviour:
   - damage: 6
     effectDamage: 0
     cooldown: 2.2
-    range: 10.9
+    range: 16
     effectRange: 0
     count: 0
     pierce: 3
@@ -78,7 +79,7 @@ MonoBehaviour:
   - damage: 7
     effectDamage: 0
     cooldown: 2.1
-    range: 11.2
+    range: 16
     effectRange: 0
     count: 0
     pierce: 4
@@ -88,7 +89,7 @@ MonoBehaviour:
   - damage: 8
     effectDamage: 0
     cooldown: 2
-    range: 11.5
+    range: 16
     effectRange: 0
     count: 0
     pierce: 4
@@ -98,7 +99,7 @@ MonoBehaviour:
   - damage: 9
     effectDamage: 0
     cooldown: 1.9
-    range: 11.8
+    range: 17
     effectRange: 0
     count: 0
     pierce: 5
@@ -108,7 +109,7 @@ MonoBehaviour:
   - damage: 10
     effectDamage: 0
     cooldown: 1.8
-    range: 12.1
+    range: 17
     effectRange: 0
     count: 0
     pierce: 5
@@ -134,6 +135,7 @@ MonoBehaviour:
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
         noTargetPolicy: 0
+        fireOnAcquire: 1
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -147,14 +149,16 @@ MonoBehaviour:
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
-        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+        projectilePrefab: {fileID: 6824073935605403827, guid: 6e55f53e38f350f448c00f6f0db256dc, type: 3}
         speed: 0
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1.2
+          offset: 0
         lifetime: 3
         oneHitPerTarget: 0
         dieWithOrigin: 1
@@ -175,6 +179,7 @@ MonoBehaviour:
           shotsPerTarget:
             value: 0
             scale: 1
+            offset: 0
           formation: 0
           spacing: 0.4
           spreadPerShot: 0
@@ -194,6 +199,7 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
     - rid: 2928020430539718731
       type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -210,19 +216,22 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         targetCount: 1
     - rid: 2928020430539718733
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
-        projectilePrefab: {fileID: 6824073935605403827, guid: f358ecf964cbb174e9ab137654725e8e, type: 3}
+        projectilePrefab: {fileID: 6824073935605403827, guid: 6e55f53e38f350f448c00f6f0db256dc, type: 3}
         speed: 0
         pierce:
           value: 0
           scale: 1
+          offset: 0
         travelRange:
           value: 0
           scale: 1.2
+          offset: 0
         lifetime: 3
         oneHitPerTarget: 0
         dieWithOrigin: 1
@@ -243,6 +252,7 @@ MonoBehaviour:
           shotsPerTarget:
             value: 0
             scale: 1
+            offset: 0
           formation: 0
           spacing: 0.4
           spreadPerShot: 0

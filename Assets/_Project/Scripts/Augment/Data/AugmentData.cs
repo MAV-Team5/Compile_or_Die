@@ -70,6 +70,12 @@ public class AugmentData : ScriptableObject
              "비워두면 어디에도 안 꽂힌다 — 스스로 발동하는 보통 증강이 된다.")]
     public string extensionSlot;
 
+    [Tooltip("아래 레벨 수치를 뿌리 증강의 스탯에 합칠지.\n\n" +
+             "★ 끄면 내부 증강의 수치가 오로지 자기 효과에만 쓰인다.\n" +
+             "   \"직전 피해의 30%\" 처럼 자기만의 계산을 하는 내부 증강은 반드시 꺼야 한다 —\n" +
+             "   켜두면 그 30% 가 뿌리의 효과피해에도 더해져서 뿌리 평타까지 세진다.")]
+    public bool mergeStatsIntoRoot = true;
+
     [Tooltip("아래 레벨 수치를 뿌리의 보정으로 쓴다.\n\n" +
              "켜면 실수 칸이 비율이다 — 피해량 0.2 는 뿌리 피해 +20%.\n" +
              "끄면 절대값이다 — 피해량 0.2 는 뿌리 피해 +0.2.\n\n" +

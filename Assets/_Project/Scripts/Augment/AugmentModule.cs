@@ -15,6 +15,14 @@ using UnityEngine;
              "Consume: 대상이 없어도 쿨타임을 버린다 — 옛 무기 방식.")]
     public NoTargetPolicy noTargetPolicy = NoTargetPolicy.Hold;
 
+    [Tooltip("증강을 처음 얻은 순간 쿨타임을 기다리지 않는다.\n\n" +
+             "카드를 고르자마자 화면에서 뭔가 일어나야 \"이걸 골랐다\"가 전달된다 —\n" +
+             "쿨타임이 긴 증강(BFS 10초)은 기다리는 동안 고른 보람이 사라진다.\n\n" +
+             "＊ 트리거마다 뜻이 조금 다르다.\n" +
+             "  주기 발동 · 장탄: 즉시 한 번 나간다\n" +
+             "  탐색 반응형: 즉시 나가지는 않고, 다음 탐색을 바로 받을 수 있게 준비된다")]
+    public bool fireOnAcquire = true;
+
     [Fx("시전 연출", "시전자")]
     public FxGroup castFx = new();
 

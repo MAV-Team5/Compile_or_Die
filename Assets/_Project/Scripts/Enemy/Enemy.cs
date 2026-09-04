@@ -16,7 +16,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     private float maxHealth;
 
     /// <summary>플레이어와 닿아 있는 동안 초당 주는 피해.</summary>
-    public float contactDamage = 1f;
+    private float contactDamage;
+
+
     public Rigidbody2D target;
     bool isLive;
 
@@ -63,6 +65,13 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
             return;
         }
 
+        // 잠긴 동안은 제자리다. 넉백과 달리 시간이 아니라 상태가 풀려야 끝난다
+        if (movementLocked)
+        {
+            rigid.linearVelocity = Vector2.zero;
+            return;
+        }
+
         // 넉백 중에는 추적을 멈춘다. 안 그러면 밀어낸 만큼 즉시 되돌아온다
         if (moveSuppressRemain > 0f)
         {
@@ -106,6 +115,11 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         health = maxHealth;
         coll.enabled = true;
         moveSuppressRemain = 0f;
+
+        // ★ 풀에서 재사용되므로 반드시 푼다. 안 그러면 지난번 잠금 상태로 살아나
+        //   영영 안 죽고 안 움직이는 개체가 생긴다
+        invulnerable = false;
+        movementLocked = false;
     }
 
     /// <summary>
@@ -116,6 +130,29 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// </summary>
     /// <summary>안 움직이는 설치물인가. 스포너가 스폰 위치와 회수 규칙을 가를 때 본다.</summary>
     public bool IsStationary => source != null && source.stationary;
+
+    /// <summary>
+    /// 지금 무적인가. <see cref="DeadlockCycle"/> 처럼 적 자신이 한시적으로 켠다.
+    ///
+    /// 콜라이더는 켜둔 채라 <b>몸으로 막고 닿으면 아프다</b> — 안 죽을 뿐이지 벽은 벽이다.
+    /// </summary>
+    [System.NonSerialized] public bool invulnerable;
+
+    /// <summary>
+    /// 지금 스스로 못 움직이는가. 넉백(moveSuppressRemain)과 달리 <b>지속</b>이다.
+    /// 잠긴 데드락처럼 상태가 풀릴 때까지 붙박이인 경우에 쓴다.
+    /// </summary>
+    [System.NonSerialized] public bool movementLocked;
+
+    /// <summary>
+    /// <b>무적만 본다. 죽음은 여기서 안 막는다.</b>
+    ///
+    /// 죽은 적은 <see cref="TakeDamage"/> 가 이미 걸러내므로 체력은 안 깎인다.
+    /// 그런데 여기서까지 막으면 <see cref="DamagePipeline"/> 이 숫자 표시도 건너뛰어,
+    /// <b>마지막 일격에 얹히는 효과가 통째로 안 보이게 된다</b> —
+    /// Bash:kill 처럼 "끝낸 대상에 한 번 더" 인 증강이 죽은 것처럼 보인다.
+    /// </summary>
+    public bool AcceptsDamage => !invulnerable;
 
     public void Init(EnemyData data, EnemyScale scale, int wave = -1)
     {
@@ -256,5 +293,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
             PooledSpawner.Spawn(prefab, at, PoolType.Item);
         }
+    }
+    public float GetContectDamage()
+    {
+        return  contactDamage;
     }
 }

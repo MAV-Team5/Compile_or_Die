@@ -26,6 +26,7 @@ MonoBehaviour:
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
+  mergeStatsIntoRoot: 1
   bonusIsPercent: 1
   targetingPatch: 0
   deliveryPatch: 0
@@ -129,6 +130,7 @@ MonoBehaviour:
       type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
       data:
         noTargetPolicy: 0
+        fireOnAcquire: 1
         castFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -142,7 +144,7 @@ MonoBehaviour:
       type: {class: AxisBeamDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
-        beamPrefab: {fileID: 6824073935605403827, guid: d9239f9dee3334c489371527d28a460a, type: 3}
+        beamPrefab: {fileID: 6824073935605403827, guid: 809d337b3aa8adc47950391cfa7c14ab, type: 3}
         width: 1
         length: 0
         maxHits: 0
@@ -161,12 +163,14 @@ MonoBehaviour:
         bonus:
           value: 0
           scale: 1
-        isPercent: 0
+          offset: 0
+        isPercent: 1
         duration:
           value: 0
           scale: 1
+          offset: 0
         releaseOnRefire: 1
-        markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        markVfx: {fileID: 5518349989568777204, guid: 1aa945b782c59f74e9461dad7d3f6d05, type: 3}
         burstFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -183,4 +187,5 @@ MonoBehaviour:
         rangeOverride:
           value: 0
           scale: 1
+          offset: 0
         targetCount: 1
