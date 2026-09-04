@@ -37,9 +37,18 @@ MonoBehaviour:
   bosses:
   - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
     nameOverride: Blue
-    atSeconds: 180
+    atSeconds: 80
     spawnDistance: 40
     endsRun: 1
+    healthScale: 40
+    speedScale: 0.7
+    damageScale: 2
+    sizeScale: 4
+  - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
+    nameOverride: Blue
+    atSeconds: 80
+    spawnDistance: 40
+    endsRun: 0
     healthScale: 40
     speedScale: 0.7
     damageScale: 2
