@@ -37,7 +37,7 @@ MonoBehaviour:
   levelStats:
   - damage: 0
     effectDamage: 0.5
-    cooldown: 7
+    cooldown: 1
     range: 8
     effectRange: 6
     count: 2
@@ -251,6 +251,15 @@ MonoBehaviour:
           attachToSource: 0
           motionParameter: 
           motionValue: 1
+        transferFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
         logLinks: 0
     - rid: 980040253629792352
       type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
@@ -276,7 +285,7 @@ MonoBehaviour:
         dieWithOrigin: 1
         homing:
           turnSpeed: 30
-          seekRadius: 6
+          seekRadius: 20
           retargetInterval: 0.15
         launchFx:
           vfx: {fileID: 0}
