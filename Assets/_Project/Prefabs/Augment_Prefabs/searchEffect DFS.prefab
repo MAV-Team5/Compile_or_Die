@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3301003546017781636}
   - component: {fileID: 3904689353542753246}
+  - component: {fileID: 4258168157111884550}
   m_Layer: 0
   m_Name: searchEffect DFS
   m_TagString: Untagged
@@ -92,6 +93,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4258168157111884550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518349989568777204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9fe6880ea262f4190ce0fb8fc4ea88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarkSlot
+  slot: 0
 --- !u!1 &7661484199219777561
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.5, y: 7}
+  m_AnchoredPosition: {x: 9.43, y: -1.33}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8953124798629947287
@@ -225,8 +239,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

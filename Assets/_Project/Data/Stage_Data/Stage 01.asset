@@ -26,7 +26,7 @@ MonoBehaviour:
     duration: 40
     enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
     interval: 2
-    burst: 1
+    burst: 5
     maxSpawns: 0
     healthScale: 0.2
     speedScale: 1
@@ -115,7 +115,7 @@ MonoBehaviour:
   - label: "\uC790\uB780 no image"
     startAt: 30
     duration: 50
-    enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
+    enemy: {fileID: 11400000, guid: d188cf35eecd7c348ae0e8c4ee7c1a03, type: 2}
     interval: 15
     burst: 1
     maxSpawns: 0
@@ -164,18 +164,40 @@ MonoBehaviour:
     sizeScale: 0.9
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
+  - label: Item box
+    startAt: 5
+    duration: 10
+    enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
+    interval: 2
+    burst: 1
+    maxSpawns: 0
+    healthScale: 1
+    speedScale: 1
+    damageScale: 1
+    sizeScale: 1
+    expOrb: {fileID: 0}
+    expPerKill: 0
   bosses:
   - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
-    nameOverride: UNHANDLED WARNING
-    atSeconds: 3
-    spawnDistance: 15
+    nameOverride: Blue
+    atSeconds: 80
+    spawnDistance: 40
     endsRun: 1
     healthScale: 40
     speedScale: 0.7
     damageScale: 2
     sizeScale: 4
+  - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
+    nameOverride: Blue
+    atSeconds: 80
+    spawnDistance: 40
+    endsRun: 0
+    healthScale: 40
+    speedScale: 0.7
+    damageScale: 2
+    sizeScale: 4
   augmentPool: {fileID: 11400000, guid: 14de165c4bff2634d9c9cf1b6bf1927e, type: 2}
-  startingRerolls: 99
+  startingRerolls: 10
   killValue: 1
   timeValue: 0.5
   clearBonus: 100

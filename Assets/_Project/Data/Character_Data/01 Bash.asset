@@ -17,11 +17,9 @@ MonoBehaviour:
   tagline: Bash
   unlocked: 1
   visualPrefab: {fileID: 8167401938833401509, guid: 2731f372bafc3c94588e48b416e8cefd, type: 3}
-  maxHealth: 100
+  maxHealth: 20
   moveSpeed: 8
   pickupRange: 5
   startingAugments:
   - {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
-  - {fileID: 11400000, guid: bd168370cb104ae3880eb45e45f46060, type: 2}
-  - {fileID: 11400000, guid: 5a553f0644269cb4fa7789b0d973018b, type: 2}
   extraStartRounds: 0

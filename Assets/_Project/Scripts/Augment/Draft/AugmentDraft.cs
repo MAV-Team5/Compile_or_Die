@@ -58,10 +58,10 @@ public class AugmentDraft
     {
         if (data == null || owned == null) return false;
 
-        // 즉시 효과 아이템은 AugmentManager 에 등록되지 않아 절대 "만렙"이 되지 않는다.
-        // 다른 증강이 전부 만렙이 돼도 이런 아이템만 계속 남는 이유가 이것이다
-        if (data.instantEffect != InstantItemEffect.None)
-            return AllowInstant(data);
+        // 즉시 효과 아이템은 카드로 안 나온다. 상자에서 떨어진 것을 주워서만 얻는다 —
+        // 그래야 "부수고 주우러 간다" 는 판단이 생기고, 레벨업 3택이 증강 선택에만 쓰인다.
+        // 풀에 남아 있어도 여기서 걸러지므로 에셋을 안 빼도 안전하다
+        if (data.instantEffect != InstantItemEffect.None) return false;
 
         if (data.levelStats == null || data.levelStats.Length == 0) return false;
 
@@ -135,23 +135,4 @@ public class AugmentDraft
         return false;
     }
 
-    // ── 개별 규칙 ─────────────────────────────────────────
-
-    /// <summary>
-    /// 회복류 즉시 아이템 등장 확률 = 100 − 현재 체력%.
-    /// 만피면 0%, 빈사면 거의 확정 — 필요할 때만 나오게 하려는 것.
-    /// </summary>
-    static bool AllowInstant(AugmentData data)
-    {
-        if (data.instantEffect != InstantItemEffect.Heal) return true;
-
-        Player player = GameManager.instance != null ? GameManager.instance.player : null;
-
-        if (player == null || !player.TryGetComponent(out PlayerHealth health) || health.Max <= 0f)
-            return false;
-
-        float missing = 100f - health.Current / health.Max * 100f;
-
-        return Random.Range(0f, 100f) < missing;
-    }
 }
