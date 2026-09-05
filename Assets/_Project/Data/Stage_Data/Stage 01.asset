@@ -307,18 +307,31 @@ MonoBehaviour:
     sizeScale: 2
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
+  - label: DeadLock 3
+    startAt: 190
+    duration: 5
+    enemy: {fileID: 11400000, guid: 25a23036b96e55b4d8877e8db12bac04, type: 2}
+    interval: 5
+    burst: 16
+    maxSpawns: 32
+    healthScale: 40
+    speedScale: 0.5
+    damageScale: 5
+    sizeScale: 2
+    expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
+    expPerKill: 1
   bosses:
   - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
     nameOverride: Blue
-    atSeconds: 200
+    atSeconds: 180
     spawnDistance: 40
     endsRun: 1
-    healthScale: 300
+    healthScale: 360
     speedScale: 0.7
     damageScale: 15
-    sizeScale: 4
+    sizeScale: 4.5
   augmentPool: {fileID: 11400000, guid: 14de165c4bff2634d9c9cf1b6bf1927e, type: 2}
-  startingRerolls: 16
+  startingRerolls: 9
   killValue: 1
   timeValue: 0.5
   clearBonus: 100
