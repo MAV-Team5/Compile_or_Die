@@ -2,8 +2,6 @@
 
 <img src="docs/logo.png" alt="Compile or Die" width="560">
 
-**컴파일에 실패하면, 죽는다**
-
 프로그래밍 언어, 알고리즘, 자료구조를 무기로 조합해
 코드에서 기어 나오는 에러와 버그를 정리하는 2D 로그라이크 서바이벌
 
@@ -30,19 +28,11 @@ $ gcc -o stage_01 main.c
 터미널 위로 세미콜론 누락, 오타(`prontf`), 미해결 warning, 데드락 같은 컴파일 에러들이
 몬스터가 되어 사방에서 몰려옵니다.
 
-직접 공격하는 조작은 없습니다. 대신 레벨업할 때마다 **증강(Augment)** 을 골라 무기를 조립합니다.
+레벨업할 때마다 **증강(Augment)** 을 골라 무기를 조립합니다.
 증강은 프로그래밍 언어(`Bash`, `C`), 알고리즘(`DFS`, `BFS`, `LinearSearch`, `BruteForce`),
 자료구조(`Graph`, `Tree`)에서 가져왔고, 개념이 그대로 전투 메커닉이 됩니다.
 탐색 계열이 적에게 표식을 남기면 `Graph`가 그 사이에 간선을 이어 피해를 전이하고,
 `Tree`는 루트가 맞은 피해를 자식 노드로 흘려보내는 식입니다.
-
-3분을 버티면 최종 보스 **BlueScreen**이 화면을 점거합니다. 이걸 잡아야 컴파일이 끝납니다.
-
-**특징**
-
-- **자동 전투** / 조작은 이동뿐이고, 무엇을 고르고 어떻게 조합하는지가 실력
-- **3분 단위 런** / 60초씩 3파로 밀도가 올라가다가 180초에 보스 등장
-- **런 사이 성장** / 런에서 번 `bit`로 PC 부품을 올려 다음 런을 유리하게 시작
 
 <br>
 
@@ -174,5 +164,4 @@ main               안정 버전
 - [@Oreo-Hyeon](https://github.com/Oreo-Hyeon)
 - [@Curamy](https://github.com/Curamy)
 - [@SUNGHYUN-choi7192](https://github.com/SUNGHYUN-choi7192)
-- [@wannabeadirector](https://github.com/wannabeadirector)
 - [@subin-software](https://github.com/subin-software)
