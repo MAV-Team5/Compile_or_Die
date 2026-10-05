@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <summary>상태이상 목록. 증강이 걸 때 자동으로 붙으므로 처음엔 없을 수 있다.</summary>
     StatusHolder status;
 
+    /// <summary>머터리얼 교체(피격 흰색·탐색 강조)를 맡는 쪽. 프리팹에 없으면 Awake 에서 붙인다.</summary>
+    EnemyVisual visual;
+
     /// <summary>어떤 적인가. 경험치·비트 보상이 여기서 나온다.</summary>
     EnemyData source;
 
@@ -53,6 +56,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         anim = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
         coll = GetComponent<Collider2D>();
+        visual = EnemyVisual.GetOrAdd(transform);
 
         // 풀에서 꺼내 쓰기 전 한 번. 배율을 곱할 기준이 필요하다
         baseScale = transform.localScale;
@@ -116,6 +120,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         coll.enabled = true;
         moveSuppressRemain = 0f;
 
+        // 지난 개체가 깜빡이는 중에 반납됐어도 흰 채로 나오지 않게
+        if (visual != null) visual.ResetState();
+
         // ★ 풀에서 재사용되므로 반드시 푼다. 안 그러면 지난번 잠금 상태로 살아나
         //   영영 안 죽고 안 움직이는 개체가 생긴다
         invulnerable = false;
@@ -167,6 +174,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
         source = data;
         flipToFace = data.flipToFace;
+        if (visual != null) visual.SetFlashDuration(data.hitFlashDuration);
 
         // 적마다 프리팹이 다르면 컨트롤러도 프리팹에 있다. 지정된 것이 있을 때만 갈아끼운다
         if (data.animatorOverride != null && anim != null)
@@ -215,6 +223,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         // 시체에 닿아서 피가 깎이면 안 된다
         if (coll != null) coll.enabled = false;
 
+        // 시체가 탐색풀에 남으면 증강이 시체를 겨누고, 강조 머터리얼이 사망 연출을 덮는다
+        if (TryGetComponent(out MarkerHolder marks)) marks.ClearAll();
+
         // 상자 같은 설치물은 처치 수에 안 센다. 재화가 처치 수를 기준으로 계산되기 때문
         if (RunDirector.Current != null && (source == null || source.countsAsKill))
             RunDirector.Current.AddKill();
@@ -239,6 +250,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
             else LogManager.Instance.Combat($"Clear {name}");
         }
 
+        // 대기 시간과 상관없이 죽은 자리에서 터진다. 모션이 없는 적도 파티클은 낼 수 있어야 한다
+        if (source != null) EnemyVisual.PlayDeathFx(source.deathFx, transform.position);
+
         Despawn();
     }
 
@@ -250,7 +264,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// </summary>
     void Despawn()
     {
-        float wait = source != null ? source.deathDuration : 0f;
+        float wait = source != null ? source.DeathWait : 0f;
 
         if (wait <= 0f)
         {
@@ -260,6 +274,8 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
         if (anim != null && !string.IsNullOrEmpty(source.deathState))
             anim.Play(source.deathState, 0, 0f);
+
+        if (visual != null) visual.PlayDeath(source.deathStyle, wait);
 
         StartCoroutine(DespawnAfter(wait));
     }

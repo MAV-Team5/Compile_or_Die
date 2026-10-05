@@ -51,6 +51,10 @@ public class EnemyData : ScriptableObject
              "적 종류마다 프리팹을 따로 만들었다면 비워두면 된다.")]
     public RuntimeAnimatorController animatorOverride;
 
+    [Tooltip("맞았을 때 몸통이 하얗게 번쩍이는 시간(초). 0이면 번쩍이지 않는다.\n" +
+             "보스처럼 자주 맞는 적은 짧게(0.04) 두면 정신없지 않다.")]
+    [Min(0f)] public float hitFlashDuration = 0.07f;
+
     [Tooltip("플레이어 쪽을 보도록 좌우로 뒤집을지.\n" +
              "글자 모양 적처럼 뒤집으면 읽을 수 없게 되는 적은 꺼둘 것.")]
     public bool flipToFace = true;
@@ -79,6 +83,43 @@ public class EnemyData : ScriptableObject
              "＊ 애니메이션 길이와 맞출 것. 짧으면 잘리고 길면 시체가 남아 있다.\n" +
              "  기다리는 동안 판정은 이미 꺼져 있어 때릴 수도, 닿아서 아플 수도 없다.")]
     [Min(0f)] public float deathDuration = 0f;
+
+    /// <summary>죽음 모션의 종류. 스프라이트가 없는 동안 "죽었다"를 전달하는 수단이다.</summary>
+    public enum DeathStyle
+    {
+        /// <summary>모션 없음. 사망 애니메이션(deathState)이 있는 적은 이걸로 둔다 — 흰색으로 덮이지 않는다.</summary>
+        None,
+
+        /// <summary>하얗게 변하며 줄어든다.</summary>
+        Shrink,
+
+        /// <summary>하얗게 변하며 투명해진다.</summary>
+        Fade,
+
+        /// <summary>하얗게 변하며 줄어들고 투명해진다.</summary>
+        ShrinkFade
+    }
+
+    /// <summary>모션을 켰는데 deathDuration 이 0일 때 쓰는 길이(초).</summary>
+    public const float DefaultDeathMotion = 0.2f;
+
+    [Tooltip("죽을 때의 모션. 죽는 동안 몸통이 계속 하얗게 보여서 '죽는 중'이 한눈에 읽힌다.\n\n" +
+             "＊ 사망 스프라이트·애니메이션(deathState)이 생긴 적은 None 으로 둘 것 —\n" +
+             "  흰색이 그림을 덮는다. 모션과 애니메이션을 같이 쓰고 싶으면 그림 자체가 흰색으로 나와도 되는지 먼저 볼 것.\n" +
+             "＊ 상자 같은 설치물은 None 이 어울릴 수 있다.")]
+    public DeathStyle deathStyle = DeathStyle.ShrinkFade;
+
+    [Fx("죽는 자리 연출", "죽은 자리")]
+    [Tooltip("죽은 자리에 낼 파티클·소리. 비우면 안 낸다. 한꺼번에 많이 죽으면 일부는 자동으로 건너뛴다.")]
+    public FxGroup deathFx = new();
+
+    /// <summary>
+    /// 죽고 나서 사라지기까지 기다릴 시간. 모션은 이 길이에 맞춰 진행된다.
+    /// deathDuration 이 0이어도 모션이 켜져 있으면 기본 길이를 쓴다 — 안 그러면 모션이 즉시 잘려서 아무것도 안 보인다.
+    /// </summary>
+    public float DeathWait => deathDuration > 0f
+        ? deathDuration
+        : (deathStyle != DeathStyle.None ? DefaultDeathMotion : 0f);
 
     [Header("처치 소리")]
     [Tooltip("죽을 때 낼 소리. 여러 개 넣으면 매번 하나를 랜덤으로 고른다.\n" +

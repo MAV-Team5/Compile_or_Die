@@ -56,9 +56,15 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
         return false;
     }
 
-    /// <summary>발사 연출. 여러 발이면 방향이 갈리므로 이 단계가 향하는 방향을 쓴다.</summary>
-    protected void PlayLaunch(AugmentContext ctx, Vector2 origin)
-        => launchFx.PlayAt(origin, ctx.Heading, 0f, ctx.Owner);
+    /// <summary>
+    /// 발사 연출. <paramref name="direction"/> 은 실제로 나가는 방향이다.
+    /// 비우면 시전자가 보는 방향(Heading)을 쓰는데, 겨냥해서 쏘는 증강은 보는 방향과 다르게 나간다.
+    /// </summary>
+    protected void PlayLaunch(AugmentContext ctx, Vector2 origin, Vector2 direction = default)
+    {
+        Vector2 dir = direction.sqrMagnitude > 0.0001f ? direction : ctx.Heading;
+        launchFx.PlayAt(origin, dir, 0f, ctx.Owner);
+    }
 
     /// <summary>
     /// 이번 발사분이 공유할 적중 기록. 끄면 null 이라 투사체마다 따로 센다.

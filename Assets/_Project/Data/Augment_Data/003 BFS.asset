@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 003 BFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: BFS
   displayName: BFS
@@ -132,6 +132,7 @@ MonoBehaviour:
           offset: 0
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 966d70b2bada0984b8e5ebaaddcabee3, type: 3}
+        searchLight: {fileID: 4861502920392802260, guid: 682e793ba04817941bd2a727891c5107, type: 3}
         burstFx:
           vfx: {fileID: 0}
           vfxScale: 1

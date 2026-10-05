@@ -20,6 +20,7 @@ MonoBehaviour:
   contactDamage: 1
   scale: 1
   animatorOverride: {fileID: 0}
+  hitFlashDuration: 0.07
   flipToFace: 1
   spawnMessage: 
   killMessages:
@@ -30,6 +31,16 @@ MonoBehaviour:
   killLog: 1
   deathState: 
   deathDuration: 0
+  deathStyle: 1
+  deathFx:
+    vfx: {fileID: 0}
+    vfxScale: 1
+    scaleWithRange: 1
+    sfx: {fileID: 0}
+    sfxVolume: 1
+    attachToSource: 0
+    motionParameter: 
+    motionValue: 1
   deathClips: []
   deathVolume: 0.5
   deathInterval: 0

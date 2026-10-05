@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 002 DFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: DFS
   displayName: DFS
@@ -186,6 +186,7 @@ MonoBehaviour:
           offset: 0
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        searchLight: {fileID: 4861502920392802260, guid: c410aac42e4fb414e8f5078e7bbe06ed, type: 3}
         burstFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -260,6 +261,7 @@ MonoBehaviour:
           offset: 0
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 951c3722ec3ca4e48a61a7af37db8a44, type: 3}
+        searchLight: {fileID: 4861502920392802260, guid: c410aac42e4fb414e8f5078e7bbe06ed, type: 3}
         burstFx:
           vfx: {fileID: 0}
           vfxScale: 1

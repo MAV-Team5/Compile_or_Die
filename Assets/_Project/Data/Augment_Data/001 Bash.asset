@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 001 Bash
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
-  lockStats: 1
+  lockModules: 0
+  lockStats: 0
   id: BASH
   displayName: Bash
   category: 3
@@ -112,6 +112,7 @@ MonoBehaviour:
   effects:
   - rid: 980040160363151451
   - rid: 980040160363151490
+  - rid: 4357681360832299118
   - rid: 980040160363151455
   instantEffect: 0
   instantValue: 0
@@ -157,7 +158,7 @@ MonoBehaviour:
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
-          scaleWithRange: 1
+          scaleWithRange: 0
           sfx: {fileID: 8300000, guid: 8cc5e5d4cf07a1d4abf269076de7eafa, type: 3}
           sfxVolume: 0.2
           attachToSource: 0
@@ -203,6 +204,7 @@ MonoBehaviour:
         effects:
         - rid: 980040160363151458
         - rid: 980040160363151489
+        - rid: 4357681360832299119
         finalEffects:
         - rid: 980040411806957678
     - rid: 980040160363151457
@@ -229,7 +231,7 @@ MonoBehaviour:
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
-          scaleWithRange: 1
+          scaleWithRange: 0
           sfx: {fileID: 8300000, guid: b8331d17c3f83df4aaafd971f96d7b6d, type: 3}
           sfxVolume: 0.2
           attachToSource: 0
@@ -278,3 +280,15 @@ MonoBehaviour:
       type: {class: ExtensionEffect, ns: , asm: Assembly-CSharp}
       data:
         slot: KILL
+    - rid: 4357681360832299118
+      type: {class: VfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        vfxPrefab: {fileID: 4354405111321551884, guid: 52813ac61353ad04f99572aa05ced388, type: 3}
+        anchor: 1
+        scale: 1
+    - rid: 4357681360832299119
+      type: {class: VfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        vfxPrefab: {fileID: 4354405111321551884, guid: 52813ac61353ad04f99572aa05ced388, type: 3}
+        anchor: 1
+        scale: 1

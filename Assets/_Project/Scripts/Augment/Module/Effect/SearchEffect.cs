@@ -31,6 +31,10 @@ public class SearchEffect : EffectModule
              "비워도 추가 피해는 그대로 들어간다 — 눈에 안 보일 뿐이다.")]
     public GameObject markVfx;
 
+    [Tooltip("표식이 남아 있는 동안 그 자리를 밝힐 광원 프리팹(SearchLight). 비우면 광원 없이 동작한다.\n" +
+             "BFS 는 Circle, DFS·Linear Search 는 Line 프리팹을 꽂는다. 씬에 SearchLightController 가 있어야 한다.")]
+    public SearchLight searchLight;
+
     [Fx("표식 발동 연출", "표식 위치")]
     public FxGroup burstFx = new();
 
@@ -74,6 +78,10 @@ public class SearchEffect : EffectModule
             BurstFx       = burstFx,
             BurstInterval = burstInterval
         });
+
+        // 광원은 증강 단위로 하나다. 표식이 붙을 때마다 불려도 처음 한 번만 만들어진다
+        if (searchLight != null && SearchLightController.Current != null)
+            SearchLightController.Current.Register(ctx.Instance, searchLight);
     }
 
     /// <summary>이 증강이 남긴 표식을 전부 해제한다.</summary>

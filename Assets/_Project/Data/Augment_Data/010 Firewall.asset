@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 010 Firewall
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: FIREWALL
   displayName: FireWall
@@ -172,6 +172,6 @@ MonoBehaviour:
     - rid: 4883397436454469814
       type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
       data:
-        distance: 1
+        distance: 0.6
         pull: 0
         stunDuration: 0.2

@@ -67,6 +67,22 @@ public static class DamagePipeline
 
         // 8. 숫자 표시. 여기서 해야 크리티컬·증강 분류에 따라 색을 고를 수 있다
         ShowNumber(dmg);
+
+        // 9-0. 피격 흰색. 전이·지속 피해도 맞은 적은 모두 깜빡인다.
+        //      너무 잦은 깜빡임은 EnemyVisual 이 간격으로 막는다
+        if (dmg.TargetTransform != null &&
+            dmg.TargetTransform.TryGetComponent(out EnemyVisual hitVisual))
+        {
+            hitVisual.Flash();
+        }
+
+        // 9. 피격 광원. 전이 피해는 LinkVisited 가 채워져 있어서 여기서 걸러진다 —
+        //    간선을 타고 번질 때마다 광원이 켜지면 한 번의 공격이 화면을 다 번쩍이게 만든다
+        if (dmg.LinkVisited == null && dmg.TargetTransform != null && HitLightPool.Current != null)
+        {
+            HitLightPool.Current.Play(dmg.TargetTransform.position,
+                                      dmg.TargetTransform.GetInstanceID());
+        }
     }
 
     static void ShowNumber(DamageContext dmg)

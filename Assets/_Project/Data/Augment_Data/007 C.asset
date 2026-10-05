@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 007 C
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: 007
   displayName: C
@@ -116,6 +116,7 @@ MonoBehaviour:
   effects:
   - rid: 2928020390176882770
   - rid: 2928020430539718731
+  - rid: 4357681360832299128
   instantEffect: 0
   instantValue: 0
   instantDuration: 0
@@ -201,6 +202,7 @@ MonoBehaviour:
         - rid: 2928020430539718733
         effects:
         - rid: 2928020430539718734
+        - rid: 4357681360832299129
     - rid: 2928020430539718733
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
@@ -249,6 +251,18 @@ MonoBehaviour:
           scale: 1
           riseSpeed: 1.5
           offset: {x: 0, y: 0}
+    - rid: 4357681360832299128
+      type: {class: VfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        vfxPrefab: {fileID: 4354405111321551884, guid: 7dc41001eb2dfbc42bca84b77fc6210d, type: 3}
+        anchor: 1
+        scale: 1
+    - rid: 4357681360832299129
+      type: {class: VfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        vfxPrefab: {fileID: 4354405111321551884, guid: 7dc41001eb2dfbc42bca84b77fc6210d, type: 3}
+        anchor: 1
+        scale: 1
     - rid: 4883397436454469718
       type: {class: NearestMarkedTargeting, ns: , asm: Assembly-CSharp}
       data:
