@@ -181,7 +181,10 @@ public class AugmentSelectUI : MonoBehaviour
             Debug.LogError("[AugmentSelectUI] 증강 풀이 없어 선택지가 안 뜬다. " +
                            "StageData 의 Augment Pool 을 채울 것.", this);
 
-        draft = new AugmentDraft(pool, augmentManager);
+        draft = new AugmentDraft(pool, augmentManager,
+                                 stage != null ? stage.earlyPool : null,
+                                 stage != null ? stage.earlyPoolUntilLevel : 0,
+                                 ChoiceLevel);
 
         levelSystem = GameManager.instance.levelSystem;
         levelSystem.LeveledUp += OnLeveledUp;
@@ -247,6 +250,12 @@ public class AugmentSelectUI : MonoBehaviour
             // 뽑을 증강이 없으면 선택 없이 흘려보낸다
             while (levelSystem.ConsumePendingLevelUp()) { }
             return;
+    /// <summary>
+    /// 지금 깔리는 선택지가 몇 레벨 몫인가. 한 번에 여러 레벨이 오르면 Level 은 이미 앞서 있어서
+    /// 대기 수만큼 되짚는다. 런 시작 선택은 레벨업이 아니라 1 이하로 나와 초반 구간에 든다.
+    /// </summary>
+    int ChoiceLevel() => levelSystem != null ? levelSystem.Level - levelSystem.PendingLevelUps + 1 : 1;
+
         }
 
         open = true;

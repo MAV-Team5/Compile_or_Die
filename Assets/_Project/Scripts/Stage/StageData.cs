@@ -42,6 +42,13 @@ public class StageData : ScriptableObject
     [Tooltip("이 스테이지에서 등장할 증강 목록.")]
     public AugmentPool augmentPool;
 
+    [Tooltip("초반에만 쓰는 풀. 비우면 처음부터 Augment Pool 을 쓴다.\n" +
+             "여기서 더 뽑을 것이 없으면 레벨과 상관없이 Augment Pool 로 넘어간다.")]
+    public AugmentPool earlyPool;
+
+    [Tooltip("이 레벨의 선택지까지 Early Pool 에서 뽑는다. 런 시작 선택도 여기에 든다.")]
+    [Min(0)] public int earlyPoolUntilLevel = 5;
+
     [Tooltip("런 시작 시 들고 있는 리롤 수.")]
     public int startingRerolls = 2;
 

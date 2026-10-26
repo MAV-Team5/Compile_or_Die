@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 /// <summary>
@@ -9,19 +10,37 @@ using UnityEngine;
 /// UI 를 띄우지 않고도 결과를 확인할 수 있어야 한다.
 ///
 /// 뽑기만 한다. 화면에 그리는 것도, 실제로 지급하는 것도 부르는 쪽 몫이다.
+///
+/// <b>뽑기는 주머니 방식이다.</b> 증강마다 칸을 차지하고, 칸이 많을수록 잘 뽑힌다
+/// (<see cref="Tickets"/>). 보유하고 키울수록 칸이 늘어 빌드가 자연스럽게 굳는다.
+/// 초반 구간(<c>earlyUntilLevel</c> 이하)에는 초반 풀에서만 뽑는다.
 /// </summary>
 public class AugmentDraft
 {
     readonly AugmentPool pool;
     readonly AugmentManager owned;
 
+    /// <summary>초반에만 쓰는 풀. 없으면 처음부터 pool 을 쓴다.</summary>
+    readonly AugmentPool earlyPool;
+
+    /// <summary>이 레벨의 선택지까지 earlyPool 에서 뽑는다.</summary>
+    readonly int earlyUntilLevel;
+
+    /// <summary>지금 뽑는 선택지가 몇 레벨 몫인가. 레벨을 아는 쪽(UI)이 알려준다.</summary>
+    readonly System.Func<int> choiceLevel;
+
     /// <summary>매번 새 리스트를 만들지 않으려고 재사용한다. 결과는 바로 쓰고 버릴 것.</summary>
     readonly List<AugmentData> buffer = new();
 
-    public AugmentDraft(AugmentPool pool, AugmentManager owned)
+    public AugmentDraft(AugmentPool pool, AugmentManager owned,
+                        AugmentPool earlyPool = null, int earlyUntilLevel = 0,
+                        System.Func<int> choiceLevel = null)
     {
         this.pool = pool;
         this.owned = owned;
+        this.earlyPool = earlyPool;
+        this.earlyUntilLevel = earlyUntilLevel;
+        this.choiceLevel = choiceLevel;
     }
 
     public bool IsReady => pool != null && owned != null && pool.Count > 0;
@@ -38,7 +57,7 @@ public class AugmentDraft
 
         if (!IsReady) return buffer;
 
-        IReadOnlyList<AugmentData> all = pool.All;
+        IReadOnlyList<AugmentData> all = ActivePool().All;
 
         for (int i = 0; i < all.Count; i++)
         {
@@ -51,6 +70,85 @@ public class AugmentDraft
         }
 
         return buffer;
+    }
+
+    /// <summary>
+    /// 이번 선택지를 뽑을 풀. 초반 구간이면 초반 풀이지만,
+    /// 거기서 더 뽑을 것이 없으면(전부 만렙 등) 전체 풀로 넘어간다 — 선택지가 비면 안 된다.
+    /// </summary>
+    AugmentPool ActivePool()
+    {
+        if (earlyPool == null || choiceLevel == null) return pool;
+        if (choiceLevel() > earlyUntilLevel) return pool;
+
+        return HasAny(earlyPool) ? earlyPool : pool;
+    }
+
+    bool HasAny(AugmentPool from)
+    {
+        IReadOnlyList<AugmentData> all = from.All;
+
+        for (int i = 0; i < all.Count; i++)
+            if (all[i] != null && CanAppear(all[i])) return true;
+
+        return false;
+    }
+
+    // ── 칸 수 ─────────────────────────────────────────────
+
+    /// <summary>
+    /// 이 증강이 주머니에서 차지하는 칸 수.
+    /// 미보유 1칸 — 내부 증강은 요구 레벨만큼. 보유 중이면 레벨마다 perLevel 칸씩 더한다.
+    /// </summary>
+    float Tickets(AugmentData data, float perLevel)
+    {
+        float baseTickets = data.rootAugment != null ? Mathf.Max(1, data.requiredRootLevel) : 1f;
+
+        AugmentRunner mine = owned.Find(data);
+        if (mine == null) return baseTickets;
+
+        return baseTickets + mine.Instance.Level * perLevel;
+    }
+
+    /// <summary>칸 수에 비례해 하나를 고른다. 리스트의 위치를 돌려준다.</summary>
+    int DrawIndex(List<AugmentData> bag, float perLevel)
+    {
+        float total = 0f;
+        for (int i = 0; i < bag.Count; i++) total += Tickets(bag[i], perLevel);
+
+        float roll = Random.value * total;
+
+        for (int i = 0; i < bag.Count; i++)
+        {
+            roll -= Tickets(bag[i], perLevel);
+            if (roll < 0f) return i;
+        }
+
+        // Random.value 가 1.0 이 나오거나 부동소수 오차가 남으면 끝까지 온다
+        return bag.Count - 1;
+    }
+
+    static void RemoveExcluded(List<AugmentData> bag, IList<AugmentData> exclude)
+    {
+        if (exclude == null) return;
+
+        for (int i = 0; i < exclude.Count; i++) bag.Remove(exclude[i]);
+    }
+
+    void LogTickets(AugmentPool from, List<AugmentData> bag)
+    {
+        var sb = new StringBuilder();
+        float total = 0f;
+
+        for (int i = 0; i < bag.Count; i++)
+        {
+            float t = Tickets(bag[i], from.ticketsPerLevel);
+            total += t;
+            sb.Append($"{bag[i].displayName} {t:0.#}  ");
+        }
+
+        string level = choiceLevel != null ? $"Lv {choiceLevel()}" : "Lv ?";
+        Debug.Log($"[AugmentDraft] {from.name} ({level}) 총 {total:0.#}칸 | {sb}");
     }
 
     /// <summary>이 증강이 지금 선택지에 나올 수 있는가.</summary>
@@ -89,39 +187,40 @@ public class AugmentDraft
     {
         results.Clear();
 
-        List<AugmentData> candidates = Candidates();
+        if (!IsReady) return 0;
 
-        // 원본을 섞으면 다음 호출의 순서까지 바뀐다. 복사본을 섞는다
-        var shuffled = new List<AugmentData>(candidates);
+        AugmentPool from = ActivePool();
 
-        if (exclude != null)
-            for (int i = 0; i < exclude.Count; i++) shuffled.Remove(exclude[i]);
+        // 원본은 다음 호출에 덮어쓰이는 버퍼다. 복사본에서 뽑는다
+        var bag = new List<AugmentData>(Candidates());
+        RemoveExcluded(bag, exclude);
 
-        // TODO 기획: 보유/시너지 증강 확률 보정. 지금은 균등 랜덤
-        for (int i = shuffled.Count - 1; i > 0; i--)
+        if (from.logTickets) LogTickets(from, bag);
+
+        for (int i = 0; i < count && bag.Count > 0; i++)
         {
-            int j = Random.Range(0, i + 1);
-            (shuffled[i], shuffled[j]) = (shuffled[j], shuffled[i]);
+            int index = DrawIndex(bag, from.ticketsPerLevel);
+
+            results.Add(bag[index]);
+
+            // 뽑힌 증강의 칸은 통째로 빠진다. 같은 증강이 두 장 나오지 않는다
+            bag.RemoveAt(index);
         }
 
-        int take = Mathf.Min(count, shuffled.Count);
-
-        for (int i = 0; i < take; i++) results.Add(shuffled[i]);
-
-        return take;
+        return results.Count;
     }
 
     /// <summary>exclude 를 뺀 후보를 하나만. 없으면 null.</summary>
     public AugmentData PickOne(IList<AugmentData> exclude)
     {
-        List<AugmentData> candidates = Candidates();
+        if (!IsReady) return null;
 
-        var left = new List<AugmentData>(candidates);
+        AugmentPool from = ActivePool();
 
-        if (exclude != null)
-            for (int i = 0; i < exclude.Count; i++) left.Remove(exclude[i]);
+        var bag = new List<AugmentData>(Candidates());
+        RemoveExcluded(bag, exclude);
 
-        return left.Count == 0 ? null : left[Random.Range(0, left.Count)];
+        return bag.Count == 0 ? null : bag[DrawIndex(bag, from.ticketsPerLevel)];
     }
 
     /// <summary>exclude 를 뺀 후보가 하나라도 남아 있는가. 리롤 버튼을 잠글지 판단한다.</summary>
