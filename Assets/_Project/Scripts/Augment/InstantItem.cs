@@ -58,7 +58,7 @@ public static class InstantItem
             if (limit > 0f &&
                 Vector2.Distance(from, orbs[i].transform.position) > limit) continue;
 
-            orbs[i].forcedMagnet = true;
+            orbs[i].ForcePull();
             pulled++;
         }
 

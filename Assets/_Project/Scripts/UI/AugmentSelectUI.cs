@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
@@ -37,6 +38,14 @@ public class AugmentSelectUI : MonoBehaviour
 
     [Tooltip("남은 리롤 수 글자를 버튼 아래로 얼마나 띄울지(px).")]
     [SerializeField] float rerollCountGap = 40f;
+
+    [Tooltip("리롤 버튼에 커서를 올리거나 키보드로 골랐을 때 커지는 배율.")]
+    [Range(1f, 1.5f)] [SerializeField] float rerollHoverScale = 1.2f;
+
+    [Header("연속 레벨업")]
+    [Tooltip("GC 로 끌려오는 경험치가 다 도착할 때까지 선택 화면을 미루는 최대 시간(실제 초).\n" +
+             "오브가 하나씩 도착할 때마다 화면이 열렸다 닫히는 것을 막는다.")]
+    [Min(0f)] [SerializeField] float maxPullWait = 2f;
 
     [Header("카드")]
     [Tooltip("카드 프리팹. 물리면 그것을 복제해서 쓴다.\n" +
@@ -130,6 +139,12 @@ public class AugmentSelectUI : MonoBehaviour
     /// <summary>보유 증강 아이콘 줄. 선택 화면 위로 올려 마우스를 받게 한다.</summary>
     AugmentHud hud;
 
+    /// <summary>끌려오는 경험치를 기다리기 시작한 실제 시각. 기다리는 중이 아니면 음수.</summary>
+    float pullWaitSince = -1f;
+
+    static readonly Key[] DigitKeys = { Key.Digit1, Key.Digit2, Key.Digit3, Key.Digit4, Key.Digit5 };
+    static readonly Key[] NumpadKeys = { Key.Numpad1, Key.Numpad2, Key.Numpad3, Key.Numpad4, Key.Numpad5 };
+
     /// <summary>남은 리롤. RunDirector 가 소유하고 여기서는 읽기만 한다.</summary>
     int RerollsLeft => RunDirector.Current != null ? RunDirector.Current.Rerolls : 0;
 
@@ -188,6 +203,7 @@ public class AugmentSelectUI : MonoBehaviour
 
         levelSystem = GameManager.instance.levelSystem;
         levelSystem.LeveledUp += OnLeveledUp;
+        ExpMove.PullFinished += OnPullFinished;
 
         StartCoroutine(OpenStartRounds());
     }
@@ -231,17 +247,49 @@ public class AugmentSelectUI : MonoBehaviour
     void OnDestroy()
     {
         if (levelSystem != null) levelSystem.LeveledUp -= OnLeveledUp;
+        ExpMove.PullFinished -= OnPullFinished;
     }
+
+    /// <summary>
+    /// 지금 깔리는 선택지가 몇 레벨 몫인가. 한 번에 여러 레벨이 오르면 Level 은 이미 앞서 있어서
+    /// 대기 수만큼 되짚는다. 런 시작 선택은 레벨업이 아니라 1 이하로 나와 초반 구간에 든다.
+    /// </summary>
+    int ChoiceLevel() => levelSystem != null ? levelSystem.Level - levelSystem.PendingLevelUps + 1 : 1;
 
     void OnLeveledUp(int _)
     {
-        if (!open) TryOpen();
+        if (open) return;
+
+        // GC 로 끌려오는 경험치가 남았으면 다 받고 한 번에 고르게 한다
+        if (ExpMove.PulledInFlight > 0)
+        {
+            if (pullWaitSince < 0f) pullWaitSince = Time.unscaledTime;
+            return;
+        }
+
+        TryOpen();
+    }
+
+    void OnPullFinished()
+    {
+        if (!open && pullWaitSince >= 0f) TryOpen();
+    }
+
+    /// <summary>오브가 어딘가 걸려 영영 안 도착해도 선택 화면은 열리게 한다.</summary>
+    void TickPullWait()
+    {
+        if (pullWaitSince < 0f) return;
+        if (Time.unscaledTime - pullWaitSince < maxPullWait) return;
+
+        TryOpen();
     }
 
     // ── 열고 닫기 ─────────────────────────────────────────
 
     void TryOpen()
     {
+        pullWaitSince = -1f;
+
         if (levelSystem.PendingLevelUps <= 0) return;
         if (!RunDirector.IsPlaying) return;
 
@@ -250,12 +298,6 @@ public class AugmentSelectUI : MonoBehaviour
             // 뽑을 증강이 없으면 선택 없이 흘려보낸다
             while (levelSystem.ConsumePendingLevelUp()) { }
             return;
-    /// <summary>
-    /// 지금 깔리는 선택지가 몇 레벨 몫인가. 한 번에 여러 레벨이 오르면 Level 은 이미 앞서 있어서
-    /// 대기 수만큼 되짚는다. 런 시작 선택은 레벨업이 아니라 1 이하로 나와 초반 구간에 든다.
-    /// </summary>
-    int ChoiceLevel() => levelSystem != null ? levelSystem.Level - levelSystem.PendingLevelUps + 1 : 1;
-
         }
 
         open = true;
@@ -326,8 +368,61 @@ public class AugmentSelectUI : MonoBehaviour
 
     void Update()
     {
+        if (!open)
+        {
+            TickPullWait();
+            return;
+        }
+
         // 카드가 깔려 있을 때만. 안 그러면 화면 밖에서 방향키를 눌러도 카드가 선택된다
-        if (open) UiFocus.Tick(overlay);
+        UiFocus.Tick(overlay);
+
+        HandleHotkeys();
+    }
+
+    // ── 키보드 ────────────────────────────────────────────
+
+    /// <summary>숫자키 = 그 칸 선택, Space = 포커스된 것 누르기, R = 포커스된 칸 리롤.</summary>
+    void HandleHotkeys()
+    {
+        Keyboard kb = Keyboard.current;
+        if (kb == null || picking) return;
+
+        for (int i = 0; i < activeCount && i < cards.Count && i < DigitKeys.Length; i++)
+        {
+            if (!kb[DigitKeys[i]].wasPressedThisFrame && !kb[NumpadKeys[i]].wasPressedThisFrame) continue;
+
+            OnCardClicked(cards[i]);
+            return;
+        }
+
+        if (kb.spaceKey.wasPressedThisFrame) SubmitSelected();
+        else if (kb.rKey.wasPressedThisFrame) OnRerollClicked(FocusedSlot());
+    }
+
+    /// <summary>
+    /// 골라져 있는 것을 Enter 와 똑같이 누른다. 카드든 리롤 버튼이든 같다.
+    /// Space 가 이미 Submit 에 묶여 있어 두 번 눌려도 Pick · 리롤이 각자 중복을 막는다.
+    /// </summary>
+    void SubmitSelected()
+    {
+        EventSystem system = EventSystem.current;
+        GameObject selected = system != null ? system.currentSelectedGameObject : null;
+        if (selected == null) return;
+
+        ExecuteEvents.Execute(selected, new BaseEventData(system), ExecuteEvents.submitHandler);
+    }
+
+    /// <summary>지금 골라져 있는 카드(또는 그 리롤 버튼)의 칸 번호. 없으면 -1.</summary>
+    int FocusedSlot()
+    {
+        GameObject selected = EventSystem.current != null ? EventSystem.current.currentSelectedGameObject : null;
+        if (selected == null) return -1;
+
+        for (int i = 0; i < cards.Count; i++)
+            if (cards[i].IsShown && selected.transform.IsChildOf(cards[i].transform)) return i;
+
+        return -1;
     }
 
     void Close()
@@ -474,6 +569,9 @@ public class AugmentSelectUI : MonoBehaviour
     void OnRerollClicked(int index)
     {
         if (index < 0 || index >= cards.Count) return;
+
+        // 확정 라운드(캐릭터 고정 증강)는 바꿀 수 없다. 버튼은 숨겨도 R 키는 들어온다
+        if (forced.Count > 0) return;
         if (rerollUsed[index]) return;
 
         AugmentCardView card = cards[index];
@@ -563,7 +661,15 @@ public class AugmentSelectUI : MonoBehaviour
             int index = i;
 
             if (card.Choose != null) card.Choose.onClick.AddListener(() => OnCardClicked(card));
-            if (card.Reroll != null) card.Reroll.onClick.AddListener(() => OnRerollClicked(index));
+            if (card.Reroll != null)
+            {
+                card.Reroll.onClick.AddListener(() => OnRerollClicked(index));
+
+                // 카드만 커지고 리롤은 그대로면 지금 무엇을 누를지 안 보인다
+                if (!card.Reroll.TryGetComponent(out SelectableHoverScale hover))
+                    hover = card.Reroll.gameObject.AddComponent<SelectableHoverScale>();
+                hover.scale = rerollHoverScale;
+            }
 
             cards.Add(card);
         }
