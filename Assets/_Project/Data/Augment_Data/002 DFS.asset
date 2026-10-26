@@ -17,6 +17,10 @@ MonoBehaviour:
   id: DFS
   displayName: DFS
   category: 0
+  tags:
+  - 1
+  - 11
+  - 20
   icon: {fileID: 0}
   descriptionTemplate: "\uBB34\uC791\uC704 \uBC29\uD5A5\uC73C\uB85C DFS\uB97C \uBC1C\uC0AC\uD55C\uB2E4.\n\uC801\uC911
     \uB300\uC0C1\uBD80\uD130 \uAE4A\uAC8C \uC801\uC744 \uD0D0\uC0C9\uD55C\uB2E4.\n\uD0D0\uC0C9

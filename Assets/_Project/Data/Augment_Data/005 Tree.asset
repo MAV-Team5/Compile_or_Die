@@ -17,6 +17,11 @@ MonoBehaviour:
   id: TREE
   displayName: Tree
   category: 2
+  tags:
+  - 3
+  - 11
+  - 28
+  - 20
   icon: {fileID: 21300000, guid: e53b51b833049452da03e2ecabf08cdd, type: 3}
   descriptionTemplate: "\uBB34\uC791\uC704 \uBC29\uD5A5\uC73C\uB85C \uD2B8\uB9AC
     \uD22C\uC0AC\uCCB4\uB97C \uBC1C\uC0AC\uD55C\uB2E4.\n\uB300\uC0C1\uC740 \uB8E8\uD2B8

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -64,6 +65,9 @@ public class AugmentCardView : MonoBehaviour,
     [SerializeField] TMP_Text categoryText;
     [SerializeField] TMP_Text levelText;
     [SerializeField] TMP_Text descriptionText;
+
+    [Tooltip("태그 칩이 놓일 줄. 비우면 카테고리 글자 바로 아래에 만든다.")]
+    [SerializeField] RectTransform tagRow;
 
     [Header("리롤 버튼 속")]
     [SerializeField] Image rerollIconImage;
@@ -180,6 +184,8 @@ public class AugmentCardView : MonoBehaviour,
             if (t != null) reroll = t.GetComponent<Button>();
         }
 
+        if (tagRow == null && categoryText != null) tagRow = BuildTagRowBelow(categoryText.rectTransform);
+
         WarnIfIncomplete();
     }
 
@@ -237,17 +243,19 @@ public class AugmentCardView : MonoBehaviour,
                         new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
                         new Vector2(0f, -515f), new Vector2(width - 60f, 60f));
 
+        tagRow = BuildTagRowBelow(categoryText.rectTransform);
+
         levelText = UiFactory.CreateText("LevelInfo", inner.transform, font,
                                          40f, theme.dim, TextAlignmentOptions.Center);
         UiFactory.Place((RectTransform)levelText.transform,
                         new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
-                        new Vector2(0f, -580f), new Vector2(width - 60f, 55f));
+                        new Vector2(0f, -632f), new Vector2(width - 60f, 55f));
 
         descriptionText = UiFactory.CreateText("Description", inner.transform, font,
                                                44f, theme.text, TextAlignmentOptions.Top);
         UiFactory.Stretch((RectTransform)descriptionText.transform,
                           Vector2.zero, Vector2.one,
-                          new Vector2(45f, 40f), new Vector2(-45f, -660f));
+                          new Vector2(45f, 40f), new Vector2(-45f, -712f));
 
         // 설명 길이는 증강마다 제각각이다. 칸을 넘기느니 글자를 줄인다 —
         // 잘라내면 어느 수치가 사라졌는지 플레이어가 알 수 없다
@@ -555,6 +563,8 @@ public class AugmentCardView : MonoBehaviour,
         categoryText.text = $"[ {CategoryLabel(data.category)} ]";
         categoryText.color = theme.ColorOf(data.category);
 
+        ShowTags(data.tags);
+
         TintBorder(theme.ColorOf(data.category));
 
         if (data.instantEffect != InstantItemEffect.None)
@@ -671,6 +681,84 @@ public class AugmentCardView : MonoBehaviour,
         }
 
         rerollIconImage.transform.localRotation = Quaternion.identity;
+    }
+
+    // ── 태그 칩 ───────────────────────────────────────────
+
+    const float TagRowHeight = 44f;
+    const float TagFontSize = 28f;
+    const float TagPadding = 12f;
+    const float TagSpacing = 10f;
+    static readonly Color TagTextColor = new(0.08f, 0.09f, 0.1f);
+
+    readonly List<Image> chips = new();
+    readonly List<AugmentTag> sortedTags = new();
+
+    /// <summary>칩을 가운데 정렬로 늘어놓는 줄. 칩 폭은 글자 길이를 따른다.</summary>
+    static RectTransform BuildTagRowBelow(RectTransform anchor)
+    {
+        RectTransform row = UiFactory.CreateRect("TagRow", anchor.parent);
+
+        UiFactory.Place(row, anchor.anchorMin, new Vector2(0.5f, 1f),
+                        anchor.anchoredPosition - new Vector2(0f, anchor.sizeDelta.y + 2f),
+                        new Vector2(anchor.sizeDelta.x, TagRowHeight));
+
+        HorizontalLayoutGroup layout = row.gameObject.AddComponent<HorizontalLayoutGroup>();
+        layout.childAlignment = TextAnchor.MiddleCenter;
+        layout.spacing = TagSpacing;
+        layout.childControlWidth = true;
+        layout.childControlHeight = true;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = true;
+
+        return row;
+    }
+
+    /// <summary>중복을 빼고 우선순위대로 칩을 채운다. 남는 칩은 끈다.</summary>
+    void ShowTags(List<AugmentTag> tags)
+    {
+        if (tagRow == null) return;
+
+        sortedTags.Clear();
+        if (tags != null)
+            foreach (AugmentTag tag in tags)
+                if (!sortedTags.Contains(tag) && sortedTags.Count < AugmentData.MaxTags) sortedTags.Add(tag);
+
+        sortedTags.Sort((a, b) => AugmentTagStyle.Priority(a).CompareTo(AugmentTagStyle.Priority(b)));
+
+        while (chips.Count < sortedTags.Count) chips.Add(BuildChip());
+
+        for (int i = 0; i < chips.Count; i++)
+        {
+            bool on = i < sortedTags.Count;
+            chips[i].gameObject.SetActive(on);
+            if (!on) continue;
+
+            chips[i].color = AugmentTagStyle.ColorOf(sortedTags[i]);
+            chips[i].GetComponentInChildren<TMP_Text>().text = AugmentTagStyle.Label(sortedTags[i]);
+        }
+    }
+
+    /// <summary>글자 크기에 딱 맞는 색 사각형 하나.</summary>
+    Image BuildChip()
+    {
+        Image chip = UiFactory.CreateImage("Tag", tagRow, Color.white);
+
+        HorizontalLayoutGroup pad = chip.gameObject.AddComponent<HorizontalLayoutGroup>();
+        pad.padding = new RectOffset((int)TagPadding, (int)TagPadding, 0, 0);
+        pad.childAlignment = TextAnchor.MiddleCenter;
+        pad.childControlWidth = true;
+        pad.childControlHeight = true;
+        pad.childForceExpandWidth = false;
+        pad.childForceExpandHeight = true;
+
+        TMP_FontAsset font = categoryText != null ? categoryText.font : null;
+        TMP_Text label = UiFactory.CreateText("Label", chip.transform, font,
+                                              TagFontSize, TagTextColor, TextAlignmentOptions.Center);
+        label.fontStyle = FontStyles.Bold;
+        label.textWrappingMode = TextWrappingModes.NoWrap;
+
+        return chip;
     }
 
     // ── 글 만들기 ─────────────────────────────────────────
