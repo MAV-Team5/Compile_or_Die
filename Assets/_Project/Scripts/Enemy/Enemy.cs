@@ -50,6 +50,20 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <summary>프리팹에 그려진 원래 크기. 배율은 여기에 곱한다.</summary>
     Vector3 baseScale = Vector3.one;
 
+    // ── 무리 간격 ──
+    const int SeparationEvery = 3;          // 몇 FixedUpdate 마다 이웃을 다시 볼지
+    static readonly Collider2D[] neighbors = new Collider2D[24];
+    static ContactFilter2D neighborFilter;
+    static bool filterReady;
+
+    float spaceRadius;
+    float separationStrength;
+    Vector2 separation;
+    int separationTick;
+
+    /// <summary>스폰된 런 시각. 너무 오래 산 적을 정리하는 데 쓴다.</summary>
+    public float SpawnedAt { get; private set; }
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -91,10 +105,92 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         // 둔화 같은 상태이상이 걸려 있으면 그만큼 느려진다. 없으면 배율이 1이라 그대로다
         float moveSpeed = speed * (status != null ? status.SpeedMultiplier : 1f);
 
-        Vector2 dirVec = target.position - rigid.position;
-        Vector2 nextVec = dirVec.normalized * moveSpeed * Time.deltaTime;
+        Vector2 dir = (target.position - rigid.position).normalized;
+
+        if (++separationTick >= SeparationEvery)
+        {
+            separationTick = 0;
+            separation = ComputeSeparation(dir);
+        }
+
+        Vector2 nextVec = (dir + separation * separationStrength) * moveSpeed * Time.deltaTime;
         rigid.MovePosition(rigid.position + nextVec);
         rigid.linearVelocity = Vector2.zero;
+    }
+
+    /// <summary>
+    /// 겹친 이웃에게서 비켜설 방향(크기 ≤ 1).
+    /// 옆 성분과 <b>앞으로 밀리는 성분만</b> 남긴다 — 뒤로 밀면 그 적이 느려지고 무리 전체가 늦어진다.
+    /// 앞에 선 적이 살짝 앞당겨지는 것으로 앞뒤 겹침이 풀린다.
+    /// </summary>
+    Vector2 ComputeSeparation(Vector2 forward)
+    {
+        if (spaceRadius <= 0f) return Vector2.zero;
+
+        if (!filterReady)
+        {
+            neighborFilter = new ContactFilter2D { useLayerMask = true, layerMask = LayerMask.GetMask("Enemy"), useTriggers = true };
+            filterReady = true;
+        }
+
+        Vector2 me = rigid.position;
+        Vector2 push = Vector2.zero;
+
+        // 상대 몸집을 모르므로 내 반지름의 두 배까지 본다
+        int count = Physics2D.OverlapCircle(me, spaceRadius * 2f, neighborFilter, neighbors);
+
+        for (int i = 0; i < count; i++)
+        {
+            Rigidbody2D body = neighbors[i].attachedRigidbody;
+            if (body == null || body == rigid) continue;
+            if (!body.TryGetComponent(out Enemy other) || !other.isLive) continue;
+
+            Vector2 away = me - body.position;
+            float distance = away.magnitude;
+            float need = spaceRadius + other.spaceRadius;
+
+            if (distance >= need) continue;
+
+            // 정확히 겹치면 방향이 없다. 아무 쪽으로나 갈라선다
+            if (distance < 0.001f) away = Random.insideUnitCircle.normalized;
+
+            // 상대가 클수록 내가 더 많이 비킨다. 보스가 잡몹 떼에 떠밀려 다니지 않게
+            push += away.normalized * (1f - distance / need) * (other.spaceRadius / need * 2f);
+        }
+
+        float ahead = Vector2.Dot(push, forward);
+        Vector2 sideways = push - ahead * forward;
+        Vector2 result = sideways + Mathf.Max(0f, ahead) * forward;
+
+        return Vector2.ClampMagnitude(result, 1f);
+    }
+
+    /// <summary>
+    /// 보상 없이 조용히 거둔다. 너무 오래 살아 화면 밖을 떠도는 적을 정리할 때 쓴다.
+    /// 처치가 아니므로 경험치·재화·처치 수·로그가 없다.
+    /// </summary>
+    public void Retire()
+    {
+        if (!isLive) return;
+
+        isLive = false;
+        if (coll != null) coll.enabled = false;
+
+        if (TryGetComponent(out MarkerHolder marks)) marks.ClearAll();
+        if (TryGetComponent(out LinkHolder links)) links.CutAll();
+
+        gameObject.SetActive(false);
+    }
+
+    /// <summary>씬 뷰에서 간격 반지름을 본다. 적을 골랐을 때만 그린다.</summary>
+    void OnDrawGizmosSelected()
+    {
+        float radius = Application.isPlaying ? spaceRadius
+                     : (source != null ? source.personalSpace * source.scale : 0f);
+        if (radius <= 0f) return;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 
     public void Displace(Vector2 delta, float suppressDuration)
@@ -119,6 +215,10 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         health = maxHealth;
         coll.enabled = true;
         moveSuppressRemain = 0f;
+        separation = Vector2.zero;
+
+        // 다 같이 같은 프레임에 이웃을 보지 않게 시작점을 흩는다
+        separationTick = Random.Range(0, SeparationEvery);
 
         // 지난 개체가 깜빡이는 중에 반납됐어도 흰 채로 나오지 않게
         if (visual != null) visual.ResetState();
@@ -137,6 +237,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// </summary>
     /// <summary>안 움직이는 설치물인가. 스포너가 스폰 위치와 회수 규칙을 가를 때 본다.</summary>
     public bool IsStationary => source != null && source.stationary;
+
+    /// <summary>잡몹인가. 오래 산 적 정리는 잡몹만 한다 — 엘리트는 상자를 들고 있다.</summary>
+    public bool IsMinion => source == null || source.rank == EnemyData.Rank.Minion;
 
     /// <summary>
     /// 지금 무적인가. <see cref="DeadlockCycle"/> 처럼 적 자신이 한시적으로 켠다.
@@ -192,6 +295,10 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         maxHealth = data.health * scale.Health;
         health = maxHealth;
         contactDamage = data.contactDamage * scale.Damage;
+
+        spaceRadius = data.personalSpace * data.scale * scale.Size;
+        separationStrength = data.separationStrength;
+        SpawnedAt = RunDirector.RunTime;
 
         // 풀에서 재사용되므로 항상 다시 정해야 한다. 안 그러면 직전 개체의 크기로 나온다
         transform.localScale = baseScale * Mathf.Max(0.01f, data.scale * scale.Size);

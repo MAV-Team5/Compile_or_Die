@@ -46,6 +46,14 @@ public class EnemyData : ScriptableObject
              "덩치가 곧 위협도로 읽히므로 엘리트는 여기를 올리는 것으로 충분할 때가 많다.")]
     public float scale = 1f;
 
+    [Header("무리 간격 — 콜라이더와 별개로 서로 비켜서는 거리")]
+    [Tooltip("이 반지름(유닛, 몸집 배율이 곱해짐) 안에 다른 적이 있으면 옆으로 비켜선다. 0이면 끈다.\n\n" +
+             "★ 앞뒤로는 밀지 않는다 — 뒤에 선 적이 느려지면 무리가 통째로 늦어진다.")]
+    [Min(0f)] public float personalSpace = 0.5f;
+
+    [Tooltip("비켜서는 세기. 이동 속도에 대한 배율이다. 1이면 제 속도만큼 옆으로 빠진다.")]
+    [Range(0f, 2f)] public float separationStrength = 1f;
+
     [Header("연출")]
     [Tooltip("이 적이 쓸 애니메이터 컨트롤러. 비우면 프리팹에 물려 있는 것을 그대로 쓴다.\n" +
              "적 종류마다 프리팹을 따로 만들었다면 비워두면 된다.")]
