@@ -131,7 +131,7 @@ public class MarkerHolder : MonoBehaviour
     /// 표식들이 더해주는 추가 피해 합계. 실제로 들어간 표식은 연출도 낸다.
     /// 표식은 사라지지 않는다 — 지속되며 매 공격마다 다시 얹힌다.
     /// </summary>
-    public float Consume(float baseAmount)
+    public float Consume(float baseAmount, List<MarkBonus> breakdown = null)
     {
         float sum = 0f;
 
@@ -141,6 +141,7 @@ public class MarkerHolder : MonoBehaviour
             if (bonus <= 0f) continue;
 
             sum += bonus;
+            breakdown?.Add(new MarkBonus(marks[i].Owner, bonus));
 
             // 표식이 붙어 있는 자리에서 터뜨린다. 오브젝트가 없으면 적 위치
             Vector2 at = marks[i].Visual != null
@@ -365,4 +366,17 @@ public class MarkerHolder : MonoBehaviour
             transform.position + Vector3.up * 0.4f, $"탐색 {marks.Count} · {where}");
     }
 #endif
+}
+
+/// <summary>표식 하나가 이번 피해에 더한 몫. 통계를 표식 주인(탐색 증강)에게 돌리려고 쓴다.</summary>
+public readonly struct MarkBonus
+{
+    public readonly AugmentInstance Owner;
+    public readonly float Amount;
+
+    public MarkBonus(AugmentInstance owner, float amount)
+    {
+        Owner = owner;
+        Amount = amount;
+    }
 }

@@ -63,6 +63,8 @@ public static class RunStats
 
     static Entry Resolve(AugmentInstance augment)
     {
+        if (augment != null && augment.StatsOwner != null) augment = augment.StatsOwner;
+
         if (augment == null || augment.Data == null) return unattributed;
 
         if (byAugment.TryGetValue(augment, out Entry found))

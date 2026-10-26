@@ -30,7 +30,7 @@ public class Summon : MonoBehaviour
         summon.owner = owner;
         summon.expireAt = duration > 0f ? Time.time + duration : 0f;
 
-        summon.Drive(behaviour, owner.Level);
+        summon.Drive(behaviour, owner);
         Register(summon, maxAlive);
 
         return summon;
@@ -40,12 +40,13 @@ public class Summon : MonoBehaviour
     /// 러너를 붙여 자기 파이프라인을 돌리게 한다.
     /// 레벨은 소환한 증강을 따라가므로 소환물도 같이 성장한다.
     /// </summary>
-    void Drive(AugmentData behaviour, int level)
+    void Drive(AugmentData behaviour, AugmentInstance summoner)
     {
         AugmentRunner runner = GetComponent<AugmentRunner>();
         if (runner == null) runner = gameObject.AddComponent<AugmentRunner>();
 
-        runner.Setup(new AugmentInstance(behaviour, level));
+        // 소환물이 준 피해는 소환한 증강의 성적이다
+        runner.Setup(new AugmentInstance(behaviour, summoner.Level) { StatsOwner = summoner });
         runner.DriveSelf();
     }
 

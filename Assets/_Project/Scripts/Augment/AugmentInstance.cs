@@ -41,6 +41,11 @@ public class AugmentInstance
     public AugmentInstance TriggerSource;
 
     /// <summary>
+    /// 통계에서 이 개체 대신 이름을 올릴 증강. 소환물처럼 따로 만든 개체가 쓴다. 없으면 null.
+    /// </summary>
+    public AugmentInstance StatsOwner;
+
+    /// <summary>
     /// 트리거가 읽어야 할 수치.
     ///
     /// <b>갈아끼운 트리거는 자기 증강의 시트를 본다.</b> 도는 것은 뿌리의 러너지만,
