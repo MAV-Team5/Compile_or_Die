@@ -43,7 +43,7 @@ Material:
     m_Floats:
     - _Falloff_Strength: 0
     - _Fill: 0
-    - _GlowIntensity: 2
+    - _GlowIntensity: 1.5
     - _MinVisibility: 0
     - _NearDim: 0
     m_Colors:

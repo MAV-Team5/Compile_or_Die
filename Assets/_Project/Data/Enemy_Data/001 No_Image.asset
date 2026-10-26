@@ -31,7 +31,7 @@ MonoBehaviour:
   killLog: 1
   deathState: 
   deathDuration: 0
-  deathStyle: 1
+  deathStyle: 3
   deathFx:
     vfx: {fileID: 0}
     vfxScale: 1

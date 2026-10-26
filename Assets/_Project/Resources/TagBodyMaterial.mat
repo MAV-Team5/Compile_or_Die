@@ -42,7 +42,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Falloff_Strength: 0
-    - _GlowIntensity: 1.3
+    - _Fill: 0
+    - _GlowIntensity: 1
     - _MinVisibility: 0
     - _NearDim: 0
     m_Colors:
