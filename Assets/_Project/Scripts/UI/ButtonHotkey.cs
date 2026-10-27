@@ -27,9 +27,14 @@ public class ButtonHotkey : MonoBehaviour
     void Update()
     {
         if (Time.unscaledTime - enabledAt < ignoreAfterEnable) return;
-        if (!button.IsInteractable() || !Pressed()) return;
+        if (!button.IsInteractable() || !Pressed(out bool submitKey)) return;
 
         EventSystem system = EventSystem.current;
+
+        // Space·Enter 는 골라져 있는 버튼도 Submit 으로 받는다. 다른 버튼이 골라져 있으면
+        // 그쪽이 눌리게 두고 여기서는 물러난다 — 안 그러면 버튼 두 개가 동시에 눌린다
+        if (submitKey && system != null && system.currentSelectedGameObject != null &&
+            system.currentSelectedGameObject != gameObject) return;
 
         if (system != null)
             ExecuteEvents.Execute(gameObject, new BaseEventData(system), ExecuteEvents.submitHandler);
@@ -37,13 +42,20 @@ public class ButtonHotkey : MonoBehaviour
             button.onClick.Invoke();
     }
 
-    bool Pressed()
+    bool Pressed(out bool submitKey)
     {
+        submitKey = false;
+
         Keyboard kb = Keyboard.current;
         if (kb == null) return false;
 
         foreach (Key key in keys)
-            if (key != Key.None && kb[key].wasPressedThisFrame) return true;
+        {
+            if (key == Key.None || !kb[key].wasPressedThisFrame) continue;
+
+            submitKey = key == Key.Space || key == Key.Enter || key == Key.NumpadEnter;
+            return true;
+        }
 
         return false;
     }

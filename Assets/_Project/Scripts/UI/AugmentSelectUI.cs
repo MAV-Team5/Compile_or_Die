@@ -417,8 +417,21 @@ public class AugmentSelectUI : MonoBehaviour
     void SubmitSelected()
     {
         EventSystem system = EventSystem.current;
-        GameObject selected = system != null ? system.currentSelectedGameObject : null;
-        if (selected == null) return;
+        if (system == null) return;
+
+        GameObject selected = system.currentSelectedGameObject;
+
+        // 아무것도 안 골라져 있으면 바로 고르지 않고 첫 카드에 커서만 올린다.
+        // 안내에 "선택 Space" 라고 써 두었는데 눌러도 아무 일이 없으면 고장으로 보인다
+        if (selected == null)
+        {
+            if (activeCount > 0 && cards[0].IsShown)
+            {
+                system.SetSelectedGameObject(cards[0].gameObject);
+                UiFocus.TakeKeyboard();
+            }
+            return;
+        }
 
         ExecuteEvents.Execute(selected, new BaseEventData(system), ExecuteEvents.submitHandler);
     }
