@@ -139,6 +139,11 @@ public class AugmentSelectUI : MonoBehaviour
     /// <summary>보유 증강 아이콘 줄. 선택 화면 위로 올려 마우스를 받게 한다.</summary>
     AugmentHud hud;
 
+    /// <summary>런 시작 선택(캐릭터 고정 + 추가 선택)이 끝났다. 시작 선택이 없으면 첫 프레임 뒤 바로 알린다.</summary>
+    public static event System.Action StartRoundsFinished;
+
+    bool startRoundsFinished;
+
     /// <summary>끌려오는 경험치를 기다리기 시작한 실제 시각. 기다리는 중이 아니면 음수.</summary>
     float pullWaitSince = -1f;
 
@@ -237,7 +242,11 @@ public class AugmentSelectUI : MonoBehaviour
                    + HardwareBonus.ExtraStartRounds
                    + (character != null ? character.extraStartRounds : 0);
 
-        if (rounds <= 0) yield break;
+        if (rounds <= 0)
+        {
+            FinishStartRounds();
+            yield break;
+        }
 
         levelSystem.AddPendingSelection(rounds);
 
@@ -297,6 +306,7 @@ public class AugmentSelectUI : MonoBehaviour
         {
             // 뽑을 증강이 없으면 선택 없이 흘려보낸다
             while (levelSystem.ConsumePendingLevelUp()) { }
+            FinishStartRounds();
             return;
         }
 
@@ -434,6 +444,17 @@ public class AugmentSelectUI : MonoBehaviour
         if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
 
         if (UIManager.Current != null) UIManager.Current.Close(UIManager.Screen.AugmentSelect);
+
+        FinishStartRounds();
+    }
+
+    /// <summary>첫 선택 화면이 닫히는 때가 곧 시작 선택이 끝난 때다. 한 번만 알린다.</summary>
+    void FinishStartRounds()
+    {
+        if (startRoundsFinished) return;
+
+        startRoundsFinished = true;
+        StartRoundsFinished?.Invoke();
     }
 
     void OnCardClicked(AugmentCardView card)

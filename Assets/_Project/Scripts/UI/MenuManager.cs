@@ -100,6 +100,12 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(runScene);
     }
 
+    /// <summary>방금 한 스테이지·캐릭터 그대로 다시 들어간다. 결과 화면의 RECOMPILE 이 부른다.</summary>
+    public void OnClickRetry()
+    {
+        SceneManager.LoadScene(runScene);
+    }
+
     StageData FindStage(int stageId)
     {
         if (stages == null) return null;
