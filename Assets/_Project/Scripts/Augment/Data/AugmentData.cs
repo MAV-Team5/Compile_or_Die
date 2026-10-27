@@ -51,6 +51,9 @@ public class AugmentData : ScriptableObject
     public string displayName;
     public AugmentCategory category;
 
+    [Tooltip("이 캐릭터일 때만 선택지에 나온다. 비우면 누구나. 예) Bash 증강 = Bash 캐릭터 전용")]
+    public CharacterData exclusiveTo;
+
     public const int MaxTags = 4;
 
     [Tooltip("이 증강이 실제로 하는 일. 최대 4개. 카드에는 정해진 우선순위대로 놓인다.")]

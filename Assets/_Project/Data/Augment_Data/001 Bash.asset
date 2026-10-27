@@ -17,6 +17,7 @@ MonoBehaviour:
   id: BASH
   displayName: Bash
   category: 3
+  exclusiveTo: {fileID: 11400000, guid: 2ea7bd855290a684b83a7d4276276f8c, type: 2}
   tags:
   - 0
   - 11

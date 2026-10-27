@@ -611,7 +611,12 @@ public class AugmentSelectUI : MonoBehaviour
         AugmentCardView card = cards[index];
         if (!card.IsShown) return;
 
-        AugmentData picked = draft.PickOne(Excluded());
+        // 다른 칸에 새 증강이 없으면 이 칸이 그 몫을 지켜야 한다 — 리롤로 "새 카드 하나" 규칙이 깨지지 않게
+        bool othersHaveNew = false;
+        for (int i = 0; i < activeCount && i < shown.Count; i++)
+            if (i != index && draft.IsNew(shown[i])) othersHaveNew = true;
+
+        AugmentData picked = draft.PickOne(Excluded(), preferNew: !othersHaveNew);
         if (picked == null) return;   // 버튼이 이미 잠겨 있어야 정상이라 안전장치용
 
         // 보유량을 먼저 깎는다. 실패하면 아무것도 안 바꾼 채로 끝나야 한다

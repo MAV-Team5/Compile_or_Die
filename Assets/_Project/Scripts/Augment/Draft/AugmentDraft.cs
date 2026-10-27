@@ -32,6 +32,9 @@ public class AugmentDraft
     /// <summary>매번 새 리스트를 만들지 않으려고 재사용한다. 결과는 바로 쓰고 버릴 것.</summary>
     readonly List<AugmentData> buffer = new();
 
+    /// <summary>해금된 뒤 한 번이라도 선택지에 나온 내부 증강. 해금 보장은 한 번만 한다.</summary>
+    readonly HashSet<AugmentData> announced = new();
+
     public AugmentDraft(AugmentPool pool, AugmentManager owned,
                         AugmentPool earlyPool = null, int earlyUntilLevel = 0,
                         System.Func<int> choiceLevel = null)
@@ -98,11 +101,15 @@ public class AugmentDraft
 
     /// <summary>
     /// 이 증강이 주머니에서 차지하는 칸 수.
-    /// 미보유 1칸 — 내부 증강은 요구 레벨만큼. 보유 중이면 레벨마다 perLevel 칸씩 더한다.
+    /// 미보유 1칸 — 내부 증강도 해금되는 순간부터 새 증강과 똑같이 1칸이다.
+    /// 보유 중이면 레벨마다 perLevel 칸씩 더한다.
+    ///
+    /// 내부 증강을 요구 레벨만큼 주던 시절에는 해금되자마자 3칸으로 들어와 본체보다 자주 떴다.
+    /// 해금 직후 한 번은 <see cref="EnsureUnlockedInner"/> 가 보장하므로 칸을 더 줄 이유가 없다.
     /// </summary>
     float Tickets(AugmentData data, float perLevel)
     {
-        float baseTickets = data.rootAugment != null ? Mathf.Max(1, data.requiredRootLevel) : 1f;
+        const float baseTickets = 1f;
 
         AugmentRunner mine = owned.Find(data);
         if (mine == null) return baseTickets;
@@ -163,6 +170,11 @@ public class AugmentDraft
 
         if (data.levelStats == null || data.levelStats.Length == 0) return false;
 
+        // 캐릭터 전용 증강(Bash 등)은 그 캐릭터일 때만. 그 뿌리에 붙는 내부 증강은 뿌리 조건에서 같이 걸러진다.
+        // 캐릭터를 모르면(씬 바로 재생) 막지 않는다 — 테스트가 안 되면 더 곤란하다
+        CharacterData character = CharacterContext.Active;
+        if (data.exclusiveTo != null && character != null && character != data.exclusiveTo) return false;
+
         // 이미 만렙이면 더 올릴 수 없다
         AugmentRunner mine = owned.Find(data);
         if (mine != null && mine.Instance.Level >= mine.Instance.MaxLevel) return false;
@@ -207,11 +219,70 @@ public class AugmentDraft
             bag.RemoveAt(index);
         }
 
+        EnsureNewCard(results, bag, from.ticketsPerLevel);
+        EnsureUnlockedInner(results, bag);
+
         return results.Count;
     }
 
-    /// <summary>exclude 를 뺀 후보를 하나만. 없으면 null.</summary>
-    public AugmentData PickOne(IList<AugmentData> exclude)
+    /// <summary>
+    /// 막 해금된 내부 증강은 바로 다음 선택지에 한 번 보장한다. 뿌리를 키운 보상이 눈에 보여야 한다 —
+    /// 운이 나쁘면 끝까지 안 나와서 해금됐는지조차 모르고 끝난다.
+    /// 자리는 보유 증강 칸을 우선 뺏는다. 새 증강 보장 칸까지 먹으면 다른 길이 사라진다.
+    /// </summary>
+    void EnsureUnlockedInner(List<AugmentData> results, List<AugmentData> remaining)
+    {
+        foreach (AugmentData shown in results)
+            if (shown.rootAugment != null) announced.Add(shown);
+
+        if (results.Count == 0) return;
+
+        AugmentData waiting = remaining.Find(d => d.rootAugment != null && IsNew(d) && !announced.Contains(d));
+        if (waiting == null) return;
+
+        int slot = results.FindIndex(d => !IsNew(d));                    // 보유 증강 칸
+        if (slot < 0 && CountNew(results) > 1)
+            slot = results.FindIndex(d => d.rootAugment == null);         // 새 증강이 여럿이면 그중 하나
+        if (slot < 0) return;                                              // 바꿀 자리가 없다. 다음 선택지에서 다시 본다
+
+        results[slot] = waiting;
+        announced.Add(waiting);
+    }
+
+    int CountNew(List<AugmentData> list)
+    {
+        int count = 0;
+        foreach (AugmentData d in list) if (IsNew(d)) count++;
+        return count;
+    }
+
+    /// <summary>아직 안 가진 증강인가. 선택지에 하나는 꼭 섞는다.</summary>
+    public bool IsNew(AugmentData data) => data != null && owned != null && owned.Find(data) == null;
+
+    /// <summary>
+    /// 선택지가 전부 보유 증강이면 무작위 한 칸을 미보유 증강으로 바꾼다.
+    /// 보유 증강은 칸이 계속 늘어 후반엔 업그레이드만 뜨기 쉽다 — 매번 새 길이 하나는 보여야 빌드가 갈린다.
+    /// 뽑을 미보유 후보가 없으면 그대로 둔다.
+    /// </summary>
+    void EnsureNewCard(List<AugmentData> results, List<AugmentData> remaining, float perLevel)
+    {
+        if (results.Count == 0) return;
+
+        for (int i = 0; i < results.Count; i++)
+            if (IsNew(results[i])) return;
+
+        var fresh = remaining.FindAll(IsNew);
+        if (fresh.Count == 0) return;
+
+        // 늘 같은 칸이면 "세 번째는 새것" 으로 읽힌다. 자리도 무작위로
+        results[Random.Range(0, results.Count)] = fresh[DrawIndex(fresh, perLevel)];
+    }
+
+    /// <summary>
+    /// exclude 를 뺀 후보를 하나만. 없으면 null.
+    /// preferNew 면 미보유 증강 중에서 뽑는다(없으면 아무거나) — 리롤로 새 카드가 사라지지 않게 할 때 쓴다.
+    /// </summary>
+    public AugmentData PickOne(IList<AugmentData> exclude, bool preferNew = false)
     {
         if (!IsReady) return null;
 
@@ -220,7 +291,18 @@ public class AugmentDraft
         var bag = new List<AugmentData>(Candidates());
         RemoveExcluded(bag, exclude);
 
-        return bag.Count == 0 ? null : bag[DrawIndex(bag, from.ticketsPerLevel)];
+        if (preferNew)
+        {
+            var fresh = bag.FindAll(IsNew);
+            if (fresh.Count > 0) bag = fresh;
+        }
+
+        if (bag.Count == 0) return null;
+
+        AugmentData picked = bag[DrawIndex(bag, from.ticketsPerLevel)];
+        if (picked.rootAugment != null) announced.Add(picked);   // 리롤로 보여줬어도 해금 보장은 끝난 것이다
+
+        return picked;
     }
 
     /// <summary>exclude 를 뺀 후보가 하나라도 남아 있는가. 리롤 버튼을 잠글지 판단한다.</summary>
