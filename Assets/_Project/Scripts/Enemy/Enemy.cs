@@ -238,6 +238,12 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <summary>안 움직이는 설치물인가. 스포너가 스폰 위치와 회수 규칙을 가를 때 본다.</summary>
     public bool IsStationary => source != null && source.stationary;
 
+    /// <summary>살아 있는가. 죽는 연출이 도는 동안은 아직 켜져 있어도 false 다.</summary>
+    public bool IsAlive => isLive;
+
+    /// <summary>남은 체력 비율(0~1). 죽었으면 0.</summary>
+    public float HealthRatio => isLive && maxHealth > 0f ? Mathf.Clamp01(health / maxHealth) : 0f;
+
     /// <summary>잡몹인가. 오래 산 적 정리는 잡몹만 한다 — 엘리트는 상자를 들고 있다.</summary>
     public bool IsMinion => source == null || source.rank == EnemyData.Rank.Minion;
 

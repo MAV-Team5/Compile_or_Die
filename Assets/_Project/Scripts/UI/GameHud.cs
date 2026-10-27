@@ -27,6 +27,10 @@ public class GameHud : MonoBehaviour
     [Tooltip("아이콘에 마우스를 올렸을 때 뜨는 설명창의 가로 폭(px). 세로는 내용에 맞춰 늘어난다.")]
     [SerializeField] float tooltipWidth = 560f;
 
+    [Header("컴파일 진행률")]
+    [Tooltip("타이머 아래 진행률 바를 띄울지.")]
+    [SerializeField] bool showBuildProgress = true;
+
     [Header("로그 배치")]
     [Tooltip("로그 텍스트를 경험치바 위로 띄우는 여백. 경험치바 높이에 더해진다.")]
     [SerializeField] float logRaiseMargin = 40f;
@@ -57,6 +61,7 @@ public class GameHud : MonoBehaviour
         }
 
         BuildTimer();
+        if (showBuildProgress) BuildProgressBar.Create(canvas.transform, theme, font, 185f, 700f);
         BuildExpBar();
         BuildGameOver();
         PlaceAugmentHud();

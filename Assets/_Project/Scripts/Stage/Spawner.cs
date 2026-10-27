@@ -75,6 +75,32 @@ public class Spawner : MonoBehaviour
     /// </summary>
     public static Spawner Current { get; private set; }
 
+    /// <summary>동시 생존 상한. 0이면 제한 없음.</summary>
+    public int MaxAlive => maxAlive;
+
+    /// <summary>
+    /// 지금 살아 있는 적 수. 설치물(상자)과 죽는 연출 중인 적은 빼고 센다 — 진행률의 "버그 수" 다.
+    /// 부를 때마다 목록을 훑으므로 매 프레임 부르지 말 것.
+    /// </summary>
+    public int AliveCount
+    {
+        get
+        {
+            int count = 0;
+
+            for (int i = 0; i < alive.Count; i++)
+            {
+                Transform t = alive[i];
+                if (t == null || !t.gameObject.activeInHierarchy) continue;
+                if (!t.TryGetComponent(out Enemy enemy) || !enemy.IsAlive || enemy.IsStationary) continue;
+
+                count++;
+            }
+
+            return count;
+        }
+    }
+
     StageData stage;
 
     /// <summary>이 스포너가 내보낸 적들. 죽은 것은 훑을 때 걸러낸다.</summary>
