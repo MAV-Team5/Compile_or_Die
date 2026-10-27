@@ -10,7 +10,8 @@ public static class AugmentPipeline
     public static bool Run(AugmentContext ctx,
                            TargetingModule targeting,
                            List<DeliveryModule> deliveries,
-                           List<EffectModule> effects)
+                           List<EffectModule> effects,
+                           Dictionary<object, AugmentInstance> credits = null)
     {
         if (targeting == null) return false;
 
@@ -20,20 +21,43 @@ public static class AugmentPipeline
         if (deliveries == null) return true;
 
         for (int i = 0; i < deliveries.Count; i++)
-            deliveries[i]?.Execute(ctx, hit => ApplyEffects(ctx, effects, hit));
+        {
+            DeliveryModule delivery = deliveries[i];
+            if (delivery == null) continue;
+
+            AugmentInstance deliveryCredit = CreditOf(credits, delivery);
+            delivery.Execute(ctx, hit => ApplyEffects(ctx, effects, hit, credits, deliveryCredit));
+        }
 
         return true;
     }
 
-    /// <summary>적중 1회에 모든 효과를 순서대로 적용한다.</summary>
-    static void ApplyEffects(AugmentContext ctx, List<EffectModule> effects, HitInfo hit)
+    /// <summary>
+    /// 효과마다 통계 주인을 정해 둔다. 투사체는 나중에 맞으므로 맞는 이 순간에 켜고 끈다.
+    /// 우선순위: 내부 증강이 덧붙인 효과 → 내부 증강이 덧붙인 전달로 맞은 적중 → 바깥에서 물려받은 주인.
+    /// </summary>
+    static void ApplyEffects(AugmentContext ctx, List<EffectModule> effects, HitInfo hit,
+                             Dictionary<object, AugmentInstance> credits, AugmentInstance deliveryCredit)
     {
         if (effects == null || hit.Target == null) return;
 
         // 같은 대상을 연쇄가 다시 노리지 않도록 즉시 기록
         ctx.ChainVisited.Add(hit.Target);
 
+        AugmentInstance outer = ctx.Credit;
+
         for (int i = 0; i < effects.Count; i++)
-            effects[i]?.Apply(ctx, hit);
+        {
+            EffectModule effect = effects[i];
+            if (effect == null) continue;
+
+            ctx.Credit = CreditOf(credits, effect) ?? deliveryCredit ?? outer;
+            effect.Apply(ctx, hit);
+        }
+
+        ctx.Credit = outer;
     }
+
+    static AugmentInstance CreditOf(Dictionary<object, AugmentInstance> credits, object module)
+        => credits != null && credits.TryGetValue(module, out AugmentInstance who) ? who : null;
 }

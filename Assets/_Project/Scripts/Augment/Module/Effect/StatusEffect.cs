@@ -33,7 +33,7 @@ public class StatusEffect : EffectModule
 
         holder.Apply(
             status,
-            ctx.Instance,
+            ctx.StatsInstance,   // 지속피해 통계 주인. 내부 증강이 덧붙인 상태이상이면 그쪽 몫
             duration.Of(ctx.Stat.duration),
             magnitude.Of(ctx.Stat.effectDamage));
     }
