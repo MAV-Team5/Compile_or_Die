@@ -19,7 +19,7 @@ MonoBehaviour:
   category: 4
   exclusiveTo: {fileID: 0}
   tags: 020000000b000000170000001f000000
-  icon: {fileID: 21300000, guid: 35576c7540e4455408fa6900b52af6de, type: 3}
+  icon: {fileID: 4684117448244706805, guid: 59d65bea304ac40a585b42e8631256e9, type: 3}
   descriptionTemplate: "\uCFE8\uD0C0\uC784\uB9C8\uB2E4 \uC8FC\uC704\uC801\uC5D0\uAC8C
     \uB370\uBBF8\uC9C0\uB97C \uC8FC\uACE0 \uBC00\uC5B4\uB0B8\uB2E4.\n\uD53C\uD574\uB7C9\t:
     {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC94\uC704\t: {effectRange}"

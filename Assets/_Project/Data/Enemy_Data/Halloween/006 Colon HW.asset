@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: hachiware
   prefab: {fileID: 3469445803652378370, guid: 96aff139d31a84b1e9eb5eab5d59b26f, type: 3}
   rank: 0
-  health: 1
+  health: 0.5
   speed: 1
   contactDamage: 1
   scale: 1
@@ -26,10 +26,10 @@ MonoBehaviour:
   flipToFace: 0
   spawnMessage: 
   killMessages:
-  - ''':'' matched.'
-  - 'label resolved: {name}'
-  - unexpected ':' removed.
-  - block scope closed.
+  - "tiny {name} defeated."
+  - "{name} hopped away."
+  - "{name}: wah! (defeated)"
+  - "{name} cleared."
   killLog: 1
   deathState: 
   deathDuration: 0

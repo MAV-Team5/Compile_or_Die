@@ -114,6 +114,10 @@ MonoBehaviour:
   ropeWidth: 0.8
   wallPadding: 0.8
   ringMaterial: {fileID: 2100000, guid: 5650ade53521449418d92a09a51f80ef, type: 2}
+  collectOnBoss: {fileID: 11400000, guid: 26afc9f0ee9ff8a4889de4170c39dacc, type: 2}
+  originalBackground: {fileID: 731202862171851470, guid: 8ac44f1dafcc4834aba41f2c32b9f582, type: 3}
+  originalBgm: {fileID: 8300000, guid: c79bc3ed7734de24bb8d9c8c814cc958, type: 3}
+  halloweenBgm: {fileID: 8300000, guid: d0db2f769abaa4e9981b256bea67b519, type: 3}
   ropeColors:
   - {r: 1, g: 0.1, b: 0.25, a: 1}
   - {r: 1, g: 0.9, b: 0.95, a: 1}

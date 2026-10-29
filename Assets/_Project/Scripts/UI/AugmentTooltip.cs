@@ -153,7 +153,7 @@ public class AugmentTooltip : MonoBehaviour
         builtLevel = inst.Level;
 
         nameText.text = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
-        nameText.color = theme.ColorOf(data.category);
+        nameText.color = AugmentPalette.TryGet(data, out Color own) ? own : theme.ColorOf(data.category);
 
         levelText.text = $"[ {AugmentCardView.CategoryLabel(data.category)} ]  Lv {inst.Level}"
                        + (inst.Level >= inst.MaxLevel ? "  (MAX)" : "");

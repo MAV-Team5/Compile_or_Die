@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: chiikawa
   prefab: {fileID: 3469445803652378370, guid: 54db87c0e094e48ffbf88ccc0244682a, type: 3}
   rank: 0
-  health: 1
+  health: 0.5
   speed: 1
   contactDamage: 1
   scale: 1
@@ -26,10 +26,10 @@ MonoBehaviour:
   flipToFace: 0
   spawnMessage: 
   killMessages:
-  - "expected ';' \u2014 inserted."
-  - '{name} before end of line. [fixed]'
-  - parse error resolved.
-  - line terminated.
+  - "{name} cried and ran away."
+  - "{name}: ...!! (defeated)"
+  - "bye bye, {name}."
+  - "{name} went home to nap."
   killLog: 1
   deathState: 
   deathDuration: 0

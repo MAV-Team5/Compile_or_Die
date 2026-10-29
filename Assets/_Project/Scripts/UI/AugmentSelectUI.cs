@@ -231,6 +231,12 @@ public class AugmentSelectUI : MonoBehaviour
     {
         yield return null;
 
+        // 첫 증강을 고르기 전에 레이블(카드 색 칩) 안내. 진행을 눌러야 선택이 시작된다.
+        // 멈추는 것은 UIManager 몫이라 선택 화면과 같은 칸으로 잠깐 열었다 닫는다
+        if (UIManager.Current != null) UIManager.Current.Open(UIManager.Screen.AugmentSelect);
+        yield return LabelTutorial.Run();
+        if (UIManager.Current != null) UIManager.Current.Close(UIManager.Screen.AugmentSelect);
+
         CharacterData character = CharacterContext.Active;
 
         if (character != null)
@@ -477,6 +483,14 @@ public class AugmentSelectUI : MonoBehaviour
         // 연출이 도는 동안 다른 카드가 눌리면 증강을 두 개 받는다
         if (picking) return;
 
+        // 검색 증강 없이는 쓸모없는 카드 — 고르지 못하게 막고 이유를 보여준다
+        if (card.Locked)
+        {
+            card.DenyLocked();
+            UiSound.Play(UiCue.Denied);
+            return;
+        }
+
         StartCoroutine(Pick(card));
     }
 
@@ -585,6 +599,17 @@ public class AugmentSelectUI : MonoBehaviour
             ? $"{title}  (+{levelSystem.PendingLevelUps - 1} 대기)"
             : title;
 
+        // 공격을 갖춘 뒤에만 탐색·연쇄 카드에 황금 테두리. 상단엔 갖춘 개수와 지금 유도 방향
+        if (fixedPick == null)
+        {
+            Recommend();
+            headerText.text += $"\n<size=50%>{AugmentAdvice.Summary(augmentManager)}</size>";
+        }
+        else
+        {
+            for (int i = 0; i < cards.Count; i++) cards[i].SetRecommended(false, null);
+        }
+
         // 슬롯 잠금도 버린 목록도 이번 레벨업 한정이다. 새 카드가 깔렸으니 전부 푼다
         System.Array.Clear(rerollUsed, 0, rerollUsed.Length);
         rejected.Clear();
@@ -596,6 +621,19 @@ public class AugmentSelectUI : MonoBehaviour
         if (fixedPick == null) RefreshRerollButtons();
 
         return true;
+    }
+
+    /// <summary>깔린 카드마다 추천 여부를 매긴다. 공격만 깔렸으면 아무것도 빛나지 않는다.</summary>
+    void Recommend()
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            string why = null;
+            bool on = i < activeCount && i < shown.Count
+                      && AugmentAdvice.Recommend(shown[i], augmentManager, out why);
+
+            cards[i].SetRecommended(on, why);
+        }
     }
 
     // ── 리롤 ──────────────────────────────────────────────
@@ -633,6 +671,9 @@ public class AugmentSelectUI : MonoBehaviour
 
         shown[index] = picked;
         card.Fill(picked, augmentManager);
+
+        // 한 장이 바뀌면 추천도 다시 고른다
+        Recommend();
         card.SpinRerollIcon();
 
         rerollUsed[index] = true;

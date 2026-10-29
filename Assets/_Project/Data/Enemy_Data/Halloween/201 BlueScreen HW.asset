@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: siren
   prefab: {fileID: 3469445803652378370, guid: 315811e0e10bb4d5bbc2b43d21fda4ea, type: 3}
   rank: 2
-  health: 1
+  health: 4
   speed: 1
   contactDamage: 1
   scale: 1
@@ -24,13 +24,12 @@ MonoBehaviour:
   animatorOverride: {fileID: 0}
   hitFlashDuration: 0.04
   flipToFace: 0
-  spawnMessage: "*** STOP 0x0000000A \u2014 {name} has taken the display. all threads
-    halted."
+  spawnMessage: "{name} rises from the sea. the song begins."
   killMessages:
-  - SYSTEM RECOVERED.
-  - "{name} \u2014 dump written. reboot complete."
-  - 0x0000000A cleared.
-  - kernel restored.
+  - "{name}'s song has ended."
+  - "{name}: gomen ne... (defeated)"
+  - "the island is quiet again."
+  - "{name} cleared."
   killLog: 0
   deathState: 
   deathDuration: 0

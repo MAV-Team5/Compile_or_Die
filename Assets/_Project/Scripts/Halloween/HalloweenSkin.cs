@@ -141,6 +141,13 @@ public static class HalloweenSkin
         if (body != null) body.OnAttack();
     }
 
+    /// <summary>페이즈가 바뀌었다. 스킨에 그 페이즈 그림(p2_)이 있으면 그림이 바뀐다.</summary>
+    public static void SetPhase(Component who, int phase)
+    {
+        HalloweenBody body = BodyOf(who);
+        if (body != null) body.SetPhase(phase);
+    }
+
     /// <summary>기를 모으는 동안 켜둔다. 조준·시전·잠김처럼 "곧 뭔가 한다" 를 보여주는 자세.</summary>
     public static void SetCharging(Component who, bool on)
     {

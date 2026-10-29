@@ -18,8 +18,8 @@ MonoBehaviour:
   displayName: Bubble sort
   category: 1
   exclusiveTo: {fileID: 0}
-  tags: 
-  icon: {fileID: 21300000, guid: f94ec73c3b9b2384c99e599204563428, type: 3}
+  tags: 00000000020000000b00000017000000
+  icon: {fileID: 7894876611382527228, guid: df16a621c268040bc8d49b71c6f11c7c, type: 3}
   descriptionTemplate: "\uBB34\uC791\uC704 \uC801\uC5D0\uAC8C \uBC84\uBE14\uC744
     \uB358\uC9C4\uB2E4.\n\uB5A8\uC5B4\uC9C4 \uC790\uB9AC\uC758 \uC801\uB4E4\uC740
     \uD53C\uD574\uB97C \uC785\uACE0 \uD55C\uACF3\uC73C\uB85C \uBAA8\uC778\uB2E4.\n\uADF8\uC911

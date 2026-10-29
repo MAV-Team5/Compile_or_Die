@@ -18,8 +18,8 @@ MonoBehaviour:
   displayName: Java
   category: 3
   exclusiveTo: {fileID: 0}
-  tags: 
-  icon: {fileID: 21300000, guid: 0e0d942ec3a734dc1adb439d211d4d5e, type: 3}
+  tags: 000000000b0000001e000000
+  icon: {fileID: -4056386059267600091, guid: 06431c36305624240af8b1213555ed91, type: 3}
   descriptionTemplate: "\uBB34\uC791\uC704 \uC704\uCE58\uC5D0 JVM \uD3EC\uD0D1\uC744
     \uC124\uCE58\uD55C\uB2E4.\n\uD3EC\uD0D1\uC740 \uAC00\uAE4C\uC6B4 \uC801\uC744
     \uC790\uB3D9\uC73C\uB85C \uACF5\uACA9\uD558\uACE0,\n\uAC00\uB3D9\uC774 \uB05D\uB098\uBA74

@@ -17,7 +17,9 @@ MonoBehaviour:
   id: ITEM_0XBEEF
   displayName: 0xBEEF
   category: 6
-  icon: {fileID: 21300000, guid: 1b8bc3d0a9d574df4b36e9b29ab6a1e0, type: 3}
+  exclusiveTo: {fileID: 0}
+  tags: 
+  icon: {fileID: -5599018774702402291, guid: 6e71bf691d768493087d728ae2884275, type: 3}
   descriptionTemplate: "\uBA54\uBAA8\uB9AC\uC5D0\uC11C \uD68C\uC218\uD55C \uC870\uAC01.
     \uCD5C\uB300 \uCCB4\uB825\uC758 20%\uB97C \uC989\uC2DC \uD68C\uBCF5\uD55C\uB2E4."
   rootAugment: {fileID: 0}

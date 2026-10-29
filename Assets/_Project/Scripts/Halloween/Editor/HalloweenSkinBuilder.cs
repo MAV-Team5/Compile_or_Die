@@ -127,11 +127,24 @@ public class HalloweenSkinBuilder : AssetPostprocessor
                 if (!oldEnemies.TryGetValue(data, out var skin))
                     skin = new HalloweenSkinDB.EnemySkin { enemy = data };
 
-                skin.hitFrames = sprites.Where(s => Starts(s, "hit")).ToArray();
-                skin.attackFrames = sprites.Where(s => Starts(s, "attack")).ToArray();
-                skin.chargeFrames = sprites.Where(s => Starts(s, "charge")).ToArray();
-                skin.deathFrames = sprites.Where(IsDeath).ToArray();
-                skin.idleFrames = sprites.Where(s => !IsState(s)).ToArray();
+                // p2_ 로 시작하는 그림은 2페이즈용. 앞머리를 떼고 같은 규칙으로 나눈다
+                Sprite[] p1 = sprites.Where(s => !IsPhase2(s)).ToArray();
+                Sprite[] p2 = sprites.Where(IsPhase2).ToArray();
+
+                skin.hitFrames = p1.Where(s => Starts(s, "hit")).ToArray();
+                skin.attackFrames = p1.Where(s => Starts(s, "attack")).ToArray();
+                skin.chargeFrames = p1.Where(s => Starts(s, "charge")).ToArray();
+                skin.deathFrames = p1.Where(IsDeath).ToArray();
+                skin.idleFrames = p1.Where(s => !IsState(s)).ToArray();
+
+                skin.phase2Hit = p2.Where(s => Starts(s, "hit")).ToArray();
+                skin.phase2Attack = p2.Where(s => Starts(s, "attack")).ToArray();
+                skin.phase2Charge = p2.Where(s => Starts(s, "charge")).ToArray();
+                skin.phase2Idle = p2.Where(s => !IsState(s)).ToArray();
+
+                // 히트박스를 맞출 실제 캐릭터 영역 — 평소 그림(없으면 아무 그림) 첫 장의 불투명한 부분
+                Sprite basis = skin.idleFrames.Length > 0 ? skin.idleFrames[0] : sprites.FirstOrDefault();
+                skin.idleContent = basis != null ? ContentRect(basis) : new Rect(0f, 0f, 1f, 1f);
 
                 skin.hitClips = clips.Where(c => Starts(c, "hit")).ToArray();
                 skin.attackClips = clips.Where(c => Starts(c, "attack")).ToArray();
@@ -140,7 +153,7 @@ public class HalloweenSkinBuilder : AssetPostprocessor
                 skin.deathClips = clips.Where(c => !IsState(c) || IsDeath(c)).ToArray();
 
                 enemies.Add(skin);
-                log.Add($"  적 {name}: 그림 평소 {skin.idleFrames.Length} · 피격 {skin.hitFrames.Length} · 공격 {skin.attackFrames.Length} · 기모으기 {skin.chargeFrames.Length} · 사망 {skin.deathFrames.Length}" +
+                log.Add($"  적 {name}: 2페이즈 그림 {p2.Length} / 그림 평소 {skin.idleFrames.Length} · 피격 {skin.hitFrames.Length} · 공격 {skin.attackFrames.Length} · 기모으기 {skin.chargeFrames.Length} · 사망 {skin.deathFrames.Length}" +
                         $" / 소리 사망 {skin.deathClips.Length} · 피격 {skin.hitClips.Length} · 공격 {skin.attackClips.Length} · 기모으기 {skin.chargeClips.Length} · 등장 {skin.spawnClips.Length}");
             }
         }
@@ -304,8 +317,53 @@ public class HalloweenSkinBuilder : AssetPostprocessor
         return result.ToArray();
     }
 
+    const string Phase2Prefix = "p2_";
+
+    static bool IsPhase2(Object asset) => asset.name.StartsWith(Phase2Prefix, System.StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>상태 앞머리로 시작하는가. 2페이즈 앞머리(p2_)는 떼고 본다.</summary>
     static bool Starts(Object asset, string prefix)
-        => asset.name.StartsWith(prefix, System.StringComparison.OrdinalIgnoreCase);
+    {
+        string n = IsPhase2(asset) ? asset.name.Substring(Phase2Prefix.Length) : asset.name;
+        return n.StartsWith(prefix, System.StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// 그림에서 불투명한 부분이 차지하는 영역(0~1). 임포트된 텍스처는 읽기 금지라 원본 파일을 따로 읽는다.
+    /// 2픽셀 간격으로 훑는다 — 히트박스 용도라 그 정도 오차는 상관없다.
+    /// </summary>
+    static Rect ContentRect(Sprite sprite)
+    {
+        string path = AssetDatabase.GetAssetPath(sprite);
+        if (string.IsNullOrEmpty(path) || !File.Exists(path)) return new Rect(0f, 0f, 1f, 1f);
+
+        var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+        try
+        {
+            if (!tex.LoadImage(File.ReadAllBytes(path))) return new Rect(0f, 0f, 1f, 1f);
+
+            int w = tex.width, h = tex.height;
+            Color32[] px = tex.GetPixels32();
+            int minX = w, minY = h, maxX = -1, maxY = -1;
+
+            for (int y = 0; y < h; y += 2)
+            for (int x = 0; x < w; x += 2)
+            {
+                if (px[y * w + x].a < 25) continue;
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+            }
+
+            if (maxX < 0) return new Rect(0f, 0f, 1f, 1f);
+            return Rect.MinMaxRect(minX / (float)w, minY / (float)h, (maxX + 2) / (float)w, (maxY + 2) / (float)h);
+        }
+        finally
+        {
+            Object.DestroyImmediate(tex);
+        }
+    }
 
     static bool IsDeath(Object asset) => Starts(asset, "die") || Starts(asset, "death");
 

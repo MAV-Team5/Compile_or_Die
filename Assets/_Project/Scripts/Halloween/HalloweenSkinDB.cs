@@ -66,6 +66,20 @@ public class HalloweenSkinDB : ScriptableObject
         [Tooltip("죽을 때(한 번, 마지막 장에서 멈춤). die_ — 있으면 하얗게 사라지는 연출 대신 이 그림이 나온다.")]
         public Sprite[] deathFrames;
 
+        [Header("2페이즈 그림 — 파일 이름 앞에 p2_ (예: p2_attack_01.png)")]
+        [Tooltip("보스가 2페이즈에 들어가면 이 그림으로 바뀐다. 비어 있는 상태는 1페이즈 그림을 그대로 쓴다.")]
+        public Sprite[] phase2Idle;
+        public Sprite[] phase2Hit;
+        public Sprite[] phase2Attack;
+        public Sprite[] phase2Charge;
+
+        [Tooltip("평소 그림 첫 장에서 실제 캐릭터가 차지하는 영역(그림 대비 0~1). 투명한 여백을 뺀 것.\n" +
+                 "빌더가 그림을 읽어 채운다. 히트박스를 이 영역에 맞춘다.")]
+        public Rect idleContent = new(0f, 0f, 1f, 1f);
+
+        [Tooltip("히트박스를 캐릭터 영역 대비 이 비율로. 1 이면 딱 맞고, 조금 작으면 '스쳤는데 맞았다'가 줄어든다.")]
+        [Range(0.5f, 1.2f)] public float hitboxFit = 0.9f;
+
         [Min(0.1f)] public float fps = 8f;
 
         [Tooltip("원래 그림 크기에 맞춘 뒤 곱하는 배율. 캡처 여백 때문에 작아 보이면 올릴 것.")]
@@ -98,7 +112,8 @@ public class HalloweenSkinDB : ScriptableObject
         public AudioClip[] spawnClips;
 
         public bool HasSprites => Has(idleFrames) || Has(hitFrames) || Has(attackFrames)
-                                  || Has(chargeFrames) || Has(deathFrames);
+                                  || Has(chargeFrames) || Has(deathFrames)
+                                  || Has(phase2Idle) || Has(phase2Hit) || Has(phase2Attack) || Has(phase2Charge);
 
         public bool HasAny => HasSprites || Has(deathClips) || Has(hitClips) || Has(attackClips)
                               || Has(chargeClips) || Has(spawnClips);

@@ -18,9 +18,12 @@ MonoBehaviour:
   displayName: Quick sort
   category: 1
   exclusiveTo: {fileID: 0}
-  tags: 
-  icon: {fileID: 21300000, guid: 23d3842c9e1aa1f419e7b9614253b22c, type: 3}
-  descriptionTemplate: 
+  tags: 000000000b0000001400000020000000
+  icon: {fileID: 8812059922961389601, guid: f8f648a24c6a3417a9d66388331dfd74, type: 3}
+  descriptionTemplate: "\uAE30\uC900\uC810\uC744 \uB358\uC838 \uC8FC\uBCC0 \uC801\uC744
+    \uB458\uB85C \uAC08\uB77C \uD769\uC5B4 \uB193\uB294\uB2E4.\n\uAC08\uB77C\uC9C4
+    \uC801\uC740 \uB454\uD654\uB41C\uB2E4.\n\uD53C\uD574\uB7C9\t: {damage}\n\uCFE8\uD0C0\uC784\t:
+    {cooldown}\n\uBC94\uC704\t: {effectRange}\n\uBD84\uD560 \uAE4A\uC774\t: {depth}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
@@ -31,16 +34,76 @@ MonoBehaviour:
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
-  - damage: 0
+  - damage: 3
     effectDamage: 0
-    cooldown: 0
-    range: 0
-    effectRange: 0
+    cooldown: 5
+    range: 10
+    effectRange: 3
     count: 0
     pierce: 0
-    duration: 0
+    duration: 2
     speed: 0
-    depth: 0
+    depth: 2
+  - damage: 3.5
+    effectDamage: 0
+    cooldown: 4.8
+    range: 10
+    effectRange: 3
+    count: 0
+    pierce: 0
+    duration: 2
+    speed: 0
+    depth: 2
+  - damage: 4
+    effectDamage: 0
+    cooldown: 4.6
+    range: 10
+    effectRange: 3.5
+    count: 0
+    pierce: 0
+    duration: 2
+    speed: 0
+    depth: 2
+  - damage: 6
+    effectDamage: 0
+    cooldown: 4.2
+    range: 10
+    effectRange: 4
+    count: 0
+    pierce: 0
+    duration: 2
+    speed: 0
+    depth: 3
+  - damage: 6.5
+    effectDamage: 0
+    cooldown: 4
+    range: 10
+    effectRange: 4
+    count: 0
+    pierce: 0
+    duration: 2
+    speed: 0
+    depth: 3
+  - damage: 7
+    effectDamage: 0
+    cooldown: 3.8
+    range: 10
+    effectRange: 4.5
+    count: 0
+    pierce: 0
+    duration: 2
+    speed: 0
+    depth: 3
+  - damage: 9
+    effectDamage: 0
+    cooldown: 3.4
+    range: 10
+    effectRange: 5
+    count: 0
+    pierce: 0
+    duration: 2
+    speed: 0
+    depth: 4
   trigger:
     rid: 4357681862757580913
   targeting:

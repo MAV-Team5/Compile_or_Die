@@ -63,6 +63,12 @@ public class HalloweenBody : MonoBehaviour
     HalloweenSkinDB.EnemySkin skin;
     Sprite[] idle, hit, attack, charge, death;
 
+    // 페이즈별 원본. SetPhase 가 위의 idle·hit·attack·charge 를 이쪽으로 갈아끼운다
+    Sprite[] idle1, hit1, attack1, charge1;
+    Sprite[] idle2, hit2, attack2, charge2;
+    Sprite[] glitchLeft2, glitchRight2;
+    Sprite[] glitchLeft1, glitchRight1;
+
     // 글리치용 — 평소 그림을 피벗만 좌우로 민 것. 트랜스폼을 움직이면 물리와 부딪히므로 그림만 옮긴다
     Sprite[] glitchLeft, glitchRight;
     bool glitchOn;
@@ -165,6 +171,26 @@ public class HalloweenBody : MonoBehaviour
         glitchLeft = HalloweenSkin.Resized(data, 20, glitchSource, ppu, GlitchShift);
         glitchRight = HalloweenSkin.Resized(data, 21, glitchSource, ppu, -GlitchShift);
         glitchOn = skin.glitch && glitchLeft.Length > 0;
+
+        // 2페이즈 그림. 없는 상태는 1페이즈 그림을 그대로 쓴다
+        idle1 = idle; hit1 = hit; attack1 = attack; charge1 = charge;
+        glitchLeft1 = glitchLeft; glitchRight1 = glitchRight;
+
+        idle2 = Or(HalloweenSkin.Resized(data, 30, skin.phase2Idle, ppu), idle1);
+        hit2 = Or(HalloweenSkin.Resized(data, 31, skin.phase2Hit, ppu), hit1);
+        attack2 = Or(HalloweenSkin.Resized(data, 32, skin.phase2Attack, ppu), attack1);
+        charge2 = Or(HalloweenSkin.Resized(data, 33, skin.phase2Charge, ppu), charge1);
+
+        if (HalloweenSkin.Has(skin.phase2Idle))
+        {
+            glitchLeft2 = HalloweenSkin.Resized(data, 34, skin.phase2Idle, ppu, GlitchShift);
+            glitchRight2 = HalloweenSkin.Resized(data, 35, skin.phase2Idle, ppu, -GlitchShift);
+        }
+        else
+        {
+            glitchLeft2 = glitchLeft1;
+            glitchRight2 = glitchRight1;
+        }
         wasGlitching = false;
         glitchStart = float.NegativeInfinity;
         nextGlitchTry = Time.time + Random.value * GlitchEvery;
@@ -185,6 +211,8 @@ public class HalloweenBody : MonoBehaviour
         if (eye != null) eye.enabled = anySprite ? false : eyeWasEnabled;
 
         if (idle.Length > 0) body.sprite = idle[0];
+
+        FitHitbox(First(idle) ?? First(charge) ?? First(attack) ?? First(hit));
 
         // 데드락은 Init 보다 먼저(OnEnable) 잠김 상태를 알리는데, 첫 스폰 땐 이 컴포넌트가 아직 없었다
         if (TryGetComponent(out DeadlockCycle cycle)) charging = cycle.IsLocked;
@@ -209,6 +237,66 @@ public class HalloweenBody : MonoBehaviour
     {
         charging = false;
         oneShotEnd = 0f;
+    }
+
+    /// <summary>
+    /// 몸통 충돌 범위를 그림 속 실제 캐릭터에 맞춘다. 원래 몬스터 모양에 맞춰져 있던 범위를 그대로 두면
+    /// 빈 여백에 닿아도 맞거나, 몸에 닿았는데 안 맞는다.
+    ///
+    /// 그림과 충돌체는 같은 오브젝트(루트)에 있어 둘 다 루트 크기를 따른다 — 로컬 크기끼리 맞추면 된다.
+    /// 아주 작은 충돌체는 건드리지 않는다. 몸끼리 밀어내기만 하는 용도(예: 반지름 0.05)라 키우면 떼가 뭉치지 않는다.
+    /// </summary>
+    void FitHitbox(Sprite sprite)
+    {
+        if (sprite == null) return;
+
+        Vector2 full = sprite.bounds.size;
+        Rect c = skin.idleContent;
+        if (c.width <= 0f || c.height <= 0f) c = new Rect(0f, 0f, 1f, 1f);
+
+        Vector2 size = new Vector2(full.x * c.width, full.y * c.height) * skin.hitboxFit;
+        Vector2 offset = new((c.center.x - sprite.pivot.x / sprite.rect.width) * full.x,
+                             (c.center.y - sprite.pivot.y / sprite.rect.height) * full.y);
+
+        foreach (Collider2D col in GetComponents<Collider2D>())
+        {
+            switch (col)
+            {
+                case BoxCollider2D box when box.size.x >= SmallCollider && box.size.y >= SmallCollider:
+                    box.size = size;
+                    box.offset = offset;
+                    break;
+
+                case CircleCollider2D circle when circle.radius >= SmallCollider * 0.5f:
+                    // 원은 짧은 변에 맞춘다 — 길쭉한 캐릭터에서 바깥 여백까지 맞는 일이 없게
+                    circle.radius = Mathf.Min(size.x, size.y) * 0.5f;
+                    circle.offset = offset;
+                    break;
+
+                case CapsuleCollider2D capsule:
+                    capsule.size = size;
+                    capsule.offset = offset;
+                    break;
+            }
+        }
+    }
+
+    const float SmallCollider = 0.3f;
+
+    static Sprite[] Or(Sprite[] a, Sprite[] fallback) => a != null && a.Length > 0 ? a : fallback;
+
+    /// <summary>페이즈를 바꾼다. 2면 p2_ 그림으로, 그 밖이면 원래 그림으로.</summary>
+    public void SetPhase(int phase)
+    {
+        if (skin == null || idle1 == null) return;
+
+        bool two = phase >= 2;
+        idle = two ? idle2 : idle1;
+        hit = two ? hit2 : hit1;
+        attack = two ? attack2 : attack1;
+        charge = two ? charge2 : charge1;
+        glitchLeft = two ? glitchLeft2 : glitchLeft1;
+        glitchRight = two ? glitchRight2 : glitchRight1;
     }
 
     static Sprite First(Sprite[] frames) => frames != null && frames.Length > 0 ? frames[0] : null;

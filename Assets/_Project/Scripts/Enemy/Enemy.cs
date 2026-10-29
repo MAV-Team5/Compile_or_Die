@@ -195,6 +195,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
     public void Displace(Vector2 delta, float suppressDuration)
     {
+        // 보스는 밀리지 않는다 — 덩치 큰 결전 상대가 공격 한 방에 튕겨 나가면 무게가 안 실린다
+        if (source != null && source.rank == EnemyData.Rank.Boss) return;
+
         rigid.MovePosition(rigid.position + delta);
         moveSuppressRemain = Mathf.Max(moveSuppressRemain, suppressDuration);
     }

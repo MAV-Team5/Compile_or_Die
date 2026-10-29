@@ -6728,7 +6728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2958ba232209241b5859e80f5929b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BgmSource
-  clip: {fileID: 8300000, guid: d0db2f769abaa4e9981b256bea67b519, type: 3}
+  clip: {fileID: 0}
   volume: 0.5
   takeOver: 1
 --- !u!4 &1796713975
