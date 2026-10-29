@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageData
   displayName: Stage 01
   stageId: 1
-  backgroundPrefab: {fileID: 731202862171851470, guid: 8ac44f1dafcc4834aba41f2c32b9f582, type: 3}
+  backgroundPrefab: {fileID: 1633586151302532737, guid: 77ca8103bd1594477bd7e8da6dbf3602, type: 3}
   bootLines:
   - $ gcc -o stage_01 main.c
   - '> compiling ...'
@@ -323,7 +323,7 @@ MonoBehaviour:
   bosses:
   - enemy: {fileID: 11400000, guid: 73b2b786027e64d5eb12cc4b2f60eb0c, type: 2}
     nameOverride: Blue
-    atSeconds: 180
+    atSeconds: 20
     spawnDistance: 40
     endsRun: 1
     healthScale: 360

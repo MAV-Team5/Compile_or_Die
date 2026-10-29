@@ -30,6 +30,15 @@ public class HalloweenBody : MonoBehaviour
     const float AttackInterval = 0.2f;
     const float AttackVolume = 0.7f;
 
+    // 글리치 — 3초에 한 번 0.3초 동안 지지직. 몬스터마다 시점이 달라 화면이 통째로 깜빡이지 않는다
+    const float GlitchEvery = 3f;
+    const float GlitchLength = 0.3f;
+    const float GlitchStep = 0.05f;
+    const float GlitchShift = 0.08f;    // 좌우로 튀는 폭(그림 너비 비율)
+    const float GlitchStretch = 0.18f;  // 가로로 늘었다 줄었다 하는 폭
+    static readonly Color GlitchRed = new(1f, 0.35f, 0.4f);
+    static readonly Color GlitchCyan = new(0.35f, 1f, 1f);
+
     const float SquashAmount = 0.07f;
     const float SquashHz = 2.2f;
 
@@ -50,6 +59,11 @@ public class HalloweenBody : MonoBehaviour
 
     HalloweenSkinDB.EnemySkin skin;
     Sprite[] idle, hit, attack, charge, death;
+
+    // 글리치용 — 평소 그림을 피벗만 좌우로 민 것. 트랜스폼을 움직이면 물리와 부딪히므로 그림만 옮긴다
+    Sprite[] glitchLeft, glitchRight;
+    bool glitchOn;
+    bool wasGlitching;
     float fps;
     bool bounce;
     float phase;
@@ -129,6 +143,16 @@ public class HalloweenBody : MonoBehaviour
         charge = HalloweenSkin.Resized(data, (int)Slot.Charge, skin.chargeFrames, ppu);
         death = HalloweenSkin.Resized(data, (int)Slot.Death, skin.deathFrames, ppu);
 
+        Sprite[] glitchSource = HalloweenSkin.Has(skin.idleFrames) ? skin.idleFrames
+                              : HalloweenSkin.Has(skin.chargeFrames) ? skin.chargeFrames : skin.attackFrames;
+        glitchLeft = HalloweenSkin.Resized(data, 20, glitchSource, ppu, GlitchShift);
+        glitchRight = HalloweenSkin.Resized(data, 21, glitchSource, ppu, -GlitchShift);
+        glitchOn = skin.glitch && glitchLeft.Length > 0;
+        wasGlitching = false;
+
+        // 지난 개체가 글리치 색인 채 반납됐을 수 있다
+        body.color = Color.white;
+
         fps = Mathf.Max(0.1f, skin.fps);
         bounce = skin.bounce;
         phase = Random.value * 10f;
@@ -153,6 +177,8 @@ public class HalloweenBody : MonoBehaviour
     {
         skin = null;
         idle = hit = attack = charge = death = null;
+        glitchLeft = glitchRight = null;
+        glitchOn = false;
         enabled = false;
 
         if (eye != null) eye.enabled = eyeWasEnabled;
@@ -257,13 +283,39 @@ public class HalloweenBody : MonoBehaviour
             pick = Loop(idle, now + phase);
         }
 
+        // 글리치. 사망만 이긴다 — 짧아서 피격·공격 그림을 잠깐 덮어도 읽는 데 지장이 없다
+        bool glitching = false;
+        float stretch = 1f;
+
+        if (alive && glitchOn)
+        {
+            float c = (now + phase) % GlitchEvery;
+
+            if (c < GlitchLength)
+            {
+                glitching = true;
+                int step = (int)(c / GlitchStep);
+
+                pick = (step % 2 == 0 ? glitchLeft : glitchRight)[0];
+                body.color = (step % 3) switch { 0 => GlitchRed, 1 => GlitchCyan, _ => Color.white };
+
+                // -1 ~ +1 을 오가는 고정 패턴. 난수를 쓰면 프레임마다 값이 튀어 너무 산만하다
+                stretch = 1f + ((step * 7 % 5) - 2) * 0.5f * GlitchStretch;
+            }
+        }
+
+        // 글리치가 막 끝났으면 색을 돌려놓는다. 평소엔 색을 안 건드린다 — 죽음 페이드가 색을 쓴다
+        bool glitchEnded = wasGlitching && !glitching;
+        if (glitchEnded && alive) body.color = Color.white;
+        wasGlitching = glitching;
+
         if (pick != null) body.sprite = pick;
 
         // 살아 있는 동안만 찌그러진다. 죽는 동안은 EnemyVisual 이 크기를 쥐고 있다
-        if (bounce && alive)
+        if (alive && (bounce || glitching || glitchEnded))
         {
-            float s = Mathf.Sin((now + phase) * SquashHz * Mathf.PI * 2f) * SquashAmount;
-            transform.localScale = new Vector3(baseScale.x * (1f + s), baseScale.y * (1f - s), baseScale.z);
+            float s = bounce ? Mathf.Sin((now + phase) * SquashHz * Mathf.PI * 2f) * SquashAmount : 0f;
+            transform.localScale = new Vector3(baseScale.x * (1f + s) * stretch, baseScale.y * (1f - s), baseScale.z);
         }
     }
 

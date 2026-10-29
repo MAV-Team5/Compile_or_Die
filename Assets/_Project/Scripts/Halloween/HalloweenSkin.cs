@@ -202,18 +202,17 @@ public static class HalloweenSkin
         return data.DeathWait;
     }
 
-    // ───────────────────────── 엔딩 ─────────────────────────
+    // ───────────────────────── 보스 ─────────────────────────
 
     /// <summary>
-    /// 클리어한 순간 엔딩곡을 튼다. <c>RunDirector.Finish</c> 가 클리어일 때만 부른다.
-    /// 결과 씬의 BgmSource 는 곡을 안 건드리게(takeOver 끔) 해둬서 결과 화면까지 이어지고,
-    /// 메뉴로 돌아가면 그쪽 BgmSource 가 평소 곡으로 되돌린다.
+    /// 세이렌이 나온 순간 배경음을 세이렌 노래로 바꾼다. <see cref="HalloweenBossShow"/> 가 부른다.
+    /// 판이 끝나 결과 씬으로 가면 그쪽 BgmSource 가 평소 곡으로 되돌린다.
     /// </summary>
-    public static void PlayEnding()
+    public static void PlayBossBgm()
     {
-        if (!Active || db.endingBgm == null) return;
+        if (!Active || db.bossBgm == null) return;
 
-        BgmPlayer.Play(db.endingBgm, db.endingVolume);
+        BgmPlayer.Play(db.bossBgm, db.bossVolume);
     }
 
     // ───────────────────────── 투사체 ─────────────────────────
@@ -260,7 +259,8 @@ public static class HalloweenSkin
     /// <paramref name="ppu"/> 로 다시 잡은 스프라이트를 만든다. 텍스처는 그대로 쓰므로 메모리가 거의 안 든다.
     /// (<paramref name="key"/>, <paramref name="slot"/>) 마다 한 번만 만든다.
     /// </summary>
-    internal static Sprite[] Resized(Object key, int slot, Sprite[] frames, float ppu)
+    /// <param name="pivotShiftX">피벗을 가로로 이만큼(그림 너비 비율) 민다. 트랜스폼을 안 건드리고 그림만 옆으로 튀게 할 때 쓴다(글리치).</param>
+    internal static Sprite[] Resized(Object key, int slot, Sprite[] frames, float ppu, float pivotShiftX = 0f)
     {
         if (key != null && resizedCache.TryGetValue((key, slot), out Sprite[] cached)) return cached;
 
@@ -273,7 +273,7 @@ public static class HalloweenSkin
                 if (f == null) continue;
 
                 Rect rect = f.rect;
-                Vector2 pivot = new(f.pivot.x / rect.width, f.pivot.y / rect.height);
+                Vector2 pivot = new(f.pivot.x / rect.width + pivotShiftX, f.pivot.y / rect.height);
 
                 Sprite s = Sprite.Create(f.texture, rect, pivot, ppu, 0, SpriteMeshType.FullRect);
                 s.name = f.name + "_hw";
