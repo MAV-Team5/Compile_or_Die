@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 473bb84c276789f47902f462764a2104
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6298630870444744564
+    second: Aug_Bubble_Splash_f3_0
+  - first:
+      213: 5104718841246105398
+    second: Aug_Bubble_Splash_f3_1
+  - first:
+      213: 7648502331341854907
+    second: Aug_Bubble_Splash_f3_2
+  - first:
+      213: 2345797226154793733
+    second: Aug_Bubble_Splash_f3_3
+  - first:
+      213: 9052206263919828236
+    second: Aug_Bubble_Splash_f3_4
+  - first:
+      213: -8610013233312595737
+    second: Aug_Bubble_Splash_f3_5
+  - first:
+      213: -1976010634339300232
+    second: Aug_Bubble_Splash_f3_6
+  - first:
+      213: 1209836406417129336
+    second: Aug_Bubble_Splash_f3_7
+  - first:
+      213: 5363330930755157220
+    second: Aug_Bubble_Splash_f3_8
+  - first:
+      213: -8322922957119446832
+    second: Aug_Bubble_Splash_f3_9
+  - first:
+      213: 6113639499975205507
+    second: Aug_Bubble_Splash_f3_10
+  - first:
+      213: 8363104414253041777
+    second: Aug_Bubble_Splash_f3_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_0
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 212
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c80e4db4894c698a0800000000000000
+      internalID: -6298630870444744564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 166
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63fb7ba7dba97d640800000000000000
+      internalID: 5104718841246105398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 180
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb8d06bc850f42a60800000000000000
+      internalID: 7648502331341854907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_3
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 180
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50b9d0c0622fd8020800000000000000
+      internalID: 2345797226154793733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_4
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 166
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0dd18ae2a5ef9d70800000000000000
+      internalID: 9052206263919828236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_5
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 123
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e08df40596138880800000000000000
+      internalID: -8610013233312595737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_6
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 123
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87ccfc32cccc394e0800000000000000
+      internalID: -1976010634339300232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_7
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 74
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87ff3d83dc33ac010800000000000000
+      internalID: 1209836406417129336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_8
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 65
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ecb68cb0116e6a40800000000000000
+      internalID: 5363330930755157220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_9
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 65
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d0a3ffcaa90f7c80800000000000000
+      internalID: -8322922957119446832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_10
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 74
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 382a1d8dbb208d450800000000000000
+      internalID: 6113639499975205507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Bubble_Splash_f3_11
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 28
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 178cd07b727bf0470800000000000000
+      internalID: 8363104414253041777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Aug_Bubble_Splash_f3_0: -6298630870444744564
+      Aug_Bubble_Splash_f3_1: 5104718841246105398
+      Aug_Bubble_Splash_f3_10: 6113639499975205507
+      Aug_Bubble_Splash_f3_11: 8363104414253041777
+      Aug_Bubble_Splash_f3_2: 7648502331341854907
+      Aug_Bubble_Splash_f3_3: 2345797226154793733
+      Aug_Bubble_Splash_f3_4: 9052206263919828236
+      Aug_Bubble_Splash_f3_5: -8610013233312595737
+      Aug_Bubble_Splash_f3_6: -1976010634339300232
+      Aug_Bubble_Splash_f3_7: 1209836406417129336
+      Aug_Bubble_Splash_f3_8: 5363330930755157220
+      Aug_Bubble_Splash_f3_9: -8322922957119446832
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

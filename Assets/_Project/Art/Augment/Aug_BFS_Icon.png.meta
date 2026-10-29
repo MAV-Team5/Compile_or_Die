@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: c6570ace9e7d15b418da9883f1f292df
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6168915148923591950
+    second: Aug_BFS_Icon_0
+  - first:
+      213: -4760741102836654152
+    second: Aug_BFS_Icon_1
+  - first:
+      213: -7040843386180042618
+    second: Aug_BFS_Icon_2
+  - first:
+      213: -5501186217030585306
+    second: Aug_BFS_Icon_3
+  - first:
+      213: -4656732602353616302
+    second: Aug_BFS_Icon_4
+  - first:
+      213: 4744210918148415293
+    second: Aug_BFS_Icon_5
+  - first:
+      213: 2068940785703471339
+    second: Aug_BFS_Icon_6
+  - first:
+      213: -4210995628298260292
+    second: Aug_BFS_Icon_7
+  - first:
+      213: -2633984590654182330
+    second: Aug_BFS_Icon_8
+  - first:
+      213: 141800123377196815
+    second: Aug_BFS_Icon_9
+  - first:
+      213: -2858252576271585110
+    second: Aug_BFS_Icon_10
+  - first:
+      213: -4875409329720405323
+    second: Aug_BFS_Icon_11
+  - first:
+      213: -7539010938580307369
+    second: Aug_BFS_Icon_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_0
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 389
+        width: 71
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f222ea3b5c936aa0800000000000000
+      internalID: -6168915148923591950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_1
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 425
+        width: 66
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bfd1d1c0337eedb0800000000000000
+      internalID: -4760741102836654152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_2
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 389
+        width: 71
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68084978e36e94e90800000000000000
+      internalID: -7040843386180042618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_3
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 317
+        width: 62
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 624fd9a384cd7a3b0800000000000000
+      internalID: -5501186217030585306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_4
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 119
+        width: 274
+        height: 274
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25a7bbede56ff5fb0800000000000000
+      internalID: -4656732602353616302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_5
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 317
+        width: 62
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3f14c3b1b2d6d140800000000000000
+      internalID: 4744210918148415293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_6
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 223
+        width: 40
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be84c21deaa56bc10800000000000000
+      internalID: 2068940785703471339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_7
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 223
+        width: 40
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb03f8079c98f85c0800000000000000
+      internalID: -4210995628298260292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_8
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 124
+        width: 62
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64c643268f4327bd0800000000000000
+      internalID: -2633984590654182330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_9
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 124
+        width: 62
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0f110ff576c7f100800000000000000
+      internalID: 141800123377196815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_10
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 61
+        width: 71
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0bcf0fc627558d0800000000000000
+      internalID: -2858252576271585110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_11
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 47
+        width: 66
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b2d36fab01175cb0800000000000000
+      internalID: -4875409329720405323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_BFS_Icon_12
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 61
+        width: 71
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 752f228ae7d006790800000000000000
+      internalID: -7539010938580307369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Aug_BFS_Icon_0: -6168915148923591950
+      Aug_BFS_Icon_1: -4760741102836654152
+      Aug_BFS_Icon_10: -2858252576271585110
+      Aug_BFS_Icon_11: -4875409329720405323
+      Aug_BFS_Icon_12: -7539010938580307369
+      Aug_BFS_Icon_2: -7040843386180042618
+      Aug_BFS_Icon_3: -5501186217030585306
+      Aug_BFS_Icon_4: -4656732602353616302
+      Aug_BFS_Icon_5: 4744210918148415293
+      Aug_BFS_Icon_6: 2068940785703471339
+      Aug_BFS_Icon_7: -4210995628298260292
+      Aug_BFS_Icon_8: -2633984590654182330
+      Aug_BFS_Icon_9: 141800123377196815
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

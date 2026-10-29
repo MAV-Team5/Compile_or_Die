@@ -96,14 +96,16 @@ MonoBehaviour:
       type: {class: SummonEffect, ns: , asm: Assembly-CSharp}
       data:
         summonPrefab: {fileID: 0}
-        behaviour: {fileID: 0}
+        behaviour: {fileID: 11400000, guid: df0930fa4d9a1584ca74d1d0333488a5, type: 2}
         duration:
           value: 0
           scale: 1
           offset: 0
         maxAliveOverride: 0
         placeAtTarget: 1
-        finale: []
+        finale:
+        - {fileID: 11400000, guid: 750d13b2ba14be04e97e765c0725bcd7, type: 2}
+        - {fileID: 11400000, guid: 6bd9fb007318c8442959150ff4dc7330, type: 2}
         finaleInterval: 0.3
         summonFx:
           vfx: {fileID: 0}
