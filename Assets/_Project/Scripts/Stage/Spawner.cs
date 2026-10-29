@@ -25,6 +25,9 @@ public class Spawner : MonoBehaviour
              "  상자가 영영 안 나오게 된다.")]
     [Min(0)] [SerializeField] int maxAlive = 150;
 
+    [Tooltip("상한 때문에 못 나온 적을 콘솔에 몇 초마다 모아서 알릴지. 0이면 알리지 않는다.")]
+    [Min(0f)] [SerializeField] float capLogInterval = 5f;
+
     [Header("멀어진 적 회수")]
     [Tooltip("플레이어에게서 이만큼 멀어지면 앞쪽 스폰 지점으로 옮긴다.\n\n" +
              "★ 화면 대각선보다 넉넉히 크게 둘 것 — 보이는 자리에서 사라지면 순간이동이 들킨다.\n" +
@@ -39,6 +42,14 @@ public class Spawner : MonoBehaviour
              "★ 이게 없으면 뒤에 늘어선 꼬리가 한꺼번에 앞으로 와서 벽처럼 쏟아진다.\n" +
              "조금씩 나눠 옮겨야 사방에서 스며드는 모양이 된다.")]
     [SerializeField] int recycleBatch = 3;
+
+    [Header("오래 산 적 정리")]
+    [Tooltip("이만큼(초) 살아 있고 화면 밖에 있는 적은 보상 없이 거둔다. 0이면 끈다.\n\n" +
+             "★ 화면 안에 있으면 건드리지 않는다 — 눈앞에서 사라지면 버그로 보인다.")]
+    [Min(0f)] [SerializeField] float maxEnemyAge = 100f;
+
+    [Tooltip("화면 밖 판정 여유(뷰포트 비율). 0.1이면 화면 가장자리에서 10% 더 나가야 밖으로 친다.")]
+    [Min(0f)] [SerializeField] float offscreenMargin = 0.1f;
 
     [Header("설치물(상자) 배치")]
     [Tooltip("플레이어에게서 최소 이만큼 떨어져 나온다.\n\n" +
@@ -64,12 +75,42 @@ public class Spawner : MonoBehaviour
     /// </summary>
     public static Spawner Current { get; private set; }
 
+    /// <summary>동시 생존 상한. 0이면 제한 없음.</summary>
+    public int MaxAlive => maxAlive;
+
+    /// <summary>
+    /// 지금 살아 있는 적 수. 설치물(상자)과 죽는 연출 중인 적은 빼고 센다 — 진행률의 "버그 수" 다.
+    /// 부를 때마다 목록을 훑으므로 매 프레임 부르지 말 것.
+    /// </summary>
+    public int AliveCount
+    {
+        get
+        {
+            int count = 0;
+
+            for (int i = 0; i < alive.Count; i++)
+            {
+                Transform t = alive[i];
+                if (t == null || !t.gameObject.activeInHierarchy) continue;
+                if (!t.TryGetComponent(out Enemy enemy) || !enemy.IsAlive || enemy.IsStationary) continue;
+
+                count++;
+            }
+
+            return count;
+        }
+    }
+
     StageData stage;
 
     /// <summary>이 스포너가 내보낸 적들. 죽은 것은 훑을 때 걸러낸다.</summary>
     readonly List<Transform> alive = new();
 
     float recycleTimer;
+
+    /// <summary>상한에 막힌 수. 웨이브 번호별로 모았다가 한 번에 알린다.</summary>
+    int[] capSkipped;
+    float capLogTimer;
 
     /// <summary>
     /// 다음에 훑기 시작할 자리. 매번 앞에서부터 보면
@@ -115,6 +156,8 @@ public class Spawner : MonoBehaviour
             stage.waves[i].Timer = 0f;
             stage.waves[i].ExpCarry = 0f;
         }
+
+        capSkipped = new int[stage.waves.Count];
     }
 
     void Update()
@@ -125,6 +168,7 @@ public class Spawner : MonoBehaviour
         float dt = Time.deltaTime;
 
         Recycle(dt);
+        TickCapLog(dt);
 
         for (int i = 0; i < stage.waves.Count; i++)
         {
@@ -158,7 +202,11 @@ public class Spawner : MonoBehaviour
     {
         // 상한에 걸리면 이번 마리는 그냥 건너뛴다. 웨이브 시계는 계속 돌아가므로
         // 자리가 나면 다음 주기에 알아서 다시 나온다
-        if (maxAlive > 0 && !wave.enemy.stationary && alive.Count >= maxAlive) return;
+        if (maxAlive > 0 && !wave.enemy.stationary && alive.Count >= maxAlive)
+        {
+            if (capSkipped != null && index < capSkipped.Length) capSkipped[index]++;
+            return;
+        }
 
         GameObject go = GameManager.instance.poolManager.Get(wave.enemy.prefab, PoolType.Enemy);
         if (go == null) return;
@@ -176,6 +224,38 @@ public class Spawner : MonoBehaviour
         alive.Add(go.transform);
 
         wave.Spawned++;
+    }
+
+    /// <summary>
+    /// 상한에 막힌 스폰을 모아서 알린다. 매번 찍으면 초당 수십 줄이라 콘솔이 묻힌다.
+    /// 처치 속도가 스폰을 못 따라가는 구간이 어디인지 찾는 용도다.
+    /// </summary>
+    void TickCapLog(float dt)
+    {
+        if (capLogInterval <= 0f || capSkipped == null) return;
+
+        capLogTimer -= dt;
+        if (capLogTimer > 0f) return;
+
+        capLogTimer = capLogInterval;
+
+        int total = 0;
+        var detail = new System.Text.StringBuilder();
+
+        for (int i = 0; i < capSkipped.Length; i++)
+        {
+            if (capSkipped[i] == 0) continue;
+
+            total += capSkipped[i];
+            detail.Append($"  {stage.waves[i].label}:{capSkipped[i]}");
+            capSkipped[i] = 0;
+        }
+
+        if (total == 0) return;
+
+        float t = RunDirector.RunTime;
+        Debug.LogWarning($"[Spawner] {Mathf.FloorToInt(t / 60f)}:{Mathf.FloorToInt(t % 60f):00} " +
+                         $"동시 생존 상한 {maxAlive} — 최근 {capLogInterval:0}초간 {total}마리 못 나옴 ({detail.ToString().Trim()})", this);
     }
 
     // ── 경험치 ────────────────────────────────────────────
@@ -235,7 +315,7 @@ public class Spawner : MonoBehaviour
     /// </summary>
     void Recycle(float dt)
     {
-        if (recycleDistance <= 0f || alive.Count == 0) return;
+        if ((recycleDistance <= 0f && maxEnemyAge <= 0f) || alive.Count == 0) return;
 
         recycleTimer -= dt;
         if (recycleTimer > 0f) return;
@@ -247,6 +327,8 @@ public class Spawner : MonoBehaviour
 
         // 스포너가 플레이어의 자식이라 여기가 곧 플레이어 자리다
         Vector3 center = transform.position;
+        float now = RunDirector.RunTime;
+        Camera cam = Camera.main;
         float limit = recycleDistance * recycleDistance;
 
         int budget = recycleBatch > 0 ? recycleBatch : alive.Count;
@@ -259,11 +341,22 @@ public class Spawner : MonoBehaviour
             Transform t = alive[(scanCursor + step) % alive.Count];
             if (t == null) continue;
 
-            if ((t.position - center).sqrMagnitude < limit) continue;
-
-            // 설치물은 옮기지 않는다. 주우러 걸어가는 중에 눈앞에서 사라지면 최악이다 —
+            // 설치물은 옮기지도 거두지도 않는다. 주우러 걸어가는 중에 눈앞에서 사라지면 최악이다 —
             // 멀어진 것은 그냥 두고, 플레이어가 돌아오면 그 자리에 그대로 있다
-            if (t.TryGetComponent(out Enemy body) && body.IsStationary) continue;
+            t.TryGetComponent(out Enemy body);
+            if (body != null && body.IsStationary) continue;
+
+            // 오래 산 잡몹은 옮기지 않고 거둔다. 화면 밖일 때만.
+            // 빈자리는 지금 도는 웨이브가 채우므로, 초반 약한 적이 후반까지 남지 않는다
+            if (body != null && body.IsMinion && maxEnemyAge > 0f && now - body.SpawnedAt >= maxEnemyAge &&
+                IsOffscreen(cam, t.position))
+            {
+                body.Retire();
+                moved++;
+                continue;
+            }
+
+            if (recycleDistance <= 0f || (t.position - center).sqrMagnitude < limit) continue;
 
             // 자리만 옮기면 간선이 따라와 화면을 가로지른다. 옮기기 전에 끊는다
             if (t.TryGetComponent(out LinkHolder links)) links.CutAll();
@@ -277,6 +370,16 @@ public class Spawner : MonoBehaviour
 
         // 옮긴 것이 있을 때만. 매번 부르면 헛일이다
         if (moved > 0) Physics2D.SyncTransforms();
+    }
+
+    bool IsOffscreen(Camera cam, Vector3 position)
+    {
+        if (cam == null) return false;
+
+        Vector3 v = cam.WorldToViewportPoint(position);
+
+        return v.x < -offscreenMargin || v.x > 1f + offscreenMargin ||
+               v.y < -offscreenMargin || v.y > 1f + offscreenMargin;
     }
 
     /// <summary>죽어서 풀로 돌아간 것을 목록에서 뺀다.</summary>

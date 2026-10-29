@@ -15,6 +15,15 @@ public class AugmentPool : ScriptableObject
     [Tooltip("등장 후보 전체. 내부 증강도 여기 넣는다 — 해금 조건은 증강 자신이 들고 있다.")]
     [SerializeField] List<AugmentData> augments = new();
 
+    [Header("뽑기 칸 수")]
+    [Tooltip("보유 증강이 레벨 1당 늘리는 칸 수. 미보유는 1칸(내부 증강은 요구 레벨만큼),\n" +
+             "보유 중이면 거기에 레벨 × 이 값만큼 더한다.\n\n" +
+             "낮출수록 새 증강이 자주 뜨고, 높일수록 빌드가 빨리 굳는다.")]
+    [Min(0f)] public float ticketsPerLevel = 1f;
+
+    [Tooltip("선택지를 뽑을 때마다 후보별 칸 수를 콘솔에 남긴다. 밸런싱 확인용.")]
+    public bool logTickets;
+
     public IReadOnlyList<AugmentData> All => augments;
 
     public int Count => augments.Count;

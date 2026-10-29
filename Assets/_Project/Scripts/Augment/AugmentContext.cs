@@ -8,6 +8,15 @@ public class AugmentContext
     public Transform Owner;
 
     public AugmentInstance Instance;
+
+    /// <summary>
+    /// 지금 실행 중인 모듈을 내부 증강이 덧붙였다면 그 내부 증강. 피해 통계를 그쪽으로 돌린다.
+    /// 수치·상태는 여전히 <see cref="Instance"/> 것을 쓴다.
+    /// </summary>
+    public AugmentInstance Credit;
+
+    /// <summary>피해 통계에 이름을 올릴 증강.</summary>
+    public AugmentInstance StatsInstance => Credit ?? Instance;
     public AugmentLevelData Stat;
 
     public readonly TargetSet Targets = new();
@@ -89,6 +98,7 @@ public class AugmentContext
     {
         Owner = owner;
         Instance = instance;
+        Credit = null;
         Stat = instance.Stat;
 
         Depth = 0;
@@ -117,6 +127,7 @@ public class AugmentContext
 
         Owner = owner;
         Instance = parent.Instance;
+        Credit = parent.Credit;   // 연쇄로 이어진 피해도 처음 맞힌 모듈의 주인 몫이다
         Stat = parent.Stat;
 
         Depth = parent.Depth + 1;
@@ -147,6 +158,7 @@ public class AugmentContext
 
         // 여기가 핵심 — 수치와 상태 주머니가 내부 증강 것으로 바뀐다
         Instance = inner;
+        Credit = null;            // 내부 증강 자신이 주체다
         Stat = inner.Stat;
 
         Depth = parent.Depth;

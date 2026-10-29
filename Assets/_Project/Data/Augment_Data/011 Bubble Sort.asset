@@ -1,0 +1,258 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 011 Bubble Sort
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
+  id: BUBBLE_SORT
+  displayName: Bubble sort
+  category: 1
+  exclusiveTo: {fileID: 0}
+  tags: 
+  icon: {fileID: 0}
+  descriptionTemplate: 
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  extensionSlot: 
+  mergeStatsIntoRoot: 1
+  bonusIsPercent: 1
+  triggerPatch: 0
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
+  levelStats:
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  trigger:
+    rid: 4357681862757580882
+  targeting:
+    rid: 4357681862757580883
+  deliveries:
+  - rid: 4357681862757580884
+  effects:
+  - rid: 4357681862757580885
+  - rid: 4357681862757580889
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4357681862757580882
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        noTargetPolicy: 0
+        fireOnAcquire: 1
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4357681862757580883
+      type: {class: RandomTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+        targetCount: 1
+    - rid: 4357681862757580884
+      type: {class: LobDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        flightTime: 0.45
+        arcHeight: 1.5
+        fallbackRadius: 1.5
+        bodyPrefab: {fileID: 6824073935605403827, guid: 47a838b7c040b9d4cbc0311dbdde341e, type: 3}
+        landFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4357681862757580885
+      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
+      data:
+        inheritBonus: 1
+        targeting:
+          rid: 4357681862757580886
+        deliveries:
+        - rid: 4357681862757580887
+        effects:
+        - rid: 4357681862757580888
+    - rid: 4357681862757580886
+      type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+        scatterRadius: 0
+    - rid: 4357681862757580887
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        blastRadius:
+          value: 0
+          scale: 1
+          offset: 0
+        halfAngle: 180
+        includeCenterTarget: 1
+        bodyPrefab: {fileID: 0}
+        attachBodyToOwner: 0
+        blastFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4357681862757580888
+      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 1.5
+        pull: 1
+        stunDuration: 0.2
+    - rid: 4357681862757580889
+      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
+      data:
+        inheritBonus: 1
+        targeting:
+          rid: 4357681862757580890
+        deliveries:
+        - rid: 4357681862757580891
+        effects:
+        - rid: 4357681862757580892
+    - rid: 4357681862757580890
+      type: {class: HighestHealthTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+        includeOrigin: 1
+        includeBosses: 0
+    - rid: 4357681862757580891
+      type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        pointSearchRadius: 1
+        hitFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4357681862757580892
+      type: {class: TossEffect, ns: , asm: Assembly-CSharp}
+      data:
+        maxTossOverride: 0
+        distance: 3
+        falloff: 0.5
+        flightTime: 0.35
+        arcHeight: 1.2
+        keepHeading: 1
+        landEffects:
+        - rid: 4357681862757580893
+        - rid: 4357681862757580896
+        nextTargeting:
+          rid: 4357681862757580897
+        nextDeliveries:
+        - rid: 4357681862757580898
+    - rid: 4357681862757580893
+      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
+      data:
+        inheritBonus: 1
+        targeting:
+          rid: 4357681862757580894
+        deliveries:
+        - rid: 4357681862757580895
+        effects: []
+    - rid: 4357681862757580894
+      type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+        scatterRadius: 0
+    - rid: 4357681862757580895
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        blastRadius:
+          value: 0
+          scale: 1
+          offset: 0
+        halfAngle: 180
+        includeCenterTarget: 1
+        bodyPrefab: {fileID: 0}
+        attachBodyToOwner: 0
+        blastFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4357681862757580896
+      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 1.5
+        pull: 1
+        stunDuration: 0.2
+    - rid: 4357681862757580897
+      type: {class: HighestHealthTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+        includeOrigin: 1
+        includeBosses: 0
+    - rid: 4357681862757580898
+      type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        pointSearchRadius: 1
+        hitFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1

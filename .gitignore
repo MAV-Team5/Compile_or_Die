@@ -106,3 +106,6 @@ Assets/TextMesh Pro/Resources/Fonts & Materials/*.asset
 *.asset  -merge
 *.unity  -merge
 *.prefab -merge
+# Unity crash recovery scenes
+/[Aa]ssets/_Recovery/
+/[Aa]ssets/_Recovery.meta

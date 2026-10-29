@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
   m_Name: 201 BlueScreen
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  displayName: "BlueScreen"
+  displayName: BlueScreen
   prefab: {fileID: 3469445803652378370, guid: a854c19adc38e4372895a2317f71c417, type: 3}
   rank: 2
   health: 1
@@ -20,16 +20,28 @@ MonoBehaviour:
   contactDamage: 1
   scale: 1
   animatorOverride: {fileID: 0}
+  hitFlashDuration: 0.04
   flipToFace: 0
-  spawnMessage: "*** STOP 0x0000000A \u2014 {name} has taken the display. all threads halted."
+  spawnMessage: "*** STOP 0x0000000A \u2014 {name} has taken the display. all threads
+    halted."
   killMessages:
-  - "SYSTEM RECOVERED."
+  - SYSTEM RECOVERED.
   - "{name} \u2014 dump written. reboot complete."
-  - "0x0000000A cleared."
-  - "kernel restored."
+  - 0x0000000A cleared.
+  - kernel restored.
   killLog: 0
   deathState: 
   deathDuration: 0
+  deathStyle: 3
+  deathFx:
+    vfx: {fileID: 0}
+    vfxScale: 1
+    scaleWithRange: 1
+    sfx: {fileID: 0}
+    sfxVolume: 1
+    attachToSource: 0
+    motionParameter: 
+    motionValue: 1
   deathClips: []
   deathVolume: 0.5
   deathInterval: 0

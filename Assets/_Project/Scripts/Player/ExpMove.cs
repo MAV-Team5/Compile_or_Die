@@ -16,7 +16,32 @@ public class ExpMove : MonoBehaviour
     /// <b>풀에서 재사용되므로 켜질 때마다 반드시 꺼야 한다.</b>
     /// 안 그러면 다음에 나온 오브가 스폰되자마자 플레이어에게 날아온다.
     /// </summary>
-    [System.NonSerialized] public bool forcedMagnet;
+    public bool forcedMagnet { get; private set; }
+
+    /// <summary>강제로 끌려오는 중인 오브 수. 다 도착할 때까지 증강 선택을 미룬다.</summary>
+    public static int PulledInFlight { get; private set; }
+
+    /// <summary>끌려오던 오브가 전부 도착했다.</summary>
+    public static event System.Action PullFinished;
+
+    /// <summary>거리와 무관하게 끌어온다. GC 아이템이 부른다.</summary>
+    public void ForcePull()
+    {
+        if (forcedMagnet) return;
+
+        forcedMagnet = true;
+        PulledInFlight++;
+    }
+
+    void OnDisable()
+    {
+        if (!forcedMagnet) return;
+
+        forcedMagnet = false;
+        PulledInFlight = Mathf.Max(0, PulledInFlight - 1);
+
+        if (PulledInFlight == 0) PullFinished?.Invoke();
+    }
 
     private Player player;
 

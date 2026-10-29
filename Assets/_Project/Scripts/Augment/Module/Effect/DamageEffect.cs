@@ -37,7 +37,7 @@ public class DamageEffect : EffectModule
         var dmg = new DamageContext(ctx.Owner.gameObject, receiver, amount, hit.Target)
         {
             // 숫자 색을 증강 분류로 고를 수 있게 출처를 남긴다
-            SourceAugment = ctx.Instance,
+            SourceAugment = ctx.StatsInstance,
             StyleOverride = accentText ? textStyle : null
         };
 

@@ -32,6 +32,9 @@ public static class RunStats
 
         /// <summary>한 방 평균.</summary>
         public float PerHit => Hits > 0 ? TotalDamage / Hits : 0f;
+
+        /// <summary>이 줄의 증강. 성적표를 뽑을 때 이름을 다시 짓는 데만 쓴다.</summary>
+        public AugmentInstance Source;
     }
 
     /// <summary>증강 인스턴스로 찾는다. 같은 증강을 여러 레벨로 올려도 한 줄로 합쳐진다.</summary>
@@ -63,6 +66,8 @@ public static class RunStats
 
     static Entry Resolve(AugmentInstance augment)
     {
+        if (augment != null && augment.StatsOwner != null) augment = augment.StatsOwner;
+
         if (augment == null || augment.Data == null) return unattributed;
 
         if (byAugment.TryGetValue(augment, out Entry found))
@@ -76,6 +81,7 @@ public static class RunStats
         var created = new Entry
         {
             Name = augment.Data.displayName,
+            Source = augment,
             Category = augment.Data.category,
             Level = augment.Level
         };
@@ -90,7 +96,12 @@ public static class RunStats
     {
         var list = new List<Entry>(byAugment.Count + 1);
 
-        foreach (Entry entry in byAugment.Values) list.Add(entry);
+        foreach (Entry entry in byAugment.Values)
+        {
+            // 내부 증강은 런 도중에 붙으므로 이름은 성적표를 뽑는 지금 짓는다
+            if (entry.Source != null) entry.Name = DisplayName(entry.Source);
+            list.Add(entry);
+        }
 
         // 주인 없는 피해가 있을 때만 줄을 만든다. 없으면 표에 빈 줄이 생긴다
         if (unattributed.Hits > 0) list.Add(unattributed);
@@ -113,5 +124,30 @@ public static class RunStats
         unattributed.Hits = 0;
 
         total = 0f;
+    }
+
+    /// <summary>
+    /// "Iteration (+While)" 처럼 피해 없이 기여한 내부 증강을 이름 뒤에 붙인다.
+    /// 내부 증강 이름이 "뿌리:이름" 꼴이면 뒷부분만 쓴다.
+    /// </summary>
+    static string DisplayName(AugmentInstance augment)
+    {
+        string name = augment.Data.displayName;
+        List<AugmentInstance> helpers = augment.Build.Contributors;
+
+        if (helpers == null || helpers.Count == 0) return name;
+
+        var parts = new List<string>(helpers.Count);
+
+        foreach (AugmentInstance helper in helpers)
+        {
+            if (helper?.Data == null) continue;
+
+            string label = helper.Data.displayName ?? "";
+            int colon = label.IndexOf(':');
+            parts.Add(colon >= 0 ? label[(colon + 1)..] : label);
+        }
+
+        return parts.Count == 0 ? name : $"{name} (+{string.Join(", ", parts)})";
     }
 }

@@ -131,7 +131,7 @@ public class MarkerHolder : MonoBehaviour
     /// 표식들이 더해주는 추가 피해 합계. 실제로 들어간 표식은 연출도 낸다.
     /// 표식은 사라지지 않는다 — 지속되며 매 공격마다 다시 얹힌다.
     /// </summary>
-    public float Consume(float baseAmount)
+    public float Consume(float baseAmount, List<MarkBonus> breakdown = null)
     {
         float sum = 0f;
 
@@ -141,6 +141,7 @@ public class MarkerHolder : MonoBehaviour
             if (bonus <= 0f) continue;
 
             sum += bonus;
+            breakdown?.Add(new MarkBonus(marks[i].Owner, bonus));
 
             // 표식이 붙어 있는 자리에서 터뜨린다. 오브젝트가 없으면 적 위치
             Vector2 at = marks[i].Visual != null
@@ -177,9 +178,22 @@ public class MarkerHolder : MonoBehaviour
     // 적이 풀로 반납될 때 표식이 남아있으면 다음 적이 물려받는다
     void OnDisable()
     {
+        ClearAll();
+    }
+
+    /// <summary>
+    /// 표식을 전부 걷어내고 탐색풀에서 뺀다. 강조도 원본으로 되돌린다.
+    ///
+    /// 풀 반납 때뿐 아니라 <b>죽는 순간에도</b> 부른다. 죽음 연출이 도는 동안 시체가 탐색풀에 남아 있으면
+    /// 탐색 결과를 쓰는 증강이 시체를 겨누고, 강조 머터리얼이 사망 연출을 덮는다.
+    /// </summary>
+    public void ClearAll()
+    {
         for (int i = marks.Count - 1; i >= 0; i--) Remove(i);
 
         SearchRegistry.Unregister(this);
+
+        SetHighlight(false);
     }
 
     void Remove(int index)
@@ -189,11 +203,41 @@ public class MarkerHolder : MonoBehaviour
         marks.RemoveAt(index);
     }
 
-    /// <summary>표식이 하나라도 있으면 탐색풀에, 없으면 빠진다.</summary>
+    /// <summary>표식이 하나라도 있으면 탐색풀에, 없으면 빠진다. 강조도 같은 기준으로 켜고 끈다.</summary>
     void SyncRegistry()
     {
         if (marks.Count > 0) SearchRegistry.Register(this);
         else SearchRegistry.Unregister(this);
+
+        SetHighlight(marks.Count > 0);
+    }
+
+    // ── 탐색 강조 ─────────────────────────────────────────
+
+    // 머터리얼 교체는 EnemyVisual 이 맡는다. 피격 흰색과 같은 렌더러를 두고 둘이 따로 갈아끼우면
+    // 한쪽이 끝날 때 다른 쪽 상태까지 지워버리기 때문이다. 여기서는 켜고 끄기만 알린다
+    EnemyVisual visual;
+    bool visualSearched;
+    bool highlighted;
+
+    /// <summary>
+    /// 표식이 있는 동안 광원과 무관하게 보이도록 EnemyVisual 에 알린다.
+    /// 이미 같은 상태면 건너뛰어, 표식이 붙고 떨어질 때마다 불려도 값이 겹치지 않는다.
+    /// </summary>
+    void SetHighlight(bool on)
+    {
+        if (on == highlighted) return;
+
+        highlighted = on;
+
+        // 적이 아닌 대상에는 EnemyVisual 이 없다. 그때는 강조 없이 표식만 동작한다
+        if (!visualSearched)
+        {
+            visualSearched = true;
+            TryGetComponent(out visual);
+        }
+
+        if (visual != null) visual.SetTagged(on);
     }
 
     /// <summary>같은 자리를 쓰는 표식이 여럿일 때만 쓰는 겹 배율.</summary>
@@ -322,4 +366,17 @@ public class MarkerHolder : MonoBehaviour
             transform.position + Vector3.up * 0.4f, $"탐색 {marks.Count} · {where}");
     }
 #endif
+}
+
+/// <summary>표식 하나가 이번 피해에 더한 몫. 통계를 표식 주인(탐색 증강)에게 돌리려고 쓴다.</summary>
+public readonly struct MarkBonus
+{
+    public readonly AugmentInstance Owner;
+    public readonly float Amount;
+
+    public MarkBonus(AugmentInstance owner, float amount)
+    {
+        Owner = owner;
+        Amount = amount;
+    }
 }

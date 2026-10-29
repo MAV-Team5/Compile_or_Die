@@ -53,6 +53,12 @@ public class RunDirector : MonoBehaviour
     /// <summary>이번 런의 처치 수.</summary>
     public int Kills { get; private set; }
 
+    /// <summary>런을 끝내는 보스가 나오는 시각(초). 그런 보스가 없으면 0.</summary>
+    public float EndingBossAt { get; private set; }
+
+    /// <summary>지금 필드에 있는 런 종료 보스. 아직 안 나왔으면 null. 진행률 바가 체력을 읽는다.</summary>
+    public Enemy EndingBoss { get; private set; }
+
     readonly List<string> defeated = new();
 
     /// <summary>이번 런의 수치가 담긴 스테이지. Start 에서 집는다.</summary>
@@ -109,6 +115,15 @@ public class RunDirector : MonoBehaviour
 
         // 시각 순으로 세워두면 매 프레임 앞에서부터 하나씩만 보면 된다
         schedule.Sort((a, b) => a.atSeconds.CompareTo(b.atSeconds));
+
+        EndingBossAt = 0f;
+        foreach (BossSpawn entry in schedule)
+        {
+            if (!entry.endsRun || !entry.IsValid) continue;
+
+            EndingBossAt = entry.atSeconds;
+            break;
+        }
     }
 
     void OnDestroy()
@@ -181,6 +196,8 @@ public class RunDirector : MonoBehaviour
 
         // 잡몹과 같은 통로로 수치를 새긴다
         if (boss.TryGetComponent(out Enemy body)) body.Init(entry.enemy, entry.Scale);
+
+        if (entry.endsRun && body != null) EndingBoss = body;
 
         if (!boss.TryGetComponent(out BossMarker marker)) marker = boss.AddComponent<BossMarker>();
 

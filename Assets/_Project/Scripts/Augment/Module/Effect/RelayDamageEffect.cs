@@ -50,7 +50,7 @@ public class RelayDamageEffect : EffectModule
 
         var dmg = new DamageContext(ctx.Owner.gameObject, receiver, amount, hit.Target)
         {
-            SourceAugment = ctx.Instance,
+            SourceAugment = ctx.StatsInstance,
             StyleOverride = accentText ? textStyle : null,
 
             // ★ 이미 배율이 곱해진 값에서 떼어낸 것이다. 여기서 또 곱하면 파워가 두 번 먹는다

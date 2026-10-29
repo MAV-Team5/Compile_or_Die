@@ -35,6 +35,9 @@ public static class UiFocus
     // ── 버튼이 알려주는 것 ────────────────────────────────
 
     /// <summary>커서가 들어오거나 나갔다. NeonTextButton · AugmentCardView 가 부른다.</summary>
+    /// <summary>키보드로 제어권을 넘긴다. 코드가 선택을 대신 잡았을 때 그 강조가 보이게 한다.</summary>
+    public static void TakeKeyboard() => Switch(Device.Keyboard);
+
     public static void ReportHover(GameObject target, bool entered)
     {
         if (entered) hovered = target;

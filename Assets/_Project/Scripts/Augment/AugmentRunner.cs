@@ -74,7 +74,7 @@ public class AugmentRunner : MonoBehaviour
         ctx.FirstOfCycle = build.Trigger.FirstOfCycle(Instance);
 
         // ②③④ 타겟팅 → 전달 → 효과
-        bool fired = AugmentPipeline.Run(ctx, build.Targeting, build.Deliveries, build.Effects);
+        bool fired = AugmentPipeline.Run(ctx, build.Targeting, build.Deliveries, build.Effects, build.Credits);
 
         if (!fired)
         {

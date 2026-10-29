@@ -51,6 +51,14 @@ public class AugmentData : ScriptableObject
     public string displayName;
     public AugmentCategory category;
 
+    [Tooltip("이 캐릭터일 때만 선택지에 나온다. 비우면 누구나. 예) Bash 증강 = Bash 캐릭터 전용")]
+    public CharacterData exclusiveTo;
+
+    public const int MaxTags = 4;
+
+    [Tooltip("이 증강이 실제로 하는 일. 최대 4개. 카드에는 정해진 우선순위대로 놓인다.")]
+    public List<AugmentTag> tags = new();
+
     [Tooltip("HUD 슬롯에 표시할 아이콘.")]
     public Sprite icon;
 
@@ -131,4 +139,19 @@ public class AugmentData : ScriptableObject
 
     [Tooltip("SpeedBoost 지속시간(초). Heal은 쓰지 않는다.")]
     public float instantDuration;
+
+#if UNITY_EDITOR
+    // 상한을 넘기면 바로 자른다. 중복은 지우지 않는다 — 목록의 + 가 마지막 값을 복사해 오므로
+    // 지워버리면 새 칸을 추가할 수가 없다. 중복은 카드가 한 번만 그린다
+    void OnValidate()
+    {
+        if (tags == null) return;
+
+        if (tags.Count > MaxTags)
+        {
+            Debug.LogWarning($"[{name}] 태그는 최대 {MaxTags}개다. 넘친 것은 지웠다.", this);
+            tags.RemoveRange(MaxTags, tags.Count - MaxTags);
+        }
+    }
+#endif
 }

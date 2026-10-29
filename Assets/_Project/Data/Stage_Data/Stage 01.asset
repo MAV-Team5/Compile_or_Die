@@ -331,6 +331,8 @@ MonoBehaviour:
     damageScale: 15
     sizeScale: 4.5
   augmentPool: {fileID: 11400000, guid: 14de165c4bff2634d9c9cf1b6bf1927e, type: 2}
+  earlyPool: {fileID: 11400000, guid: 810f155434854e04885d306eec023c98, type: 2}
+  earlyPoolUntilLevel: 5
   startingRerolls: 9
   killValue: 1
   timeValue: 0.5

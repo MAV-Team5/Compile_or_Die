@@ -60,6 +60,9 @@ public class PlayerHitFeedback : MonoBehaviour
     /// <summary>전체 밝기 배율. 유지 중에는 1, 끝나면 0으로 내려간다.</summary>
     float level;
 
+    /// <summary>피격 연출의 세기(0~1). 맞은 뒤 유지되다 서서히 0으로 내려간다. 광원 연출이 읽는다.</summary>
+    public float Level => level;
+
     float triggerCooldown;
 
     void Awake()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
@@ -21,6 +22,30 @@ public class MenuManager : MonoBehaviour
     {
         // 결과 화면에서 "업그레이드"로 들어온 경우. 로비를 거치지 않고 바로 상점을 연다
         if (LobbyIntent.Consume() == LobbyIntent.Screen.Upgrade) OnClickUpgradeMenu();
+    }
+
+    void Update()
+    {
+        // 로비 씬에는 일시정지가 없다
+        if (pausePanel == null) return;
+
+        Keyboard kb = Keyboard.current;
+        if (kb == null) return;
+
+        bool esc = kb.escapeKey.wasPressedThisFrame;
+        if (!esc && !kb.pKey.wasPressedThisFrame) return;
+
+        // 카드를 고르는 중에는 받지 않는다. 일시정지가 카드 위를 덮으면 고르던 화면을 잃는다
+        if (UIManager.Current != null && UIManager.Current.IsOpen(UIManager.Screen.AugmentSelect)) return;
+
+        // 설정창은 일시정지 위에 열린다. Esc 는 위에 있는 것부터 닫는다
+        if (esc && settingPanel != null && settingPanel.gameObject.activeSelf)
+        {
+            settingPanel.Close();
+            return;
+        }
+
+        OnClickPause();
     }
 
     public void OnClickCharacterMenu()
@@ -72,6 +97,12 @@ public class MenuManager : MonoBehaviour
 
         StageContext.Choose(stage);
 
+        SceneManager.LoadScene(runScene);
+    }
+
+    /// <summary>방금 한 스테이지·캐릭터 그대로 다시 들어간다. 결과 화면의 RECOMPILE 이 부른다.</summary>
+    public void OnClickRetry()
+    {
         SceneManager.LoadScene(runScene);
     }
 

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -37,6 +38,14 @@ public class SummonEffect : EffectModule
              "제자리에 터렛을 세우려면 꺼둘 것.")]
     public bool placeAtTarget = true;
 
+    [Header("마지막 — 수명이 다하거나 수량 상한에 밀려날 때")]
+    [Tooltip("사라지기 직전 순서대로 한 번씩 실행할 증강. 소환물 자리가 원점이다.\n" +
+             "예) JIT 레이저(Nearest → Line → Damage) → 폭발(OwnerPoint → Area → Damage)")]
+    public List<AugmentData> finale = new();
+
+    [Tooltip("마지막 증강들 사이 간격(초). 레이저가 보인 뒤 터지게 하려면 0.3 정도.")]
+    [Min(0f)] public float finaleInterval = 0.3f;
+
     [Fx("소환 연출", "소환된 자리")]
     public FxGroup summonFx = new();
 
@@ -57,8 +66,16 @@ public class SummonEffect : EffectModule
 
         int maxAlive = maxAliveOverride > 0 ? maxAliveOverride : ctx.Stat.count;
 
+        // 마지막 증강이 소환 증강 자신이면 사라질 때마다 다시 소환해 끝나지 않는다
+        if (finale.Contains(ctx.Instance.Data))
+        {
+            ModuleWarning.Once(ctx, "마지막 증강에 소환 증강 자신이 들어 있습니다. 무한 소환이 되므로 막았습니다");
+            return;
+        }
+
         Summon placed = Summon.Place(summonPrefab, at, ctx.Instance, behaviour,
-                                     duration.Of(ctx.Stat.duration), maxAlive);
+                                     duration.Of(ctx.Stat.duration), maxAlive,
+                                     finale, finaleInterval);
 
         // 소환물 자신을 넘긴다 — 등장 모션을 여기서 시킬 수 있다
         if (placed != null) summonFx.PlayAt(at, ctx.Heading, 0f, placed.transform);

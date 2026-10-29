@@ -50,13 +50,16 @@ public class RadialDelivery : ProjectileDeliveryBase
         int count = projectileCount.IntOf(ctx.Stat.count);
 
         Vector2 origin = ctx.Owner.position;
-        PlayLaunch(ctx, origin);
 
         // 이번 방사분 전체가 공유할 적중 기록. 한 놈에게 몰리는 것을 막는다
         var volley = NewVolley();
 
         // 부채꼴 중심을 통째로 돌린다. 같은 방사를 각도만 바꿔 여러 개 넣을 수 있다
         float center = CenterAngle(ctx, origin) + directionOffset;
+
+        // 부채꼴의 중심 방향으로 낸다. 사방으로 뿌릴 때는 방향이 의미 없으니 한 번만 낸다
+        float centerRad = center * Mathf.Deg2Rad;
+        PlayLaunch(ctx, origin, new Vector2(Mathf.Cos(centerRad), Mathf.Sin(centerRad)));
         bool full = spreadAngle >= 359.9f;
 
         // 360도는 첫 발과 끝 발이 겹치므로 count 로, 부채꼴은 양 끝을 채우도록 count-1 로 나눈다

@@ -157,6 +157,8 @@ public class AugmentManager : MonoBehaviour
 
         StatMath.Accumulate(inner.BaseStat, inner.Data.bonusIsPercent,
                             root.BonusAdd, root.BonusPercent);
+
+        AddContributor(root, inner);
     }
 
     /// <summary>내부 증강이 뿌리의 3축을 덮거나 이어 붙인다.</summary>
@@ -171,13 +173,38 @@ public class AugmentManager : MonoBehaviour
             // 갈아끼운 트리거가 자기 시트를 읽을 수 있게 출처를 남긴다.
             // 이게 없으면 while 반경 같은 값이 뿌리 수치로 계산돼 엉뚱한 크기가 된다
             root.TriggerSource = inner;
+            AddContributor(root, inner);
         }
 
         if (d.targetingPatch == BuildPatch.Replace && d.targeting != null)
+        {
             root.Build.Targeting = d.targeting;
+            AddContributor(root, inner);
+        }
 
         root.Build.Deliveries = Merge(root.Build.Deliveries, d.deliveries, d.deliveryPatch);
         root.Build.Effects = Merge(root.Build.Effects, d.effects, d.effectPatch);
+
+        // 덧붙인 모듈로 난 피해는 내부 증강 몫이다. 뿌리 이름으로 섞으면 내부 증강을 왜 골랐는지 안 보인다
+        Credit(root, d.deliveries, d.deliveryPatch, inner);
+        Credit(root, d.effects, d.effectPatch, inner);
+    }
+
+    static void Credit<T>(AugmentInstance root, List<T> modules, BuildPatch mode, AugmentInstance inner) where T : class
+    {
+        if (mode == BuildPatch.None || modules == null) return;
+
+        root.Build.Credits ??= new Dictionary<object, AugmentInstance>();
+
+        foreach (T module in modules)
+            if (module != null) root.Build.Credits[module] = inner;
+    }
+
+    static void AddContributor(AugmentInstance root, AugmentInstance inner)
+    {
+        root.Build.Contributors ??= new List<AugmentInstance>();
+
+        if (!root.Build.Contributors.Contains(inner)) root.Build.Contributors.Add(inner);
     }
 
     /// <summary>

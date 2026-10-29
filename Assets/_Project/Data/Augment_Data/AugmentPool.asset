@@ -26,3 +26,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d63ce2364f9e9344997c0331882ab432, type: 2}
   - {fileID: 11400000, guid: 625f62017c14d8841adf974cdb50589a, type: 2}
   - {fileID: 11400000, guid: 279b3aaac3266c64fbd76452b6ce4449, type: 2}
+  ticketsPerLevel: 1
+  logTickets: 1

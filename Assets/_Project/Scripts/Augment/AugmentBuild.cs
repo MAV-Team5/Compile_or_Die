@@ -36,6 +36,21 @@ public struct AugmentBuild
     public List<EffectModule> Effects;
 
     /// <summary>아무도 안 덮은 상태. 뿌리 조립 그대로.</summary>
+    /// <summary>
+    /// 내부 증강이 덧붙인 전달·효과 모듈 → 그 내부 증강. 그 모듈로 난 피해는 통계에서 내부 증강 몫이다.
+    /// 뿌리 자기 모듈은 여기 없다. 비어 있으면 null.
+    /// </summary>
+    public Dictionary<object, AugmentInstance> Credits;
+
+    /// <summary>
+    /// 직접 때리지 않고 뿌리를 바꾼 내부 증강(트리거·타겟팅 교체, 수치 합산).
+    /// 피해를 떼어낼 공정한 기준이 없어 뿌리 몫으로 두되, 결과 화면 이름에 함께 적는다.
+    /// </summary>
+    public List<AugmentInstance> Contributors;
+
+    public AugmentInstance CreditOf(object module)
+        => module != null && Credits != null && Credits.TryGetValue(module, out AugmentInstance who) ? who : null;
+
     public static AugmentBuild Of(AugmentData data) => new()
     {
         Trigger = data.trigger,

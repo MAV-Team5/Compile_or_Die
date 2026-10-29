@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 003 BFS
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 1
+  lockModules: 0
   lockStats: 1
   id: BFS
   displayName: BFS
   category: 0
+  tags:
+  - 1
+  - 11
+  - 23
   icon: {fileID: 21300000, guid: 3823ff3c0ab0c4535bc1b221f1dc096a, type: 3}
   descriptionTemplate: "\uC8FC\uBCC0 \uC801\uC744 \uD0D0\uC0C9\uD55C\uB2E4. \n\uD0D0\uC0C9\uB41C
     \uB300\uC0C1\uC740 \uCD94\uAC00 \uD53C\uD574\uB97C \uBC1B\uB294\uB2E4.\n\uCD94\uAC00
@@ -132,6 +136,7 @@ MonoBehaviour:
           offset: 0
         releaseOnRefire: 1
         markVfx: {fileID: 5518349989568777204, guid: 966d70b2bada0984b8e5ebaaddcabee3, type: 3}
+        searchLight: {fileID: 4861502920392802260, guid: 682e793ba04817941bd2a727891c5107, type: 3}
         burstFx:
           vfx: {fileID: 0}
           vfxScale: 1
