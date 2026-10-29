@@ -62,6 +62,13 @@ public class StageData : ScriptableObject
     [Tooltip("클리어했을 때만 얹어 주는 재화.")]
     public int clearBonus = 100;
 
+    [Header("플레이어 보정 — 이 스테이지에서만")]
+    [Tooltip("플레이어 이동속도 배율. 캐릭터 값·키보드 보정 위에 곱해진다. 1이면 그대로.")]
+    [Min(0.1f)] public float playerSpeedScale = 1f;
+
+    [Tooltip("플레이어가 주는 모든 피해의 배율. 파워 보정과 같은 자리에서 곱해진다. 1이면 그대로.")]
+    [Min(0.1f)] public float playerDamageScale = 1f;
+
     /// <summary>이 스테이지가 끝날 수 있는가 — endsRun 보스가 하나라도 있는가.</summary>
     public bool HasEnding
     {
