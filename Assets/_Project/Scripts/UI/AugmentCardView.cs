@@ -90,6 +90,24 @@ public class AugmentCardView : MonoBehaviour,
     public Button Choose => choose;
     public Button Reroll => reroll;
 
+    // ── 길잡이(추천·잠금·보유) ─────────────────────────────
+    //
+    // 코드로 덧붙인다 — 카드 프리팹을 고치지 않아도 어느 카드에나 붙는다.
+
+    static readonly Color Gold = new(1f, 0.82f, 0.25f);
+
+    /// <summary>검색 증강이 없어 지금은 고를 수 없는 카드.</summary>
+    public bool Locked { get; private set; }
+
+    bool recommended;
+    UnityEngine.UI.Outline goldInner;
+    UnityEngine.UI.Outline goldOuter;
+    TMP_Text recommendLabel;
+    TMP_Text ownedBadge;
+    Image lockShade;
+    TMP_Text lockText;
+    float lockFlash;
+
     RectTransform root;
     CanvasGroup group;
 
@@ -476,6 +494,8 @@ public class AugmentCardView : MonoBehaviour,
 
     void Update()
     {
+        AnimateAdvice();
+
         // 선택 연출이 도는 동안은 크기를 넘겨준다. 안 그러면 서로 밀고 당긴다
         if (reacted) return;
 
@@ -563,6 +583,7 @@ public class AugmentCardView : MonoBehaviour,
     public void Fill(AugmentData data, AugmentManager owned)
     {
         Data = data;
+        ApplyAdvice(data, owned);
 
         bool hasIcon = data.icon != null;
         icon.enabled = hasIcon;
@@ -574,12 +595,39 @@ public class AugmentCardView : MonoBehaviour,
 
         nameText.text = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
 
-        categoryText.text = $"[ {CategoryLabel(data.category)} ]";
-        categoryText.color = theme.ColorOf(data.category);
+        // 증강 고유색 — 아이콘과 같은 색으로 테두리·분류 글자를 물들인다
+        Color own = AugmentPalette.TryGet(data, out Color c) ? c : theme.ColorOf(data.category);
 
-        ShowTags(data.tags);
+        // 이름 아래 한 줄 — 공격·탐색·연쇄 중 하나면 그 역할을, 아니면(아이템 등) 원래 분류 글자를 쓴다
+        // 공격은 정해진 다섯 계열만. 탐색·연쇄는 분류 그대로, 나머지 증강은 보조
+        AugmentAdvice.Role role = AugmentAdvice.RoleOf(data);
+        string roleName = null;
+        AugmentTag roleTag = AugmentTag.Support;
+        if (role == AugmentAdvice.Role.Search)      { roleName = "탐색"; roleTag = AugmentTag.Mark; }
+        else if (role == AugmentAdvice.Role.Chain)  { roleName = "연쇄"; roleTag = AugmentTag.Chain; }
+        else if (role == AugmentAdvice.Role.Attack)
+        {
+            if (IsCoreAttack(data)) { roleName = "공격"; roleTag = AugmentTag.Attack; }
+            else                    { roleName = "보조"; roleTag = AugmentTag.Support; }
+        }
 
-        TintBorder(theme.ColorOf(data.category));
+        categoryText.gameObject.SetActive(true);
+        if (roleName != null)
+        {
+            categoryText.text = $"<b>[ {roleName} ]</b>";
+            categoryText.color = AugmentTagStyle.ColorOf(roleTag);
+        }
+        else
+        {
+            categoryText.text = $"[ {CategoryLabel(data.category)} ]";
+            categoryText.color = own;
+        }
+
+        // 레이블 띠 — 역할 줄 바로 밑. 옛 줄은 끈다
+        if (tagRow != null) tagRow.gameObject.SetActive(false);
+        BuildLabelBadges(data.tags);
+
+        TintBorder(own);
 
         if (data.instantEffect != InstantItemEffect.None)
         {
@@ -619,6 +667,284 @@ public class AugmentCardView : MonoBehaviour,
         descriptionText.text = AugmentText.Compare(data, current, nextLevel);
 
         AugmentText.ChangeColor = carryColor;
+    }
+
+    static readonly HashSet<string> CoreAttackIds = new() { "BASH", "BRUTE_FORCE", "C_LAN", "ITERATION", "PYTHON" };
+
+    /// <summary>"공격"으로 보일 증강인가 — 진화형은 원본을 따른다.</summary>
+    static bool IsCoreAttack(AugmentData data)
+    {
+        AugmentData d = data;
+        if (d != null && d.rootAugment != null && d.rootAugment != d) d = d.rootAugment;
+        return d != null && !string.IsNullOrEmpty(d.id) && CoreAttackIds.Contains(d.id.ToUpperInvariant());
+    }
+
+    // ── 레이블 띠 (역할 줄 밑) ─────────
+
+    RectTransform badgeStrip;
+    readonly List<GameObject> badges = new();
+
+    const float BadgeHeight = 54f;
+    const float BadgeFont = 30f;
+    const float BadgePad = 26f;
+    const float BadgeGap = 10f;
+
+    /// <summary>
+    /// 레이블을 카드 맨 위 층에 새로 그린다. 레이아웃 그룹을 쓰지 않고 폭·위치를 직접 계산한다.
+    /// 자체 Canvas(정렬 덮어쓰기)를 달아 카드 안 다른 어떤 그림보다 위에 그려진다.
+    /// </summary>
+    void BuildLabelBadges(List<AugmentTag> tags)
+    {
+        foreach (GameObject b in badges) if (b != null) Destroy(b);
+        badges.Clear();
+
+        if (tags == null || tags.Count == 0)
+        {
+            if (badgeStrip != null) badgeStrip.gameObject.SetActive(false);
+            return;
+        }
+
+        RectTransform card = (RectTransform)transform;
+        TMP_FontAsset font = categoryText != null && categoryText.font != null ? categoryText.font
+                           : (UiTheme.Current != null ? UiTheme.Current.mono : null);
+
+        if (badgeStrip == null)
+        {
+            var go = new GameObject("LabelBadges", typeof(RectTransform));
+            go.transform.SetParent(card, false);
+            badgeStrip = (RectTransform)go.transform;
+            badgeStrip.anchorMin = badgeStrip.anchorMax = new Vector2(0.5f, 0.5f);
+            badgeStrip.pivot = new Vector2(0.5f, 0.5f);
+
+            var c = go.AddComponent<Canvas>();
+            c.overrideSorting = true;
+            c.sortingOrder = 30000;
+        }
+
+        badgeStrip.gameObject.SetActive(true);
+        badgeStrip.SetAsLastSibling();
+
+        // 역할 줄(categoryText) 바로 아래 — 카드 좌표로
+        Vector2 at = new(0f, 0f);
+        RectTransform anchorRt = categoryText != null ? categoryText.rectTransform : (icon != null ? icon.rectTransform : null);
+        if (anchorRt != null)
+        {
+            Rect r = anchorRt.rect;
+            Vector3 world = anchorRt.TransformPoint(new Vector3(r.center.x, r.yMin, 0f));
+            Vector3 local = card.InverseTransformPoint(world);
+            at = new Vector2(local.x, local.y - BadgeHeight * 0.5f - 4f);
+        }
+        badgeStrip.anchoredPosition = at;
+
+        // 정렬·중복 제거
+        var list = new List<AugmentTag>();
+        foreach (AugmentTag tag in tags)
+            if (!list.Contains(tag) && list.Count < AugmentData.MaxTags) list.Add(tag);
+        list.Sort((a, b) => AugmentTagStyle.Priority(a).CompareTo(AugmentTagStyle.Priority(b)));
+
+        // 폭 계산
+        var widths = new float[list.Count];
+        var labels = new TMP_Text[list.Count];
+        float total = 0f;
+        for (int i = 0; i < list.Count; i++)
+        {
+            Color tint = AugmentTagStyle.ColorOf(list[i]);
+
+            var chipGo = new GameObject($"Badge {list[i]}", typeof(RectTransform), typeof(Image));
+            chipGo.transform.SetParent(badgeStrip, false);
+            badges.Add(chipGo);
+            var img = chipGo.GetComponent<Image>();
+            img.color = tint;
+            img.raycastTarget = false;
+
+            // 검은 테두리 + 같은 색 번짐 — 아이콘 위에 얹혀도 또렷하게
+            var edge = chipGo.AddComponent<Outline>();
+            edge.effectColor = new Color(0f, 0f, 0f, 0.9f);
+            edge.effectDistance = new Vector2(3f, -3f);
+            var glow = chipGo.AddComponent<Shadow>();
+            glow.effectColor = new Color(tint.r, tint.g, tint.b, 0.55f);
+            glow.effectDistance = new Vector2(0f, -6f);
+
+            TMP_Text l = UiFactory.CreateText("Label", chipGo.transform, font, BadgeFont,
+                                              new Color(0.04f, 0.04f, 0.06f), TextAlignmentOptions.Center);
+            l.fontStyle = FontStyles.Bold;
+            l.text = AugmentTagStyle.Label(list[i]);
+            l.textWrappingMode = TextWrappingModes.NoWrap;
+            l.raycastTarget = false;
+            // 칸이 모자라면 글자가 알아서 줄어든다 — 잘리지 않게
+            l.enableAutoSizing = true;
+            l.fontSizeMax = BadgeFont;
+            l.fontSizeMin = 16f;
+            l.margin = Vector4.zero;
+            UiFactory.Stretch(l.rectTransform, Vector2.zero, Vector2.one);
+            labels[i] = l;
+
+            float w = l.GetPreferredValues(l.text, 9999f, BadgeHeight).x * 1.12f + BadgePad * 2f;
+            if (w < BadgeHeight * 1.4f) w = BadgeHeight * 1.4f;
+            widths[i] = w;
+            total += w;
+        }
+        total += BadgeGap * (list.Count - 1);
+
+        // 카드 폭을 넘으면 글자를 줄인다
+        float maxW = card.rect.width > 0f ? card.rect.width - 24f : total;
+        float shrink = total > maxW ? maxW / total : 1f;
+
+        float x = -total * shrink * 0.5f;
+        for (int i = 0; i < list.Count; i++)
+        {
+            float w = widths[i] * shrink;
+            var rt = (RectTransform)badges[i].transform;
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0f, 0.5f);
+            rt.sizeDelta = new Vector2(w, BadgeHeight);
+            rt.anchoredPosition = new Vector2(x, 0f);
+            if (shrink < 1f) labels[i].fontSizeMax = BadgeFont * Mathf.Max(0.6f, shrink);
+            x += w + BadgeGap * shrink;
+        }
+        badgeStrip.sizeDelta = new Vector2(total * shrink, BadgeHeight);
+    }
+
+    System.Collections.IEnumerator DumpBadgesNextFrame(AugmentData data)
+    {
+        yield return null;
+        if (badgeStrip == null) { Debug.Log($"[BadgeDump] {data.name} no strip"); yield break; }
+        var sb = new System.Text.StringBuilder();
+        sb.Append($"[BadgeDump] {data.name} active={badgeStrip.gameObject.activeInHierarchy} pos={badgeStrip.anchoredPosition} " +
+                  $"size={badgeStrip.rect.size} badges={badges.Count} scale={badgeStrip.lossyScale}");
+        foreach (GameObject b in badges)
+        {
+            var rt = (RectTransform)b.transform;
+            sb.Append($" | {b.name} w={rt.rect.width:0} act={b.activeInHierarchy}");
+        }
+        Debug.Log(sb.ToString());
+    }
+
+    // ── 길잡이 ──────────────────────────────────────────
+
+    /// <summary>
+    /// 보유 개수·추천 테두리·잠금을 이 카드에 맞춘다. <see cref="Fill"/> 이 부른다.
+    /// </summary>
+    void ApplyAdvice(AugmentData data, AugmentManager owned)
+    {
+        EnsureAdviceParts();
+
+        bool item = AugmentAdvice.RoleOf(data) == AugmentAdvice.Role.Item;
+
+        // 상단 보유 표시 — 몇 번 먹었는지(= 레벨)
+        AugmentRunner mine = owned != null && !item ? owned.Find(data) : null;
+        int have = mine != null ? mine.Instance.Level : 0;
+        ownedBadge.gameObject.SetActive(!item);
+        ownedBadge.text = have > 0 ? $"보유 ×{have}" : "NEW";
+        ownedBadge.color = have > 0 ? theme.text : theme.accent;
+
+        Locked = !item && AugmentAdvice.Locked(data, owned);
+
+        // 추천은 선택 화면이 카드 전체를 보고 한 장만 정한다(SetRecommended). 새로 실리면 일단 끈다
+        SetRecommended(false, null);
+
+        lockShade.gameObject.SetActive(Locked);
+        lockText.gameObject.SetActive(Locked);
+        lockText.text = LockedLine;
+        lockFlash = 0f;
+
+        // 흑백처럼 — 아이콘을 회색으로 죽인다. 어두운 막이 위를 덮는다
+        if (icon != null) icon.color = Locked ? new Color(0.35f, 0.35f, 0.35f, 1f) : Color.white;
+    }
+
+    const string LockedLine = "[ LOCKED ]\n탐색 증강 필요";
+
+    /// <summary>
+    /// 황금 테두리와 추천 이유. 선택 화면이 깔린 카드들을 비교해 가장 나은 한 장에만 켠다.
+    /// </summary>
+    public void SetRecommended(bool on, string reason)
+    {
+        EnsureAdviceParts();
+
+        recommended = on && !Locked;
+        goldInner.enabled = goldOuter.enabled = recommended;
+        recommendLabel.gameObject.SetActive(recommended);
+        recommendLabel.text = string.IsNullOrEmpty(reason) ? "★ 추천" : $"★ 추천 · {reason}";
+    }
+
+    /// <summary>잠긴 카드를 고르려 했다. 왜 안 되는지 크게 보여준다.</summary>
+    public void DenyLocked()
+    {
+        lockFlash = 1f;
+        if (lockText != null) lockText.text = "탐색 증강을\n먹어야 합니다";
+    }
+
+    void EnsureAdviceParts()
+    {
+        if (ownedBadge != null) return;
+
+        TMP_FontAsset font = nameText != null ? nameText.font : (UiTheme.Current != null ? UiTheme.Current.mono : null);
+        Graphic frame = choose != null ? choose.targetGraphic : GetComponent<Image>();
+
+        // 황금 테두리 — 카드 테두리 바깥으로 두 겹 번지는 빛
+        GameObject host = frame != null ? frame.gameObject : gameObject;
+        goldOuter = host.AddComponent<UnityEngine.UI.Outline>();
+        goldOuter.effectDistance = new Vector2(16f, -16f);
+        goldOuter.useGraphicAlpha = false;
+        goldInner = host.AddComponent<UnityEngine.UI.Outline>();
+        goldInner.effectDistance = new Vector2(7f, -7f);
+        goldInner.useGraphicAlpha = false;
+
+        RectTransform r = (RectTransform)transform;
+        float width = r.rect.width > 0f ? r.rect.width : layout.CardSize.x;
+
+        recommendLabel = UiFactory.CreateText("Recommend", transform, font, 40f, Gold, TextAlignmentOptions.Center);
+        recommendLabel.fontStyle = FontStyles.Bold;
+        // 이유가 길면 줄이지 말고 글자를 줄인다
+        recommendLabel.enableAutoSizing = true;
+        recommendLabel.fontSizeMax = 40f;
+        recommendLabel.fontSizeMin = 24f;
+        recommendLabel.text = "★ 추천";
+        UiFactory.Place(recommendLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 0f),
+                        new Vector2(0f, 14f), new Vector2(width, 54f));
+        recommendLabel.raycastTarget = false;
+
+        ownedBadge = UiFactory.CreateText("Owned", transform, font, 38f, theme.text, TextAlignmentOptions.Center);
+        ownedBadge.fontStyle = FontStyles.Bold;
+        UiFactory.Place(ownedBadge.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
+                        new Vector2(0f, -18f), new Vector2(width - 40f, 48f));
+        ownedBadge.raycastTarget = false;
+
+        lockShade = UiFactory.CreateImage("LockShade", transform, new Color(0.05f, 0.05f, 0.06f, 0.72f));
+        UiFactory.Stretch(lockShade.rectTransform, Vector2.zero, Vector2.one);
+        lockShade.raycastTarget = false;
+
+        lockText = UiFactory.CreateText("LockText", transform, font, 54f, new Color(0.85f, 0.85f, 0.88f), TextAlignmentOptions.Center);
+        lockText.fontStyle = FontStyles.Bold;
+        UiFactory.Stretch(lockText.rectTransform, Vector2.zero, Vector2.one);
+        lockText.raycastTarget = false;
+
+        lockShade.gameObject.SetActive(false);
+        lockText.gameObject.SetActive(false);
+        recommendLabel.gameObject.SetActive(false);
+    }
+
+    /// <summary>추천 테두리는 숨 쉬듯 빛나고, 잠긴 카드는 고르려 할 때 붉게 번쩍인다.</summary>
+    void AnimateAdvice()
+    {
+        if (recommended && goldInner != null)
+        {
+            float k = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * 4f);
+            Color inner = Gold; inner.a = 0.75f + 0.25f * k;
+            Color outer = Gold; outer.a = 0.18f + 0.3f * k;
+            goldInner.effectColor = inner;
+            goldOuter.effectColor = outer;
+            recommendLabel.alpha = 0.75f + 0.25f * k;
+        }
+
+        if (Locked && lockText != null)
+        {
+            lockFlash = Mathf.Max(0f, lockFlash - Time.unscaledDeltaTime * 1.2f);
+            lockText.color = Color.Lerp(new Color(0.85f, 0.85f, 0.88f), new Color(1f, 0.3f, 0.35f), lockFlash);
+            lockText.rectTransform.localScale = Vector3.one * (1f + 0.15f * lockFlash);
+            if (lockFlash <= 0f && lockText.text != LockedLine)
+                lockText.text = LockedLine;
+        }
     }
 
     /// <summary>성장폭이 큰 레벨의 간격. 1 · 4 · 7 · 10 … 이 특별 레벨이 된다.</summary>
@@ -712,6 +1038,29 @@ public class AugmentCardView : MonoBehaviour,
     readonly List<AugmentTag> sortedTags = new();
 
     /// <summary>칩을 가운데 정렬로 늘어놓는 줄. 칩 폭은 글자 길이를 따른다.</summary>
+    Vector2 tagRowHome;
+    bool tagRowHomeSaved;
+
+    /// <summary>
+    /// 분류 글자를 감출 때는 레이블 줄을 그 자리로 올린다. 빈 줄이 생기지 않게.
+    /// 처음 자리는 기억해 뒀다가 분류 글자를 다시 보일 때 되돌린다.
+    /// </summary>
+    void PlaceTagRow(bool intoCategorySlot)
+    {
+        if (tagRow == null || categoryText == null) return;
+
+        if (!tagRowHomeSaved)
+        {
+            tagRowHome = tagRow.anchoredPosition;
+            tagRowHomeSaved = true;
+        }
+
+        RectTransform cat = categoryText.rectTransform;
+        tagRow.anchoredPosition = intoCategorySlot
+            ? new Vector2(tagRowHome.x, cat.anchoredPosition.y - (cat.sizeDelta.y - tagRow.sizeDelta.y) * 0.5f)
+            : tagRowHome;
+    }
+
     RectTransform BuildTagRowBelow(RectTransform anchor)
     {
         RectTransform row = UiFactory.CreateRect("TagRow", anchor.parent);
@@ -762,6 +1111,21 @@ public class AugmentCardView : MonoBehaviour,
             chips[i].gameObject.SetActive(on);
             if (on) PaintChip(chips[i], sortedTags[i]);
         }
+
+        // 카드 안의 다른 글자·판보다 위에 그린다. 레이아웃도 지금 바로 잡는다 —
+        // 비활성 상태에서 채워진 카드는 칩 폭이 0인 채로 남을 수 있다
+        tagRow.gameObject.SetActive(sortedTags.Count > 0);
+        tagRow.SetAsLastSibling();
+        foreach (Image chip in chips)
+        {
+            if (!chip.gameObject.activeSelf) continue;
+            TMP_Text l = chip.GetComponentInChildren<TMP_Text>(true);
+            if (l == null) continue;
+            l.ForceMeshUpdate();
+            if (!chip.TryGetComponent(out LayoutElement le)) le = chip.gameObject.AddComponent<LayoutElement>();
+            le.minWidth = l.GetPreferredValues(l.text).x + tagPadding * 2f;
+        }
+        LayoutRebuilder.ForceRebuildLayoutImmediate(tagRow);
     }
 
     void PaintChip(Image chip, AugmentTag tag)

@@ -30,6 +30,30 @@ public class HalloweenBossShow : MonoBehaviour
     [SerializeField] Color neonCore = new(1f, 0.82f, 0.86f);
     [SerializeField] Color neonGlow = new(1f, 0.05f, 0.2f);
 
+    [Header("시작 연출")]
+    [Tooltip("처음 이 시간 동안은 원래 게임 모습(격자 배경·원래 BGM·몬스터 없음)이다.")]
+    [Min(0f)] [SerializeField] float introSeconds = 5f;
+
+    [Tooltip("시작 연출 동안 깔 원래 배경.")]
+    [SerializeField] GameObject originalBackground;
+
+    [SerializeField] AudioClip originalBgm;
+    [Range(0f, 1f)] [SerializeField] float originalBgmVolume = 0.4f;
+
+    [Tooltip("지지직 이후 시작되는 할로윈 BGM.")]
+    [SerializeField] AudioClip halloweenBgm;
+    [Range(0f, 1f)] [SerializeField] float halloweenBgmVolume = 0.5f;
+
+    [SerializeField] string introError = "ERROR CODE: SEIREN";
+    [SerializeField] string introMission = "세이렌을 처치하고\n먼작귀들을 되돌리시오";
+
+    [Header("컴파일 1분 경고")]
+    [Tooltip("보스가 나오기 이 초 전에 '1분 남음' 배너를 띄운다. 이때부터 몰림 웨이브가 시작된다.")]
+    [Min(0f)] [SerializeField] float compileWarnLead = 70f;
+
+    [SerializeField] string compileWarnTitle = "COMPILE TIME: 1 MINUTE LEFT";
+    [SerializeField] string compileWarnSub = "컴파일 종료까지 1분 — 버그가 쏟아진다";
+
     [Header("보스 체력바 · 페이즈")]
     [SerializeField] string bossName = "SIREN";
 
@@ -73,6 +97,7 @@ public class HalloweenBossShow : MonoBehaviour
     float bossAt = -1f;
     bool warned;
     bool announced;
+    bool compileWarned;
 
     GameObject overlay;
     TextMeshProUGUI title;
@@ -83,6 +108,7 @@ public class HalloweenBossShow : MonoBehaviour
 
     HalloweenBossBar bar;
     HalloweenBossPhase2 phase2;
+    HalloweenBugSwarm swarm;
     int phase;
     float bannerUntil = -1f;
 
@@ -95,6 +121,16 @@ public class HalloweenBossShow : MonoBehaviour
     Vector2 arenaMin, arenaMax;
     Rigidbody2D playerBody;
     float lastBump = -10f;
+
+    void Awake()
+    {
+        // 시작 연출. 배경과 같은 오브젝트에 붙어 배경 그림을 잠깐 숨긴다
+        if (introSeconds > 0f)
+            gameObject.AddComponent<HalloweenIntro>().Setup(
+                originalBackground, originalBgm, originalBgmVolume,
+                halloweenBgm, halloweenBgmVolume, introSeconds,
+                introError, introMission.Replace("\\n", "\n"));
+    }
 
     void Start()
     {
@@ -115,6 +151,14 @@ public class HalloweenBossShow : MonoBehaviour
         if (director == null) return;
 
         float now = director.Elapsed;
+
+        // 1분 경고 — 보스 경고와 겹치지 않을 때만
+        if (!compileWarned && bossAt > 0f && compileWarnLead > warnSeconds
+            && now >= bossAt - compileWarnLead && now < bossAt - warnSeconds - 3f)
+        {
+            compileWarned = true;
+            ShowBanner(compileWarnTitle, compileWarnSub, 3f);
+        }
 
         if (!warned && bossAt > 0f && now >= bossAt - warnSeconds && director.EndingBoss == null)
         {
@@ -147,6 +191,12 @@ public class HalloweenBossShow : MonoBehaviour
             BuildRing();
             CollectAllExp();
 
+            // 보스전엔 웨이브가 멈추고, 대신 "버그 소환" 기믹으로 무리가 몰려온다
+            var swarmGo = new GameObject("Halloween Bug Swarm");
+            swarmGo.transform.SetParent(transform, false);
+            swarm = swarmGo.AddComponent<HalloweenBugSwarm>();
+            swarm.Begin(boss, arenaMin, arenaMax, ringMaterial != null ? ringMaterial : MakeUnlitMaterial());
+
             phase = 1;
             var barGo = new GameObject("Halloween Boss Bar");
             barGo.transform.SetParent(transform, false);
@@ -166,6 +216,7 @@ public class HalloweenBossShow : MonoBehaviour
             ring = null;
             if (bar != null) Destroy(bar.gameObject);
             if (phase2 != null) Destroy(phase2.gameObject);
+            if (swarm != null) Destroy(swarm.gameObject);
             HideWarning();
             return;
         }
@@ -224,6 +275,7 @@ public class HalloweenBossShow : MonoBehaviour
         phase = 2;
 
         if (bar != null) bar.SetPhase(2);
+        if (swarm != null) swarm.SetPhase(2);
 
         // 2페이즈 그림(p2_)이 있으면 보스 모습이 바뀐다
         HalloweenSkin.SetPhase(boss, 2);
@@ -232,14 +284,19 @@ public class HalloweenBossShow : MonoBehaviour
         phase2 = go.AddComponent<HalloweenBossPhase2>();
         phase2.Begin(boss, ringMaterial != null ? ringMaterial : MakeUnlitMaterial());
 
-        // 경고와 같은 네온 글자로 배너
+        ShowBanner(phase2Title, phase2Sub, 2.2f);
+    }
+
+    /// <summary>경고와 같은 네온 글자로 잠깐 띄우는 배너.</summary>
+    void ShowBanner(string head, string sub, float seconds)
+    {
         HideWarning();
         ShowWarning();
-        title.text = phase2Title;
-        countdown.text = phase2Sub;
+        title.text = head;
+        countdown.text = sub;
         lastShown = 99;
         bumpTime = Time.unscaledTime;
-        bannerUntil = Time.unscaledTime + 2.2f;
+        bannerUntil = Time.unscaledTime + seconds;
     }
 
     /// <summary>
@@ -306,6 +363,10 @@ public class HalloweenBossShow : MonoBehaviour
 
         t.text = text;
         t.fontSize = size;
+        // 긴 문구(COMPILE TIME …)가 칸을 넘지 않게 글자를 줄인다
+        t.enableAutoSizing = true;
+        t.fontSizeMax = size;
+        t.fontSizeMin = size * 0.4f;
         t.fontStyle = FontStyles.Bold;
         t.alignment = TextAlignmentOptions.Center;
         t.color = neonCore;

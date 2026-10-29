@@ -160,6 +160,12 @@ public class Spawner : MonoBehaviour
         capSkipped = new int[stage.waves.Count];
     }
 
+    /// <summary>
+    /// 웨이브 스폰을 멈춘다. 보스전처럼 무대가 따로 몬스터를 내보내는 동안 켠다.
+    /// 이미 나온 적·재배치는 그대로 돈다.
+    /// </summary>
+    public bool WavesPaused { get; set; }
+
     void Update()
     {
         if (!RunDirector.IsPlaying) return;
@@ -169,6 +175,8 @@ public class Spawner : MonoBehaviour
 
         Recycle(dt);
         TickCapLog(dt);
+
+        if (WavesPaused) return;
 
         for (int i = 0; i < stage.waves.Count; i++)
         {
@@ -224,6 +232,67 @@ public class Spawner : MonoBehaviour
         alive.Add(go.transform);
 
         wave.Spawned++;
+    }
+
+    /// <summary>
+    /// 지금 나와 있는 일반 몬스터(움직이는 하수인)를 걷는다. 보스전 시작에 판을 비우는 용도.
+    /// 설치물과 보스는 남긴다. 경험치는 안 떨어진다 — 직전에 맵의 경험치를 몰아주므로.
+    /// </summary>
+    public void ClearMinions()
+    {
+        for (int i = alive.Count - 1; i >= 0; i--)
+        {
+            Transform t = alive[i];
+            if (t == null) { alive.RemoveAt(i); continue; }
+            if (!t.gameObject.activeInHierarchy) continue;
+            if (!t.TryGetComponent(out Enemy e) || !e.IsAlive || e.IsStationary || !e.IsMinion) continue;
+
+            t.gameObject.SetActive(false);
+            alive.RemoveAt(i);
+        }
+    }
+
+    /// <summary>
+    /// 한 자리에 무리를 지어 내보낸다(보스전 "버그 소환"). 동시 생존 상한은 무시한다 — 기믹이라 반드시 나와야 한다.
+    /// 어떤 적이 나올지는 지금 시각에 돌던(혹은 마지막으로 돌았던) 움직이는 웨이브 중에서 고른다.
+    /// 그 웨이브 번호로 새겨 두므로 잡으면 그 웨이브의 경험치가 떨어진다.
+    /// </summary>
+    /// <returns>실제로 내보낸 수.</returns>
+    public int SpawnSwarm(Vector2 center, float radius, int count)
+    {
+        if (stage == null || count <= 0 || GameManager.instance == null) return 0;
+
+        // 후보: 움직이는 적을 내는 웨이브. 지금 이미 시작한 것만(소개만 하고 안 나온 적이 튀어나오지 않게)
+        float now = RunDirector.RunTime;
+        var pool = new List<int>();
+        for (int i = 0; i < stage.waves.Count; i++)
+        {
+            StageWave w = stage.waves[i];
+            if (w == null || !w.IsValid || w.enemy.stationary) continue;
+            if (w.startAt > now) continue;
+            pool.Add(i);
+        }
+        if (pool.Count == 0) return 0;
+
+        int index = pool[Random.Range(0, pool.Count)];
+        StageWave wave = stage.waves[index];
+
+        int made = 0;
+        for (int i = 0; i < count; i++)
+        {
+            GameObject go = GameManager.instance.poolManager.Get(wave.enemy.prefab, PoolType.Enemy);
+            if (go == null) break;
+
+            go.transform.position = center + Random.insideUnitCircle * radius;
+            Physics2D.SyncTransforms();
+
+            if (go.TryGetComponent(out Enemy enemy)) enemy.Init(wave.enemy, wave.Scale, index);
+
+            alive.Add(go.transform);
+            made++;
+        }
+
+        return made;
     }
 
     /// <summary>

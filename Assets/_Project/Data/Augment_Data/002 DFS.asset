@@ -19,7 +19,7 @@ MonoBehaviour:
   category: 0
   exclusiveTo: {fileID: 0}
   tags: 010000000b00000014000000
-  icon: {fileID: 21300000, guid: 592a767333157fd479f112ae2afab20a, type: 3}
+  icon: {fileID: -2357013512876563501, guid: a94ddf7d9932b4858a4ca326512ef032, type: 3}
   descriptionTemplate: "\uBB34\uC791\uC704 \uBC29\uD5A5\uC73C\uB85C DFS\uB97C \uBC1C\uC0AC\uD55C\uB2E4.\n\uC801\uC911
     \uB300\uC0C1\uBD80\uD130 \uAE4A\uAC8C \uC801\uC744 \uD0D0\uC0C9\uD55C\uB2E4.\n\uD0D0\uC0C9
     \uB300\uC0C1\uC740 \uCD94\uAC00 \uD53C\uD574\uB97C \uBC1B\uB294\uB2E4.\n\uCD94\uAC00
@@ -37,9 +37,9 @@ MonoBehaviour:
   levelStats:
   - damage: 0
     effectDamage: 0.2
-    cooldown: 7
+    cooldown: 4.5
     range: 12
-    effectRange: 14
+    effectRange: 18
     count: 0
     pierce: 0
     duration: 0
@@ -47,9 +47,9 @@ MonoBehaviour:
     depth: 0
   - damage: 0
     effectDamage: 0.2
-    cooldown: 6.9
+    cooldown: 4.4
     range: 12.5
-    effectRange: 14.5
+    effectRange: 18.5
     count: 0
     pierce: 0
     duration: 0
@@ -57,9 +57,9 @@ MonoBehaviour:
     depth: 0
   - damage: 0
     effectDamage: 0.2
-    cooldown: 6.8
+    cooldown: 4.2
     range: 13
-    effectRange: 15
+    effectRange: 19
     count: 0
     pierce: 0
     duration: 0
@@ -67,9 +67,9 @@ MonoBehaviour:
     depth: 0
   - damage: 0
     effectDamage: 0.3
-    cooldown: 6.7
+    cooldown: 4
     range: 13.5
-    effectRange: 15.5
+    effectRange: 20
     count: 0
     pierce: 0
     duration: 0
@@ -77,9 +77,9 @@ MonoBehaviour:
     depth: 0
   - damage: 0
     effectDamage: 0.3
-    cooldown: 6.6
+    cooldown: 3.8
     range: 14
-    effectRange: 16
+    effectRange: 20.5
     count: 0
     pierce: 0
     duration: 0
@@ -87,9 +87,9 @@ MonoBehaviour:
     depth: 0
   - damage: 0
     effectDamage: 0.3
-    cooldown: 6.5
+    cooldown: 3.6
     range: 14
-    effectRange: 16.5
+    effectRange: 21
     count: 0
     pierce: 0
     duration: 0
@@ -97,9 +97,9 @@ MonoBehaviour:
     depth: 0
   - damage: 0
     effectDamage: 0.5
-    cooldown: 6.4
+    cooldown: 3.2
     range: 15
-    effectRange: 17
+    effectRange: 22
     count: 0
     pierce: 0
     duration: 0
@@ -157,6 +157,12 @@ MonoBehaviour:
           turnSpeed: 90
           seekRadius: 0
           retargetInterval: 0.3
+        wave:
+          amplitude: 0
+          frequency: 2.5
+          rampIn: 0.15
+          mirrorPerShot: 1
+          randomPhase: 0
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -232,6 +238,12 @@ MonoBehaviour:
           turnSpeed: 0
           seekRadius: 0
           retargetInterval: 0.15
+        wave:
+          amplitude: 0
+          frequency: 2.5
+          rampIn: 0.15
+          mirrorPerShot: 1
+          randomPhase: 0
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1

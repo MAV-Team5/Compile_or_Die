@@ -31,6 +31,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.1015625
+      y: 0.05078125
+      width: 0.796875
+      height: 0.8984375
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -58,6 +65,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.05078125
+      y: 0.16796875
+      width: 0.8984375
+      height: 0.66796875
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -88,6 +102,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.05078125
+      y: 0.10546875
+      width: 0.8984375
+      height: 0.79296875
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -117,6 +138,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.12890625
+      y: 0.05078125
+      width: 0.7421875
+      height: 0.8984375
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -146,6 +174,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.07421875
+      y: 0.05078125
+      width: 0.85546875
+      height: 0.8984375
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -170,6 +205,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.05078125
+      y: 0.1015625
+      width: 0.8984375
+      height: 0.80078125
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -194,6 +236,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.05078125
+      y: 0.08984375
+      width: 0.8984375
+      height: 0.82421875
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -220,6 +269,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.05078125
+      y: 0.21484375
+      width: 0.8984375
+      height: 0.57421875
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -251,6 +307,13 @@ MonoBehaviour:
     phase2Attack: []
     phase2Charge:
     - {fileID: 21300000, guid: 64914d7b89d614d529df3509fb29212e, type: 3}
+    idleContent:
+      serializedVersion: 2
+      x: 0.12109375
+      y: 0.05078125
+      width: 0.76171875
+      height: 0.8984375
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -279,6 +342,13 @@ MonoBehaviour:
     phase2Hit: []
     phase2Attack: []
     phase2Charge: []
+    idleContent:
+      serializedVersion: 2
+      x: 0.12109375
+      y: 0.05078125
+      width: 0.7578125
+      height: 0.8984375
+    hitboxFit: 0.9
     fps: 8
     sizeMultiplier: 1
     bounce: 1

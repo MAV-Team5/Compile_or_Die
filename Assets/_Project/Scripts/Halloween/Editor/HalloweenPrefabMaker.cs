@@ -31,7 +31,7 @@ public static class HalloweenPrefabMaker
     const float HalfHealth = 0.5f;
 
     /// <summary>할로윈 보스의 체력 배율(원본 대비).</summary>
-    const float BossHealth = 2f;
+    const float BossHealth = 4f;
 
     const string EnemyDataRoot = "Assets/_Project/Data/Enemy_Data";
     const string DataDir = EnemyDataRoot + "/Halloween";
@@ -624,6 +624,11 @@ public static class HalloweenPrefabMaker
             showSo.FindProperty("ringMaterial").objectReferenceValue = RingMaterial();
             showSo.FindProperty("collectOnBoss").objectReferenceValue =
                 AssetDatabase.LoadAssetAtPath<AugmentData>("Assets/_Project/Data/Augment_Data/Item/GC.asset");
+            showSo.FindProperty("originalBackground").objectReferenceValue =
+                AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/UI_Prefabs/Background1.prefab");
+            showSo.FindProperty("originalBgm").objectReferenceValue =
+                AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/_Project/Art/Audio/bgm/2Fresh Machine.wav");
+            showSo.FindProperty("halloweenBgm").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>(BgmPath);
             showSo.ApplyModifiedPropertiesWithoutUndo();
 
             var bg = go.AddComponent<HalloweenBackground>();
@@ -719,6 +724,57 @@ public static class HalloweenPrefabMaker
         });
 
         Debug.Log("[Halloween] 결과 씬 배경음을 평소 곡으로 되돌림");
+    }
+
+    const string NeonIconDir = "Assets/_Project/Art/Augment/Neon";
+
+    /// <summary>
+    /// Tools/neon_icons.py 로 만든 네온 아이콘을 들여와 모든 증강에 물린다.
+    /// 파일 이름은 Neon_&lt;증강 id&gt;.png (콜론은 밑줄). 맞는 파일이 없는 증강은 원래 아이콘을 둔다.
+    /// </summary>
+    public static void AssignNeonIcons()
+    {
+        if (!AssetDatabase.IsValidFolder(NeonIconDir))
+        {
+            Debug.LogWarning($"[Halloween] {NeonIconDir} 가 없다. 먼저 Tools/neon_icons.py 를 돌릴 것.");
+            return;
+        }
+
+        foreach (string guid in AssetDatabase.FindAssets("t:Texture2D", new[] { NeonIconDir }))
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            if (AssetImporter.GetAtPath(path) is not TextureImporter ti) continue;
+
+            bool dirty = ti.textureType != TextureImporterType.Sprite || ti.mipmapEnabled || !ti.alphaIsTransparency;
+            ti.textureType = TextureImporterType.Sprite;
+            ti.spriteImportMode = SpriteImportMode.Single;
+            ti.mipmapEnabled = false;
+            ti.alphaIsTransparency = true;
+            ti.maxTextureSize = 512;
+            ti.textureCompression = TextureImporterCompression.CompressedHQ;
+            if (dirty) ti.SaveAndReimport();
+        }
+
+        int set = 0;
+        var missing = new List<string>();
+
+        foreach (string guid in AssetDatabase.FindAssets("t:AugmentData", new[] { "Assets/_Project/Data/Augment_Data" }))
+        {
+            var data = AssetDatabase.LoadAssetAtPath<AugmentData>(AssetDatabase.GUIDToAssetPath(guid));
+            string key = AugmentPalette.IconKey(data);
+            if (key == null) continue;
+
+            var icon = AssetDatabase.LoadAssetAtPath<Sprite>($"{NeonIconDir}/Neon_{key}.png");
+            if (icon == null) { missing.Add(data.name); continue; }
+            if (data.icon == icon) continue;
+
+            data.icon = icon;
+            EditorUtility.SetDirty(data);
+            set++;
+        }
+
+        AssetDatabase.SaveAssets();
+        Debug.Log($"[Halloween] 네온 아이콘 {set}개 교체. 아이콘 파일 없는 증강: {string.Join(", ", missing)}");
     }
 
     static void ApplyBackground(StageData stage)
@@ -889,6 +945,9 @@ static class HalloweenPrefabMakerRequest
     /// <summary>있으면 메뉴 배경음을 끈다.</summary>
     const string MenuRequestPath = "Temp/hw_menu.request";
 
+    /// <summary>있으면 네온 아이콘을 들여와 증강에 물린다.</summary>
+    const string IconRequestPath = "Temp/hw_icons.request";
+
     /// <summary>요청 파일을 확인하는 간격(초). 컴파일 직후뿐 아니라 평소에도 본다 — 코드 변경 없이 요청만 와도 처리되게.</summary>
     const double PollEvery = 2.0;
     static double nextPoll;
@@ -908,7 +967,7 @@ static class HalloweenPrefabMakerRequest
 
     static void Check()
     {
-        if (!File.Exists(RequestPath) && !File.Exists(BgmVolumePath) && !File.Exists(BrightPath) && !File.Exists(EndingRequestPath) && !File.Exists(BgRequestPath) && !File.Exists(BossRequestPath) && !File.Exists(SpotRequestPath) && !File.Exists(MenuRequestPath)) return;
+        if (!File.Exists(RequestPath) && !File.Exists(BgmVolumePath) && !File.Exists(BrightPath) && !File.Exists(EndingRequestPath) && !File.Exists(BgRequestPath) && !File.Exists(BossRequestPath) && !File.Exists(SpotRequestPath) && !File.Exists(MenuRequestPath) && !File.Exists(IconRequestPath)) return;
 
         // 플레이 중이면 끝날 때까지 미룬다
         // 플레이·컴파일 중이면 미룬다. Poll 이 계속 다시 본다
@@ -919,6 +978,12 @@ static class HalloweenPrefabMakerRequest
         {
             File.Delete(RequestPath);
             HalloweenPrefabMaker.Make();
+        }
+
+        if (File.Exists(IconRequestPath))
+        {
+            File.Delete(IconRequestPath);
+            HalloweenPrefabMaker.AssignNeonIcons();
         }
 
         if (File.Exists(MenuRequestPath))

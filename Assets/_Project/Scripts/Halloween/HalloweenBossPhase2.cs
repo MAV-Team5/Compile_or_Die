@@ -21,20 +21,22 @@ public class HalloweenBossPhase2 : MonoBehaviour
     const float LaserSpin = 18f;         // 시계방향 회전 속도(도/초)
     const float LaserWarmup = 2f;        // 경고선만 보이는 시간
     const float LaserWidth = 1.1f;       // 판정·그림 굵기
-    const float LaserDps = 35f;          // 닿아 있는 동안 초당 피해
+    const float LaserDps = 15f;          // 닿아 있는 동안 초당 피해
     const float LaserTick = 0.2f;
     const int LaserPoints = 48;          // 한 줄의 꺾임 수 — 많을수록 지글거림이 촘촘하다
     const float LaserJitter = 0.55f;     // 지글거림 폭
     const float LaserJitterEvery = 0.04f;
 
     // ── 물결 ──
-    const float BandWidth = 4.5f;        // 띠 하나의 폭(유닛)
-    const float StepTime = 0.65f;        // 한 걸음(띠가 한 칸 퍼지는) 시간
-    const float StepGrace = 0.12f;       // 걸음이 바뀐 직후 판정을 미루는 시간 — 바뀐 걸 보고 피할 틈
+    const float BandWidth = 9f;          // 띠 하나의 폭(유닛)
+    // 한 걸음(띠가 한 칸 퍼지는) 시간. 걸음 속도 3 이면 띠 하나(9)를 걸어서 건너는 데 3초 —
+    // 대시(6)를 섞어야 다음 걸음 전에 옮길 수 있게 2초로 둔다
+    const float StepTime = 2f;
+    const float StepGrace = 0.25f;       // 걸음이 바뀐 직후 판정을 미루는 시간 — 바뀐 걸 보고 피할 틈
     const float WaveRadius = 60f;        // 이 반경까지 퍼지면 그 물결은 끝
     const float WaveRest = 3.5f;         // 물결과 물결 사이 쉬는 시간
     const float FirstWaveDelay = 2.5f;   // 2페이즈 시작 후 첫 물결까지
-    const float WaveDamage = 18f;        // 켜진 띠에 있으면 걸음마다 한 번
+    const float WaveDamage = 8f;         // 켜진 띠에 있으면 걸음마다 한 번
     const int CircleSegments = 72;
 
     static readonly Color LaserCore = new(0.85f, 1f, 1f, 1f);

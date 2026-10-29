@@ -18,9 +18,12 @@ MonoBehaviour:
   displayName: Bubble sort
   category: 1
   exclusiveTo: {fileID: 0}
-  tags: 
-  icon: {fileID: 21300000, guid: f94ec73c3b9b2384c99e599204563428, type: 3}
-  descriptionTemplate: 
+  tags: 00000000020000000b00000017000000
+  icon: {fileID: 7894876611382527228, guid: df16a621c268040bc8d49b71c6f11c7c, type: 3}
+  descriptionTemplate: "\uAC70\uD488\uC744 \uB358\uC838 \uB5A8\uC5B4\uC9C4 \uC790\uB9AC\uC758
+    \uC801\uC744 \uB04C\uC5B4\uBAA8\uC740\uB2E4.\n\uBAA8\uC778 \uC801\uC744 \uCCB4\uB825\uC774
+    \uB192\uC740 \uC21C\uC73C\uB85C \uCC28\uB840\uCC28\uB840 \uD295\uACA8 \uBCF4\uB0B8\uB2E4.\n\uD53C\uD574\uB7C9\t:
+    {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC94\uC704\t: {effectRange}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
@@ -35,7 +38,67 @@ MonoBehaviour:
     effectDamage: 0
     cooldown: 4
     range: 12
-    effectRange: 1
+    effectRange: 1.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 1.3
+    effectDamage: 0
+    cooldown: 3.9
+    range: 12
+    effectRange: 1.6
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 1.6
+    effectDamage: 0
+    cooldown: 3.8
+    range: 12
+    effectRange: 1.7
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 2.5
+    effectDamage: 0
+    cooldown: 3.4
+    range: 12
+    effectRange: 2.2
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 3
+    effectDamage: 0
+    cooldown: 3.3
+    range: 12
+    effectRange: 2.3
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 3.5
+    effectDamage: 0
+    cooldown: 3.2
+    range: 12
+    effectRange: 2.4
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
+  - damage: 4.5
+    effectDamage: 0
+    cooldown: 2.8
+    range: 12
+    effectRange: 3
     count: 0
     pierce: 0
     duration: 0

@@ -131,6 +131,10 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
 
         GameObject go = PooledSpawner.Spawn(projectilePrefab, origin, PoolType.Bullet);
 
+        // 증강 고유색 네온 꼬리 — 섞여 날아가도 색으로 구분된다
+        if (go != null && ctx.Instance != null && AugmentPalette.TryGet(ctx.Instance.Data, out Color trailColor))
+            NeonTrail.Attach(go, AugmentTint.Neon(trailColor));
+
         // 비행 거리는 타겟팅이 정한 사거리를 따른다. 좁게 탐색했으면 투사체도 짧게 난다
         float travel = travelRange.Of(ctx.EffectiveRange);
 

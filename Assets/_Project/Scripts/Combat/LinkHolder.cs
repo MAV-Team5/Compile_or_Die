@@ -125,6 +125,9 @@ public class LinkHolder : MonoBehaviour
             return go;
         }
 
+        // 바깥에 네온 빛을 한 겹 덧씌운다. 풀에서 다시 나와도 한 번만 붙는다
+        if (!line.TryGetComponent(out NeonLinkGlow _)) line.gameObject.AddComponent<NeonLinkGlow>();
+
         // 로컬 좌표로 두면 선이 부모를 따라 엉뚱한 곳에 그려진다
         line.useWorldSpace = true;
         line.positionCount = 2;

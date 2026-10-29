@@ -22,8 +22,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 625f62017c14d8841adf974cdb50589a, type: 2}
   - {fileID: 11400000, guid: 279b3aaac3266c64fbd76452b6ce4449, type: 2}
   - {fileID: 11400000, guid: e3ce78612d913fa4cb8885c26e1b829b, type: 2}
-  - {fileID: 11400000, guid: 2e1d1d8a3fe755c4dbf8c5944a953fc3, type: 2}
   - {fileID: 11400000, guid: 56cd1d031f88365418fd3e8fc63854f6, type: 2}
-  - {fileID: 11400000, guid: c00e58b645489cc48811d93dc5ae7350, type: 2}
   ticketsPerLevel: 1
   logTickets: 0

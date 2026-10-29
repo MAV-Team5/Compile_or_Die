@@ -41,6 +41,9 @@ public static class PooledSpawner
 
         EnsureParticleReplay(go);
 
+        // 증강이 낸 이펙트면 그 증강 아이콘 색으로 칠한다
+        AugmentTint.OnSpawn(go);
+
         return go;
     }
 

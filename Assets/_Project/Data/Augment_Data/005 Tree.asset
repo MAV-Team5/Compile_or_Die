@@ -19,7 +19,7 @@ MonoBehaviour:
   category: 2
   exclusiveTo: {fileID: 0}
   tags: 030000000b0000001c00000014000000
-  icon: {fileID: 21300000, guid: 67835cfed21f2c2439facf91d12f898f, type: 3}
+  icon: {fileID: -9047869359837480176, guid: 79ac56c4f4c7b417391188d8957fe68a, type: 3}
   descriptionTemplate: "\uBB34\uC791\uC704 \uBC29\uD5A5\uC73C\uB85C \uD2B8\uB9AC
     \uD22C\uC0AC\uCCB4\uB97C \uBC1C\uC0AC\uD55C\uB2E4.\n\uB300\uC0C1\uC740 \uB8E8\uD2B8
     \uB178\uB4DC\uAC00 \uB418\uC5B4 \uC790\uC2DD \uB178\uB4DC\uB97C \uCC3E\uC544
@@ -42,7 +42,7 @@ MonoBehaviour:
     effectDamage: 0.5
     cooldown: 2
     range: 8
-    effectRange: 6
+    effectRange: 8
     count: 2
     pierce: 0
     duration: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     effectDamage: 0.5
     cooldown: 2
     range: 8.5
-    effectRange: 6.5
+    effectRange: 8.5
     count: 2
     pierce: 0
     duration: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
     effectDamage: 0.5
     cooldown: 2
     range: 9
-    effectRange: 7
+    effectRange: 9
     count: 2
     pierce: 0
     duration: 0
@@ -72,7 +72,7 @@ MonoBehaviour:
     effectDamage: 0.5
     cooldown: 1.6
     range: 10
-    effectRange: 8
+    effectRange: 10
     count: 3
     pierce: 0
     duration: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
     effectDamage: 0.5
     cooldown: 1.6
     range: 10.5
-    effectRange: 8.5
+    effectRange: 10.5
     count: 3
     pierce: 0
     duration: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
     effectDamage: 0.5
     cooldown: 1.6
     range: 11
-    effectRange: 9
+    effectRange: 11
     count: 3
     pierce: 0
     duration: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
     effectDamage: 0.5
     cooldown: 1.4
     range: 11.5
-    effectRange: 9.5
+    effectRange: 12
     count: 3
     pierce: 0
     duration: 0
@@ -157,6 +157,12 @@ MonoBehaviour:
           turnSpeed: 90
           seekRadius: 0
           retargetInterval: 0.15
+        wave:
+          amplitude: 0
+          frequency: 2.5
+          rampIn: 0.15
+          mirrorPerShot: 1
+          randomPhase: 0
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1
@@ -292,6 +298,12 @@ MonoBehaviour:
           turnSpeed: 90
           seekRadius: 10
           retargetInterval: 0.15
+        wave:
+          amplitude: 0
+          frequency: 2.5
+          rampIn: 0.15
+          mirrorPerShot: 1
+          randomPhase: 0
         launchFx:
           vfx: {fileID: 6824073935605403827, guid: e8a9423f0e21a4504b6ebb1dff3e8724, type: 3}
           vfxScale: 0

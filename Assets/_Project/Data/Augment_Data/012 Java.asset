@@ -18,9 +18,11 @@ MonoBehaviour:
   displayName: Java
   category: 3
   exclusiveTo: {fileID: 0}
-  tags: 
-  icon: {fileID: 21300000, guid: 0e0d942ec3a734dc1adb439d211d4d5e, type: 3}
-  descriptionTemplate: 
+  tags: 000000000b0000001e000000
+  icon: {fileID: -4056386059267600091, guid: 06431c36305624240af8b1213555ed91, type: 3}
+  descriptionTemplate: "JVM \uC744 \uC18C\uD658\uD574 \uD568\uAED8 \uC2F8\uC6B4\uB2E4.\n\uC18C\uD658
+    \uC218\t: {count}\n\uC720\uC9C0 \uC2DC\uAC04\t: {duration}\n\uCFE8\uD0C0\uC784\t:
+    {cooldown}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
@@ -33,12 +35,72 @@ MonoBehaviour:
   levelStats:
   - damage: 0
     effectDamage: 0
-    cooldown: 0
+    cooldown: 12
     range: 0
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
-    duration: 0
+    duration: 8
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 11.5
+    range: 0
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 8
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 11
+    range: 0
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 9
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 10
+    range: 0
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 10
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 9.5
+    range: 0
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 10
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 9
+    range: 0
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 11
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 8
+    range: 0
+    effectRange: 0
+    count: 3
+    pierce: 0
+    duration: 12
     speed: 0
     depth: 0
   trigger:
