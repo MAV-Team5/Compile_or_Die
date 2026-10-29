@@ -19,7 +19,7 @@ MonoBehaviour:
   category: 3
   exclusiveTo: {fileID: 0}
   tags: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 966f5024edc48433bbb7e52c55e7c37e, type: 3}
   descriptionTemplate: 
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
@@ -31,15 +31,15 @@ MonoBehaviour:
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
-  - damage: 0
-    effectDamage: 0
-    cooldown: 0
-    range: 0
+  - damage: 2
+    effectDamage: 1
+    cooldown: 8
+    range: 20
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
     duration: 0
-    speed: 0
+    speed: 5
     depth: 0
   trigger:
     rid: 4357681862757580913
@@ -50,6 +50,7 @@ MonoBehaviour:
   effects:
   - rid: 4357681862757580916
   - rid: 4357681862757580917
+  - rid: 4357681907096354917
   instantEffect: 0
   instantValue: 0
   instantDuration: 0
@@ -81,39 +82,45 @@ MonoBehaviour:
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
-        projectilePrefab: {fileID: 0}
+        projectilePrefab: {fileID: 6824073935605403827, guid: 28fbf0bcbfb038547b475b09316e4149, type: 3}
         speed: 0
         pierce:
-          value: 0
+          value: 99
           scale: 1
           offset: 0
         travelRange:
           value: 0
-          scale: 1.2
+          scale: 5
           offset: 0
-        lifetime: 3
+        lifetime: 10
         oneHitPerTarget: 0
         dieWithOrigin: 1
         homing:
           turnSpeed: 240
-          seekRadius: 6
+          seekRadius: 15
           retargetInterval: 0.2
+        wave:
+          amplitude: 0.3
+          frequency: 1.6
+          rampIn: 0.15
+          mirrorPerShot: 1
+          randomPhase: 0
         launchFx:
-          vfx: {fileID: 0}
+          vfx: {fileID: 4354405111321551884, guid: e5b683a0164121f4681ed9dcd8c9d326, type: 3}
           vfxScale: 1
           scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-          attachToSource: 0
+          attachToSource: 1
           motionParameter: 
           motionValue: 1
         multiShot:
           shotsPerTarget:
             value: 0
-            scale: 1
+            scale: 2
             offset: 0
           formation: 0
-          spacing: 0.4
+          spacing: 0
           spreadPerShot: 0
     - rid: 4357681862757580916
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
@@ -154,3 +161,9 @@ MonoBehaviour:
           attachToSource: 0
           motionParameter: 
           motionValue: 1
+    - rid: 4357681907096354917
+      type: {class: VfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        vfxPrefab: {fileID: 4354405111321551884, guid: 85e4e13595e7a6e49a5a47b08f1610ae, type: 3}
+        anchor: 1
+        scale: 1

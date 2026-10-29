@@ -41,13 +41,30 @@ public class AugmentProjectile : MonoBehaviour
     Transform chase;
     float retargetRemain;
 
-    void Awake() => TryGetComponent(out thread);
+    // ── 웨이브 ──
+    Wave wave;
+    /// <summary>흔들림 없는 중심선 위치. 유도·사거리는 이 기준이다.</summary>
+    Vector2 spine;
+    float wavePhase;
+    float waveSign;
+    float waveAge;
+
+    TrailRenderer[] trails;
+    VolleySkin skin;
+
+    void Awake()
+    {
+        TryGetComponent(out thread);
+        TryGetComponent(out skin);
+        trails = GetComponentsInChildren<TrailRenderer>(true);
+    }
 
     public void Launch(Vector2 direction, float speed, float lifetime, float maxDistance,
                        int pierce, LayerMask mask, Transform ignoreTarget,
                        System.Action<HitInfo> callback,
                        Homing homingSetting = null, Transform launchTarget = null,
-                       HashSet<Transform> volleyHits = null, bool endWithOrigin = false)
+                       HashSet<Transform> volleyHits = null, bool endWithOrigin = false,
+                       Wave waveSetting = null, int shotIndex = 0)
     {
         // 쏘기도 전에 원점이 죽었으면 따라갈 것이 없다. 좌표는 이미 잡혔으므로 그냥 놓아준다.
         //
@@ -84,6 +101,17 @@ public class AugmentProjectile : MonoBehaviour
 
         transform.up = direction;
 
+        spine = transform.position;
+        wave = waveSetting != null && waveSetting.Enabled ? waveSetting : null;
+        waveAge = 0f;
+        waveSign = wave != null && wave.mirrorPerShot && shotIndex % 2 == 1 ? -1f : 1f;
+        wavePhase = wave != null && wave.randomPhase ? Random.Range(0f, Mathf.PI * 2f) : 0f;
+
+        if (skin != null) skin.Apply(shotIndex);
+
+        // 풀에서 꺼낸 투사체는 지난 자리에서부터 꼬리가 이어져 보인다
+        foreach (TrailRenderer trail in trails) trail.Clear();
+
         // 실은 발사 자리를 알아야 한다. 풀에서 꺼낼 때 스스로는 못 잡는다
         if (thread != null) thread.Begin(transform.position, ignoreTarget);
     }
@@ -102,13 +130,36 @@ public class AugmentProjectile : MonoBehaviour
 
         if (homing != null) Steer(dt);
 
-        transform.position += (Vector3)(velocity * dt);
+        spine += velocity * dt;
+        Move(dt);
 
         // 사거리와 수명 중 먼저 닿는 쪽에서 소멸
         travelRemain -= speed * dt;
         lifeRemain   -= dt;
 
         if (travelRemain <= 0f || lifeRemain <= 0f) Despawn();
+    }
+
+    /// <summary>중심선에 좌우 흔들림을 얹어 실제 위치를 정한다. 머리는 실제로 움직인 방향을 본다.</summary>
+    void Move(float dt)
+    {
+        if (wave == null)
+        {
+            transform.position = spine;
+            return;
+        }
+
+        waveAge += dt;
+        wavePhase += Mathf.PI * 2f * wave.frequency * dt;
+
+        float ramp = wave.rampIn > 0f ? Mathf.Clamp01(waveAge / wave.rampIn) : 1f;
+        Vector2 side = new(-heading.y, heading.x);
+        Vector2 next = spine + side * (wave.amplitude * ramp * Mathf.Sin(wavePhase) * waveSign);
+
+        Vector2 moved = next - (Vector2)transform.position;
+        transform.position = next;
+
+        if (moved.sqrMagnitude > 0.000001f) transform.up = moved;
     }
 
     /// <summary>목표 쪽으로 조금씩 방향을 튼다. 속력은 그대로 유지된다.</summary>
@@ -126,7 +177,7 @@ public class AugmentProjectile : MonoBehaviour
 
         if (chase == null || !chase.gameObject.activeInHierarchy) return;
 
-        Vector2 toTarget = (Vector2)chase.position - (Vector2)transform.position;
+        Vector2 toTarget = (Vector2)chase.position - spine;
         if (toTarget.sqrMagnitude < 0.0001f) return;
 
         heading = Vector3.RotateTowards(
@@ -176,6 +227,7 @@ public class AugmentProjectile : MonoBehaviour
         dieWithOrigin = false;
         homing = null;
         chase = null;
+        wave = null;
         velocity = Vector2.zero;
 
         // 공용 집합은 형제들이 아직 쓰고 있으니 비우면 안 된다

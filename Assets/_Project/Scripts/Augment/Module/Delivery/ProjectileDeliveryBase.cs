@@ -44,6 +44,9 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     [Fold("유도")]
     public Homing homing = new();
 
+    [Fold("웨이브", "S자 비행")]
+    public Wave wave = new();
+
     [Fx("발사 연출", "발사 원점")]
     public FxGroup launchFx = new();
 
@@ -103,7 +106,7 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
                 ? direction
                 : Rotate(direction, lane * anglePerShot);
 
-            Fire(ctx, spawn, aim, onHit, launchTarget, volley);
+            Fire(ctx, spawn, aim, onHit, launchTarget, volley, i);
         }
     }
 
@@ -113,7 +116,7 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
     /// </summary>
     protected void Fire(AugmentContext ctx, Vector2 origin, Vector2 direction,
                         System.Action<HitInfo> onHit, Transform launchTarget = null,
-                        HashSet<Transform> volley = null)
+                        HashSet<Transform> volley = null, int shotIndex = 0)
     {
         float flightSpeed = speed > 0f ? speed : ctx.Stat.speed;
 
@@ -135,6 +138,6 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
         go.GetComponent<AugmentProjectile>()
           .Launch(direction, flightSpeed, lifetime, travel,
                   hits, TargetQuery.Mask, ctx.Owner, onHit, homing, launchTarget, volley,
-                  dieWithOrigin);
+                  dieWithOrigin, wave, shotIndex);
     }
 }

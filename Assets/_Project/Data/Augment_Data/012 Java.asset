@@ -19,7 +19,7 @@ MonoBehaviour:
   category: 3
   exclusiveTo: {fileID: 0}
   tags: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0e0d942ec3a734dc1adb439d211d4d5e, type: 3}
   descriptionTemplate: 
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
