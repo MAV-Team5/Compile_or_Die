@@ -19,7 +19,7 @@ MonoBehaviour:
   category: 1
   exclusiveTo: {fileID: 0}
   tags: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 23d3842c9e1aa1f419e7b9614253b22c, type: 3}
   descriptionTemplate: 
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
@@ -91,6 +91,12 @@ MonoBehaviour:
           turnSpeed: 240
           seekRadius: 6
           retargetInterval: 0.2
+        wave:
+          amplitude: 0
+          frequency: 2.5
+          rampIn: 0.15
+          mirrorPerShot: 1
+          randomPhase: 0
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1

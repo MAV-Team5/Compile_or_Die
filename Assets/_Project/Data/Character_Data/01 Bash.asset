@@ -22,5 +22,4 @@ MonoBehaviour:
   pickupRange: 4
   startingAugments:
   - {fileID: 11400000, guid: 8ffff619ae28a7a41bc532b18b6c2961, type: 2}
-  - {fileID: 11400000, guid: 56cd1d031f88365418fd3e8fc63854f6, type: 2}
   extraStartRounds: 0

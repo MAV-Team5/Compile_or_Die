@@ -41,6 +41,11 @@ public class AugmentProjectile : MonoBehaviour
     Transform chase;
     float retargetRemain;
 
+    // ── 목표까지 관통 ──
+    /// <summary>겨냥한 대상. 여기 닿은 적중만 IsAimed 로 표시된다.</summary>
+    Transform aim;
+    bool stopAtAim;
+
     // ── 웨이브 ──
     Wave wave;
     /// <summary>흔들림 없는 중심선 위치. 유도·사거리는 이 기준이다.</summary>
@@ -64,7 +69,8 @@ public class AugmentProjectile : MonoBehaviour
                        System.Action<HitInfo> callback,
                        Homing homingSetting = null, Transform launchTarget = null,
                        HashSet<Transform> volleyHits = null, bool endWithOrigin = false,
-                       Wave waveSetting = null, int shotIndex = 0)
+                       Wave waveSetting = null, int shotIndex = 0,
+                       bool pierceToTarget = false)
     {
         // 쏘기도 전에 원점이 죽었으면 따라갈 것이 없다. 좌표는 이미 잡혔으므로 그냥 놓아준다.
         //
@@ -89,7 +95,11 @@ public class AugmentProjectile : MonoBehaviour
         velocity     = heading * speed;
         lifeRemain   = lifetime;
         travelRemain = maxDistance;
-        pierceRemain = Mathf.Max(1, pierce);
+        aim          = launchTarget;
+        stopAtAim    = pierceToTarget && aim != null;
+
+        // 목표까지 가는 길의 적은 수와 상관없이 다 뚫는다. 멈추는 건 목표에 닿았을 때다
+        pierceRemain = stopAtAim ? int.MaxValue : Mathf.Max(1, pierce);
         targetMask   = mask;
         ignore       = ignoreTarget;
         onHit        = callback;
@@ -209,8 +219,15 @@ public class AugmentProjectile : MonoBehaviour
             Target    = target,
             Point     = transform.position,
             Index     = hitIndex++,
-            Direction = heading
+            Direction = heading,
+            IsAimed   = target == aim
         });
+
+        if (stopAtAim && target == aim)
+        {
+            Despawn();
+            return;
+        }
 
         // 방금 뚫은 적을 계속 쫓으면 제자리를 맴돈다
         if (chase == target) chase = null;
@@ -228,6 +245,8 @@ public class AugmentProjectile : MonoBehaviour
         homing = null;
         chase = null;
         wave = null;
+        aim = null;
+        stopAtAim = false;
         velocity = Vector2.zero;
 
         // 공용 집합은 형제들이 아직 쓰고 있으니 비우면 안 된다

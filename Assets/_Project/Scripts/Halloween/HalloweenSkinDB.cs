@@ -27,6 +27,14 @@ public class HalloweenSkinDB : ScriptableObject
     [FormerlySerializedAs("endingVolume")]
     [Range(0f, 1f)] public float bossVolume = 0.5f;
 
+    [Header("글리치 — 화면 전체 기준")]
+    [Tooltip("화면 전체에서 글리치가 새로 시작되는 최소 간격(초).\n" +
+             "0이면 제한 없이 몬스터마다 3초에 한 번씩 — 적이 많으면 눈이 아프다.")]
+    [Min(0f)] public float glitchGap = 0.4f;
+
+    [Tooltip("동시에 글리치 중일 수 있는 최대 수.")]
+    [Min(1)] public int glitchMaxAtOnce = 2;
+
     public List<EnemySkin> enemies = new();
     public List<ProjectileSkin> projectiles = new();
 

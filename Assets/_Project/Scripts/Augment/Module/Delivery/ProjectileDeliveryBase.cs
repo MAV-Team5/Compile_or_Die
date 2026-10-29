@@ -41,6 +41,12 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
              "플레이어가 쏘는 투사체에는 영향이 없다.")]
     public bool dieWithOrigin = true;
 
+    [Detail]
+    [Tooltip("켜면 겨냥한 목표에 닿을 때까지 가는 길의 적을 수 제한 없이 관통하고, 목표에 닿으면 멈춘다.\n" +
+             "관통력은 무시된다. 겨냥할 대상이 없는 전달(Radial)에서는 효과가 없다.\n" +
+             "Chain 의 '목표 적중 때만'과 같이 쓰면 목표마다 꺾여 이어지는 한 줄기 투사체가 된다.")]
+    public bool pierceToTarget = false;
+
     [Fold("유도")]
     public Homing homing = new();
 
@@ -138,6 +144,6 @@ public abstract class ProjectileDeliveryBase : DeliveryModule
         go.GetComponent<AugmentProjectile>()
           .Launch(direction, flightSpeed, lifetime, travel,
                   hits, TargetQuery.Mask, ctx.Owner, onHit, homing, launchTarget, volley,
-                  dieWithOrigin, wave, shotIndex);
+                  dieWithOrigin, wave, shotIndex, pierceToTarget);
     }
 }

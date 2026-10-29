@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
-  m_Name: 403 Jave Explode
+  m_Name: 404 Jave Explode
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: JAVA_EXPLODE
   displayName: Java explode
   category: 3
@@ -30,7 +30,77 @@ MonoBehaviour:
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
-  levelStats: []
+  levelStats:
+  - damage: 2
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 2
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 2
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 2
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 2
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 2
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 6
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 2.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 6
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 2.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 6
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 2.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 13
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 3
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
   trigger:
     rid: -2
   targeting:
@@ -53,7 +123,7 @@ MonoBehaviour:
         damageScale: 1
         accentText: 0
         textStyle:
-          color: {r: 1, g: 1, b: 1, a: 1}
+          color: {r: 0.31764707, g: 0.1764706, b: 0.1764706, a: 1}
           scale: 1
           riseSpeed: 1.5
           offset: {x: 0, y: 0}
@@ -75,7 +145,7 @@ MonoBehaviour:
           offset: 0
         halfAngle: 180
         includeCenterTarget: 1
-        bodyPrefab: {fileID: 0}
+        bodyPrefab: {fileID: 849796369783568550, guid: ed896d68c350b654bb14262a7efa4091, type: 3}
         attachBodyToOwner: 0
         blastFx:
           vfx: {fileID: 0}

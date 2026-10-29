@@ -12,15 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 012 Java
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: JAVA
   displayName: Java
   category: 3
   exclusiveTo: {fileID: 0}
   tags: 
   icon: {fileID: 21300000, guid: 0e0d942ec3a734dc1adb439d211d4d5e, type: 3}
-  descriptionTemplate: 
+  descriptionTemplate: "\uBB34\uC791\uC704 \uC704\uCE58\uC5D0 JVM \uD3EC\uD0D1\uC744
+    \uC124\uCE58\uD55C\uB2E4.\n\uD3EC\uD0D1\uC740 \uAC00\uAE4C\uC6B4 \uC801\uC744
+    \uC790\uB3D9\uC73C\uB85C \uACF5\uACA9\uD558\uACE0,\n\uAC00\uB3D9\uC774 \uB05D\uB098\uBA74
+    \uB808\uC774\uC800\uB97C \uC3DC \uB4A4 \uD3ED\uBC1C\uD55C\uB2E4.\n\uD3EC\uD0D1
+    \uD53C\uD574\t: {JAVA_JVM.damage} ({JAVA_JVM.cooldown}\uCD08\uB9C8\uB2E4)\n\uB808\uC774\uC800
+    \uD53C\uD574\t: {JAVA_JLT.damage}\n\uD3ED\uBC1C \uD53C\uD574\t: {JAVA_EXPLODE.damage}\n\uD3ED\uBC1C
+    \uBC94\uC704\t: {JAVA_EXPLODE.effectRange}\n\uAC00\uB3D9 \uC2DC\uAC04\t: {duration}\n\uD3EC\uD0D1
+    \uC218\t: {count}\n\uCFE8\uD0C0\uC784\t: {cooldown}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
@@ -33,18 +40,78 @@ MonoBehaviour:
   levelStats:
   - damage: 0
     effectDamage: 0
-    cooldown: 0
-    range: 0
+    cooldown: 8
+    range: 5
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
-    duration: 0
+    duration: 6
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 8
+    range: 5
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 7
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 8
+    range: 5
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 8
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 9
+    range: 6
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 9
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 9
+    range: 6
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 10
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 9
+    range: 6
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 11
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0
+    cooldown: 10
+    range: 7
+    effectRange: 0
+    count: 3
+    pierce: 0
+    duration: 12
     speed: 0
     depth: 0
   trigger:
     rid: 4357681862757580899
   targeting:
-    rid: 4357681862757580903
+    rid: 4357681907096354997
   deliveries:
   - rid: 4357681862757580901
   effects:
@@ -83,19 +150,10 @@ MonoBehaviour:
           attachToSource: 0
           motionParameter: 
           motionValue: 1
-    - rid: 4357681862757580903
-      type: {class: RandomPointTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride:
-          value: 0
-          scale: 1
-          offset: 0
-        pointCount: 1
-        minDistanceRatio: 0
     - rid: 4357681862757580904
       type: {class: SummonEffect, ns: , asm: Assembly-CSharp}
       data:
-        summonPrefab: {fileID: 0}
+        summonPrefab: {fileID: 6770480280343437723, guid: 2475c5e75c4248c4d8eac9a6249350a3, type: 3}
         behaviour: {fileID: 11400000, guid: df0930fa4d9a1584ca74d1d0333488a5, type: 2}
         duration:
           value: 0
@@ -104,11 +162,12 @@ MonoBehaviour:
         maxAliveOverride: 0
         placeAtTarget: 1
         finale:
+        - {fileID: 11400000, guid: 84c0f8338d4dae2409ab12447528c426, type: 2}
         - {fileID: 11400000, guid: 750d13b2ba14be04e97e765c0725bcd7, type: 2}
         - {fileID: 11400000, guid: 6bd9fb007318c8442959150ff4dc7330, type: 2}
-        finaleInterval: 0.3
+        finaleInterval: 0.4
         summonFx:
-          vfx: {fileID: 0}
+          vfx: {fileID: 8782798745054600684, guid: c69aee490ba6dd4459847384d6954ff8, type: 3}
           vfxScale: 1
           scaleWithRange: 1
           sfx: {fileID: 0}
@@ -116,3 +175,10 @@ MonoBehaviour:
           attachToSource: 0
           motionParameter: 
           motionValue: 1
+    - rid: 4357681907096354997
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0

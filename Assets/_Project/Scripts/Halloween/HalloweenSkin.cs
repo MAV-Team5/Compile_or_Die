@@ -72,6 +72,8 @@ public static class HalloweenSkin
 
     /// <summary>목소리 전체 크기. 스킨이 없으면 0.</summary>
     internal static float VoiceVolume => db != null ? db.voiceVolume : 0f;
+    internal static float GlitchGap => db != null ? db.glitchGap : 0f;
+    internal static int GlitchMaxAtOnce => db != null ? db.glitchMaxAtOnce : int.MaxValue;
 
     static HalloweenSkinDB.EnemySkin SkinOf(EnemyData data)
     {

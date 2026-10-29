@@ -37,70 +37,70 @@ MonoBehaviour:
   effectPatch: 0
   levelStats:
   - damage: 0
-    effectDamage: 0.2
-    cooldown: 14
-    range: 8
-    effectRange: 6
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.23
-    cooldown: 13.7
-    range: 8.5
-    effectRange: 6.3
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.26
-    cooldown: 13.4
-    range: 9
-    effectRange: 6.6
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.29
-    cooldown: 13.1
-    range: 9.5
-    effectRange: 6.9
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.32
-    cooldown: 12.8
-    range: 10
-    effectRange: 7.2
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.35
-    cooldown: 12.5
-    range: 10.5
-    effectRange: 7.5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 0
-    effectDamage: 0.38
-    cooldown: 12.2
+    effectDamage: 0.25
+    cooldown: 9
     range: 11
-    effectRange: 7.8
+    effectRange: 8
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.25
+    cooldown: 9
+    range: 12
+    effectRange: 9
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.25
+    cooldown: 9
+    range: 13
+    effectRange: 10
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.4
+    cooldown: 8
+    range: 14
+    effectRange: 11
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.4
+    cooldown: 8
+    range: 15
+    effectRange: 12
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.4
+    cooldown: 8
+    range: 16
+    effectRange: 13
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 0
+    effectDamage: 0.65
+    cooldown: 7
+    range: 17
+    effectRange: 14
     count: 0
     pierce: 0
     duration: 0
