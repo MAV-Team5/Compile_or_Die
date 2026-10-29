@@ -101,7 +101,7 @@ MonoBehaviour:
           retargetInterval: 0.2
         wave:
           amplitude: 0.3
-          frequency: 1.6
+          frequency: 1.4
           rampIn: 0.15
           mirrorPerShot: 1
           randomPhase: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageData
   displayName: Stage 01 Halloween Quick
   stageId: 101
-  backgroundPrefab: {fileID: 731202862171851470, guid: 8ac44f1dafcc4834aba41f2c32b9f582, type: 3}
+  backgroundPrefab: {fileID: 1633586151302532737, guid: 77ca8103bd1594477bd7e8da6dbf3602, type: 3}
   bootLines:
   - $ gcc -o stage_01 main.c
   - '> compiling ...'

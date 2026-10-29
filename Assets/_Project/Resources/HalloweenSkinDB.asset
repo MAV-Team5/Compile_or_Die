@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HalloweenSkinDB
   active: 1
   voiceVolume: 0.6
-  endingBgm: {fileID: 8300000, guid: 4af5f2f2586f44a398d082129762dec2, type: 3}
-  endingVolume: 0.5
+  bossBgm: {fileID: 8300000, guid: 4af5f2f2586f44a398d082129762dec2, type: 3}
+  bossVolume: 0.5
   enemies:
   - enemy: {fileID: 11400000, guid: 1df2454d66a084457857fca80fa4e719, type: 2}
     idleFrames:
@@ -30,6 +30,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 4
     deathClips:
     - {fileID: 8300000, guid: 90286b3c8e68f431ca987b1c6e339802, type: 3}
@@ -52,6 +53,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 2
     deathClips:
     - {fileID: 8300000, guid: caea4ac156f88451e93411e814e044f2, type: 3}
@@ -77,6 +79,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 4
     deathClips:
     - {fileID: 8300000, guid: fa986019ec403414d93bf2357b4728c1, type: 3}
@@ -101,6 +104,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 4
     deathClips:
     - {fileID: 8300000, guid: 8bae41b2fd8e74890b101a8c82c510bc, type: 3}
@@ -125,6 +129,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 2
     deathClips:
     - {fileID: 8300000, guid: 1fe14a73a3edb45d6a74be6d4690f0a4, type: 3}
@@ -144,6 +149,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 2
     deathClips:
     - {fileID: 8300000, guid: 4849be6a8e9a34d39b45f4c276a04a10, type: 3}
@@ -163,6 +169,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 2
     deathClips:
     - {fileID: 8300000, guid: 76b365c6763f24c4d8fb8d61e5660244, type: 3}
@@ -184,6 +191,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 4
     deathClips:
     - {fileID: 8300000, guid: 0d7995b58240e410893c673943e9e033, type: 3}
@@ -208,6 +216,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 3
     deathClips:
     - {fileID: 8300000, guid: e0b498c6a43b54d0e8b1fff552816cda, type: 3}
@@ -231,6 +240,7 @@ MonoBehaviour:
     fps: 8
     sizeMultiplier: 1
     bounce: 1
+    glitch: 1
     referenceUnits: 2.58
     deathClips:
     - {fileID: 8300000, guid: e0c868a06201d439f88f969bbc5a06b1, type: 3}

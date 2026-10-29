@@ -35,7 +35,7 @@ MonoBehaviour:
     effectDamage: 0
     cooldown: 4
     range: 12
-    effectRange: 2
+    effectRange: 1
     count: 0
     pierce: 0
     duration: 0
