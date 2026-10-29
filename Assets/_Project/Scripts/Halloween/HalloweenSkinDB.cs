@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 할로윈 시연용 스킨 목록. <c>Resources/HalloweenSkinDB</c> 에 하나만 둔다.
@@ -19,11 +20,12 @@ public class HalloweenSkinDB : ScriptableObject
     [Tooltip("캐릭터 목소리 전체 크기. 효과음 설정 볼륨이 한 번 더 곱해진다.")]
     [Range(0f, 1f)] public float voiceVolume = 0.6f;
 
-    [Header("엔딩")]
-    [Tooltip("보스를 잡아 클리어하면 흐르는 곡. 결과 화면까지 이어진다. 비우면 원래대로.")]
-    public AudioClip endingBgm;
+    [Header("보스")]
+    [Tooltip("세이렌(판을 끝내는 보스)이 나오는 순간 바뀌는 배경음. 비우면 원래 곡이 이어진다.")]
+    [FormerlySerializedAs("endingBgm")] public AudioClip bossBgm;
 
-    [Range(0f, 1f)] public float endingVolume = 0.5f;
+    [FormerlySerializedAs("endingVolume")]
+    [Range(0f, 1f)] public float bossVolume = 0.5f;
 
     public List<EnemySkin> enemies = new();
     public List<ProjectileSkin> projectiles = new();
@@ -63,6 +65,9 @@ public class HalloweenSkinDB : ScriptableObject
 
         [Tooltip("살아 있는 동안 말랑하게 찌그러지는 모션.")]
         public bool bounce = true;
+
+        [Tooltip("3초에 한 번 지지직거리는 글리치. 좌우로 튀고 빨강·청록으로 갈라진다.")]
+        public bool glitch = true;
 
         [Tooltip("원래 몸통 그림의 월드 크기(긴 변). 0이면 프리팹 몸통 그림으로 잰다.\n" +
                  "HW 프리팹은 몸통에 이미 치이카와가 박혀 있어서, 콜라이더가 맞춰진 원래 크기를 여기에 따로 적어둔다.")]

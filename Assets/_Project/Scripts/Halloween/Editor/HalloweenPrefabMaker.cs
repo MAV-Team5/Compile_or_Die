@@ -293,6 +293,9 @@ public static class HalloweenPrefabMaker
         int swapped = SwapReferences(so, o => o is EnemyData ed && map.TryGetValue(ed, out EnemyData hw) ? hw : null);
         so.ApplyModifiedPropertiesWithoutUndo();
 
+        // 원본을 다시 복사해 오면 배경이 원래 것으로 돌아가므로 매번 다시 물린다
+        ApplyBackground(dst);
+
         EditorUtility.SetDirty(dst);
         Debug.Log($"[Halloween] {dst.name}: 적 참조 {swapped}곳을 HW 로 교체");
 
@@ -360,7 +363,7 @@ public static class HalloweenPrefabMaker
                     if (bgm != null && mb is BgmSource)
                     {
                         SerializedProperty clip = so.FindProperty("clip");
-                        // takeOver 는 건드리지 않는다 — 결과 씬은 엔딩곡이 이어지도록 일부러 꺼둔다(SetupEnding)
+                        // takeOver 는 건드리지 않는다 — 씬마다 원래 설정을 따른다
                         if (clip != null && clip.objectReferenceValue != bgm) { clip.objectReferenceValue = bgm; c++; }
                     }
 
@@ -528,6 +531,156 @@ public static class HalloweenPrefabMaker
         Debug.Log("[Halloween] 시야 연출 끔 — " + string.Join(", ", log));
     }
 
+    const string BgFolder = "Assets/_Project/Art/Background";
+    const string BgTilePrefix = "HalloweenBG_tile_";
+    const string BgPrefabPath = "Assets/_Project/Prefabs/UI_Prefabs/Background Halloween.prefab";
+
+    /// <summary>그림 한 칸(원본 한 장)이 이 높이(유닛)로 보인다. 카메라가 24유닛을 보므로 화면 2배쯤 — 4K 원본이라 커도 안 뭉개진다.</summary>
+    const float BgImageHeight = 54f;
+
+    /// <summary>합친 그림에서 원본 한 장의 픽셀 높이. 4K(3840×2160) 그대로 붙였다.</summary>
+    const float BgCellPixels = 2160f;
+
+    /// <summary>
+    /// 할로윈 배경 프리팹을 만들고 Stage 01 Halloween 에 물린다.
+    /// <c>Art/Background/HalloweenBG_tile_NN.png</c> 를 전부 모아 고를 수 있게 넣는다(게임 중 B 키).
+    /// 그림은 2×2 로 뒤집어 붙인 타일이라 Tiled 모드로 이어 깔아도 이음새가 없다(<see cref="HalloweenBackground"/>).
+    /// </summary>
+    public static void SetupBackground()
+    {
+        var sprites = new List<Sprite>();
+        var paths = new SortedSet<string>(System.StringComparer.Ordinal);
+
+        foreach (string guid in AssetDatabase.FindAssets("t:Texture2D " + BgTilePrefix, new[] { BgFolder }))
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            if (Path.GetFileName(path).StartsWith(BgTilePrefix)) paths.Add(path);
+        }
+
+        foreach (string path in paths)
+        {
+            if (AssetImporter.GetAtPath(path) is not TextureImporter ti) continue;
+
+            ti.textureType = TextureImporterType.Sprite;
+            ti.spriteImportMode = SpriteImportMode.Single;
+            ti.spritePixelsPerUnit = BgCellPixels / BgImageHeight;
+            ti.mipmapEnabled = false;
+            ti.wrapMode = TextureWrapMode.Repeat;
+            ti.filterMode = FilterMode.Bilinear;
+            // 4K 9장을 이어 붙인 큰 그림(3×3 = 11520×6480)이 줄지 않게 최대 한도로 둔다
+            ti.maxTextureSize = 16384;
+            ti.textureCompression = TextureImporterCompression.CompressedHQ;
+
+            // Tiled 모드는 FullRect 메시여야 반복된다. Tight 면 경고만 뜨고 늘어난다
+            var settings = new TextureImporterSettings();
+            ti.ReadTextureSettings(settings);
+            settings.spriteMeshType = SpriteMeshType.FullRect;
+            ti.SetTextureSettings(settings);
+            ti.SaveAndReimport();
+
+            var s = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (s != null) sprites.Add(s);
+        }
+
+        if (sprites.Count == 0)
+        {
+            Debug.LogWarning($"[Halloween] {BgFolder} 에 {BgTilePrefix}NN.png 가 없다.");
+            return;
+        }
+
+        var go = new GameObject("Background Halloween");
+        try
+        {
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = sprites[0];
+            sr.drawMode = SpriteDrawMode.Tiled;
+            sr.tileMode = SpriteTileMode.Continuous;
+
+            // 3×3 칸. 카메라가 칸 경계 근처에 있어도 양쪽이 다 덮인다
+            sr.size = (Vector2)sprites[0].bounds.size * 3f;
+
+            sr.sortingLayerName = "Background";
+            sr.sortingOrder = -10;
+
+            // 세이렌 경고·보스 노래·복싱 링. 배경과 함께 할로윈 스테이지에서만 생긴다
+            var show = go.AddComponent<HalloweenBossShow>();
+            var showSo = new SerializedObject(show);
+            showSo.FindProperty("ringMaterial").objectReferenceValue = RingMaterial();
+            showSo.ApplyModifiedPropertiesWithoutUndo();
+
+            var bg = go.AddComponent<HalloweenBackground>();
+            var so = new SerializedObject(bg);
+            SerializedProperty list = so.FindProperty("options");
+            list.arraySize = sprites.Count;
+            for (int i = 0; i < sprites.Count; i++) list.GetArrayElementAtIndex(i).objectReferenceValue = sprites[i];
+            so.ApplyModifiedPropertiesWithoutUndo();
+
+            PrefabUtility.SaveAsPrefabAsset(go, BgPrefabPath);
+        }
+        finally
+        {
+            Object.DestroyImmediate(go);
+        }
+
+        var stage = AssetDatabase.LoadAssetAtPath<StageData>(StageDst);
+        if (stage != null)
+        {
+            ApplyBackground(stage);
+            EditorUtility.SetDirty(stage);
+            AssetDatabase.SaveAssets();
+        }
+
+        Debug.Log($"[Halloween] 배경 {sprites.Count}장 준비(게임 중 B 키로 넘김) — 그림 한 장 {BgImageHeight * 16f / 9f:0}×{BgImageHeight:0} 유닛, " +
+                  $"{(stage != null ? stage.name : "스테이지 없음")}에 적용");
+    }
+
+    const string RingMaterialPath = "Assets/_Project/Art/Background/HalloweenRing.mat";
+
+    /// <summary>
+    /// 복싱 링용 머터리얼. 조명을 안 받아야 어두운 시야 밖에서도 빛난다.
+    /// 에셋으로 만들어 두는 이유 — 런타임에 Shader.Find 로만 찾으면 빌드에서 셰이더가 빠질 수 있다.
+    /// </summary>
+    static Material RingMaterial()
+    {
+        var mat = AssetDatabase.LoadAssetAtPath<Material>(RingMaterialPath);
+        if (mat != null) return mat;
+
+        Shader s = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
+        if (s == null) s = Shader.Find("Sprites/Default");
+
+        mat = new Material(s) { name = "HalloweenRing" };
+        AssetDatabase.CreateAsset(mat, RingMaterialPath);
+        return mat;
+    }
+
+    /// <summary>결과 씬 배경음을 다시 평소 곡으로 — 엔딩곡을 없앴으니 결과 화면이 곡을 이어받을 필요가 없다.</summary>
+    public static void RestoreResultBgm()
+    {
+        EditScene(ResultScene, scene =>
+        {
+            int n = 0;
+            foreach (GameObject go in scene.GetRootGameObjects())
+                foreach (BgmSource bgm in go.GetComponentsInChildren<BgmSource>(true))
+                {
+                    var so = new SerializedObject(bgm);
+                    SerializedProperty take = so.FindProperty("takeOver");
+                    if (take == null || take.boolValue) continue;
+                    take.boolValue = true;
+                    so.ApplyModifiedPropertiesWithoutUndo();
+                    n++;
+                }
+            return n;
+        });
+
+        Debug.Log("[Halloween] 결과 씬 배경음을 평소 곡으로 되돌림");
+    }
+
+    static void ApplyBackground(StageData stage)
+    {
+        var bg = AssetDatabase.LoadAssetAtPath<GameObject>(BgPrefabPath);
+        if (bg != null) stage.backgroundPrefab = bg;
+    }
+
     const string EndingPath = "Assets/_Project/Art/Audio/bgm/10Halloween_ending_shima_no_uta.wav";
     const string ResultScene = "Assets/_Project/Scenes/StageResult.unity";
 
@@ -535,9 +688,7 @@ public static class HalloweenPrefabMaker
     /// 엔딩곡을 준비한다.
     /// <list type="bullet">
     /// <item>임포트: 1분 넘는 곡이라 스트리밍으로 읽는다(메모리에 통째로 안 올린다). 스테레오 유지</item>
-    /// <item>스킨 목록에 엔딩곡을 물린다 — 보스 처치 순간 HalloweenSkin.PlayEnding 이 튼다</item>
-    /// <item>결과 씬 BgmSource 의 takeOver 를 끈다 — 켜두면 결과 화면이 뜨자마자 평소 곡으로 덮는다.
-    ///       실패했을 때는 Run 의 곡이 그대로 이어지는데, 같은 할로윈 곡이라 차이가 없다</item>
+    /// <item>스킨 목록에 보스곡으로 물린다 — 세이렌 등장 순간 HalloweenSkin.PlayBossBgm 이 튼다</item>
     /// </list>
     /// </summary>
     public static void SetupEnding()
@@ -563,28 +714,12 @@ public static class HalloweenPrefabMaker
         var db = AssetDatabase.LoadAssetAtPath<HalloweenSkinDB>("Assets/_Project/Resources/HalloweenSkinDB.asset");
         if (db != null)
         {
-            db.endingBgm = clip;
+            db.bossBgm = clip;
             EditorUtility.SetDirty(db);
             AssetDatabase.SaveAssets();
         }
 
-        EditScene(ResultScene, scene =>
-        {
-            int n = 0;
-            foreach (GameObject go in scene.GetRootGameObjects())
-                foreach (BgmSource bgm in go.GetComponentsInChildren<BgmSource>(true))
-                {
-                    var so = new SerializedObject(bgm);
-                    SerializedProperty take = so.FindProperty("takeOver");
-                    if (take == null || !take.boolValue) continue;
-                    take.boolValue = false;
-                    so.ApplyModifiedPropertiesWithoutUndo();
-                    n++;
-                }
-            return n;
-        });
-
-        Debug.Log($"[Halloween] 엔딩곡 준비 — {(clip != null ? clip.name : "없음")} ({(clip != null ? clip.length : 0):0.#}초), 결과 씬은 곡을 안 덮어쓴다");
+        Debug.Log($"[Halloween] 보스곡 준비 — {(clip != null ? clip.name : "없음")} ({(clip != null ? clip.length : 0):0.#}초)");
     }
 
     /// <summary>Run 씬 조명을 원래 값으로 되돌린다 — 전체 0, 플레이어 1 · 반경 4~18. <see cref="BrightenRun"/> 의 반대.</summary>
@@ -617,6 +752,33 @@ public static class HalloweenPrefabMaker
         });
 
         Debug.Log("[Halloween] 조명 원래대로 — " + string.Join(", ", log));
+    }
+
+    /// <summary>
+    /// Run 씬 플레이어 조명(Spot Light 2D)의 반경을 정한다. PlayerLightController 가 이 값을 기준으로
+    /// 레벨 성장·호흡을 곱하므로, 여기서 바꾸면 그 연출도 새 반경을 기준으로 돈다.
+    /// </summary>
+    public static void SetSpotRadius(float inner, float outer)
+    {
+        outer = Mathf.Max(outer, inner);
+        var log = new List<string>();
+
+        EditScene("Assets/_Project/Scenes/Run.unity", scene =>
+        {
+            foreach (GameObject go in scene.GetRootGameObjects())
+                foreach (var light in go.GetComponentsInChildren<UnityEngine.Rendering.Universal.Light2D>(true))
+                {
+                    if (light.GetComponent<PlayerLightController>() == null) continue;
+
+                    light.pointLightOuterRadius = outer;
+                    light.pointLightInnerRadius = inner;
+                    EditorUtility.SetDirty(light);
+                    log.Add($"{light.name}: 반경 {inner:0.##}~{outer:0.##}");
+                }
+            return log.Count;
+        });
+
+        Debug.Log("[Halloween] 플레이어 조명 — " + (log.Count > 0 ? string.Join(", ", log) : "못 찾음"));
     }
 
     /// <summary>씬을 (안 열려 있으면 잠깐 열어) 고치고 저장한다. 저장 안 한 변경이 있던 씬은 저장하지 않는다.</summary>
@@ -669,6 +831,15 @@ static class HalloweenPrefabMakerRequest
     /// <summary>있으면 조명을 원래대로 되돌리고 엔딩곡을 준비한다.</summary>
     const string EndingRequestPath = "Temp/hw_ending.request";
 
+    /// <summary>있으면 할로윈 배경을 만들어 스테이지에 물린다.</summary>
+    const string BgRequestPath = "Temp/hw_bg.request";
+
+    /// <summary>있으면 결과 씬 배경음을 되돌리고 보스 연출이 붙은 배경을 다시 만든다.</summary>
+    const string BossRequestPath = "Temp/hw_boss.request";
+
+    /// <summary>내용에 "안쪽 바깥" 두 숫자. 플레이어 조명 반경을 그 값으로 바꾼다.</summary>
+    const string SpotRequestPath = "Temp/hw_spot.request";
+
     static HalloweenPrefabMakerRequest()
     {
         EditorApplication.delayCall += Check;
@@ -676,7 +847,7 @@ static class HalloweenPrefabMakerRequest
 
     static void Check()
     {
-        if (!File.Exists(RequestPath) && !File.Exists(BgmVolumePath) && !File.Exists(BrightPath) && !File.Exists(EndingRequestPath)) return;
+        if (!File.Exists(RequestPath) && !File.Exists(BgmVolumePath) && !File.Exists(BrightPath) && !File.Exists(EndingRequestPath) && !File.Exists(BgRequestPath) && !File.Exists(BossRequestPath) && !File.Exists(SpotRequestPath)) return;
 
         // 플레이 중이면 끝날 때까지 미룬다
         if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || EditorApplication.isUpdating)
@@ -689,6 +860,30 @@ static class HalloweenPrefabMakerRequest
         {
             File.Delete(RequestPath);
             HalloweenPrefabMaker.Make();
+        }
+
+        if (File.Exists(SpotRequestPath))
+        {
+            string[] parts = File.ReadAllText(SpotRequestPath).Split(new[] { ' ', '\n', '\r', ',' }, System.StringSplitOptions.RemoveEmptyEntries);
+            File.Delete(SpotRequestPath);
+
+            var inv = System.Globalization.CultureInfo.InvariantCulture;
+            if (parts.Length >= 2 && float.TryParse(parts[0], System.Globalization.NumberStyles.Float, inv, out float inner)
+                                  && float.TryParse(parts[1], System.Globalization.NumberStyles.Float, inv, out float outer))
+                HalloweenPrefabMaker.SetSpotRadius(inner, outer);
+        }
+
+        if (File.Exists(BossRequestPath))
+        {
+            File.Delete(BossRequestPath);
+            HalloweenPrefabMaker.RestoreResultBgm();
+            HalloweenPrefabMaker.SetupBackground();
+        }
+
+        if (File.Exists(BgRequestPath))
+        {
+            File.Delete(BgRequestPath);
+            HalloweenPrefabMaker.SetupBackground();
         }
 
         if (File.Exists(EndingRequestPath))

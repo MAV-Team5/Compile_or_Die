@@ -207,7 +207,7 @@ MonoBehaviour:
     m_PressedColor: {r: 0.65882355, g: 1, b: 0.6901961, a: 1}
     m_SelectedColor: {r: 0.24313726, g: 1, b: 0.36078432, a: 1}
     m_DisabledColor: {r: 0.0627451, g: 0.23137255, b: 0.09411765, a: 0.5019608}
-    m_ColorMultiplier: 5
+    m_ColorMultiplier: 2.79
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -232,7 +232,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 10
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2134,6 +2134,7 @@ MonoBehaviour:
   runScene: Run
   stages:
   - {fileID: 11400000, guid: d45fa58b81f244ce991a4c95a168a6d3, type: 2}
+  - {fileID: 11400000, guid: a72eadf698a242e9a1b2636c8b975d72, type: 2}
 --- !u!4 &1062884573
 Transform:
   m_ObjectHideFlags: 0
