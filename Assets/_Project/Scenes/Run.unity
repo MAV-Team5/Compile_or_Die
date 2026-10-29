@@ -4129,6 +4129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74536d6c5d03636419570e84bbeb9607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  dashDistance: 6
+  dashDuration: 0.14
+  dashCharges: 2
+  dashRecharge: 2
+  ghostInterval: 0.025
+  ghostLife: 0.3
+  ghostTint: {r: 0.45, g: 0.9, b: 1, a: 0.7}
 --- !u!70 &836142189
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5407,7 +5414,7 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360.00003
-  m_PointLightInnerRadius: 18
+  m_PointLightInnerRadius: 14
   m_PointLightOuterRadius: 24
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0

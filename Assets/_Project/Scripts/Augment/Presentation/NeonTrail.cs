@@ -17,6 +17,7 @@ public static class NeonTrail
     public static void Attach(GameObject projectile, Color color)
     {
         if (projectile == null) return;
+        if (projectile.TryGetComponent(out KeepOriginalColors _)) return;
 
         if (!projectile.TryGetComponent(out TrailRenderer trail))
         {

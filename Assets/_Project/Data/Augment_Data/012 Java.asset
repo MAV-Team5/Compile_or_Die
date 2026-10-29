@@ -111,9 +111,9 @@ MonoBehaviour:
   trigger:
     rid: 4357681862757580899
   targeting:
-    rid: 4357681907096354997
+    rid: 4357681907096355026
   deliveries:
-  - rid: 4357681862757580901
+  - rid: 4357681907096355027
   effects:
   - rid: 4357681862757580904
   instantEffect: 0
@@ -128,20 +128,6 @@ MonoBehaviour:
         noTargetPolicy: 0
         fireOnAcquire: 1
         castFx:
-          vfx: {fileID: 0}
-          vfxScale: 1
-          scaleWithRange: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
-          attachToSource: 0
-          motionParameter: 
-          motionValue: 1
-    - rid: 4357681862757580901
-      type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
-      data:
-        directionOffset: 0
-        pointSearchRadius: 1
-        hitFx:
           vfx: {fileID: 0}
           vfxScale: 1
           scaleWithRange: 1
@@ -175,10 +161,25 @@ MonoBehaviour:
           attachToSource: 0
           motionParameter: 
           motionValue: 1
-    - rid: 4357681907096354997
-      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+    - rid: 4357681907096355026
+      type: {class: RandomPointTargeting, ns: , asm: Assembly-CSharp}
       data:
         rangeOverride:
           value: 0
           scale: 1
           offset: 0
+        pointCount: 1
+        minDistanceRatio: 0.5
+    - rid: 4357681907096355027
+      type: {class: PointDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        placeFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
