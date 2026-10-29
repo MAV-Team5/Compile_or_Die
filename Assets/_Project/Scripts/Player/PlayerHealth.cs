@@ -202,6 +202,9 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
 
             perSecond += enemy.GetContectDamage()
 ;
+
+            // 할로윈 스킨: 닿아서 때리는 순간이 근접 몬스터의 공격 동작이다
+            HalloweenSkin.PlayAttack(enemy);
         }
 
         // 안 닿았으면 타이머를 소모하지 않는다 — 그래야 처음 닿는 순간 바로 아프다

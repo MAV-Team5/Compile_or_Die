@@ -1,0 +1,642 @@
+fileFormatVersion: 2
+guid: 142cee7165fbe4610a6409ef7008d533
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9130327706064663427
+    second: hit_chiikawa_09_panic_tremble_0
+  - first:
+      213: 4050449215445320876
+    second: hit_chiikawa_09_panic_tremble_1
+  - first:
+      213: 862232954779517264
+    second: hit_chiikawa_09_panic_tremble_2
+  - first:
+      213: -1496828579875253339
+    second: hit_chiikawa_09_panic_tremble_3
+  - first:
+      213: 6388489877545711289
+    second: hit_chiikawa_09_panic_tremble_4
+  - first:
+      213: 2738520301259211869
+    second: hit_chiikawa_09_panic_tremble_5
+  - first:
+      213: 6976479978022222480
+    second: hit_chiikawa_09_panic_tremble_6
+  - first:
+      213: 1293360483021432711
+    second: hit_chiikawa_09_panic_tremble_7
+  - first:
+      213: 8917093579041413663
+    second: hit_chiikawa_09_panic_tremble_8
+  - first:
+      213: 2852081737012148218
+    second: hit_chiikawa_09_panic_tremble_9
+  - first:
+      213: -4267146028553003487
+    second: hit_chiikawa_09_panic_tremble_10
+  - first:
+      213: -8553133269224506198
+    second: hit_chiikawa_09_panic_tremble_11
+  - first:
+      213: 4787292949668330967
+    second: hit_chiikawa_09_panic_tremble_12
+  - first:
+      213: -1686838514645077733
+    second: hit_chiikawa_09_panic_tremble_13
+  - first:
+      213: -6503385186276501861
+    second: hit_chiikawa_09_panic_tremble_14
+  - first:
+      213: 6439239251590260853
+    second: hit_chiikawa_09_panic_tremble_15
+  - first:
+      213: -8518307191438341925
+    second: hit_chiikawa_09_panic_tremble_16
+  - first:
+      213: -4634176280837858057
+    second: hit_chiikawa_09_panic_tremble_17
+  - first:
+      213: -8106700251483460566
+    second: hit_chiikawa_09_panic_tremble_18
+  - first:
+      213: -4036454512555220910
+    second: hit_chiikawa_09_panic_tremble_19
+  - first:
+      213: -1448562336420152835
+    second: hit_chiikawa_09_panic_tremble_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_0
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 406
+        width: 44
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38334e29ca075be70800000000000000
+      internalID: 9130327706064663427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_1
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 429
+        width: 28
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca4c06be916163830800000000000000
+      internalID: 4050449215445320876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_2
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 432
+        width: 37
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 051c447dd4447fb00800000000000000
+      internalID: 862232954779517264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_3
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 432
+        width: 24
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a312ee46523a3be0800000000000000
+      internalID: -1496828579875253339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_4
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 425
+        width: 41
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b67a4a22b978a850800000000000000
+      internalID: 6388489877545711289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_5
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 419
+        width: 35
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5440c664bd210620800000000000000
+      internalID: 2738520301259211869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_6
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 377
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09ab3a8b39f61d060800000000000000
+      internalID: 6976479978022222480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_7
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 35
+        width: 307
+        height: 391
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 787250db180f2f110800000000000000
+      internalID: 1293360483021432711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_8
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 344
+        width: 59
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1a1ea78d51efbb70800000000000000
+      internalID: 8917093579041413663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_9
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 400
+        width: 41
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af7fcf49a31a49720800000000000000
+      internalID: 2852081737012148218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_10
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 384
+        width: 37
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12e116b9b4d08c4c0800000000000000
+      internalID: -4267146028553003487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_11
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 260
+        width: 58
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aac3c4bab9a2d4980800000000000000
+      internalID: -8553133269224506198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_12
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 193
+        width: 64
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dd76b4d291ef6240800000000000000
+      internalID: 4787292949668330967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_13
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 269
+        width: 53
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b11f125ee452798e0800000000000000
+      internalID: -1686838514645077733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_14
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 181
+        width: 50
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b96937621a55fb5a0800000000000000
+      internalID: -6503385186276501861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_15
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 86
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5782ac69bf5cc5950800000000000000
+      internalID: 6439239251590260853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_16
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 64
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd889a6cdb4e8c980800000000000000
+      internalID: -8518307191438341925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_17
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 69
+        width: 31
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fc5e1ab93910bfb0800000000000000
+      internalID: -4634176280837858057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_18
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 90
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2c22c982173f7f80800000000000000
+      internalID: -8106700251483460566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_19
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 45
+        width: 45
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 250af13c102abf7c0800000000000000
+      internalID: -4036454512555220910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit_chiikawa_09_panic_tremble_20
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 44
+        width: 42
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df9baa6da3ca5ebe0800000000000000
+      internalID: -1448562336420152835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

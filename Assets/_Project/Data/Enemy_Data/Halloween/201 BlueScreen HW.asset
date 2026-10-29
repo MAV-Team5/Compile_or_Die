@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
+  m_Name: 201 BlueScreen HW
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  displayName: siren
+  prefab: {fileID: 3469445803652378370, guid: 315811e0e10bb4d5bbc2b43d21fda4ea, type: 3}
+  rank: 2
+  health: 1
+  speed: 1
+  contactDamage: 1
+  scale: 1
+  personalSpace: 0.5
+  separationStrength: 1
+  animatorOverride: {fileID: 0}
+  hitFlashDuration: 0.04
+  flipToFace: 0
+  spawnMessage: "*** STOP 0x0000000A \u2014 {name} has taken the display. all threads
+    halted."
+  killMessages:
+  - SYSTEM RECOVERED.
+  - "{name} \u2014 dump written. reboot complete."
+  - 0x0000000A cleared.
+  - kernel restored.
+  killLog: 0
+  deathState: 
+  deathDuration: 0
+  deathStyle: 3
+  deathFx:
+    vfx: {fileID: 0}
+    vfxScale: 1
+    scaleWithRange: 1
+    sfx: {fileID: 0}
+    sfxVolume: 1
+    attachToSource: 0
+    motionParameter: 
+    motionValue: 1
+  deathClips: []
+  deathVolume: 0.5
+  deathInterval: 0
+  bits: 0
+  countsAsKill: 1
+  dropTable: []
+  dropChance: 1
+  dropCount: 1
+  stationary: 0

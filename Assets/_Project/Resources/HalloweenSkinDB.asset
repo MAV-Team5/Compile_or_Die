@@ -1,0 +1,252 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8fdc2f409e344238351c1c031ccb51, type: 3}
+  m_Name: HalloweenSkinDB
+  m_EditorClassIdentifier: Assembly-CSharp::HalloweenSkinDB
+  active: 1
+  voiceVolume: 0.6
+  enemies:
+  - enemy: {fileID: 11400000, guid: 1df2454d66a084457857fca80fa4e719, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: c0122e83c65494a09893e2a0b8254ece, type: 3}
+    hitFrames:
+    - {fileID: 21300000, guid: c2f936b02dd0e41b5a9ffcc10ba87a19, type: 3}
+    attackFrames:
+    - {fileID: 21300000, guid: 17e57ac8b1e5c42c4bdea9494eaefc00, type: 3}
+    chargeFrames: []
+    deathFrames:
+    - {fileID: 21300000, guid: 95986ce43d52a4d67a6a641aed1bae92, type: 3}
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 4
+    deathClips:
+    - {fileID: 8300000, guid: 90286b3c8e68f431ca987b1c6e339802, type: 3}
+    - {fileID: 8300000, guid: 3d1fa80b7bba04325896c9c0b56b6419, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: 4184837ce62534817a02ca2d695eac25, type: 3}
+    attackClips: []
+    chargeClips: []
+    spawnClips: []
+  - enemy: {fileID: 11400000, guid: d34288099cf014ee8971561a91219477, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: 77ce36980b6ab4448b8dfb1944c0165b, type: 3}
+    hitFrames:
+    - {fileID: 21300000, guid: 308ae8e80e10347a0a23780a161fd8bb, type: 3}
+    attackFrames:
+    - {fileID: 21300000, guid: 6b054ce3fbc4844da84115b0b13d6275, type: 3}
+    chargeFrames: []
+    deathFrames:
+    - {fileID: 21300000, guid: 78fb215c79bc24a76a065393829e0e2c, type: 3}
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 2
+    deathClips:
+    - {fileID: 8300000, guid: caea4ac156f88451e93411e814e044f2, type: 3}
+    - {fileID: 8300000, guid: eadf751576dd24e39b88ba8c12af94ca, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: fba1e5bfa96b54fafb867fe5a1974c9b, type: 3}
+    attackClips:
+    - {fileID: 8300000, guid: 4ca65c6a790bf45d9bad9cc737cbedf0, type: 3}
+    chargeClips: []
+    spawnClips:
+    - {fileID: 8300000, guid: 44546b716fabb4d42b4ddede03879f47, type: 3}
+  - enemy: {fileID: 11400000, guid: 01209e566878849c3af9b65fa1c63188, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: 92c7000c43ae04af58f49a28c6e3a9f7, type: 3}
+    hitFrames:
+    - {fileID: 21300000, guid: 0e2de369d7d204411a1c9007ac0fd63f, type: 3}
+    attackFrames:
+    - {fileID: 21300000, guid: 1f2860be622914a36ab278134128c98c, type: 3}
+    chargeFrames:
+    - {fileID: 21300000, guid: b4688390e148a4c6c8d907e6c536e397, type: 3}
+    deathFrames:
+    - {fileID: 21300000, guid: 71054da5358014d8fb8e4091e431770d, type: 3}
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 4
+    deathClips:
+    - {fileID: 8300000, guid: fa986019ec403414d93bf2357b4728c1, type: 3}
+    - {fileID: 8300000, guid: 33ffb5d6881cd480e821c3ec1d3a55d2, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: e209ab065dbbd4408a519696725aa307, type: 3}
+    attackClips:
+    - {fileID: 8300000, guid: 0ebe568c4d48c43419d491e806773a23, type: 3}
+    chargeClips:
+    - {fileID: 8300000, guid: 5965cd13d1c674e229d26197da4ac29d, type: 3}
+    spawnClips: []
+  - enemy: {fileID: 11400000, guid: 6da4c23411af545ed958807b514a1c41, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: 23b16aa2a27584526816bc52646d28ea, type: 3}
+    hitFrames:
+    - {fileID: 21300000, guid: 2a834057997f2440eb6606ab0fc76126, type: 3}
+    attackFrames:
+    - {fileID: 21300000, guid: 7e78fe053904a445caf20df27fc6a5fe, type: 3}
+    chargeFrames: []
+    deathFrames:
+    - {fileID: 21300000, guid: 86eb6233c96e44b63bcbbf6643788eb6, type: 3}
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 4
+    deathClips:
+    - {fileID: 8300000, guid: 8bae41b2fd8e74890b101a8c82c510bc, type: 3}
+    - {fileID: 8300000, guid: 1ca5b9286bc804dd5a1c406b542a0322, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: 52ac8a34a1eeb4fb39c5265b23ae3ab7, type: 3}
+    attackClips:
+    - {fileID: 8300000, guid: fe90c4494cec24fc48425edf4b6c7e27, type: 3}
+    chargeClips: []
+    spawnClips:
+    - {fileID: 8300000, guid: 9cb9b42f85c3d45debab165c2c9818f7, type: 3}
+  - enemy: {fileID: 11400000, guid: e8680df9ccca04d8cb6e50164e37bc0b, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: 0d06a0460185a49958913f23ec702015, type: 3}
+    hitFrames:
+    - {fileID: 21300000, guid: 142cee7165fbe4610a6409ef7008d533, type: 3}
+    attackFrames:
+    - {fileID: 21300000, guid: 519fb7ea248a745c099f4161d2c88a94, type: 3}
+    chargeFrames: []
+    deathFrames:
+    - {fileID: 21300000, guid: 78b97d4fa456349edab61087f2edcfc4, type: 3}
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 2
+    deathClips:
+    - {fileID: 8300000, guid: 1fe14a73a3edb45d6a74be6d4690f0a4, type: 3}
+    - {fileID: 8300000, guid: 8f67dd0a4ea7141578bd8b508ce31858, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: a869f567e5c794704bf4ce9a0263e456, type: 3}
+    attackClips: []
+    chargeClips: []
+    spawnClips: []
+  - enemy: {fileID: 11400000, guid: 635d217a05418447d999f9c6ff31386e, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: 102562ebcdd2d40238a4b81816c75725, type: 3}
+    hitFrames: []
+    attackFrames: []
+    chargeFrames: []
+    deathFrames: []
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 2
+    deathClips:
+    - {fileID: 8300000, guid: 4849be6a8e9a34d39b45f4c276a04a10, type: 3}
+    - {fileID: 8300000, guid: b5c8e598e57f749bcbdd0788edcec24a, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: f9c32970cb4bb4ab19b1b4ce6b8f2246, type: 3}
+    attackClips: []
+    chargeClips: []
+    spawnClips: []
+  - enemy: {fileID: 11400000, guid: 16a5f5a92e5a24c27b37774b44527db1, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: 81bac639f3c01485d8768b054d4bbf61, type: 3}
+    hitFrames: []
+    attackFrames: []
+    chargeFrames: []
+    deathFrames: []
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 2
+    deathClips:
+    - {fileID: 8300000, guid: 76b365c6763f24c4d8fb8d61e5660244, type: 3}
+    - {fileID: 8300000, guid: 45c4a1d28a4234996a185a6870f44bb8, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: 8c5ccf9e644d649d7a2a2f23a18036c5, type: 3}
+    attackClips: []
+    chargeClips: []
+    spawnClips: []
+  - enemy: {fileID: 11400000, guid: 6ae7b1684189a48849a4a90c74479989, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: d1b21a6d46d5242a39e7210332c7c61e, type: 3}
+    hitFrames: []
+    attackFrames:
+    - {fileID: 21300000, guid: b5f5a0931b59346859b4c67b9b1e3da7, type: 3}
+    chargeFrames:
+    - {fileID: 21300000, guid: c252348a65c154b7d8048bb78ab2a0fb, type: 3}
+    deathFrames: []
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 4
+    deathClips:
+    - {fileID: 8300000, guid: 0d7995b58240e410893c673943e9e033, type: 3}
+    - {fileID: 8300000, guid: 5995fd2d4d2cc4bc99db5e5e1230ff8a, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: dc5874687429c4886945b818ea8fcffb, type: 3}
+    attackClips: []
+    chargeClips:
+    - {fileID: 8300000, guid: d7e8d75710064494fbbf4bc67951b208, type: 3}
+    spawnClips:
+    - {fileID: 8300000, guid: bbfcb7528c10d4567a40a73f94aa87c6, type: 3}
+  - enemy: {fileID: 11400000, guid: 73b2b786027e64d5eb12cc4b2f60eb0c, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: ce876604ecc14451a97f74052f253b54, type: 3}
+    hitFrames: []
+    attackFrames:
+    - {fileID: 21300000, guid: bd95f96e709bb4f72bdf43aaaeacaa72, type: 3}
+    chargeFrames:
+    - {fileID: 21300000, guid: 096cfac40b56b42a28a45feeae81e400, type: 3}
+    deathFrames:
+    - {fileID: 21300000, guid: 31a5ebeb9929d4c588dacef242d98fac, type: 3}
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 3
+    deathClips:
+    - {fileID: 8300000, guid: e0b498c6a43b54d0e8b1fff552816cda, type: 3}
+    hitClips: []
+    attackClips:
+    - {fileID: 8300000, guid: dc3bde4de0a82469da4077919db199df, type: 3}
+    chargeClips:
+    - {fileID: 8300000, guid: ae6fed7ae87b648068e8c2a1b0528691, type: 3}
+    - {fileID: 8300000, guid: d21e127f5d414434db61baefa6301f9f, type: 3}
+    spawnClips:
+    - {fileID: 8300000, guid: d3b6e0e3872bc42a382b70dbbdf6b6eb, type: 3}
+  - enemy: {fileID: 11400000, guid: b8575ecd75c7b4d79afa7b6f272b8049, type: 2}
+    idleFrames:
+    - {fileID: 21300000, guid: f19901c2dfd2a4ff1b31f65cf9c0481f, type: 3}
+    hitFrames:
+    - {fileID: 21300000, guid: 45134cd1215a34b1eaeefd44cf6cd408, type: 3}
+    attackFrames: []
+    chargeFrames: []
+    deathFrames:
+    - {fileID: 21300000, guid: c24740bc3df0347ed881f641e6a88e80, type: 3}
+    fps: 8
+    sizeMultiplier: 1
+    bounce: 1
+    referenceUnits: 2.58
+    deathClips:
+    - {fileID: 8300000, guid: e0c868a06201d439f88f969bbc5a06b1, type: 3}
+    - {fileID: 8300000, guid: 89da2dbc6144248858ed8cffc6fe4295, type: 3}
+    hitClips:
+    - {fileID: 8300000, guid: 1c17d7f0bd39941f7869c6ea71406ab6, type: 3}
+    attackClips: []
+    chargeClips: []
+    spawnClips:
+    - {fileID: 8300000, guid: 037ac976207334f21b5f0258d3f3a10e, type: 3}
+  projectiles:
+  - prefab: {fileID: 5127749427716340913, guid: 4c4efad22566746fcb2276a00fec992d, type: 3}
+    frames:
+    - {fileID: 21300000, guid: a47e7efed6c874e17a874a5050857d65, type: 3}
+    - {fileID: 21300000, guid: b0021e0e924384d3e87794dad1f42003, type: 3}
+    - {fileID: 21300000, guid: e85f98280e97b4ccbac5b8b424a59422, type: 3}
+    - {fileID: 21300000, guid: 62cb2f8d90bb641a0b2c8734f8633ce9, type: 3}
+    fps: 10
+    sizeMultiplier: 1
+    fireClips:
+    - {fileID: 8300000, guid: 8f343cd0c12d04d83a23c2d1569ac8e4, type: 3}

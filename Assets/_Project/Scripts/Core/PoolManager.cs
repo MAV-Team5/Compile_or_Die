@@ -116,11 +116,13 @@ public class PoolManager : MonoBehaviour
             Transform parent = ParentOf(category);
             if (found.transform.parent != parent) found.transform.SetParent(parent, false);
 
+            HalloweenSkin.ApplyProjectile(prefab, found);
             return found;
         }
 
         GameObject created = Instantiate(prefab, ParentOf(category));
         pool.Add(created);
+        HalloweenSkin.ApplyProjectile(prefab, created);
         return created;
     }
 
@@ -162,6 +164,7 @@ public class PoolManager : MonoBehaviour
             pool.Add(select);
         }
 
+        HalloweenSkin.ApplyProjectile(prefabs[index], select);
         return select;
     }
 

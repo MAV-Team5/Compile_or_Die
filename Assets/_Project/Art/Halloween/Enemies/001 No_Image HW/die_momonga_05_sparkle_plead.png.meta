@@ -1,0 +1,542 @@
+fileFormatVersion: 2
+guid: 95986ce43d52a4d67a6a641aed1bae92
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -612162463518645092
+    second: die_momonga_05_sparkle_plead_0
+  - first:
+      213: -7010820444554114627
+    second: die_momonga_05_sparkle_plead_1
+  - first:
+      213: 7333302549282106510
+    second: die_momonga_05_sparkle_plead_2
+  - first:
+      213: 2391784365543011067
+    second: die_momonga_05_sparkle_plead_3
+  - first:
+      213: 5322296857105217507
+    second: die_momonga_05_sparkle_plead_4
+  - first:
+      213: 2043327728336486907
+    second: die_momonga_05_sparkle_plead_5
+  - first:
+      213: -3116784226489209002
+    second: die_momonga_05_sparkle_plead_6
+  - first:
+      213: -8920034705139679017
+    second: die_momonga_05_sparkle_plead_7
+  - first:
+      213: 1524526841805033888
+    second: die_momonga_05_sparkle_plead_8
+  - first:
+      213: 2851224824467059661
+    second: die_momonga_05_sparkle_plead_9
+  - first:
+      213: -7361969631853159712
+    second: die_momonga_05_sparkle_plead_10
+  - first:
+      213: 2714749282044683246
+    second: die_momonga_05_sparkle_plead_11
+  - first:
+      213: -5552020953989602960
+    second: die_momonga_05_sparkle_plead_12
+  - first:
+      213: 8618979202040177470
+    second: die_momonga_05_sparkle_plead_13
+  - first:
+      213: 3153187295566659312
+    second: die_momonga_05_sparkle_plead_14
+  - first:
+      213: -2198069644247396627
+    second: die_momonga_05_sparkle_plead_15
+  - first:
+      213: 898045410227489884
+    second: die_momonga_05_sparkle_plead_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 379
+        width: 48
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c94a4299b792187f0800000000000000
+      internalID: -612162463518645092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_1
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 401
+        width: 37
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db94e4a53ff84be90800000000000000
+      internalID: -7010820444554114627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 423
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8c2d68a0df15c560800000000000000
+      internalID: 7333302549282106510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_3
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 424
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf2368f4533513120800000000000000
+      internalID: 2391784365543011067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_4
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 425
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e73fe4fac89cd940800000000000000
+      internalID: 5322296857105217507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_5
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 430
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf1c33f2ebb5b5c10800000000000000
+      internalID: 2043327728336486907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_6
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 435
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65fe19a6245feb4d0800000000000000
+      internalID: -3116784226489209002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_7
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 440
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d04eff22bba53480800000000000000
+      internalID: -8920034705139679017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_8
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 431
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a15658d515382510800000000000000
+      internalID: 1524526841805033888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_9
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 426
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc372251fd5919720800000000000000
+      internalID: 2851224824467059661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_10
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 425
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eadd2e00a705d990800000000000000
+      internalID: -7361969631853159712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_11
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 424
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee32582b61abca520800000000000000
+      internalID: 2714749282044683246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_12
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 401
+        width: 41
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 071ace3bb5243f2b0800000000000000
+      internalID: -5552020953989602960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_13
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 379
+        width: 49
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e33a5104be3cc9770800000000000000
+      internalID: 8618979202040177470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_14
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 365
+        width: 38
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fe7686932f52cb20800000000000000
+      internalID: 3153187295566659312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_15
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 61
+        width: 462
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dee801fed43ee71e0800000000000000
+      internalID: -2198069644247396627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_momonga_05_sparkle_plead_16
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 363
+        width: 37
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5c87c4ea8f767c00800000000000000
+      internalID: 898045410227489884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

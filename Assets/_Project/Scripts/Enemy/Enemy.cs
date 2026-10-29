@@ -314,6 +314,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
         // 뒤집기를 끈 적이 이전 개체의 반전 상태를 물려받지 않게
         if (spriter != null && !flipToFace) spriter.flipX = false;
+
+        // 할로윈 시연용 겉모습·목소리. 스킨이 없거나 꺼져 있으면 아무것도 안 한다
+        HalloweenSkin.ApplyEnemy(this, data, data.scale * scale.Size);
     }
     /// <summary>
     /// 피해 진입점. 피해량만 깎는다 —
@@ -329,6 +332,8 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
         if (health <= 0f)
             Dead();
+        else
+            HalloweenSkin.PlayHit(this);
     }
 
     void Dead()
@@ -356,8 +361,8 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
             RunDirector.Current.AddBits(source.bits);
 
         // 소리도 적이 정한다. 잡몹과 보스가 같은 소리로 죽으면 무게가 안 실린다
-        if (source != null)
-            SfxPlayer.PlayAny(source.deathClips, source.deathVolume, source.deathInterval);
+        // 할로윈 스킨 목소리가 있으면 그걸, 없으면 EnemyData 의 원래 소리를 낸다
+        HalloweenSkin.PlayDeath(source);
 
         if (LogManager.Instance != null)
         {
@@ -380,7 +385,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// </summary>
     void Despawn()
     {
-        float wait = source != null ? source.DeathWait : 0f;
+        float wait = HalloweenSkin.DeathWaitOf(source);
 
         if (wait <= 0f)
         {
@@ -391,7 +396,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         if (anim != null && !string.IsNullOrEmpty(source.deathState))
             anim.Play(source.deathState, 0, 0f);
 
-        if (visual != null) visual.PlayDeath(source.deathStyle, wait);
+        if (visual != null) visual.PlayDeath(HalloweenSkin.DeathStyleOf(source), wait);
 
         StartCoroutine(DespawnAfter(wait));
     }

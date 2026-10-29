@@ -99,6 +99,9 @@ public class DeadlockCycle : MonoBehaviour
         ApplyState(silent: false);
     }
 
+    /// <summary>지금 잠겨 있는가. 할로윈 스킨이 스폰 직후 자세를 맞출 때 본다.</summary>
+    public bool IsLocked => locked;
+
     float Duration(bool isLocked) => isLocked ? lockedDuration : openDuration;
 
     /// <summary>지금 상태를 적과 애니메이터에 반영한다.</summary>
@@ -112,6 +115,9 @@ public class DeadlockCycle : MonoBehaviour
 
         if (anim != null && !string.IsNullOrEmpty(lockParameter))
             anim.SetBool(lockParameter, locked);
+
+        // 할로윈 스킨: 잠긴 동안 기모으기 자세
+        HalloweenSkin.SetCharging(this, locked);
 
         // 스폰 순간에는 연출을 안 낸다. 화면 밖에서 소리가 나면 어디서 나는지 알 수 없다
         if (silent) return;

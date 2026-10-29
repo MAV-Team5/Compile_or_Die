@@ -4476,7 +4476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ff953401490ce47962a927d110ec55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSetup
-  defaultStage: {fileID: 11400000, guid: 26b0a4b125664cd449bec688dcf753c6, type: 2}
+  defaultStage: {fileID: 11400000, guid: d45fa58b81f244ce991a4c95a168a6d3, type: 2}
 --- !u!1 &886333955
 GameObject:
   m_ObjectHideFlags: 0
@@ -9659,8 +9659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2958ba232209241b5859e80f5929b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BgmSource
-  clip: {fileID: 8300000, guid: c79bc3ed7734de24bb8d9c8c814cc958, type: 3}
-  volume: 0.1
+  clip: {fileID: 8300000, guid: d0db2f769abaa4e9981b256bea67b519, type: 3}
+  volume: 0.5
   takeOver: 1
 --- !u!1 &2002346252
 GameObject:
