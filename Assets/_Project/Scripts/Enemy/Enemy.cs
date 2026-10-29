@@ -241,6 +241,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <summary>살아 있는가. 죽는 연출이 도는 동안은 아직 켜져 있어도 false 다.</summary>
     public bool IsAlive => isLive;
 
+    /// <summary>지금 체력. 정렬 증강이 "가장 무거운 적" 을 고를 때 쓴다.</summary>
+    public float Health => isLive ? health : 0f;
+
     /// <summary>남은 체력 비율(0~1). 죽었으면 0.</summary>
     public float HealthRatio => isLive && maxHealth > 0f ? Mathf.Clamp01(health / maxHealth) : 0f;
 

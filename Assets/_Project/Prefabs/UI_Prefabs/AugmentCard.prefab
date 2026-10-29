@@ -546,10 +546,10 @@ MonoBehaviour:
   descriptionText: {fileID: 4730432640939773854}
   tagRow: {fileID: 6798916489252280488}
   tagStyle: 0
-  tagFontSize: 28
-  tagPadding: 12
-  tagSpacing: 10
-  tagRowHeight: 44
+  tagFontSize: 48
+  tagPadding: 4
+  tagSpacing: 5
+  tagRowHeight: 40
   rerollIconImage: {fileID: 6083989686252469339}
   rerollLabel: {fileID: 0}
 --- !u!114 &7925623077165497240

@@ -15,13 +15,10 @@ MonoBehaviour:
   lockModules: 1
   lockStats: 1
   id: BRUTE_FORCE
-  displayName: BruteForce
+  displayName: Brute Force
   category: 4
-  tags:
-  - 0
-  - 11
-  - 25
-  - 23
+  exclusiveTo: {fileID: 0}
+  tags: 000000000b0000001900000017000000
   icon: {fileID: 21300000, guid: 3c9b3630227e34c8bbd3095b4609f237, type: 3}
   descriptionTemplate: "\uBCF4\uB294 \uBC29\uD5A5\uC73C\uB85C \uADFC\uC811 \uD0C0\uACA9\n\uD53C\uD574\uB7C9\t:
     {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC94\uC704\t: {effectRange}"

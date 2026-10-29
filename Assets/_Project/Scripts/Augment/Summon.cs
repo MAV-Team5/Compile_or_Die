@@ -16,9 +16,15 @@ public class Summon : MonoBehaviour
     AugmentInstance owner;
     float expireAt;
 
+    /// <summary>사라지기 직전 순서대로 한 번씩 실행할 증강. 예) JIT 레이저 → 폭발.</summary>
+    List<AugmentData> finale;
+    float finaleInterval;
+    bool expiring;
+
     public static Summon Place(GameObject prefab, Vector3 position,
                                AugmentInstance owner, AugmentData behaviour,
-                               float duration, int maxAlive)
+                               float duration, int maxAlive,
+                               List<AugmentData> finale = null, float finaleInterval = 0f)
     {
         if (prefab == null || behaviour == null) return null;
 
@@ -29,6 +35,8 @@ public class Summon : MonoBehaviour
 
         summon.owner = owner;
         summon.expireAt = duration > 0f ? Time.time + duration : 0f;
+        summon.finale = finale;
+        summon.finaleInterval = finaleInterval;
 
         summon.Drive(behaviour, owner);
         Register(summon, maxAlive);
@@ -68,13 +76,60 @@ public class Summon : MonoBehaviour
             Summon oldest = list[0];
             list.RemoveAt(0);
 
-            if (oldest != null) Destroy(oldest.gameObject);
+            // 밀려난 것도 수명이 다한 것과 똑같이 마지막 공격을 하고 사라진다
+            if (oldest != null) oldest.Expire();
         }
     }
 
     void Update()
     {
-        if (expireAt > 0f && Time.time >= expireAt) Destroy(gameObject);
+        if (expireAt > 0f && Time.time >= expireAt) Expire();
+    }
+
+    /// <summary>
+    /// 수명이 다했다. 평소 공격을 멈추고, 마지막 증강들을 순서대로 한 번씩 실행한 뒤 사라진다.
+    /// 마지막이 없으면 바로 사라진다.
+    /// </summary>
+    public void Expire()
+    {
+        if (expiring) return;
+        expiring = true;
+
+        if (owner != null && alive.TryGetValue(owner, out List<Summon> list)) list.Remove(this);
+
+        if (TryGetComponent(out AugmentRunner runner)) runner.enabled = false;
+
+        if (finale == null || finale.Count == 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        StartCoroutine(PlayFinale());
+    }
+
+    System.Collections.IEnumerator PlayFinale()
+    {
+        for (int i = 0; i < finale.Count; i++)
+        {
+            if (finale[i] != null) FireOnce(finale[i]);
+
+            // 마지막 단계 뒤에는 기다리지 않는다. 폭발과 함께 바로 사라져야 한다
+            if (i < finale.Count - 1 && finaleInterval > 0f) yield return new WaitForSeconds(finaleInterval);
+        }
+
+        Destroy(gameObject);
+    }
+
+    /// <summary>증강 하나를 이 자리에서 한 번만 실행한다. 레벨·통계는 소환한 증강을 따른다.</summary>
+    void FireOnce(AugmentData step)
+    {
+        var instance = new AugmentInstance(step, owner != null ? owner.Level : 1) { StatsOwner = owner };
+
+        var ctx = new AugmentContext();
+        ctx.Begin(transform, instance);
+
+        AugmentPipeline.Run(ctx, instance.Build.Targeting, instance.Build.Deliveries, instance.Build.Effects);
     }
 
     void OnDestroy()

@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
+  m_Name: 013 Python
+  m_EditorClassIdentifier: Assembly-CSharp::AugmentData
+  lockModules: 0
+  lockStats: 0
+  id: PYTHON
+  displayName: Python
+  category: 3
+  exclusiveTo: {fileID: 0}
+  tags: 
+  icon: {fileID: 0}
+  descriptionTemplate: 
+  rootAugment: {fileID: 0}
+  requiredRootLevel: 0
+  extensionSlot: 
+  mergeStatsIntoRoot: 1
+  bonusIsPercent: 1
+  triggerPatch: 0
+  targetingPatch: 0
+  deliveryPatch: 0
+  effectPatch: 0
+  levelStats:
+  - damage: 0
+    effectDamage: 0
+    cooldown: 0
+    range: 0
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  trigger:
+    rid: 4357681862757580913
+  targeting:
+    rid: 4357681862757580914
+  deliveries:
+  - rid: 4357681862757580915
+  effects:
+  - rid: 4357681862757580916
+  - rid: 4357681862757580917
+  instantEffect: 0
+  instantValue: 0
+  instantDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4357681862757580913
+      type: {class: CooldownTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        noTargetPolicy: 0
+        fireOnAcquire: 1
+        castFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4357681862757580914
+      type: {class: NearestTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+    - rid: 4357681862757580915
+      type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        projectilePrefab: {fileID: 0}
+        speed: 0
+        pierce:
+          value: 0
+          scale: 1
+          offset: 0
+        travelRange:
+          value: 0
+          scale: 1.2
+          offset: 0
+        lifetime: 3
+        oneHitPerTarget: 0
+        dieWithOrigin: 1
+        homing:
+          turnSpeed: 240
+          seekRadius: 6
+          retargetInterval: 0.2
+        launchFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+        multiShot:
+          shotsPerTarget:
+            value: 0
+            scale: 1
+            offset: 0
+          formation: 0
+          spacing: 0.4
+          spreadPerShot: 0
+    - rid: 4357681862757580916
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+        accentText: 0
+        textStyle:
+          color: {r: 1, g: 1, b: 1, a: 1}
+          scale: 1
+          riseSpeed: 1.5
+          offset: {x: 0, y: 0}
+    - rid: 4357681862757580917
+      type: {class: StatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        duration:
+          value: 0
+          scale: 1
+          offset: 0
+        magnitude:
+          value: 0
+          scale: 1
+          offset: 0
+        status:
+          rid: 4357681862757580918
+    - rid: 4357681862757580918
+      type: {class: DamageOverTimeStatus, ns: , asm: Assembly-CSharp}
+      data:
+        statusVfx: {fileID: 0}
+        refreshInsteadOfStack: 1
+        interval: 0.5
+        damagePerTick: 0
+        tickFx:
+          vfx: {fileID: 0}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1

@@ -14,14 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   lockModules: 0
   lockStats: 1
-  id: 009
+  id: ITERATION
   displayName: Iteration
   category: 5
-  tags:
-  - 0
-  - 10
-  - 26
-  - 20
+  exclusiveTo: {fileID: 0}
+  tags: 000000000a0000001a00000014000000
   icon: {fileID: 21300000, guid: cf194120b78b1c14d899901db1f3d5cc, type: 3}
   descriptionTemplate: "\uCFE8\uD0C0\uC784\uB9C8\uB2E4 \" i \" \uD22C\uC0AC\uCCB4\uB97C
     \uBC18\uBCF5 \uD69F\uC218\uB9CC\uD07C \uC5F0\uC18D \uBC1C\uC0AC\uD55C\uB2E4.\n\uBC1C\uC0AC\uB41C
