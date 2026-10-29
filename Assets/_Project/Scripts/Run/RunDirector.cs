@@ -315,6 +315,9 @@ public class RunDirector : MonoBehaviour
             else LogManager.Instance.Error("COMPILE FAILED");
         }
 
+        // 할로윈 시연: 보스를 잡으면 엔딩곡. 스킨이 꺼져 있거나 곡이 없으면 아무것도 안 한다
+        if (cleared) HalloweenSkin.PlayEnding();
+
         // 결과 씬으로 넘어가는 동안 적이 달려들지 않게 붙잡는다.
         // 화면이 뭘 하든 이 이유가 남아 있는 한 시간은 안 흐른다
         TimeControl.Hold(this);

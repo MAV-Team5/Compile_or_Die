@@ -19,6 +19,12 @@ public class HalloweenSkinDB : ScriptableObject
     [Tooltip("캐릭터 목소리 전체 크기. 효과음 설정 볼륨이 한 번 더 곱해진다.")]
     [Range(0f, 1f)] public float voiceVolume = 0.6f;
 
+    [Header("엔딩")]
+    [Tooltip("보스를 잡아 클리어하면 흐르는 곡. 결과 화면까지 이어진다. 비우면 원래대로.")]
+    public AudioClip endingBgm;
+
+    [Range(0f, 1f)] public float endingVolume = 0.5f;
+
     public List<EnemySkin> enemies = new();
     public List<ProjectileSkin> projectiles = new();
 

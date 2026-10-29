@@ -360,9 +360,8 @@ public static class HalloweenPrefabMaker
                     if (bgm != null && mb is BgmSource)
                     {
                         SerializedProperty clip = so.FindProperty("clip");
-                        SerializedProperty take = so.FindProperty("takeOver");
+                        // takeOver 는 건드리지 않는다 — 결과 씬은 엔딩곡이 이어지도록 일부러 꺼둔다(SetupEnding)
                         if (clip != null && clip.objectReferenceValue != bgm) { clip.objectReferenceValue = bgm; c++; }
-                        if (take != null && !take.boolValue) { take.boolValue = true; c++; }
                     }
 
                     if (c == 0) continue;
@@ -468,6 +467,180 @@ public static class HalloweenPrefabMaker
         Debug.Log($"[Halloween] 배경음 크기 {volume:0.##} 로 통일");
     }
 
+    /// <summary>
+    /// Run 씬의 어두운 시야 연출을 끈다. 원래는 전체 조명 0 + 플레이어 스포트라이트로 주변만 밝힌다.
+    /// <list type="bullet">
+    /// <item>전체 조명(Global Light 2D) → 1. 화면 전체가 고르게 밝아진다</item>
+    /// <item>플레이어 조명 밝기 → 0. 남겨두면 전체 조명에 더해져 플레이어 주변만 하얗게 뜬다</item>
+    /// <item>플레이어 조명 반경 → 크게. 발광 셰이더(SG_GlowFalloff)가 이 반경 밖을 어둡게 만들기 때문에,
+    ///       화면 전부가 "반경 안" 이 되도록 넓힌다. PlayerLightController 는 이 값을 기준으로 삼는다</item>
+    /// </list>
+    /// 되돌리려면 git 으로 Run.unity 의 해당 두 조명만 원래 값으로 돌리면 된다(전체 0, 플레이어 1 · 반경 4~18).
+    /// </summary>
+    public static void BrightenRun()
+    {
+        const string path = "Assets/_Project/Scenes/Run.unity";
+        const float WideOuter = 200f;
+
+        Scene scene = SceneManager.GetSceneByPath(path);
+        bool wasLoaded = scene.IsValid() && scene.isLoaded;
+        bool wasDirty = wasLoaded && scene.isDirty;
+
+        if (!wasLoaded) scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+
+        var log = new List<string>();
+
+        foreach (GameObject go in scene.GetRootGameObjects())
+        {
+            foreach (UnityEngine.Rendering.Universal.Light2D light in go.GetComponentsInChildren<UnityEngine.Rendering.Universal.Light2D>(true))
+            {
+                if (light.lightType == UnityEngine.Rendering.Universal.Light2D.LightType.Global)
+                {
+                    light.intensity = 1f;
+                    log.Add($"{light.name}: 전체 조명 1");
+                }
+                else if (light.GetComponent<PlayerLightController>() != null)
+                {
+                    float ratio = light.pointLightOuterRadius > 0f ? light.pointLightInnerRadius / light.pointLightOuterRadius : 0.2f;
+                    light.intensity = 0f;
+                    light.pointLightOuterRadius = WideOuter;
+                    light.pointLightInnerRadius = WideOuter * ratio;
+                    log.Add($"{light.name}: 밝기 0, 반경 {WideOuter * ratio:0}~{WideOuter:0}");
+                }
+                else continue;
+
+                EditorUtility.SetDirty(light);
+            }
+        }
+
+        if (log.Count > 0)
+        {
+            EditorSceneManager.MarkSceneDirty(scene);
+
+            if (wasDirty)
+                Debug.LogWarning($"[Halloween] {path} 에 저장 안 한 변경이 있어 저장하지 않았다. 확인하고 직접 저장할 것.");
+            else
+                EditorSceneManager.SaveScene(scene);
+        }
+
+        if (!wasLoaded) EditorSceneManager.CloseScene(scene, true);
+
+        Debug.Log("[Halloween] 시야 연출 끔 — " + string.Join(", ", log));
+    }
+
+    const string EndingPath = "Assets/_Project/Art/Audio/bgm/10Halloween_ending_shima_no_uta.wav";
+    const string ResultScene = "Assets/_Project/Scenes/StageResult.unity";
+
+    /// <summary>
+    /// 엔딩곡을 준비한다.
+    /// <list type="bullet">
+    /// <item>임포트: 1분 넘는 곡이라 스트리밍으로 읽는다(메모리에 통째로 안 올린다). 스테레오 유지</item>
+    /// <item>스킨 목록에 엔딩곡을 물린다 — 보스 처치 순간 HalloweenSkin.PlayEnding 이 튼다</item>
+    /// <item>결과 씬 BgmSource 의 takeOver 를 끈다 — 켜두면 결과 화면이 뜨자마자 평소 곡으로 덮는다.
+    ///       실패했을 때는 Run 의 곡이 그대로 이어지는데, 같은 할로윈 곡이라 차이가 없다</item>
+    /// </list>
+    /// </summary>
+    public static void SetupEnding()
+    {
+        if (AssetImporter.GetAtPath(EndingPath) is not AudioImporter ai)
+        {
+            Debug.LogWarning($"[Halloween] 엔딩곡 {EndingPath} 가 없다.");
+            return;
+        }
+
+        AudioImporterSampleSettings s = ai.defaultSampleSettings;
+        if (s.loadType != AudioClipLoadType.Streaming || ai.forceToMono)
+        {
+            s.loadType = AudioClipLoadType.Streaming;
+            s.compressionFormat = AudioCompressionFormat.Vorbis;
+            s.quality = 0.8f;
+            ai.defaultSampleSettings = s;
+            ai.forceToMono = false;
+            ai.SaveAndReimport();
+        }
+
+        var clip = AssetDatabase.LoadAssetAtPath<AudioClip>(EndingPath);
+        var db = AssetDatabase.LoadAssetAtPath<HalloweenSkinDB>("Assets/_Project/Resources/HalloweenSkinDB.asset");
+        if (db != null)
+        {
+            db.endingBgm = clip;
+            EditorUtility.SetDirty(db);
+            AssetDatabase.SaveAssets();
+        }
+
+        EditScene(ResultScene, scene =>
+        {
+            int n = 0;
+            foreach (GameObject go in scene.GetRootGameObjects())
+                foreach (BgmSource bgm in go.GetComponentsInChildren<BgmSource>(true))
+                {
+                    var so = new SerializedObject(bgm);
+                    SerializedProperty take = so.FindProperty("takeOver");
+                    if (take == null || !take.boolValue) continue;
+                    take.boolValue = false;
+                    so.ApplyModifiedPropertiesWithoutUndo();
+                    n++;
+                }
+            return n;
+        });
+
+        Debug.Log($"[Halloween] 엔딩곡 준비 — {(clip != null ? clip.name : "없음")} ({(clip != null ? clip.length : 0):0.#}초), 결과 씬은 곡을 안 덮어쓴다");
+    }
+
+    /// <summary>Run 씬 조명을 원래 값으로 되돌린다 — 전체 0, 플레이어 1 · 반경 4~18. <see cref="BrightenRun"/> 의 반대.</summary>
+    public static void RestoreRunLighting()
+    {
+        var log = new List<string>();
+
+        EditScene("Assets/_Project/Scenes/Run.unity", scene =>
+        {
+            foreach (GameObject go in scene.GetRootGameObjects())
+                foreach (var light in go.GetComponentsInChildren<UnityEngine.Rendering.Universal.Light2D>(true))
+                {
+                    if (light.lightType == UnityEngine.Rendering.Universal.Light2D.LightType.Global)
+                    {
+                        light.intensity = 0f;
+                        log.Add($"{light.name}: 전체 조명 0");
+                    }
+                    else if (light.GetComponent<PlayerLightController>() != null)
+                    {
+                        light.intensity = 1f;
+                        light.pointLightOuterRadius = 18f;
+                        light.pointLightInnerRadius = 4f;
+                        log.Add($"{light.name}: 밝기 1, 반경 4~18");
+                    }
+                    else continue;
+
+                    EditorUtility.SetDirty(light);
+                }
+            return log.Count;
+        });
+
+        Debug.Log("[Halloween] 조명 원래대로 — " + string.Join(", ", log));
+    }
+
+    /// <summary>씬을 (안 열려 있으면 잠깐 열어) 고치고 저장한다. 저장 안 한 변경이 있던 씬은 저장하지 않는다.</summary>
+    static void EditScene(string path, System.Func<Scene, int> edit)
+    {
+        Scene scene = SceneManager.GetSceneByPath(path);
+        bool wasLoaded = scene.IsValid() && scene.isLoaded;
+        bool wasDirty = wasLoaded && scene.isDirty;
+
+        if (!wasLoaded) scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+
+        if (edit(scene) > 0)
+        {
+            EditorSceneManager.MarkSceneDirty(scene);
+
+            if (wasDirty)
+                Debug.LogWarning($"[Halloween] {path} 에 저장 안 한 변경이 있어 저장하지 않았다. 확인하고 직접 저장할 것.");
+            else
+                EditorSceneManager.SaveScene(scene);
+        }
+
+        if (!wasLoaded) EditorSceneManager.CloseScene(scene, true);
+    }
+
     static void EnsureFolder(string path)
     {
         if (AssetDatabase.IsValidFolder(path)) return;
@@ -490,6 +663,12 @@ static class HalloweenPrefabMakerRequest
     /// <summary>내용에 숫자 하나(0~1). 모든 씬의 배경음 크기를 그 값으로 맞춘다.</summary>
     const string BgmVolumePath = "Temp/hw_bgmvol.request";
 
+    /// <summary>있으면 Run 씬의 어두운 시야 연출을 끈다.</summary>
+    const string BrightPath = "Temp/hw_bright.request";
+
+    /// <summary>있으면 조명을 원래대로 되돌리고 엔딩곡을 준비한다.</summary>
+    const string EndingRequestPath = "Temp/hw_ending.request";
+
     static HalloweenPrefabMakerRequest()
     {
         EditorApplication.delayCall += Check;
@@ -497,7 +676,7 @@ static class HalloweenPrefabMakerRequest
 
     static void Check()
     {
-        if (!File.Exists(RequestPath) && !File.Exists(BgmVolumePath)) return;
+        if (!File.Exists(RequestPath) && !File.Exists(BgmVolumePath) && !File.Exists(BrightPath) && !File.Exists(EndingRequestPath)) return;
 
         // 플레이 중이면 끝날 때까지 미룬다
         if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || EditorApplication.isUpdating)
@@ -510,6 +689,19 @@ static class HalloweenPrefabMakerRequest
         {
             File.Delete(RequestPath);
             HalloweenPrefabMaker.Make();
+        }
+
+        if (File.Exists(EndingRequestPath))
+        {
+            File.Delete(EndingRequestPath);
+            HalloweenPrefabMaker.RestoreRunLighting();
+            HalloweenPrefabMaker.SetupEnding();
+        }
+
+        if (File.Exists(BrightPath))
+        {
+            File.Delete(BrightPath);
+            HalloweenPrefabMaker.BrightenRun();
         }
 
         if (File.Exists(BgmVolumePath))

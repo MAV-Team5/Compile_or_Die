@@ -202,6 +202,20 @@ public static class HalloweenSkin
         return data.DeathWait;
     }
 
+    // ───────────────────────── 엔딩 ─────────────────────────
+
+    /// <summary>
+    /// 클리어한 순간 엔딩곡을 튼다. <c>RunDirector.Finish</c> 가 클리어일 때만 부른다.
+    /// 결과 씬의 BgmSource 는 곡을 안 건드리게(takeOver 끔) 해둬서 결과 화면까지 이어지고,
+    /// 메뉴로 돌아가면 그쪽 BgmSource 가 평소 곡으로 되돌린다.
+    /// </summary>
+    public static void PlayEnding()
+    {
+        if (!Active || db.endingBgm == null) return;
+
+        BgmPlayer.Play(db.endingBgm, db.endingVolume);
+    }
+
     // ───────────────────────── 투사체 ─────────────────────────
 
     /// <summary>

@@ -1768,7 +1768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BgmSource
   clip: {fileID: 8300000, guid: d0db2f769abaa4e9981b256bea67b519, type: 3}
   volume: 0.5
-  takeOver: 1
+  takeOver: 0
 --- !u!4 &1565517242
 Transform:
   m_ObjectHideFlags: 0

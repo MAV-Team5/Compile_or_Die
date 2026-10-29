@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HalloweenSkinDB
   active: 1
   voiceVolume: 0.6
+  endingBgm: {fileID: 8300000, guid: 4af5f2f2586f44a398d082129762dec2, type: 3}
+  endingVolume: 0.5
   enemies:
   - enemy: {fileID: 11400000, guid: 1df2454d66a084457857fca80fa4e719, type: 2}
     idleFrames:
