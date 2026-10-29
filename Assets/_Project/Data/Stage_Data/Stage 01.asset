@@ -24,7 +24,7 @@ MonoBehaviour:
   - label: "1\uD30C \uC0C1\uC2DC - semicolon"
     startAt: 0
     duration: 60
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
+    enemy: {fileID: 11400000, guid: a77c3879a625c0a48a20afb8be590ed9, type: 2}
     interval: 2.5
     burst: 2
     maxSpawns: 60

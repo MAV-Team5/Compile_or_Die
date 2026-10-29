@@ -52,9 +52,15 @@ public class LobDelivery : DeliveryModule
         GameObject body = PooledSpawner.Spawn(bodyPrefab, origin);
         Transform owner = ctx.Owner;
 
+        // 투사체 프리팹을 그림으로 물려도 보이게 한다. 발사(Launch) 없이 꺼내진 투사체는
+        // 수명 0으로 첫 프레임에 스스로 사라지고, 콜라이더는 날아가는 도중 적을 건드린다
+        SetFlightOnly(body, true);
+
         ArcMover.Move(body != null ? body.transform : null, origin, Destination, flightTime, arcHeight,
             landed =>
             {
+                // 풀로 돌려보내기 전에 되살린다. 같은 프리팹이 진짜 투사체로 다시 쓰일 수 있다
+                SetFlightOnly(body, false);
                 PooledSpawner.Despawn(body);
 
                 Vector2 direction = landed - origin;
@@ -70,5 +76,16 @@ public class LobDelivery : DeliveryModule
 
                 onHit(new HitInfo { Target = hit, Point = landed, Index = 0, Direction = direction });
             });
+    }
+
+    /// <summary>날아가는 동안 그림만 남긴다 — 투사체 동작과 충돌을 끈다. false 면 원래대로 켠다.</summary>
+    static void SetFlightOnly(GameObject body, bool flightOnly)
+    {
+        if (body == null) return;
+
+        if (body.TryGetComponent(out AugmentProjectile projectile)) projectile.enabled = !flightOnly;
+
+        foreach (Collider2D collider in body.GetComponentsInChildren<Collider2D>(true))
+            collider.enabled = !flightOnly;
     }
 }
