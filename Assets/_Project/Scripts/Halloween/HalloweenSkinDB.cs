@@ -58,6 +58,13 @@ public class HalloweenSkinDB : ScriptableObject
         [Tooltip("죽을 때(한 번, 마지막 장에서 멈춤). die_ — 있으면 하얗게 사라지는 연출 대신 이 그림이 나온다.")]
         public Sprite[] deathFrames;
 
+        [Header("2페이즈 그림 — 파일 이름 앞에 p2_ (예: p2_attack_01.png)")]
+        [Tooltip("보스가 2페이즈에 들어가면 이 그림으로 바뀐다. 비어 있는 상태는 1페이즈 그림을 그대로 쓴다.")]
+        public Sprite[] phase2Idle;
+        public Sprite[] phase2Hit;
+        public Sprite[] phase2Attack;
+        public Sprite[] phase2Charge;
+
         [Min(0.1f)] public float fps = 8f;
 
         [Tooltip("원래 그림 크기에 맞춘 뒤 곱하는 배율. 캡처 여백 때문에 작아 보이면 올릴 것.")]
@@ -90,7 +97,8 @@ public class HalloweenSkinDB : ScriptableObject
         public AudioClip[] spawnClips;
 
         public bool HasSprites => Has(idleFrames) || Has(hitFrames) || Has(attackFrames)
-                                  || Has(chargeFrames) || Has(deathFrames);
+                                  || Has(chargeFrames) || Has(deathFrames)
+                                  || Has(phase2Idle) || Has(phase2Hit) || Has(phase2Attack) || Has(phase2Charge);
 
         public bool HasAny => HasSprites || Has(deathClips) || Has(hitClips) || Has(attackClips)
                               || Has(chargeClips) || Has(spawnClips);

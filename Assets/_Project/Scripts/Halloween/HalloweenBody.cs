@@ -60,6 +60,12 @@ public class HalloweenBody : MonoBehaviour
     HalloweenSkinDB.EnemySkin skin;
     Sprite[] idle, hit, attack, charge, death;
 
+    // 페이즈별 원본. SetPhase 가 위의 idle·hit·attack·charge 를 이쪽으로 갈아끼운다
+    Sprite[] idle1, hit1, attack1, charge1;
+    Sprite[] idle2, hit2, attack2, charge2;
+    Sprite[] glitchLeft2, glitchRight2;
+    Sprite[] glitchLeft1, glitchRight1;
+
     // 글리치용 — 평소 그림을 피벗만 좌우로 민 것. 트랜스폼을 움직이면 물리와 부딪히므로 그림만 옮긴다
     Sprite[] glitchLeft, glitchRight;
     bool glitchOn;
@@ -148,6 +154,26 @@ public class HalloweenBody : MonoBehaviour
         glitchLeft = HalloweenSkin.Resized(data, 20, glitchSource, ppu, GlitchShift);
         glitchRight = HalloweenSkin.Resized(data, 21, glitchSource, ppu, -GlitchShift);
         glitchOn = skin.glitch && glitchLeft.Length > 0;
+
+        // 2페이즈 그림. 없는 상태는 1페이즈 그림을 그대로 쓴다
+        idle1 = idle; hit1 = hit; attack1 = attack; charge1 = charge;
+        glitchLeft1 = glitchLeft; glitchRight1 = glitchRight;
+
+        idle2 = Or(HalloweenSkin.Resized(data, 30, skin.phase2Idle, ppu), idle1);
+        hit2 = Or(HalloweenSkin.Resized(data, 31, skin.phase2Hit, ppu), hit1);
+        attack2 = Or(HalloweenSkin.Resized(data, 32, skin.phase2Attack, ppu), attack1);
+        charge2 = Or(HalloweenSkin.Resized(data, 33, skin.phase2Charge, ppu), charge1);
+
+        if (HalloweenSkin.Has(skin.phase2Idle))
+        {
+            glitchLeft2 = HalloweenSkin.Resized(data, 34, skin.phase2Idle, ppu, GlitchShift);
+            glitchRight2 = HalloweenSkin.Resized(data, 35, skin.phase2Idle, ppu, -GlitchShift);
+        }
+        else
+        {
+            glitchLeft2 = glitchLeft1;
+            glitchRight2 = glitchRight1;
+        }
         wasGlitching = false;
 
         // 지난 개체가 글리치 색인 채 반납됐을 수 있다
@@ -190,6 +216,22 @@ public class HalloweenBody : MonoBehaviour
     {
         charging = false;
         oneShotEnd = 0f;
+    }
+
+    static Sprite[] Or(Sprite[] a, Sprite[] fallback) => a != null && a.Length > 0 ? a : fallback;
+
+    /// <summary>페이즈를 바꾼다. 2면 p2_ 그림으로, 그 밖이면 원래 그림으로.</summary>
+    public void SetPhase(int phase)
+    {
+        if (skin == null || idle1 == null) return;
+
+        bool two = phase >= 2;
+        idle = two ? idle2 : idle1;
+        hit = two ? hit2 : hit1;
+        attack = two ? attack2 : attack1;
+        charge = two ? charge2 : charge1;
+        glitchLeft = two ? glitchLeft2 : glitchLeft1;
+        glitchRight = two ? glitchRight2 : glitchRight1;
     }
 
     static Sprite First(Sprite[] frames) => frames != null && frames.Length > 0 ? frames[0] : null;

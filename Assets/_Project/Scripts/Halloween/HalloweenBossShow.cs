@@ -30,6 +30,20 @@ public class HalloweenBossShow : MonoBehaviour
     [SerializeField] Color neonCore = new(1f, 0.82f, 0.86f);
     [SerializeField] Color neonGlow = new(1f, 0.05f, 0.2f);
 
+    [Header("보스 체력바 · 페이즈")]
+    [SerializeField] string bossName = "SIREN";
+
+    [Tooltip("체력이 이 비율 아래로 떨어지면 2페이즈 — 원래 기믹에 회전 레이저와 물결이 더해진다.")]
+    [Range(0.05f, 0.95f)] [SerializeField] float phase2At = 0.5f;
+
+    [SerializeField] string phase2Title = "2 페이즈";
+    [SerializeField] string phase2Sub = "레이저 · 물결 주의";
+
+    [Header("경험치 흡수")]
+    [Tooltip("세이렌이 나오는 순간 발동할 아이템. GC(흩어진 경험치 전부 흡수)를 물린다.\n" +
+             "비우면 같은 효과를 직접 낸다.")]
+    [SerializeField] AugmentData collectOnBoss;
+
     [Header("복싱 링")]
     [Tooltip("링 한 변의 길이(유닛). 카메라는 가로 약 43 · 세로 24유닛을 본다.\n" +
              "보스가 플레이어에게서 40유닛 떨어져 나오므로, 둘을 다 담으려면 60 이상이어야 한다.")]
@@ -67,6 +81,11 @@ public class HalloweenBossShow : MonoBehaviour
     int lastShown = -1;
     float bumpTime;
 
+    HalloweenBossBar bar;
+    HalloweenBossPhase2 phase2;
+    int phase;
+    float bannerUntil = -1f;
+
     Transform ring;
     LineRenderer[] ringLines;
     Color[] ringBaseColors;
@@ -103,7 +122,20 @@ public class HalloweenBossShow : MonoBehaviour
             ShowWarning();
         }
 
-        if (overlay != null) TickWarning(bossAt - now);
+        if (overlay != null)
+        {
+            // 경고는 남은 시간을, 페이즈 배너는 정해진 시간만큼 보여준다
+            if (bannerUntil > 0f)
+            {
+                TickWarning(99f);
+                if (Time.unscaledTime >= bannerUntil) { HideWarning(); bannerUntil = -1f; }
+            }
+            else TickWarning(bossAt - now);
+        }
+
+        // 2페이즈 진입
+        if (phase == 1 && boss != null && boss.IsAlive && boss.HealthRatio <= phase2At)
+            EnterPhase2();
 
         if (!announced && director.EndingBoss != null)
         {
@@ -113,6 +145,13 @@ public class HalloweenBossShow : MonoBehaviour
             HideWarning();
             HalloweenSkin.PlayBossBgm();
             BuildRing();
+            CollectAllExp();
+
+            phase = 1;
+            var barGo = new GameObject("Halloween Boss Bar");
+            barGo.transform.SetParent(transform, false);
+            bar = barGo.AddComponent<HalloweenBossBar>();
+            bar.Build(boss, bossName, phase2At);
         }
     }
 
@@ -120,11 +159,14 @@ public class HalloweenBossShow : MonoBehaviour
     {
         if (ring == null) return;
 
-        // 판이 끝났으면(보스 처치·사망) 링을 걷는다. 결과 화면으로 넘어가는 동안 남아 있을 이유가 없다
+        // 판이 끝났으면(보스 처치·사망) 링·체력바·패턴을 걷는다. 결과 화면으로 넘어가는 동안 남아 있을 이유가 없다
         if (RunDirector.Current == null || RunDirector.Current.State != RunState.Playing)
         {
             Destroy(ring.gameObject);
             ring = null;
+            if (bar != null) Destroy(bar.gameObject);
+            if (phase2 != null) Destroy(phase2.gameObject);
+            HideWarning();
             return;
         }
 
@@ -171,6 +213,47 @@ public class HalloweenBossShow : MonoBehaviour
         t.position = new Vector3(clamped.x, clamped.y, t.position.z);
 
         return true;
+    }
+
+    /// <summary>
+    /// 2페이즈. 원래 기믹은 보스가 계속 돌리고, 회전 레이저와 물결을 더한다.
+    /// 체력바 테두리가 파랗게 바뀌고, 화면에 잠깐 배너를 띄운다.
+    /// </summary>
+    void EnterPhase2()
+    {
+        phase = 2;
+
+        if (bar != null) bar.SetPhase(2);
+
+        // 2페이즈 그림(p2_)이 있으면 보스 모습이 바뀐다
+        HalloweenSkin.SetPhase(boss, 2);
+
+        var go = new GameObject("Halloween Boss Phase 2");
+        phase2 = go.AddComponent<HalloweenBossPhase2>();
+        phase2.Begin(boss, ringMaterial != null ? ringMaterial : MakeUnlitMaterial());
+
+        // 경고와 같은 네온 글자로 배너
+        HideWarning();
+        ShowWarning();
+        title.text = phase2Title;
+        countdown.text = phase2Sub;
+        lastShown = 99;
+        bumpTime = Time.unscaledTime;
+        bannerUntil = Time.unscaledTime + 2.2f;
+    }
+
+    /// <summary>
+    /// 맵에 흩어진 경험치를 전부 빨아들인다. 결전 전에 정리해주는 보상 —
+    /// 링에 갇히면 바깥 오브를 주우러 갈 수 없으니 여기서 몰아준다.
+    /// GC 아이템과 똑같은 효과라 그 아이템을 그대로 발동한다(오브가 사방에서 끌려온다).
+    /// </summary>
+    void CollectAllExp()
+    {
+        if (collectOnBoss != null && InstantItem.Apply(collectOnBoss)) return;
+
+        // 아이템이 안 물렸거나 효과가 없을 때의 대비. 같은 동작을 직접 한다
+        foreach (ExpMove orb in FindObjectsByType<ExpMove>(FindObjectsSortMode.None))
+            if (orb != null) orb.ForcePull();
     }
 
     // ───────────────────────── 경고 ─────────────────────────
@@ -251,7 +334,8 @@ public class HalloweenBossShow : MonoBehaviour
     {
         int shown = Mathf.Clamp(Mathf.CeilToInt(remain), 1, Mathf.CeilToInt(warnSeconds));
 
-        if (shown != lastShown)
+        // 페이즈 배너일 땐 카운트다운 글자를 덮어쓰지 않는다
+        if (bannerUntil < 0f && shown != lastShown)
         {
             lastShown = shown;
             countdown.text = string.Format(warnCountdown, shown);

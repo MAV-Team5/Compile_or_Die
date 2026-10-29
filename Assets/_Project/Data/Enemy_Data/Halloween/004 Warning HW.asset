@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: hachiware
   prefab: {fileID: 3469445803652378370, guid: 483366caf7ace465a9d00f3f7d119a6f, type: 3}
   rank: 0
-  health: 1
+  health: 0.5
   speed: 1
   contactDamage: 1
   scale: 1
@@ -24,12 +24,12 @@ MonoBehaviour:
   animatorOverride: {fileID: 0}
   hitFlashDuration: 0.07
   flipToFace: 0
-  spawnMessage: "warning escalated to error \u2014 {name} DETECTED."
+  spawnMessage: "{name} has grown HUGE!"
   killMessages:
-  - warning suppressed.
-  - -W{name} disabled.
-  - '{name} downgraded to note.'
-  - 0 warnings remaining.
+  - "giant {name} shrank back."
+  - "{name}: it'll be fine! (defeated)"
+  - "{name} tried their best."
+  - "{name} cleared."
   killLog: 1
   deathState: 
   deathDuration: 0

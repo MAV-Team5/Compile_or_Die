@@ -39,6 +39,32 @@ public class Player : MonoBehaviour, IFacingProvider
 
     // 0xCAFE 같은 한시적 이동속도 버프. 배율 하나만 유지하면 되니 스택 없이 덮어쓴다
     float speedMultiplier = 1f;
+
+    [Header("대시 — Shift")]
+    [Tooltip("한 번 대시로 튀어나가는 거리(유닛).")]
+    [Min(0.5f)] [SerializeField] float dashDistance = 6f;
+
+    [Tooltip("대시에 걸리는 시간(초). 짧을수록 '팍' 튀어나간다.")]
+    [Min(0.02f)] [SerializeField] float dashDuration = 0.14f;
+
+    [Tooltip("다음 대시까지 기다리는 시간(초).")]
+    [Min(0f)] [SerializeField] float dashCooldown = 0.8f;
+
+    [Tooltip("잔상을 남기는 간격(초).")]
+    [Min(0.01f)] [SerializeField] float ghostInterval = 0.025f;
+
+    [Tooltip("잔상이 사라지는 데 걸리는 시간(초).")]
+    [Min(0.05f)] [SerializeField] float ghostLife = 0.3f;
+
+    [SerializeField] Color ghostTint = new(0.45f, 0.9f, 1f, 0.7f);
+
+    float dashRemain;
+    float dashCooldownRemain;
+    float ghostTimer;
+    Vector2 dashDir;
+
+    /// <summary>지금 대시 중인가.</summary>
+    public bool IsDashing => dashRemain > 0f;
     float speedBoostRemain;
 
     /// <summary>지금 걸린 이동속도 배율. 1이면 버프 없음.</summary>
@@ -61,14 +87,59 @@ public class Player : MonoBehaviour, IFacingProvider
 
     void Update()
     {
+        TickDash();
+
         if (speedBoostRemain <= 0f) return;
 
         speedBoostRemain -= Time.deltaTime;
         if (speedBoostRemain <= 0f) speedMultiplier = 1f;
     }
 
+    /// <summary>
+    /// Shift 를 누른 순간 지금 가는 방향(손을 뗐으면 마지막으로 본 방향)으로 팍 튀어나간다.
+    /// 이동은 FixedUpdate 가 하고, 여기서는 시작·쿨다운·잔상만 맡는다.
+    /// 시간이 멈춘 동안(증강 선택)은 deltaTime 이 0 이라 쿨다운도 같이 멈춘다.
+    /// </summary>
+    void TickDash()
+    {
+        if (dashCooldownRemain > 0f) dashCooldownRemain -= Time.deltaTime;
+
+        Keyboard kb = Keyboard.current;
+        bool pressed = kb != null && kb.shiftKey.wasPressedThisFrame && Time.timeScale > 0f;
+
+        if (pressed && dashCooldownRemain <= 0f && dashRemain <= 0f)
+        {
+            dashDir = inputVec.sqrMagnitude > 0.0001f ? inputVec.normalized : facing;
+
+            // 재부팅(입력 반전) 중이면 대시도 반전된다 — 걷기와 같은 규칙
+            if (invertX) dashDir = -dashDir;
+
+            dashRemain = dashDuration;
+            dashCooldownRemain = dashCooldown;
+            ghostTimer = 0f;
+        }
+
+        if (dashRemain <= 0f) return;
+
+        ghostTimer -= Time.deltaTime;
+        if (ghostTimer <= 0f)
+        {
+            ghostTimer = ghostInterval;
+            DashGhost.Spawn(transform, ghostTint, ghostLife);
+        }
+    }
+
     private void FixedUpdate()
     {
+        // 대시 중엔 입력 대신 대시 방향으로 정해진 속도로 날아간다
+        if (dashRemain > 0f)
+        {
+            float step = Mathf.Min(dashRemain, Time.fixedDeltaTime);
+            rigid.MovePosition(rigid.position + dashDir * (dashDistance / dashDuration) * step);
+            dashRemain -= Time.fixedDeltaTime;
+            return;
+        }
+
         Vector2 vec = inputVec;
         if (invertX) vec = -vec;
 

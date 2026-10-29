@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: momonga
   prefab: {fileID: 3469445803652378370, guid: 6bbbbf0a83abc41319b5ffd2a905c3ca, type: 3}
   rank: 0
-  health: 1
+  health: 0.5
   speed: 1
   contactDamage: 1
   scale: 1
@@ -26,10 +26,10 @@ MonoBehaviour:
   flipToFace: 1
   spawnMessage: 
   killMessages:
-  - '{name}: asset not found.'
-  - null sprite released.
-  - missing texture resolved.
-  - 'sprite assigned: {name}'
+  - "{name} threw a tantrum and vanished."
+  - "{name}: notice me... (defeated)"
+  - "{name} cleared."
+  - "too cute to compile: {name} removed."
   killLog: 1
   deathState: 
   deathDuration: 0

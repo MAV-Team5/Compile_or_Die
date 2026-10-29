@@ -27,6 +27,10 @@ MonoBehaviour:
     chargeFrames: []
     deathFrames:
     - {fileID: 21300000, guid: 95986ce43d52a4d67a6a641aed1bae92, type: 3}
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -50,6 +54,10 @@ MonoBehaviour:
     chargeFrames: []
     deathFrames:
     - {fileID: 21300000, guid: 78fb215c79bc24a76a065393829e0e2c, type: 3}
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -76,6 +84,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b4688390e148a4c6c8d907e6c536e397, type: 3}
     deathFrames:
     - {fileID: 21300000, guid: 71054da5358014d8fb8e4091e431770d, type: 3}
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -101,6 +113,10 @@ MonoBehaviour:
     chargeFrames: []
     deathFrames:
     - {fileID: 21300000, guid: 86eb6233c96e44b63bcbbf6643788eb6, type: 3}
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -126,6 +142,10 @@ MonoBehaviour:
     chargeFrames: []
     deathFrames:
     - {fileID: 21300000, guid: 78b97d4fa456349edab61087f2edcfc4, type: 3}
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -146,6 +166,10 @@ MonoBehaviour:
     attackFrames: []
     chargeFrames: []
     deathFrames: []
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -166,6 +190,10 @@ MonoBehaviour:
     attackFrames: []
     chargeFrames: []
     deathFrames: []
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -188,6 +216,10 @@ MonoBehaviour:
     chargeFrames:
     - {fileID: 21300000, guid: c252348a65c154b7d8048bb78ab2a0fb, type: 3}
     deathFrames: []
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -213,6 +245,12 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 096cfac40b56b42a28a45feeae81e400, type: 3}
     deathFrames:
     - {fileID: 21300000, guid: 31a5ebeb9929d4c588dacef242d98fac, type: 3}
+    phase2Idle:
+    - {fileID: 21300000, guid: 914c4390904d94f90bce805a078182d2, type: 3}
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge:
+    - {fileID: 21300000, guid: 64914d7b89d614d529df3509fb29212e, type: 3}
     fps: 8
     sizeMultiplier: 1
     bounce: 1
@@ -237,6 +275,10 @@ MonoBehaviour:
     chargeFrames: []
     deathFrames:
     - {fileID: 21300000, guid: c24740bc3df0347ed881f641e6a88e80, type: 3}
+    phase2Idle: []
+    phase2Hit: []
+    phase2Attack: []
+    phase2Charge: []
     fps: 8
     sizeMultiplier: 1
     bounce: 1

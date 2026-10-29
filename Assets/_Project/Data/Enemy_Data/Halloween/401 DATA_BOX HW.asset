@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: furuhonya
   prefab: {fileID: 3469445803652378370, guid: e4e9d1a8997f64e158effea6ec62be27, type: 3}
   rank: 1
-  health: 1
+  health: 0.5
   speed: 0
   contactDamage: 0
   scale: 1
@@ -26,7 +26,9 @@ MonoBehaviour:
   flipToFace: 0
   spawnMessage: 
   killMessages:
-  - Open DATA.
+  - "{name} dropped something!"
+  - "{name}: here you go!"
+  - "{name} opened the bag."
   killLog: 2
   deathState: 
   deathDuration: 0

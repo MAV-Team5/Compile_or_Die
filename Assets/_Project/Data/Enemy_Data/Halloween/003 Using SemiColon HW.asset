@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: rakko
   prefab: {fileID: 3469445803652378370, guid: d156a1bd2c4e44f4685b55edfff0c957, type: 3}
   rank: 0
-  health: 1
+  health: 0.5
   speed: 1
   contactDamage: 1
   scale: 1
@@ -26,10 +26,10 @@ MonoBehaviour:
   flipToFace: 1
   spawnMessage: 
   killMessages:
-  - stray ';' removed.
-  - empty statement deleted.
-  - redundant {name} cleaned.
-  - "for(;;) \u2014 loop exited."
+  - "{name} fainted."
+  - "the great {name} has fallen."
+  - "{name}: ...hmph. (defeated)"
+  - "{name} cleared."
   killLog: 1
   deathState: 
   deathDuration: 0
