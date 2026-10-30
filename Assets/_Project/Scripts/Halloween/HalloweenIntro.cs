@@ -135,6 +135,12 @@ public class HalloweenIntro : MonoBehaviour
         if (originalInstance != null) Destroy(originalInstance);
         if (halloweenBackground != null) halloweenBackground.enabled = true;
         BgmPlayer.Stop();
+
+        // 배경이 할로윈으로 바뀌는 순간 마녀 모자를 씌운다
+        Player p = GameManager.instance != null ? GameManager.instance.player : null;
+        if (p == null) p = FindFirstObjectByType<Player>();
+        if (p != null) HalloweenHat.Put(p.gameObject);
+        else Debug.LogWarning("[HalloweenHat] 플레이어를 못 찾아 모자를 못 씌움");
     }
 
     void OnDestroy()

@@ -9,7 +9,8 @@ using UnityEngine;
 ///
 /// <b>2. 물결(파도타기)</b> — 보스 자리에서 동심원 띠가 한 칸씩 퍼져 나간다. 띠는 피해(파란 네온)와 안전(빈칸)이
 ///    번갈아 있고, 한 걸음마다 켜진 띠와 꺼진 띠가 뒤바뀐다. 가만히 서 있으면 두 걸음에 한 번 맞고,
-///    한 칸씩 옮겨 다니면 안 맞는다. <b>다음 걸음에 켜질 띠는 미리 깜빡이는 테두리로 보여준다.</b>
+///    한 칸씩 옮겨 다니면 안 맞는다. <b>한 걸음은 예고(옅은 파랑, 피해 없음) → 타격(진한 네온 파랑, 피해)
+///    두 단계다.</b> 예고 동안만 보고 피하면 된다 — 피해 판정은 타격 단계에서만 한다.
 ///
 /// 피해는 <see cref="PlayerHealth.TakeDamage"/> 로 준다 — 피격 연출·사망 처리가 원래 경로를 그대로 탄다.
 /// 시간은 Time.deltaTime 이라 증강 선택 중엔 패턴도 멈춘다.
@@ -32,7 +33,8 @@ public class HalloweenBossPhase2 : MonoBehaviour
     // 한 걸음(띠가 한 칸 퍼지는) 시간. 걸음 속도 3 이면 띠 하나(9)를 걸어서 건너는 데 3초 —
     // 대시(6)를 섞어야 다음 걸음 전에 옮길 수 있게 2초로 둔다
     const float StepTime = 2f;
-    const float StepGrace = 0.25f;       // 걸음이 바뀐 직후 판정을 미루는 시간 — 바뀐 걸 보고 피할 틈
+    const float WarnTime = 1.3f;         // 걸음 앞부분 — 옅은 파랑 예고만, 피해 없음
+                                         // 나머지(StepTime - WarnTime)가 진한 네온 타격 구간
     const float WaveRadius = 60f;        // 이 반경까지 퍼지면 그 물결은 끝
     const float WaveRest = 3.5f;         // 물결과 물결 사이 쉬는 시간
     const float FirstWaveDelay = 2.5f;   // 2페이즈 시작 후 첫 물결까지
@@ -42,9 +44,13 @@ public class HalloweenBossPhase2 : MonoBehaviour
     static readonly Color LaserCore = new(0.85f, 1f, 1f, 1f);
     static readonly Color LaserGlow = new(0.2f, 0.75f, 1f, 0.55f);
     static readonly Color LaserWarn = new(1f, 0.25f, 0.4f, 0.7f);
-    static readonly Color BandFill = new(0.15f, 0.65f, 1f, 0.35f);
-    static readonly Color BandEdge = new(0.45f, 0.95f, 1f, 0.95f);
-    static readonly Color TelegraphEdge = new(0.6f, 0.9f, 1f, 0.6f);
+    // 예고: 흐리고 하얗게 바랜 파랑 — "곧 온다"
+    static readonly Color WarnFill = new(0.6f, 0.82f, 1f, 0.13f);
+    static readonly Color WarnEdge = new(0.7f, 0.88f, 1f, 0.45f);
+    // 타격: 채도 꽉 찬 네온 파랑 — "지금 아프다"
+    static readonly Color StrikeFill = new(0f, 0.45f, 1f, 0.62f);
+    static readonly Color StrikeEdge = new(0.1f, 0.85f, 1f, 1f);
+    static readonly Color StrikeCore = new(0.9f, 1f, 1f, 1f);
 
     Enemy boss;
     Material mat;
@@ -255,33 +261,48 @@ public class HalloweenBossPhase2 : MonoBehaviour
 
     void DrawWave()
     {
-        float phase = (age - stepStart) / StepTime;     // 이번 걸음 진행도 0~1
-        float blink = 0.55f + 0.45f * Mathf.Sin(age * 22f);
+        float t = age - stepStart;
+        bool strike = t >= WarnTime;
+        float blink = 0.6f + 0.4f * Mathf.Sin(age * 16f);
 
-        int maxBand = Mathf.Min(step + 1, Steps - 1);
+        int maxBand = Mathf.Min(step, Steps - 1);
 
         for (int i = 0; i <= maxBand; i++)
         {
+            if (!Active(step, i)) continue;
+
             float inner = i * BandWidth;
             float outer = inner + BandWidth;
 
-            if (Active(step, i))
+            if (!strike)
             {
-                // 켜진 띠 — 채움 + 양쪽 네온 테두리. 막 켜졌을 땐 더 밝게
-                Color fill = BandFill;
-                fill.a *= 1f + 0.8f * (1f - phase);
+                // 예고 — 옅은 채움 + 가늘게 깜빡이는 테두리. 끝으로 갈수록 조금씩 진해진다
+                float ramp = 0.6f + 0.6f * (t / WarnTime);
+                Color fill = WarnFill;
+                fill.a *= ramp;
                 Band(inner, outer, fill);
-                Edge(outer, 0.28f, BandEdge);
-                if (inner > 0f) Edge(inner, 0.28f, BandEdge);
-            }
 
-            // 다음 걸음에 켜질 띠 — 깜빡이는 가는 테두리로 미리 알려준다
-            if (step + 1 < Steps && Active(step + 1, i))
+                Color e = WarnEdge;
+                e.a *= blink;
+                Edge(outer - 0.1f, 0.12f, e);
+                if (inner > 0f) Edge(inner + 0.1f, 0.12f, e);
+            }
+            else
             {
-                Color t = TelegraphEdge;
-                t.a *= blink * Mathf.Clamp01(phase * 1.6f);   // 걸음 후반으로 갈수록 또렷해진다
-                Edge(outer - 0.15f, 0.14f, t);
-                if (inner > 0f) Edge(inner + 0.15f, 0.14f, t);
+                // 타격 — 진한 네온 채움, 들어오는 순간 번쩍. 굵은 네온 테두리 + 흰 심지
+                float k = Mathf.Clamp01((t - WarnTime) / (StepTime - WarnTime));
+                float flash = 1f + 0.6f * (1f - k) * (1f - k);
+                Color fill = StrikeFill;
+                fill.a = Mathf.Clamp01(fill.a * flash);
+                Band(inner, outer, fill);
+
+                Edge(outer, 0.5f, StrikeEdge);
+                Edge(outer, 0.14f, StrikeCore, 2);
+                if (inner > 0f)
+                {
+                    Edge(inner, 0.5f, StrikeEdge);
+                    Edge(inner, 0.14f, StrikeCore, 2);
+                }
             }
         }
     }
@@ -289,7 +310,7 @@ public class HalloweenBossPhase2 : MonoBehaviour
     void CheckWaveHit()
     {
         if (player == null || lastHitStep == step) return;
-        if (age - stepStart < StepGrace) return;
+        if (age - stepStart < WarnTime) return;          // 예고 중엔 절대 안 아프다
 
         float d = Vector2.Distance(player.position, waveCenter);
         int band = Mathf.FloorToInt(d / BandWidth);
@@ -309,9 +330,9 @@ public class HalloweenBossPhase2 : MonoBehaviour
         Circle(lr, waveCenter, r);
     }
 
-    void Edge(float radius, float width, Color color)
+    void Edge(float radius, float width, Color color, int layer = 1)
     {
-        LineRenderer lr = Take(1);
+        LineRenderer lr = Take(layer);
         lr.startWidth = lr.endWidth = width;
         lr.startColor = lr.endColor = color;
         Circle(lr, waveCenter, radius);

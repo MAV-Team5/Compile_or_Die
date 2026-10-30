@@ -65,6 +65,10 @@ public static class HalloweenSkin
     {
         get
         {
+            // 치이카와 이벤트 스테이지에서만 — 다른 스테이지는 원래 모습 그대로
+            StageData stage = StageContext.Active;
+            if (stage == null || !stage.chiikawaEvent) return false;
+
             HalloweenSkinDB d = DB;
             return d != null && d.active;
         }

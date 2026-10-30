@@ -626,14 +626,18 @@ public class AugmentSelectUI : MonoBehaviour
     /// <summary>깔린 카드마다 추천 여부를 매긴다. 공격만 깔렸으면 아무것도 빛나지 않는다.</summary>
     void Recommend()
     {
-        for (int i = 0; i < cards.Count; i++)
+        // 중요도 점수가 가장 높은 카드 한 장에만 추천을 붙인다
+        int best = -1;
+        float bestScore = 0f;
+        string bestWhy = null;
+        for (int i = 0; i < activeCount && i < shown.Count && i < cards.Count; i++)
         {
-            string why = null;
-            bool on = i < activeCount && i < shown.Count
-                      && AugmentAdvice.Recommend(shown[i], augmentManager, out why);
-
-            cards[i].SetRecommended(on, why);
+            float s = AugmentAdvice.Score(shown[i], augmentManager, out string why);
+            if (s > bestScore) { bestScore = s; best = i; bestWhy = why; }
         }
+
+        for (int i = 0; i < cards.Count; i++)
+            cards[i].SetRecommended(i == best, i == best ? bestWhy : null);
     }
 
     // ── 리롤 ──────────────────────────────────────────────

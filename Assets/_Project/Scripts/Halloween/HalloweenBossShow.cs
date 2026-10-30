@@ -134,6 +134,10 @@ public class HalloweenBossShow : MonoBehaviour
 
     void Start()
     {
+        // 시작 연출이 없으면 처음부터 모자를 쓴다 (있으면 연출이 배경 바꿀 때 씌운다)
+        if (introSeconds <= 0f && GameManager.instance != null && GameManager.instance.player != null)
+            HalloweenHat.Put(GameManager.instance.player.gameObject);
+
         StageData stage = StageContext.Active;
         if (stage == null || stage.bosses == null) return;
 

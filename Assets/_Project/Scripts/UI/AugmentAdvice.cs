@@ -1,3 +1,4 @@
+using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
@@ -73,7 +74,7 @@ public static class AugmentAdvice
     public static int Count(AugmentManager owned, Role role)
     {
         int n = 0;
-        foreach (AugmentRunner r in Owned(owned)) if (RoleOf(r.Instance.Data) == role) n++;
+        foreach (AugmentRunner r in Owned(owned)) if (GuideRoleOf(r.Instance.Data) == role) n++;
         return n;
     }
 
@@ -83,7 +84,7 @@ public static class AugmentAdvice
         int count = 0;
         foreach (AugmentRunner r in Owned(owned))
         {
-            if (RoleOf(r.Instance.Data) != Role.Attack) continue;
+            if (GuideRoleOf(r.Instance.Data) != Role.Attack) continue;
             count++;
             if (r.Instance.Level >= AttackLevelReady) return true;
         }
@@ -95,34 +96,95 @@ public static class AugmentAdvice
     public static bool Locked(AugmentData data, AugmentManager owned)
         => NeedsSearch(data) && !HasSearch(owned);
 
-    /// <summary>지금 유도할 역할. 아직 공격을 덜 갖췄으면 Item(=유도 없음).</summary>
+    // ── 중요도 ────────────────────────────────────────────
+    //
+    // 공격 > 탐색 > 연쇄. 처음엔 단계대로(공격 갖추기 → 탐색 하나 → 연쇄 하나) 길을 잡고,
+    // 셋 다 갖춘 뒤에는 "레벨 합 ÷ 가중치"가 가장 낮은 역할을 올리게 한다.
+    // 가중치 3 : 2 : 1 — 연쇄만 끝없이 올리는 일 없이, 공격이 탐색의 1.5배·연쇄의 3배 레벨을 유지하는 쪽으로 이끈다.
+
+    static readonly System.Collections.Generic.HashSet<string> CoreAttackIds = new() { "BASH", "BRUTE_FORCE", "C_LAN", "ITERATION", "PYTHON" };
+
+    /// <summary>"공격"으로 치는 증강(나머지 공격형은 보조). 진화형은 원본을 따른다.</summary>
+    public static bool IsCoreAttack(AugmentData data)
+    {
+        AugmentData d = Root(data);
+        return d != null && !string.IsNullOrEmpty(d.id) && CoreAttackIds.Contains(d.id.ToUpperInvariant());
+    }
+
+    /// <summary>추천에서 보는 역할. 핵심 공격이 아닌 공격형은 보조(Item 취급 = 추천 안 함).</summary>
+    static Role GuideRoleOf(AugmentData data)
+    {
+        Role r = RoleOf(data);
+        if (r == Role.Attack && !IsCoreAttack(data)) return Role.Item;
+        return r;
+    }
+
+    static float Weight(Role r) => r switch { Role.Attack => 3f, Role.Search => 2f, Role.Chain => 1f, _ => 0f };
+
+    /// <summary>역할별 투자량 = 가진 증강의 레벨 합.</summary>
+    static int Invested(AugmentManager owned, Role role)
+    {
+        int sum = 0;
+        foreach (AugmentRunner r in Owned(owned))
+            if (GuideRoleOf(r.Instance.Data) == role) sum += r.Instance.Level;
+        return sum;
+    }
+
+    /// <summary>지금 올려야 할 역할.</summary>
     public static Role Guide(AugmentManager owned)
     {
-        if (!AttackReady(owned)) return Role.Item;
-        return HasSearch(owned) ? Role.Chain : Role.Search;
+        if (!AttackReady(owned)) return Role.Attack;
+        if (!HasSearch(owned)) return Role.Search;
+        if (Count(owned, Role.Chain) == 0) return Role.Chain;
+
+        // 셋 다 갖췄다 — 가중치 대비 가장 덜 키운 역할. 같으면 중요도 순
+        Role best = Role.Attack;
+        float bestRatio = float.MaxValue;
+        foreach (Role r in new[] { Role.Attack, Role.Search, Role.Chain })
+        {
+            float ratio = Invested(owned, r) / Weight(r);
+            if (ratio < bestRatio - 0.001f) { bestRatio = ratio; best = r; }
+        }
+        return best;
     }
 
-    /// <summary>이 카드를 추천하는가와 그 이유.</summary>
-    public static bool Recommend(AugmentData data, AugmentManager owned, out string reason)
+    /// <summary>
+    /// 이 카드의 추천 점수(0 = 추천 안 함). 선택 화면은 가장 높은 카드 한 장에만 추천을 붙인다.
+    /// 지금 올려야 할 역할이면 크게, 아니면 중요도·부족한 정도로 작게 — 원하는 역할이 안 깔렸을 때 차선을 고른다.
+    /// </summary>
+    public static float Score(AugmentData data, AugmentManager owned, out string reason)
     {
         reason = string.Empty;
-        if (data == null || Locked(data, owned)) return false;
+        if (data == null || Locked(data, owned)) return 0f;
+
+        Role role = GuideRoleOf(data);
+        if (role == Role.Item) return 0f;
+
+        // 단계 조건 — 공격을 갖추기 전엔 탐색·연쇄를, 탐색 없이는 연쇄를 권하지 않는다
+        if (role != Role.Attack && !AttackReady(owned)) return 0f;
+        if (role == Role.Chain && !HasSearch(owned)) return 0f;
 
         Role guide = Guide(owned);
-        if (guide == Role.Item || RoleOf(data) != guide) return false;
+        int lv = LevelOf(data, owned);
 
-        if (guide == Role.Search)
-        {
-            float bonus = BonusAt(data, LevelOf(data, owned) + 1);
-            reason = bonus > 0f ? $"탐색 · 받는 피해 +{bonus * 100f:0}%" : "탐색 · 표식";
-        }
-        else
-        {
-            reason = NeedsSearch(data) ? "연쇄 · 탐색 대상끼리 전이" : "연쇄 · 적중을 자식에게 전이";
-        }
+        float score = role == guide ? 100f : 0f;
+                score += role switch { Role.Attack => 3f, Role.Search => 2f, _ => 1f };   // 중요도
+        score -= Invested(owned, role) / Weight(role);               // 덜 키운 역할일수록 위
+        score += lv > 0 ? 0.5f : 0f;                                  // 같은 역할이면 가진 것을 올리는 쪽
 
-        return true;
+        reason = role switch
+        {
+            Role.Attack => lv > 0 ? "공격 · 화력 강화" : "공격 · 화력 확보",
+            Role.Search => BonusAt(data, lv + 1) is float b && b > 0f ? $"탐색 · 받는 피해 +{b * 100f:0}%" : "탐색 · 표식",
+            _ => NeedsSearch(data) ? "연쇄 · 탐색 대상끼리 전이" : "연쇄 · 적중을 자식에게 전이"
+        };
+
+        return Mathf.Max(0.01f, score);
     }
+
+    /// <summary>이 카드를 추천하는가(지금 올려야 할 역할인가)와 그 이유.</summary>
+    public static bool Recommend(AugmentData data, AugmentManager owned, out string reason)
+        => Score(data, owned, out reason) >= 100f;
 
     static int LevelOf(AugmentData data, AugmentManager owned)
     {
@@ -153,8 +215,9 @@ public static class AugmentAdvice
 
         return Guide(owned) switch
         {
-            Role.Search => $"{head}    <color=#FFD54A>▶ 공격 준비 완료 — 이제 탐색</color>",
-            Role.Chain => $"{head}    <color=#FFD54A>▶ 탐색 완료 — 이제 연쇄</color>",
+            Role.Attack => $"{head}    <color=#FFD54A>▶ 공격 강화</color>",
+            Role.Search => $"{head}    <color=#FFD54A>▶ 탐색 강화</color>",
+            Role.Chain => $"{head}    <color=#FFD54A>▶ 연쇄 강화</color>",
             _ => head
         };
     }

@@ -46,7 +46,7 @@ public static class HalloweenPrefabMaker
     };
 
     /// <summary>할로윈 배경음. 모든 씬이 같은 곡을 물면 BgmPlayer 가 씬을 넘어가도 끊지 않고 잇는다.</summary>
-    const string BgmPath = "Assets/_Project/Art/Audio/bgm/9Halloween_uwawa_loop.wav";
+    const string BgmPath = "Assets/_Project/Art/Audio/bgm/9Halloween_uwawa_3min.mp3";
 
     /// <summary>원래 그림이 없을 때 쓰는 크기. 기존 적은 256px · PPU 128 = 2유닛이다.</summary>
     const float FallbackUnits = 2f;

@@ -607,7 +607,7 @@ public class AugmentCardView : MonoBehaviour,
         else if (role == AugmentAdvice.Role.Chain)  { roleName = "연쇄"; roleTag = AugmentTag.Chain; }
         else if (role == AugmentAdvice.Role.Attack)
         {
-            if (IsCoreAttack(data)) { roleName = "공격"; roleTag = AugmentTag.Attack; }
+            if (AugmentAdvice.IsCoreAttack(data)) { roleName = "공격"; roleTag = AugmentTag.Attack; }
             else                    { roleName = "보조"; roleTag = AugmentTag.Support; }
         }
 

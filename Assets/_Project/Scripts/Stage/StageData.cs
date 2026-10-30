@@ -22,6 +22,10 @@ public class StageData : ScriptableObject
     [Tooltip("바닥/배경 프리팹. 원점에 하나 깔린다. 비우면 안 깐다.")]
     public GameObject backgroundPrefab;
 
+    [Tooltip("치이카와(할로윈) 이벤트 스테이지. 켜면 적·투사체 치이카와 스킨, 보스 노래 등이 적용된다.\n" +
+             "꺼진 스테이지에서는 치이카와 관련 연출이 하나도 안 나온다.")]
+    public bool chiikawaEvent;
+
     [Tooltip("스테이지 시작 시 순서대로 흘릴 로그.")]
     [TextArea] public string[] bootLines =
     {

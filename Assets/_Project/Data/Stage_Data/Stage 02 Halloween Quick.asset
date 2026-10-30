@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 811fa7b78f7f71b418b03e87c1127af5, type: 3}
   m_Name: Stage 02 Halloween Quick
   m_EditorClassIdentifier: Assembly-CSharp::StageData
-  displayName: Stage 01 Halloween Quick
+  displayName: Stage 02
   stageId: 101
   backgroundPrefab: {fileID: 1633586151302532737, guid: 77ca8103bd1594477bd7e8da6dbf3602, type: 3}
+  chiikawaEvent: 1
   bootLines:
   - $ gcc -o stage_01 main.c
   - '> compiling ...'
