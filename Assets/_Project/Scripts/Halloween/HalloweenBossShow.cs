@@ -60,8 +60,17 @@ public class HalloweenBossShow : MonoBehaviour
     [Tooltip("체력이 이 비율 아래로 떨어지면 2페이즈 — 원래 기믹에 회전 레이저와 물결이 더해진다.")]
     [Range(0.05f, 0.95f)] [SerializeField] float phase2At = 0.5f;
 
-    [Tooltip("2페이즈에 들어갈 때 남은 체력에 곱하는 값")]
-    [Min(1f)] [SerializeField] float phase2HealthScale = 2f;
+    [Tooltip("2페이즈를 이 정도 시간(초) 안에 잡게 체력을 맞춘다.\n" +
+             "1페이즈 동안 보스에게 실제로 넣은 초당 피해(DPS) × 이 시간 = 2페이즈 체력.")]
+    [Min(5f)] [SerializeField] float phase2TargetSeconds = 45f;
+
+    [Tooltip("2페이즈 체력 배율의 하한·상한. 원래 남은 체력(50%) 기준.\n" +
+             "하한 1 = 약한 빌드도 원래보다 쉬워지지는 않는다. 상한 = 너무 센 빌드에서 끝없이 불어나지 않게.")]
+    [Min(1f)] [SerializeField] float phase2MinScale = 1f;
+    [Min(1f)] [SerializeField] float phase2MaxScale = 8f;
+
+    [Tooltip("1페이즈가 이보다 짧게 끝나면 DPS 측정이 불안정하다고 보고 이 배율을 쓴다.")]
+    [Min(1f)] [SerializeField] float phase2FallbackScale = 3f;
     [Tooltip("1→2페이즈 사이에 크게 띄웠다 사라지는 세이렌 얼굴(지지직 컷인). 그동안 플레이어는 무적.")]
     [SerializeField] Sprite phase2Portrait;
     [SerializeField] string phase2Title = "2 페이즈";
@@ -114,6 +123,11 @@ public class HalloweenBossShow : MonoBehaviour
     HalloweenBossPhase2 phase2;
     HalloweenBugSwarm swarm;
     int phase;
+    float phase1Time;          // 보스를 때리고 있던 시간 합
+    float bossClock;           // 보스 등장 후 흐른 게임 시간
+    float lastBossHit = -999f; // 마지막으로 보스 체력이 깎인 시각(bossClock 기준)
+    float lastBossHealth = -1f;
+    const float HitWindow = 1f;
     float bannerUntil = -1f;
 
     Transform ring;
@@ -180,6 +194,11 @@ public class HalloweenBossShow : MonoBehaviour
             }
             else TickWarning(bossAt - now);
         }
+
+        // 1페이즈 동안 "보스를 때리고 있던" 시간만 센다 — DPS 측정용.
+        // 체력이 깎인 순간부터 HitWindow 초 안이면 교전 중으로 본다(공격 쿨다운 사이 공백을 메운다).
+        // 도망·잡몹 정리로 보스를 안 때린 시간은 빠진다. deltaTime 이라 증강 선택 중엔 안 센다
+        if (phase == 1 && boss != null && boss.IsAlive) TrackEngagement(Time.deltaTime);
 
         // 2페이즈 진입
         if (phase == 1 && boss != null && boss.IsAlive && boss.HealthRatio <= phase2At)
@@ -278,9 +297,9 @@ public class HalloweenBossShow : MonoBehaviour
     {
         phase = 2;
 
-        // 2페이즈 체력 2배 — 최대·현재 체력을 같이 늘려 비율(50%)은 그대로, 남은 체력만 두 배가 된다.
-        // 체력바는 비율만 읽으므로 2페이즈 바(50→0%)가 두 배 느리게 줄어든다
-        boss.ScaleHealth(phase2HealthScale);
+        // 2페이즈 체력을 플레이어 DPS 에 맞춘다 — 최대·현재 체력을 같이 늘려 비율(50%)은 그대로,
+        // 남은 체력만 커진다. 체력바는 비율만 읽으므로 2페이즈 바(50→0%)가 그만큼 느리게 줄어든다
+        boss.ScaleHealth(Phase2Scale());
 
         if (bar != null) bar.SetPhase(2);
 
@@ -310,6 +329,48 @@ public class HalloweenBossShow : MonoBehaviour
         phase2.Begin(boss, ringMaterial != null ? ringMaterial : MakeUnlitMaterial());
 
         ShowBanner(phase2Title, phase2Sub, 2.2f);
+    }
+
+    /// <summary>보스 체력이 깎였는지 보고, 교전 중이면 1페이즈 시간을 늘린다.</summary>
+    void TrackEngagement(float dt)
+    {
+        bossClock += dt;
+
+        float hp = boss.Health;
+        if (lastBossHealth >= 0f && hp < lastBossHealth) lastBossHit = bossClock;
+        lastBossHealth = hp;
+
+        if (bossClock - lastBossHit <= HitWindow) phase1Time += dt;
+    }
+
+    /// <summary>
+    /// 2페이즈 체력 배율. 1페이즈에 보스에게 실제로 들어간 피해 ÷ 보스를 때리고 있던 시간 = 보스 대상 DPS.
+    /// 그 DPS 로 <see cref="phase2TargetSeconds"/> 초 걸리는 체력이 되도록 남은 체력에 곱할 값을 낸다.
+    ///
+    /// 보스 대상 DPS 를 쓰는 이유 — 전체 피해량은 잡몹에 흩어진 광역 피해까지 섞여 보스전 체감과 안 맞는다.
+    /// </summary>
+    float Phase2Scale()
+    {
+        float ratio = boss.HealthRatio;
+        float remaining = boss.Health;
+        if (ratio <= 0f || remaining <= 0f) return phase2FallbackScale;
+
+        float max = remaining / ratio;
+        float dealt = max - remaining;     // 1페이즈 동안 깎은 체력
+
+        if (phase1Time < 3f || dealt <= 0f)
+        {
+            Debug.Log($"[HalloweenBoss] 2페이즈 — 1페이즈가 너무 짧아(교전 {phase1Time:0.0}초) 기본 배율 ×{phase2FallbackScale}");
+            return phase2FallbackScale;
+        }
+
+        float dps = dealt / phase1Time;
+        float wanted = dps * phase2TargetSeconds;
+        float scale = Mathf.Clamp(wanted / remaining, phase2MinScale, phase2MaxScale);
+
+        Debug.Log($"[HalloweenBoss] 2페이즈 — 보스 대상 DPS {dps:0.#} (교전 {phase1Time:0.0}초 / 전체 {bossClock:0.0}초, {dealt:0}피해) → " +
+                  $"목표 {phase2TargetSeconds:0}초 · 체력 ×{scale:0.00} ({remaining:0} → {remaining * scale:0})");
+        return scale;
     }
 
     /// <summary>경고와 같은 네온 글자로 잠깐 띄우는 배너.</summary>
