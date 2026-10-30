@@ -60,6 +60,10 @@ public class HalloweenBossShow : MonoBehaviour
     [Tooltip("체력이 이 비율 아래로 떨어지면 2페이즈 — 원래 기믹에 회전 레이저와 물결이 더해진다.")]
     [Range(0.05f, 0.95f)] [SerializeField] float phase2At = 0.5f;
 
+    [Tooltip("2페이즈에 들어갈 때 남은 체력에 곱하는 값")]
+    [Min(1f)] [SerializeField] float phase2HealthScale = 2f;
+    [Tooltip("1→2페이즈 사이에 크게 띄웠다 사라지는 세이렌 얼굴(지지직 컷인). 그동안 플레이어는 무적.")]
+    [SerializeField] Sprite phase2Portrait;
     [SerializeField] string phase2Title = "2 페이즈";
     [SerializeField] string phase2Sub = "레이저 · 물결 주의";
 
@@ -134,10 +138,6 @@ public class HalloweenBossShow : MonoBehaviour
 
     void Start()
     {
-        // 시작 연출이 없으면 처음부터 모자를 쓴다 (있으면 연출이 배경 바꿀 때 씌운다)
-        if (introSeconds <= 0f && GameManager.instance != null && GameManager.instance.player != null)
-            HalloweenHat.Put(GameManager.instance.player.gameObject);
-
         StageData stage = StageContext.Active;
         if (stage == null || stage.bosses == null) return;
 
@@ -278,7 +278,28 @@ public class HalloweenBossShow : MonoBehaviour
     {
         phase = 2;
 
+        // 2페이즈 체력 2배 — 최대·현재 체력을 같이 늘려 비율(50%)은 그대로, 남은 체력만 두 배가 된다.
+        // 체력바는 비율만 읽으므로 2페이즈 바(50→0%)가 두 배 느리게 줄어든다
+        boss.ScaleHealth(phase2HealthScale);
+
         if (bar != null) bar.SetPhase(2);
+
+        // 1→2페이즈 사이 컷인 — 세이렌 얼굴이 지지직거리며 크게 떴다 사라진다.
+        // 컷인 동안은 게임이 멈추고 플레이어·보스 둘 다 무적이며, 2페이즈 패턴(레이저·물결)은 컷인이 끝난 뒤에 시작한다
+        if (phase2Portrait != null)
+        {
+            var cut = new GameObject("Halloween Phase Cut-in");
+            cut.transform.SetParent(transform, false);
+            cut.AddComponent<HalloweenPhaseCutin>().Play(phase2Portrait, boss, StartPhase2);
+        }
+        else StartPhase2();
+    }
+
+    /// <summary>컷인이 끝난 뒤 실제 2페이즈를 켠다.</summary>
+    void StartPhase2()
+    {
+        if (boss == null || !boss.IsAlive || ring == null) return;
+
         if (swarm != null) swarm.SetPhase(2);
 
         // 2페이즈 그림(p2_)이 있으면 보스 모습이 바뀐다

@@ -250,6 +250,17 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <summary>남은 체력 비율(0~1). 죽었으면 0.</summary>
     public float HealthRatio => isLive && maxHealth > 0f ? Mathf.Clamp01(health / maxHealth) : 0f;
 
+    /// <summary>연출용 무적(보스 페이즈 전환 컷인 등). 켜져 있으면 피해 진입점에서 통째로 막는다.</summary>
+    public bool Invulnerable { get; set; }
+
+    /// <summary>최대·현재 체력을 같은 배율로 늘린다 — 체력 비율은 그대로, 남은 체력만 커진다(보스 페이즈 전환용).</summary>
+    public void ScaleHealth(float factor)
+    {
+        if (!isLive || factor <= 0f) return;
+        maxHealth *= factor;
+        health *= factor;
+    }
+
     /// <summary>잡몹인가. 오래 산 적 정리는 잡몹만 한다 — 엘리트는 상자를 들고 있다.</summary>
     public bool IsMinion => source == null || source.rank == EnemyData.Rank.Minion;
 
@@ -328,7 +339,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     public void TakeDamage(float amount)
     {
         // 같은 프레임에 여러 발이 맞아도 Dead가 두 번 돌지 않게 막는다
-        if (!isLive || amount <= 0f)
+        if (!isLive || Invulnerable || amount <= 0f)
             return;
 
         health -= amount;

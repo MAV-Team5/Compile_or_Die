@@ -52,8 +52,17 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
     public float Current { get; private set; }
     public bool IsDead { get; private set; }
 
-    /// <summary>죽은 뒤에는 피해가 안 들어간다. 무적 프레임이 생기면 여기에 얹는다.</summary>
-    public bool AcceptsDamage => !IsDead;
+    /// <summary>죽은 뒤나 무적 중에는 피해가 안 들어간다.</summary>
+    public bool AcceptsDamage => !IsDead && !Invulnerable;
+
+    // 무적을 건 쪽 수. 여러 연출이 겹쳐도 마지막 하나가 풀릴 때까지 무적이다
+    int invulnerableLocks;
+
+    /// <summary>연출용 무적(보스 페이즈 전환 컷인 등). 피해 진입점에서 통째로 막는다.</summary>
+    public bool Invulnerable => invulnerableLocks > 0;
+
+    public void PushInvulnerable() => invulnerableLocks++;
+    public void PopInvulnerable() => invulnerableLocks = Mathf.Max(0, invulnerableLocks - 1);
 
     /// <summary>(현재, 최대). 피해·회복 모두 알린다.</summary>
     public event System.Action<float, float> Changed;
@@ -117,7 +126,7 @@ public class PlayerHealth : MonoBehaviour, IDamageReceiver
     /// </summary>
     public void TakeDamage(float amount)
     {
-        if (IsDead || amount <= 0f) return;
+        if (IsDead || Invulnerable || amount <= 0f) return;
 
         // 최소 1 — 아주 약한 적이 0을 주면 닿아도 아무 일이 안 일어난 것처럼 보인다
         int damage = Mathf.Max(1, Mathf.RoundToInt(amount));

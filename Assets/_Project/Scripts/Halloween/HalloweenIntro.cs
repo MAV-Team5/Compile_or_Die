@@ -135,12 +135,6 @@ public class HalloweenIntro : MonoBehaviour
         if (originalInstance != null) Destroy(originalInstance);
         if (halloweenBackground != null) halloweenBackground.enabled = true;
         BgmPlayer.Stop();
-
-        // 배경이 할로윈으로 바뀌는 순간 마녀 모자를 씌운다
-        Player p = GameManager.instance != null ? GameManager.instance.player : null;
-        if (p == null) p = FindFirstObjectByType<Player>();
-        if (p != null) HalloweenHat.Put(p.gameObject);
-        else Debug.LogWarning("[HalloweenHat] 플레이어를 못 찾아 모자를 못 씌움");
     }
 
     void OnDestroy()
@@ -258,7 +252,7 @@ public class HalloweenIntro : MonoBehaviour
     }
 
     /// <summary>지지직 소리. 따로 파일 없이 잡음을 만들어 튼다 — 끊겼다 이어지는 라디오 잡음처럼.</summary>
-    static void PlayNoise()
+    internal static void PlayNoise()
     {
         const int rate = 22050;
         const float seconds = 0.9f;
