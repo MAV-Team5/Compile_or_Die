@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: ad9e4adcbf034904691358c2dd85ad39
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5548433747344848152
+    second: Aug_Java_Charge_f1_0
+  - first:
+      213: -5343146877949962028
+    second: Aug_Java_Charge_f1_1
+  - first:
+      213: -4281996627526379316
+    second: Aug_Java_Charge_f1_2
+  - first:
+      213: -7962037729618413156
+    second: Aug_Java_Charge_f1_3
+  - first:
+      213: -6267071156160434415
+    second: Aug_Java_Charge_f1_4
+  - first:
+      213: 3428432270863287919
+    second: Aug_Java_Charge_f1_5
+  - first:
+      213: 2922311410764418734
+    second: Aug_Java_Charge_f1_6
+  - first:
+      213: -5208679440766388741
+    second: Aug_Java_Charge_f1_7
+  - first:
+      213: 2987684841905817700
+    second: Aug_Java_Charge_f1_8
+  - first:
+      213: 1883025190662845671
+    second: Aug_Java_Charge_f1_9
+  - first:
+      213: 9007470244357623466
+    second: Aug_Java_Charge_f1_10
+  - first:
+      213: 8205706073919968074
+    second: Aug_Java_Charge_f1_11
+  - first:
+      213: -4525662741983393229
+    second: Aug_Java_Charge_f1_12
+  - first:
+      213: -6532396660739038705
+    second: Aug_Java_Charge_f1_13
+  - first:
+      213: -4767934813216795149
+    second: Aug_Java_Charge_f1_14
+  - first:
+      213: -8192125717401261586
+    second: Aug_Java_Charge_f1_15
+  - first:
+      213: -3948893688743179801
+    second: Aug_Java_Charge_f1_16
+  - first:
+      213: -871414287901362842
+    second: Aug_Java_Charge_f1_17
+  - first:
+      213: -3335537238427741252
+    second: Aug_Java_Charge_f1_18
+  - first:
+      213: -6127177126116014946
+    second: Aug_Java_Charge_f1_19
+  - first:
+      213: -2021740287408771346
+    second: Aug_Java_Charge_f1_20
+  - first:
+      213: 2511504876008325829
+    second: Aug_Java_Charge_f1_21
+  - first:
+      213: -3627286789903503810
+    second: Aug_Java_Charge_f1_22
+  - first:
+      213: -4193379091483370996
+    second: Aug_Java_Charge_f1_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_0
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 213
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 815774aa81ffffc40800000000000000
+      internalID: 5548433747344848152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_1
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 226
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d81e05493459d5b0800000000000000
+      internalID: -5343146877949962028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_2
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 220
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc89ed611ca4394c0800000000000000
+      internalID: -4281996627526379316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_3
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 225
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9936dd9ed8218190800000000000000
+      internalID: -7962037729618413156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_4
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 211
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11fe5f2ecf3e609a0800000000000000
+      internalID: -6267071156160434415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_5
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 192
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f66ca495cfc349f20800000000000000
+      internalID: 3428432270863287919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 191
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eae0fa9beb22e8820800000000000000
+      internalID: 2922311410764418734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_7
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 168
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf53d3835ad07b7b0800000000000000
+      internalID: -5208679440766388741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_8
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 166
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4688d96c883667920800000000000000
+      internalID: 2987684841905817700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_9
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 141
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e432982f69d12a10800000000000000
+      internalID: 1883025190662845671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_10
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 138
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aae46dfa676f00d70800000000000000
+      internalID: 9007470244357623466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_11
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 111
+        width: 30
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a43d343d23680e170800000000000000
+      internalID: 8205706073919968074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_12
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 108
+        width: 30
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33a0cd2d6bd9131c0800000000000000
+      internalID: -4525662741983393229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 81
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f02a3b0e8d34855a0800000000000000
+      internalID: -6532396660739038705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_14
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 78
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f59ef98c84e4ddb0800000000000000
+      internalID: -4767934813216795149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_15
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 54
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee9a4f25019bf4e80800000000000000
+      internalID: -8192125717401261586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_16
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 33
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e94eaabc16b239c0800000000000000
+      internalID: -3948893688743179801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_17
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 31
+        width: 31
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6657075725d18e3f0800000000000000
+      internalID: -871414287901362842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_18
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 52
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb35d68dd8ac5b1d0800000000000000
+      internalID: -3335537238427741252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_19
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 19
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e94c4f1fdd4e7faa0800000000000000
+      internalID: -6127177126116014946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_20
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 12
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eee67e49be551f3e0800000000000000
+      internalID: -2021740287408771346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_21
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 6
+        width: 8
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c24322d068aad220800000000000000
+      internalID: 2511504876008325829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_22
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 12
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3ea55df1e949adc0800000000000000
+      internalID: -3627286789903503810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aug_Java_Charge_f1_23
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 18
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0a559b0fef1ec5c0800000000000000
+      internalID: -4193379091483370996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Aug_Java_Charge_f1_0: 5548433747344848152
+      Aug_Java_Charge_f1_1: -5343146877949962028
+      Aug_Java_Charge_f1_10: 9007470244357623466
+      Aug_Java_Charge_f1_11: 8205706073919968074
+      Aug_Java_Charge_f1_12: -4525662741983393229
+      Aug_Java_Charge_f1_13: -6532396660739038705
+      Aug_Java_Charge_f1_14: -4767934813216795149
+      Aug_Java_Charge_f1_15: -8192125717401261586
+      Aug_Java_Charge_f1_16: -3948893688743179801
+      Aug_Java_Charge_f1_17: -871414287901362842
+      Aug_Java_Charge_f1_18: -3335537238427741252
+      Aug_Java_Charge_f1_19: -6127177126116014946
+      Aug_Java_Charge_f1_2: -4281996627526379316
+      Aug_Java_Charge_f1_20: -2021740287408771346
+      Aug_Java_Charge_f1_21: 2511504876008325829
+      Aug_Java_Charge_f1_22: -3627286789903503810
+      Aug_Java_Charge_f1_23: -4193379091483370996
+      Aug_Java_Charge_f1_3: -7962037729618413156
+      Aug_Java_Charge_f1_4: -6267071156160434415
+      Aug_Java_Charge_f1_5: 3428432270863287919
+      Aug_Java_Charge_f1_6: 2922311410764418734
+      Aug_Java_Charge_f1_7: -5208679440766388741
+      Aug_Java_Charge_f1_8: 2987684841905817700
+      Aug_Java_Charge_f1_9: 1883025190662845671
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

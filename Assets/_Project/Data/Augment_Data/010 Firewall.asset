@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 010 Firewall
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
+  lockModules: 1
   lockStats: 1
   id: FIREWALL
   displayName: FireWall
@@ -47,7 +47,7 @@ MonoBehaviour:
     effectDamage: 0
     cooldown: 1.5
     range: 0
-    effectRange: 3.1
+    effectRange: 3.3
     count: 0
     pierce: 0
     duration: 0
@@ -57,27 +57,27 @@ MonoBehaviour:
     effectDamage: 0
     cooldown: 1.5
     range: 0
-    effectRange: 3.2
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 3.4
-    effectDamage: 0
-    cooldown: 1.3
-    range: 0
-    effectRange: 3.5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 4.2
-    effectDamage: 0
-    cooldown: 1.3
-    range: 0
     effectRange: 3.6
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 3
+    effectDamage: 0
+    cooldown: 1.3
+    range: 0
+    effectRange: 3.9
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 4
+    effectDamage: 0
+    cooldown: 1.3
+    range: 0
+    effectRange: 4.2
     count: 0
     pierce: 0
     duration: 0
@@ -87,17 +87,17 @@ MonoBehaviour:
     effectDamage: 0
     cooldown: 1.3
     range: 0
-    effectRange: 3.7
+    effectRange: 4.5
     count: 0
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 6.5
+  - damage: 7
     effectDamage: 0
     cooldown: 1.1
     range: 0
-    effectRange: 4.1
+    effectRange: 5
     count: 0
     pierce: 0
     duration: 0
@@ -176,4 +176,6 @@ MonoBehaviour:
       data:
         distance: 0.6
         pull: 0
+        gatherToCenter: 0
         stunDuration: 0.2
+        affectsHeavy: 0

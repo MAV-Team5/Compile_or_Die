@@ -16,6 +16,8 @@ MonoBehaviour:
   voiceVolume: 0.6
   bossBgm: {fileID: 8300000, guid: 4af5f2f2586f44a398d082129762dec2, type: 3}
   bossVolume: 0.5
+  glitchGap: 0.4
+  glitchMaxAtOnce: 4
   enemies:
   - enemy: {fileID: 11400000, guid: 1df2454d66a084457857fca80fa4e719, type: 2}
     idleFrames:

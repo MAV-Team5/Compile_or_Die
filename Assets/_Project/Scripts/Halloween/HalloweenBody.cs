@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -30,8 +31,10 @@ public class HalloweenBody : MonoBehaviour
     const float AttackInterval = 0.2f;
     const float AttackVolume = 0.7f;
 
-    // 글리치 — 3초에 한 번 0.3초 동안 지지직. 몬스터마다 시점이 달라 화면이 통째로 깜빡이지 않는다
+    // 글리치 — 몬스터마다 평균 3초에 한 번 0.3초 동안 지지직.
+    // 화면 전체 빈도는 DB 의 간격·동시 수 제한이 정한다 — 적이 많을 때 눈이 아프지 않게
     const float GlitchEvery = 3f;
+    const float GlitchRetry = 0.25f;   // 제한에 막혔을 때 다시 노리는 간격
     const float GlitchLength = 0.3f;
     const float GlitchStep = 0.05f;
     const float GlitchShift = 0.08f;    // 좌우로 튀는 폭(그림 너비 비율)
@@ -70,6 +73,20 @@ public class HalloweenBody : MonoBehaviour
     Sprite[] glitchLeft, glitchRight;
     bool glitchOn;
     bool wasGlitching;
+    float glitchStart = float.NegativeInfinity;
+    float nextGlitchTry;
+
+    // 화면 전체 글리치 제한. 끝나는 시각만 들고 있어 반납을 놓쳐도 새지 않는다
+    static float gateOpensAt;
+    static readonly List<float> glitchEnds = new();
+
+    // 도메인 리로드를 끈 에디터에서는 Time.time 이 0부터 다시 시작해 지난 값에 막힌다
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetGate()
+    {
+        gateOpensAt = 0f;
+        glitchEnds.Clear();
+    }
     float fps;
     bool bounce;
     float phase;
@@ -175,6 +192,8 @@ public class HalloweenBody : MonoBehaviour
             glitchRight2 = glitchRight1;
         }
         wasGlitching = false;
+        glitchStart = float.NegativeInfinity;
+        nextGlitchTry = Time.time + Random.value * GlitchEvery;
 
         // 지난 개체가 글리치 색인 채 반납됐을 수 있다
         body.color = Color.white;
@@ -377,7 +396,9 @@ public class HalloweenBody : MonoBehaviour
 
         if (alive && glitchOn)
         {
-            float c = (now + phase) % GlitchEvery;
+            if (now - glitchStart >= GlitchLength && now >= nextGlitchTry) TryStartGlitch(now);
+
+            float c = now - glitchStart;
 
             if (c < GlitchLength)
             {
@@ -405,6 +426,36 @@ public class HalloweenBody : MonoBehaviour
             float s = bounce ? Mathf.Sin((now + phase) * SquashHz * Mathf.PI * 2f) * SquashAmount : 0f;
             transform.localScale = new Vector3(baseScale.x * (1f + s) * stretch, baseScale.y * (1f - s), baseScale.z);
         }
+    }
+
+    void TryStartGlitch(float now)
+    {
+        // 화면 밖에서 자리를 차지하면 보이는 글리치가 줄어든다
+        if (body.isVisible && ClaimGlitch(now))
+        {
+            glitchStart = now;
+            nextGlitchTry = now + GlitchEvery * Random.Range(0.6f, 1.4f);
+        }
+        else
+        {
+            nextGlitchTry = now + GlitchRetry * Random.Range(0.5f, 1.5f);
+        }
+    }
+
+    static bool ClaimGlitch(float now)
+    {
+        float gap = HalloweenSkin.GlitchGap;
+        if (gap <= 0f) return true;
+        if (now < gateOpensAt) return false;
+
+        for (int i = glitchEnds.Count - 1; i >= 0; i--)
+            if (glitchEnds[i] <= now) glitchEnds.RemoveAt(i);
+
+        if (glitchEnds.Count >= HalloweenSkin.GlitchMaxAtOnce) return false;
+
+        glitchEnds.Add(now + GlitchLength);
+        gateOpensAt = now + gap;
+        return true;
     }
 
     Sprite Loop(Sprite[] frames, float t)

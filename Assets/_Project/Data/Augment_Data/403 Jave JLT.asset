@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
-  m_Name: 402 Jave JLT
+  m_Name: 403 Jave JLT
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: JAVA_JLT
   displayName: Java JLT
   category: 3
@@ -30,7 +30,77 @@ MonoBehaviour:
   targetingPatch: 0
   deliveryPatch: 0
   effectPatch: 0
-  levelStats: []
+  levelStats:
+  - damage: 4
+    effectDamage: 0
+    cooldown: 0
+    range: 17
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 5
+    effectDamage: 0
+    cooldown: 0
+    range: 18
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 6
+    effectDamage: 0
+    cooldown: 0
+    range: 19
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 8
+    effectDamage: 0
+    cooldown: 0
+    range: 20
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 10
+    effectDamage: 0
+    cooldown: 0
+    range: 21
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 12
+    effectDamage: 0
+    cooldown: 0
+    range: 22
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 19
+    effectDamage: 0
+    cooldown: 0
+    range: 23
+    effectRange: 0
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
   trigger:
     rid: -2
   targeting:
@@ -60,7 +130,7 @@ MonoBehaviour:
         damageScale: 1
         accentText: 0
         textStyle:
-          color: {r: 1, g: 1, b: 1, a: 1}
+          color: {r: 0.9960785, g: 0.94117653, b: 0.41176474, a: 1}
           scale: 1
           riseSpeed: 1.5
           offset: {x: 0, y: 0}
@@ -68,7 +138,7 @@ MonoBehaviour:
       type: {class: LineDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
-        beamPrefab: {fileID: 0}
+        beamPrefab: {fileID: 6824073935605403827, guid: 46a44a43f66f8fb4c84e49f5e78dde59, type: 3}
         width: 0.6
         length:
           value: 0

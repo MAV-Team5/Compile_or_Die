@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingOrder: -10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: f50c129ddc57846a9b1f26bd09ae0b91, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4509804, g: 0.4509804, b: 0.50980395, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -112,6 +112,7 @@ MonoBehaviour:
   neonGlow: {r: 1, g: 0.05, b: 0.2, a: 1}
   ringSize: 90
   ropeWidth: 0.8
+  wallPadding: 0.8
   ringMaterial: {fileID: 2100000, guid: 5650ade53521449418d92a09a51f80ef, type: 2}
   collectOnBoss: {fileID: 11400000, guid: 26afc9f0ee9ff8a4889de4170c39dacc, type: 2}
   originalBackground: {fileID: 731202862171851470, guid: 8ac44f1dafcc4834aba41f2c32b9f582, type: 3}

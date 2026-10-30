@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 009 Iteration
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
+  lockModules: 1
   lockStats: 1
   id: ITERATION
   displayName: Iteration
@@ -40,69 +40,69 @@ MonoBehaviour:
   - damage: 1
     effectDamage: 0
     cooldown: 4
-    range: 9
-    effectRange: 0
-    count: 4
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 1.6
-    effectDamage: 0
-    cooldown: 4
-    range: 10
-    effectRange: 0
-    count: 4
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 2.2
-    effectDamage: 0
-    cooldown: 4
     range: 11
     effectRange: 0
-    count: 4
+    count: 8
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 3
+  - damage: 1.5
     effectDamage: 0
-    cooldown: 3.7
+    cooldown: 4
+    range: 12
+    effectRange: 0
+    count: 8
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 2
+    effectDamage: 0
+    cooldown: 4
     range: 13
     effectRange: 0
-    count: 5
+    count: 8
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 4
+  - damage: 3.5
     effectDamage: 0
     cooldown: 3.7
     range: 14
     effectRange: 0
-    count: 5
+    count: 12
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 5
+  - damage: 4.5
     effectDamage: 0
     cooldown: 3.7
     range: 15
     effectRange: 0
-    count: 5
+    count: 12
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 6
+  - damage: 5.5
+    effectDamage: 0
+    cooldown: 3.7
+    range: 16
+    effectRange: 0
+    count: 12
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 8
     effectDamage: 0
     cooldown: 3.3
     range: 17
     effectRange: 0
-    count: 6
+    count: 16
     pierce: 0
     duration: 0
     speed: 0
@@ -173,6 +173,7 @@ MonoBehaviour:
         lifetime: 3
         oneHitPerTarget: 0
         dieWithOrigin: 1
+        pierceToTarget: 0
         homing:
           turnSpeed: 0
           seekRadius: 0

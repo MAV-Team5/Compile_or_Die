@@ -50,6 +50,7 @@ public static class AugmentTint
     public static void OnSpawn(GameObject go)
     {
         if (go == null) return;
+        if (go.TryGetComponent(out KeepOriginalColors _)) return;
 
         AugmentData data = Current;
         if (data != null && AugmentPalette.TryGet(data, out Color c)) Apply(go, Neon(c));

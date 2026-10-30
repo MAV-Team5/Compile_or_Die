@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4106603368214801592}
   - component: {fileID: 9172930219203919871}
   - component: {fileID: 8075889496817775361}
+  - component: {fileID: -2777126143181931261}
   m_Layer: 0
   m_Name: Proj_Python
   m_TagString: Untagged
@@ -260,6 +261,18 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-2777126143181931261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6824073935605403827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe97298aef9a2f45a09fe1d256a6969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeepOriginalColors
 --- !u!1 &6929326942612693263
 GameObject:
   m_ObjectHideFlags: 0
