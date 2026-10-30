@@ -152,6 +152,9 @@ public class HalloweenBossShow : MonoBehaviour
 
     void Start()
     {
+        // 블루스크린(좌우반전) 게이지를 캐릭터 몸에 자라는 풀로 보여준다
+        new GameObject("Halloween Grass Gauge").AddComponent<HalloweenGrassGauge>().transform.SetParent(transform, false);
+
         StageData stage = StageContext.Active;
         if (stage == null || stage.bosses == null) return;
 

@@ -22,7 +22,7 @@ public class HalloweenBossPhase2 : MonoBehaviour
     const float LaserSpin = 18f;         // 시계방향 회전 속도(도/초)
     const float LaserWarmup = 2f;        // 경고선만 보이는 시간
     const float LaserWidth = 1.1f;       // 판정·그림 굵기
-    const float LaserDps = 15f;          // 닿아 있는 동안 초당 피해
+    const float LaserDps = 22.5f;        // 닿아 있는 동안 초당 피해 (15 → ×1.5)
     const float LaserTick = 0.2f;
     const int LaserPoints = 48;          // 한 줄의 꺾임 수 — 많을수록 지글거림이 촘촘하다
     const float LaserJitter = 0.55f;     // 지글거림 폭
@@ -64,6 +64,16 @@ public class HalloweenBossPhase2 : MonoBehaviour
     LineRenderer[] laserCore = new LineRenderer[2];
     LineRenderer[] laserGlow = new LineRenderer[2];
     LineRenderer centerOrb;
+
+    // 소리 — 레이저 웅웅(반복), 점화 "지잉", 물결 타격 "팡"
+    const float HumVolume = 0.3f;       // 레이저 웅웅 최대 크기
+    const float HumNearDist = 1.5f;     // 이보다 가까우면 최대 크기
+    const float HumFarDist = 14f;       // 이보다 멀면 최소 크기
+    const float HumFarFloor = 0.35f;    // 멀어도 이 비율은 들린다 — 레이저가 돌고 있다는 걸 잊지 않게
+    const float BoomVolume = 0.75f;
+    AudioSource humSource;
+    bool ignited;
+    int lastBoomStep = -1;
     float jitterTimer;
     float laserTickTimer;
     readonly Vector3[] laserBuf = new Vector3[LaserPoints + 1];
@@ -107,7 +117,13 @@ public class HalloweenBossPhase2 : MonoBehaviour
 
     void Update()
     {
-        if (boss == null || !boss.IsAlive) return;
+        if (boss == null || !boss.IsAlive)
+        {
+            if (humSource != null && humSource.isPlaying) humSource.Stop();
+            return;
+        }
+
+        TickHum();
 
         float dt = Time.deltaTime;
         age += dt;
@@ -124,6 +140,14 @@ public class HalloweenBossPhase2 : MonoBehaviour
         angle -= LaserSpin * dt;
 
         bool live = age >= LaserWarmup;
+
+        // 경고선이 진짜 레이저로 바뀌는 순간 — "지잉" 하고 웅웅거림이 시작된다
+        if (live && !ignited)
+        {
+            ignited = true;
+            SfxPlayer.Play(HalloweenBossSfx.LaserIgnite, 0.7f);
+            StartHum();
+        }
 
         jitterTimer -= dt;
         if (jitterTimer <= 0f)
@@ -245,6 +269,13 @@ public class HalloweenBossPhase2 : MonoBehaviour
             {
                 DrawWave();
                 CheckWaveHit();
+
+                // 띠가 예고 → 타격으로 바뀌는 순간 "팡!"
+                if (age - stepStart >= WarnTime && lastBoomStep != step)
+                {
+                    lastBoomStep = step;
+                    SfxPlayer.Play(HalloweenBossSfx.WaveBoom, BoomVolume);
+                }
             }
         }
 
@@ -358,6 +389,64 @@ public class HalloweenBossPhase2 : MonoBehaviour
         lr.enabled = true;
         lr.sortingOrder = 20 + layer;
         return lr;
+    }
+
+    // ───────────────────────── 소리 ─────────────────────────
+
+    void StartHum()
+    {
+        humSource = gameObject.AddComponent<AudioSource>();
+        humSource.clip = HalloweenBossSfx.LaserHum;
+        humSource.loop = true;
+        humSource.playOnAwake = false;
+        humSource.spatialBlend = 0f;
+        humSource.volume = 0f;
+        humSource.Play();
+    }
+
+    /// <summary>
+    /// 웅웅거림 크기를 레이저와의 거리로 정한다 — 가까울수록 크게, 멀어도 조금은 들리게.
+    /// 게임이 멈추면(증강 선택·컷인) 같이 멈춘다.
+    /// </summary>
+    void TickHum()
+    {
+        if (humSource == null) return;
+
+        if (Time.timeScale <= 0f)
+        {
+            if (humSource.isPlaying) humSource.Pause();
+            return;
+        }
+        if (!humSource.isPlaying) humSource.UnPause();
+
+        float near = 1f;
+        if (player != null)
+        {
+            float dist = LaserDistance(boss.transform.position);
+            near = 1f - Mathf.Clamp01((dist - HumNearDist) / (HumFarDist - HumNearDist));
+        }
+
+        float target = HumVolume * Mathf.Lerp(HumFarFloor, 1f, near) * SoundSettings.SfxScale;
+        humSource.volume = Mathf.MoveTowards(humSource.volume, target, Time.deltaTime * 2f);
+        humSource.pitch = 0.95f + 0.1f * near;   // 가까울수록 살짝 높게 — 다가오는 느낌
+    }
+
+    /// <summary>플레이어에서 가장 가까운 레이저 줄까지의 거리.</summary>
+    float LaserDistance(Vector2 c)
+    {
+        Vector2 p = (Vector2)player.position - c;
+        float best = float.MaxValue;
+
+        for (int k = 0; k < 2; k++)
+        {
+            float rad = (angle + k * 90f) * Mathf.Deg2Rad;
+            Vector2 dir = new(Mathf.Cos(rad), Mathf.Sin(rad));
+            float off = Mathf.Abs(p.x * dir.y - p.y * dir.x);
+            if (Mathf.Abs(Vector2.Dot(p, dir)) > LaserArm) off = p.magnitude;
+            best = Mathf.Min(best, off);
+        }
+
+        return best;
     }
 
     // ───────────────────────── 공용 ─────────────────────────

@@ -746,13 +746,18 @@ public static class HalloweenPrefabMaker
             if (AssetImporter.GetAtPath(path) is not TextureImporter ti) continue;
 
             bool dirty = ti.textureType != TextureImporterType.Sprite || ti.mipmapEnabled || !ti.alphaIsTransparency;
+
+            // 이미 스프라이트로 들어와 있는 아이콘은 건드리지 않는다.
+            // 예전엔 무조건 Single 로 바꿔서, Multiple(잘라낸 서브 스프라이트)을 가리키던 증강 아이콘 참조가 끊겼다
+            if (!dirty) continue;
+
             ti.textureType = TextureImporterType.Sprite;
             ti.spriteImportMode = SpriteImportMode.Single;
             ti.mipmapEnabled = false;
             ti.alphaIsTransparency = true;
             ti.maxTextureSize = 512;
             ti.textureCompression = TextureImporterCompression.CompressedHQ;
-            if (dirty) ti.SaveAndReimport();
+            ti.SaveAndReimport();
         }
 
         int set = 0;
