@@ -19,11 +19,25 @@ public class EnemyVisual : MonoBehaviour
     const float FxWindow = 0.1f;
 
     const int FxMax = 8;
+    const int HitSparkMax = 6;
+
+    const float PunchDuration = 0.09f;
+    const float PunchStretchX = 1.22f;
+    const float PunchSquashY = 0.82f;
+
+    const float DeathPopDuration = 0.05f;
+    const float DeathPopScale = 1.22f;
 
     const string FlashPath = "HitFlashMaterial";
+    const string HitSparkPath = "Fx_Spark_Base";
 
     static Material flashMaterial;
     static bool flashSearched;
+
+    static GameObject hitSparkPrefab;
+    static bool hitSparkSearched;
+    static float hitSparkWindowStart;
+    static int hitSparkCount;
 
     static float fxWindowStart;
     static int fxCount;
@@ -45,6 +59,18 @@ public class EnemyVisual : MonoBehaviour
         }
     }
 
+    static GameObject HitSparkPrefab
+    {
+        get
+        {
+            if (hitSparkSearched) return hitSparkPrefab;
+
+            hitSparkSearched = true;
+            hitSparkPrefab = Resources.Load<GameObject>(HitSparkPath);
+            return hitSparkPrefab;
+        }
+    }
+
     SpriteRenderer body;
     SpriteRenderer eye;
     Material bodyOriginal;
@@ -56,6 +82,11 @@ public class EnemyVisual : MonoBehaviour
     float flashDuration = 0.07f;
     float flashEndTime;
     float nextFlashTime;
+
+    Vector3 baseScale = Vector3.one;
+    bool hasBaseScale;
+    bool punching;
+    float punchStartTime;
 
     // 사망 모션. 죽는 동안은 항상 흰색이다 — 흰색이 곧 "죽는 중" 신호라서
     // 시체와 살아있는 적이 겹쳐도 한눈에 구분된다
@@ -80,6 +111,8 @@ public class EnemyVisual : MonoBehaviour
     void Awake()
     {
         // 깜빡이거나 죽는 동안에만 Update 가 돈다. 적이 수백 마리여도 평소엔 비용이 없다
+        baseScale = transform.localScale;
+        hasBaseScale = true;
         enabled = false;
     }
 
@@ -110,6 +143,14 @@ public class EnemyVisual : MonoBehaviour
         flashDuration = seconds;
     }
 
+    /// <summary>피격 펀치 스케일의 기준 크기를 갱신한다. <see cref="Enemy.Init"/> 이 스케일을 정한 뒤 호출한다.</summary>
+    public void SetBaseScale(Vector3 scale)
+    {
+        baseScale = scale;
+        hasBaseScale = true;
+        if (!punching && !dying) transform.localScale = baseScale;
+    }
+
     /// <summary>탐색 표식이 붙어 있는 동안 켠다. 같은 값이면 아무것도 안 한다.</summary>
     public void SetTagged(bool on)
     {
@@ -125,7 +166,7 @@ public class EnemyVisual : MonoBehaviour
     /// </summary>
     public void Flash()
     {
-        if (flashDuration <= 0f || flashing) return;
+        if (dying || flashDuration <= 0f || flashing) return;
         if (!gameObject.activeInHierarchy) return;
 
         float now = Time.time;
@@ -135,9 +176,24 @@ public class EnemyVisual : MonoBehaviour
         EnsureRenderers();
         if (body == null) return;
 
+        if (!hasBaseScale)
+        {
+            baseScale = transform.localScale;
+            hasBaseScale = true;
+        }
+
         flashing = true;
         flashEndTime = now + flashDuration;
         Apply();
+
+        punching = true;
+        punchStartTime = now;
+        transform.localScale = new Vector3(
+            baseScale.x * PunchStretchX,
+            baseScale.y * PunchSquashY,
+            baseScale.z);
+
+        PlayHitSpark(transform.position, now);
 
         enabled = true;
     }
@@ -155,6 +211,8 @@ public class EnemyVisual : MonoBehaviour
 
         EnsureRenderers();
         if (body == null) return;
+
+        ClearPunch();
 
         dying = true;
         deathStyle = style;
@@ -194,6 +252,22 @@ public class EnemyVisual : MonoBehaviour
         fx.PlayAt(at);
     }
 
+    static void PlayHitSpark(Vector2 at, float now)
+    {
+        if (HitSparkPrefab == null) return;
+
+        if (now - hitSparkWindowStart > FxWindow)
+        {
+            hitSparkWindowStart = now;
+            hitSparkCount = 0;
+        }
+
+        if (hitSparkCount >= HitSparkMax) return;
+
+        hitSparkCount++;
+        PooledSpawner.Spawn(HitSparkPrefab, at, PoolType.Effect);
+    }
+
     /// <summary>
     /// 풀에서 꺼낼 때 호출한다. 지난 개체가 깜빡이거나 죽는 도중 반납됐어도
     /// 흰 채로, 투명한 채로 나오지 않게 한다.
@@ -201,6 +275,7 @@ public class EnemyVisual : MonoBehaviour
     public void ResetState()
     {
         ClearDeath();
+        ClearPunch();
 
         flashing = false;
         nextFlashTime = 0f;
@@ -221,23 +296,58 @@ public class EnemyVisual : MonoBehaviour
         }
 
         if (dying) TickDeath(now);
+        else if (punching) TickPunch(now);
 
-        if (!flashing && !dying) enabled = false;
+        if (!flashing && !punching && !dying) enabled = false;
+    }
+
+    void TickPunch(float now)
+    {
+        float t = Mathf.Clamp01((now - punchStartTime) / PunchDuration);
+
+        if (t >= 1f)
+        {
+            ClearPunch();
+            return;
+        }
+
+        float ease = (1f - t) * (1f - t);
+        float sx = 1f + (PunchStretchX - 1f) * ease;
+        float sy = 1f + (PunchSquashY - 1f) * ease;
+        transform.localScale = new Vector3(baseScale.x * sx, baseScale.y * sy, baseScale.z);
+    }
+
+    void ClearPunch()
+    {
+        if (!punching) return;
+
+        punching = false;
+        if (hasBaseScale) transform.localScale = baseScale;
     }
 
     /// <summary>
     /// 죽음 진행도에 맞춰 크기와 투명도를 정한다. 끝난 뒤에는 건드리지 않는다 —
     /// 비활성화는 Enemy 가 같은 길이로 기다렸다가 한다.
     ///
-    /// 크기는 처음엔 천천히, 끝에서 확 줄어든다(1-t²). 처음부터 일정하게 줄면 "작아지는 중"으로만 보이고
-    /// 맞고 터지는 맛이 없다. 투명도는 일정하게 빠진다.
+    /// 처음 0.05초 동안 살짝 커졌다가(팝) 끝에서 확 줄어든다(1-t²).
     /// </summary>
     void TickDeath(float now)
     {
-        float t = Mathf.Clamp01((now - deathStartTime) / deathLength);
+        float elapsed = now - deathStartTime;
+        float popTime = Mathf.Min(DeathPopDuration, deathLength * 0.5f);
+
+        if (elapsed < popTime)
+        {
+            float p = popTime > 0f ? Mathf.Clamp01(elapsed / popTime) : 1f;
+            float popScale = 1f + (DeathPopScale - 1f) * Mathf.Sin(p * Mathf.PI * 0.5f);
+            transform.localScale = deathStartScale * popScale;
+            return;
+        }
+
+        float t = Mathf.Clamp01((elapsed - popTime) / Mathf.Max(0.0001f, deathLength - popTime));
 
         if (deathStyle == EnemyData.DeathStyle.Shrink || deathStyle == EnemyData.DeathStyle.ShrinkFade)
-            transform.localScale = deathStartScale * Mathf.Max(0f, 1f - t * t);
+            transform.localScale = deathStartScale * (DeathPopScale * Mathf.Max(0f, 1f - t * t));
 
         if (deathStyle == EnemyData.DeathStyle.Fade || deathStyle == EnemyData.DeathStyle.ShrinkFade)
         {
@@ -273,10 +383,12 @@ public class EnemyVisual : MonoBehaviour
     // 깜빡이거나 죽는 도중 비활성화돼도(풀 반납) 원본으로 돌려놓는다. 안 그러면 다음 개체가 이전 상태로 나온다
     void OnDisable()
     {
-        if (!flashing && !dying) return;
+        if (!flashing && !punching && !dying) return;
 
         flashing = false;
         ClearDeath();
+        ClearPunch();
+        enabled = false;
         Apply();
     }
 

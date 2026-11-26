@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -49,9 +50,24 @@ public class DeadlockCycle : MonoBehaviour
     public string lockParameter = "isLock";
 
     [Header("연출 (선택)")]
+    [Tooltip("잠긴(무적) 상태일 때 켜지는 방벽 링. 비워두면 자식 'BarrierRing' 을 자동으로 찾는다.")]
+    public SpriteRenderer barrierRing;
+
+    [Header("무적 오라")]
+    [Tooltip("잠겨 있는 동안 주변 적에게 무적을 거는 반경(월드 단위).")]
+    [Min(0.1f)] [SerializeField] float auraRadius = 4.2f;
+
+    [Tooltip("오라가 감지할 적 레이어. 비워두면 이 오브젝트의 레이어를 쓴다.")]
+    [SerializeField] LayerMask enemyMask;
+
     [Fx("잠길 때", "본체")] public FxGroup lockFx = new();
 
     [Fx("풀릴 때", "본체")] public FxGroup unlockFx = new();
+
+    const float AuraScanInterval = 0.12f;
+
+    static readonly Color BarrierCyan = new(0.302f, 0.816f, 0.882f, 0.65f);    // #4DD0E1
+    static readonly Color BarrierMagenta = new(1f, 0.239f, 0.498f, 0.85f);   // #FF3D7F
 
     Enemy body;
     Animator anim;
@@ -61,6 +77,11 @@ public class DeadlockCycle : MonoBehaviour
     float timer;
     float originalMass = 1f;
 
+    readonly HashSet<Enemy> protectedEnemies = new();
+    readonly HashSet<Enemy> currentInAura = new();
+    readonly List<Enemy> auraScratch = new();
+    float auraScanTimer;
+
     void Awake()
     {
         body = GetComponent<Enemy>();
@@ -68,6 +89,13 @@ public class DeadlockCycle : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
 
         if (anim == null) anim = GetComponentInChildren<Animator>();
+
+        if (barrierRing == null)
+        {
+            Transform ringTransform = transform.Find("BarrierRing");
+            if (ringTransform != null)
+                barrierRing = ringTransform.GetComponent<SpriteRenderer>();
+        }
 
         // 이 컴포넌트가 꺼졌을 때 돌려놓을 값
         if (rigid != null) originalMass = rigid.mass;
@@ -81,14 +109,40 @@ public class DeadlockCycle : MonoBehaviour
     /// </summary>
     void OnEnable()
     {
+        ClearAura();
         locked = startLocked;
         timer = Duration(locked) + Random.Range(0f, startJitter);
+        auraScanTimer = 0f;
 
         ApplyState(silent: true);
     }
 
     void Update()
     {
+        if (body != null && !body.IsAlive)
+        {
+            ClearAura();
+            if (barrierRing != null) barrierRing.enabled = false;
+            return;
+        }
+
+        if (locked)
+        {
+            if (barrierRing != null)
+            {
+                UpdateBarrierRingScale();
+                float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 4f);
+                barrierRing.color = Color.Lerp(BarrierCyan, BarrierMagenta, pulse);
+            }
+
+            auraScanTimer -= Time.deltaTime;
+            if (auraScanTimer <= 0f)
+            {
+                auraScanTimer = AuraScanInterval;
+                ScanAura();
+            }
+        }
+
         timer -= Time.deltaTime;
 
         if (timer > 0f) return;
@@ -119,6 +173,29 @@ public class DeadlockCycle : MonoBehaviour
         // 할로윈 스킨: 잠긴 동안 기모으기 자세
         HalloweenSkin.SetCharging(this, locked);
 
+        if (barrierRing != null)
+        {
+            barrierRing.enabled = locked;
+            if (locked)
+            {
+                UpdateBarrierRingScale();
+                barrierRing.color = BarrierCyan;
+            }
+        }
+
+        if (locked)
+        {
+            if (!silent)
+            {
+                auraScanTimer = AuraScanInterval;
+                ScanAura();
+            }
+        }
+        else
+        {
+            ClearAura();
+        }
+
         // 스폰 순간에는 연출을 안 낸다. 화면 밖에서 소리가 나면 어디서 나는지 알 수 없다
         if (silent) return;
 
@@ -126,9 +203,90 @@ public class DeadlockCycle : MonoBehaviour
         else unlockFx.PlayAt(transform.position, default, 0f, transform);
     }
 
+    void ScanAura()
+    {
+        if (!locked || body == null || !body.IsAlive)
+        {
+            ClearAura();
+            return;
+        }
+
+        currentInAura.Clear();
+
+        int mask = enemyMask.value != 0 ? enemyMask.value : (1 << gameObject.layer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, auraRadius, mask);
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D hit = hits[i];
+            if (hit == null || !hit.TryGetComponent(out Enemy other)) continue;
+            if (other == body || !other.IsAlive || other.IsStationary) continue;
+            if (other.TryGetComponent<DeadlockCycle>(out _)) continue;
+
+            currentInAura.Add(other);
+
+            if (protectedEnemies.Add(other))
+                other.PushInvulnerable();
+        }
+
+        if (protectedEnemies.Count == 0) return;
+
+        auraScratch.Clear();
+        foreach (Enemy e in protectedEnemies)
+        {
+            if (e == null || !e.IsAlive || !e.gameObject.activeInHierarchy || !currentInAura.Contains(e))
+                auraScratch.Add(e);
+        }
+
+        for (int i = 0; i < auraScratch.Count; i++)
+        {
+            Enemy e = auraScratch[i];
+            if (e != null) e.PopInvulnerable();
+            protectedEnemies.Remove(e);
+        }
+    }
+
+    void ClearAura()
+    {
+        if (protectedEnemies.Count == 0)
+        {
+            currentInAura.Clear();
+            auraScratch.Clear();
+            return;
+        }
+
+        foreach (Enemy e in protectedEnemies)
+        {
+            if (e != null) e.PopInvulnerable();
+        }
+
+        protectedEnemies.Clear();
+        currentInAura.Clear();
+        auraScratch.Clear();
+    }
+
+    void UpdateBarrierRingScale()
+    {
+        if (barrierRing == null) return;
+
+        Vector2 spriteSize = barrierRing.sprite != null ? (Vector2)barrierRing.sprite.bounds.size : new Vector2(2.56f, 2.56f);
+        Vector3 parentLossy = barrierRing.transform.parent != null ? barrierRing.transform.parent.lossyScale : Vector3.one;
+
+        float denomX = Mathf.Max(0.01f, spriteSize.x * Mathf.Abs(parentLossy.x));
+        float denomY = Mathf.Max(0.01f, spriteSize.y * Mathf.Abs(parentLossy.y));
+        float targetWorldDiameter = auraRadius * 2f;
+
+        barrierRing.transform.localScale = new Vector3(
+            targetWorldDiameter / denomX,
+            targetWorldDiameter / denomY,
+            1f);
+    }
+
     // 이 컴포넌트가 꺼져도 적이 무적·붙박이로 남지 않게
     void OnDisable()
     {
+        ClearAura();
+        if (barrierRing != null) barrierRing.enabled = false;
         if (body == null) return;
 
         body.invulnerable = false;

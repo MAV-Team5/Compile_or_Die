@@ -5309,7 +5309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   spawnPoints: []
-  maxAlive: 150
+  maxAlive: 75
   capLogInterval: 5
   recycleDistance: 60
   recycleInterval: 1

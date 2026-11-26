@@ -34,6 +34,12 @@ public class StageWave
     [Tooltip("이 웨이브가 통틀어 내보낼 최대 마릿수. 0이면 제한 없음.")]
     public int maxSpawns = 0;
 
+    [Tooltip("true 이면 한 번의 burst 를 한 지점 주변에 무리지어 내보낸다.")]
+    public bool clusterSpawn = false;
+
+    [Tooltip("clusterSpawn 이 켜졌을 때 기준 스폰 지점 주변 반경.")]
+    [Min(0f)] public float clusterRadius = 2.5f;
+
     [Header("얼마나 세게 — 적의 기본 스탯에 곱한다")]
     [Tooltip("체력 배율. 1이면 EnemyData 그대로.")]
     public float healthScale = 1f;

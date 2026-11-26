@@ -20,6 +20,13 @@ public class MemoryLeakPuddle : MonoBehaviour
     [Range(0.2f, 1f)] [SerializeField] float slowMultiplier = 0.65f;
     [Min(0.05f)] [SerializeField] float slowRefreshDuration = 0.25f;
 
+    [Header("Boiling Visual")]
+    [SerializeField] Sprite[] boilFrames;
+    [Min(0.04f)] [SerializeField] float boilFrameInterval = 0.16f;
+
+    public Sprite[] BoilFrames => boilFrames;
+    public float BoilFrameInterval => boilFrameInterval;
+
     SpriteRenderer sr;
     CircleCollider2D col;
     Color baseColor = Color.white;
@@ -27,6 +34,8 @@ public class MemoryLeakPuddle : MonoBehaviour
 
     float elapsed;
     float tickTimer;
+    float boilTimer;
+    int boilIndex;
     Player playerInside;
     PlayerHealth playerHealthInside;
 
@@ -53,10 +62,17 @@ public class MemoryLeakPuddle : MonoBehaviour
     {
         elapsed = 0f;
         tickTimer = 0f;
+        boilTimer = 0f;
+        boilIndex = 0;
         playerInside = null;
         playerHealthInside = null;
 
-        if (sr != null) sr.color = baseColor;
+        if (sr != null)
+        {
+            sr.color = baseColor;
+            if (boilFrames != null && boilFrames.Length > 0 && boilFrames[0] != null)
+                sr.sprite = boilFrames[0];
+        }
         transform.localScale = baseScale;
     }
 
@@ -65,7 +81,12 @@ public class MemoryLeakPuddle : MonoBehaviour
         playerInside = null;
         playerHealthInside = null;
 
-        if (sr != null) sr.color = baseColor;
+        if (sr != null)
+        {
+            sr.color = baseColor;
+            if (boilFrames != null && boilFrames.Length > 0 && boilFrames[0] != null)
+                sr.sprite = boilFrames[0];
+        }
         transform.localScale = baseScale;
     }
 
@@ -93,6 +114,24 @@ public class MemoryLeakPuddle : MonoBehaviour
         Color c = baseColor;
         c.a = baseColor.a * alpha * pulse;
         sr.color = c;
+
+        if (boilFrames != null && boilFrames.Length > 1)
+        {
+            boilTimer += Time.deltaTime;
+            if (boilTimer >= boilFrameInterval)
+            {
+                boilTimer -= boilFrameInterval;
+                boilIndex = (boilIndex + 1) % boilFrames.Length;
+                if (boilFrames[boilIndex] != null)
+                    sr.sprite = boilFrames[boilIndex];
+            }
+        }
+
+        float boilWave = Mathf.Sin(elapsed * 7f);
+        transform.localScale = new Vector3(
+            baseScale.x * (1f + 0.05f * boilWave),
+            baseScale.y * (1f - 0.05f * boilWave),
+            baseScale.z);
     }
 
     void TickHazard()

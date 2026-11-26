@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
              "  회수(Recycle)는 자리만 옮기지 수를 줄이지 않으므로 상한이 따로 필요하다.\n\n" +
              "＊ 설치물(상자)은 이 상한을 안 센다 — 잡몹이 상한을 채우면\n" +
              "  상자가 영영 안 나오게 된다.")]
-    [Min(0)] [SerializeField] int maxAlive = 150;
+    [Min(0)] [SerializeField] int maxAlive = 75;
 
     [Tooltip("상한 때문에 못 나온 적을 콘솔에 몇 초마다 모아서 알릴지. 0이면 알리지 않는다.")]
     [Min(0f)] [SerializeField] float capLogInterval = 5f;
@@ -202,11 +202,17 @@ public class Spawner : MonoBehaviour
 
         // 상한이 있으면 넘겨서 내보내지 않는다
         if (wave.maxSpawns > 0) count = Mathf.Min(count, wave.maxSpawns - wave.Spawned);
+        if (count <= 0) return;
 
-        for (int i = 0; i < count; i++) Release(wave, index);
+        // 무리 스폰이 켜졌으면 한 지점을 골라 그 주변에 흩뿌린다
+        Vector3? clusterOrigin = wave.clusterSpawn && wave.burst > 1 && !wave.enemy.stationary
+            ? PickPoint()
+            : (Vector3?)null;
+
+        for (int i = 0; i < count; i++) Release(wave, index, clusterOrigin);
     }
 
-    void Release(StageWave wave, int index)
+    void Release(StageWave wave, int index, Vector3? clusterOrigin = null)
     {
         // 상한에 걸리면 이번 마리는 그냥 건너뛴다. 웨이브 시계는 계속 돌아가므로
         // 자리가 나면 다음 주기에 알아서 다시 나온다
@@ -220,7 +226,12 @@ public class Spawner : MonoBehaviour
         if (go == null) return;
 
         // 설치물은 안 움직이므로 화면 밖 링에 두면 영영 못 본다. 눈에 보이는 자리에 놓는다
-        go.transform.position = wave.enemy.stationary ? PickNearPoint() : PickPoint();
+        if (wave.enemy.stationary)
+            go.transform.position = PickNearPoint();
+        else if (clusterOrigin.HasValue)
+            go.transform.position = clusterOrigin.Value + (Vector3)(Random.insideUnitCircle * wave.clusterRadius);
+        else
+            go.transform.position = PickPoint();
 
         // 물리 좌표는 다음 FixedUpdate 까지 transform 을 따라오지 않는다.
         // 그 사이에 증강이 사거리 검색을 하면 갓 스폰한 적이 원점에 있는 것으로 잡힌다

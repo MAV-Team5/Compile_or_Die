@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     // 넉백 직후 스스로 못 움직이는 시간
     float moveSuppressRemain;
 
+    const float HitJoltDistance = 0.25f;
+    const float HitJoltDuration = 0.05f;
+
     private float speed;
     private float health;
     private float maxHealth;
@@ -229,6 +232,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         // ★ 풀에서 재사용되므로 반드시 푼다. 안 그러면 지난번 잠금 상태로 살아나
         //   영영 안 죽고 안 움직이는 개체가 생긴다
         invulnerable = false;
+        externalInvulnCount = 0;
         movementLocked = false;
     }
 
@@ -270,6 +274,13 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// 콜라이더는 켜둔 채라 <b>몸으로 막고 닿으면 아프다</b> — 안 죽을 뿐이지 벽은 벽이다.
     /// </summary>
     [System.NonSerialized] public bool invulnerable;
+    [System.NonSerialized] int externalInvulnCount;
+
+    /// <summary>외부 오라(예: 잠긴 DeadLock)로 무적을 겹쳐 건다. 짝을 맞춰 <see cref="PopInvulnerable"/>로 푼다.</summary>
+    public void PushInvulnerable() => externalInvulnCount++;
+
+    /// <summary>외부 오라 무적을 1겹 푼다.</summary>
+    public void PopInvulnerable() => externalInvulnCount = Mathf.Max(0, externalInvulnCount - 1);
 
     /// <summary>
     /// 지금 스스로 못 움직이는가. 넉백(moveSuppressRemain)과 달리 <b>지속</b>이다.
@@ -285,12 +296,13 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <b>마지막 일격에 얹히는 효과가 통째로 안 보이게 된다</b> —
     /// Bash:kill 처럼 "끝낸 대상에 한 번 더" 인 증강이 죽은 것처럼 보인다.
     /// </summary>
-    public bool AcceptsDamage => !invulnerable;
+    public bool AcceptsDamage => !invulnerable && externalInvulnCount <= 0;
 
     public void Init(EnemyData data, EnemyScale scale, int wave = -1)
     {
         // 풀에서 재사용되므로 항상 다시 정해야 한다. 안 그러면 지난 개체의 웨이브로 집계된다
         waveIndex = wave;
+        externalInvulnCount = 0;
 
         if (data == null)
         {
@@ -325,6 +337,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
         // 풀에서 재사용되므로 항상 다시 정해야 한다. 안 그러면 직전 개체의 크기로 나온다
         transform.localScale = baseScale * Mathf.Max(0.01f, data.scale * scale.Size);
+        if (visual != null) visual.SetBaseScale(transform.localScale);
 
         // 뒤집기를 끈 적이 이전 개체의 반전 상태를 물려받지 않게
         if (spriter != null && !flipToFace) spriter.flipX = false;
@@ -345,14 +358,27 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         health -= amount;
 
         if (health <= 0f)
+        {
             Dead();
+        }
         else
+        {
             HalloweenSkin.PlayHit(this);
+
+            if (IsAlive && !IsStationary && source != null && source.rank == EnemyData.Rank.Minion &&
+                !movementLocked && moveSuppressRemain <= 0f && target != null && rigid != null)
+            {
+                Vector2 away = rigid.position - target.position;
+                if (away.sqrMagnitude > 0.0001f)
+                    Displace(away.normalized * HitJoltDistance, HitJoltDuration);
+            }
+        }
     }
 
     void Dead()
     {
         isLive = false;
+        externalInvulnCount = 0;
 
         // 판정을 먼저 끊는다. 죽음 연출이 도는 동안 증강이 시체를 계속 겨누거나,
         // 시체에 닿아서 피가 깎이면 안 된다
