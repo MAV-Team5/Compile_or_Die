@@ -19,67 +19,67 @@ MonoBehaviour:
     perLevel: 0.06
     percent: 1
     costs: c800000020030000800c00000019000000320000
-    icon: {fileID: 0}
+    icon: {fileID: 8309096688390797820, guid: 45b7892a95e2c43878e8015a31ecef92, type: 3}
   - kind: 1
     displayName: "RAM"
     effectName: "\ud22c\uc0ac\uccb4 \uc218 \uc99d\uac00"
     perLevel: 1
     percent: 0
     costs: 0019000000640000
-    icon: {fileID: 0}
+    icon: {fileID: 3665820403299115125, guid: 05c2e8c1f1d8b425c8f16d0a7309a7fd, type: 3}
   - kind: 2
     displayName: "SSD"
     effectName: "\ud68d\ub4dd \ubc94\uc704 \uc99d\uac00"
     perLevel: 0.1
     percent: 1
     costs: 640000009001000040060000800c000000190000
-    icon: {fileID: 0}
+    icon: {fileID: 5285514149443118159, guid: 431a344905661403cab54c89fd86c063, type: 3}
   - kind: 3
     displayName: "GPU"
     effectName: "\uacf5\uaca9 \ubc94\uc704 \uc99d\uac00"
     perLevel: 0.1
     percent: 1
     costs: 9001000040060000001900000032000000640000
-    icon: {fileID: 0}
+    icon: {fileID: 8518112114960729320, guid: f4e5c9b1e151f482d9f0e7fd457f6803, type: 3}
   - kind: 4
     displayName: "\ud30c\uc6cc"
     effectName: "\uacf5\uaca9\ub825 \uc99d\uac00"
     perLevel: 0.1
     percent: 1
     costs: 2003000040060000800c00000019000000320000
-    icon: {fileID: 0}
+    icon: {fileID: -2452504012300251786, guid: 250c87eeb6ebc46c18e9a20028b421d6, type: 3}
   - kind: 5
     displayName: "\ubaa8\ub2c8\ud130"
     effectName: "\uc2dc\uc57c \ubc94\uc704 \uc99d\uac00"
     perLevel: 0.08
     percent: 1
     costs: 2003000040060000800c00000019000000320000
-    icon: {fileID: 0}
+    icon: {fileID: 5074320799622569006, guid: 783c5d846af974331bc930335bd3590c, type: 3}
   - kind: 6
     displayName: "\ub9c8\uc6b0\uc2a4"
     effectName: "\uc0ac\uc815\uac70\ub9ac \uc99d\uac00"
     perLevel: 0.1
     percent: 1
     costs: 9001000020030000400600000019000000320000
-    icon: {fileID: 0}
+    icon: {fileID: -4914513220774144829, guid: 20e79aee62f5b43a7ab759867fa3ddf5, type: 3}
   - kind: 7
     displayName: "\ud0a4\ubcf4\ub4dc"
     effectName: "\uc774\ub3d9\uc18d\ub3c4 \uc99d\uac00"
     perLevel: 0.05
     percent: 1
     costs: 9001000020030000400600000019000000320000
-    icon: {fileID: 0}
+    icon: {fileID: -2999958188133684544, guid: c5221bf4d96ea4eaca3238402f7c9858, type: 3}
   - kind: 8
     displayName: "\uba54\uc778\ubcf4\ub4dc"
     effectName: "\uc2dc\uc791 \uc120\ud0dd\uc9c0 \ucd94\uac00"
     perLevel: 1
     percent: 0
     costs: 40060000800c0000001900000032000000640000
-    icon: {fileID: 0}
+    icon: {fileID: -8908131426889706154, guid: af3f6bc853d7443b9b187004612a6598, type: 3}
   - kind: 9
     displayName: "\ucfe8\ub7ec"
     effectName: "\ucd5c\ub300 \uccb4\ub825 \uc99d\uac00"
     perLevel: 0.2
     percent: 1
     costs: c80000009001000020030000800c000000320000
-    icon: {fileID: 0}
+    icon: {fileID: 2700504117168739520, guid: 5728f7380b0d64f6f8c0895509799341, type: 3}

@@ -367,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &118440796
 Transform:
   m_ObjectHideFlags: 0
@@ -4484,7 +4484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ff953401490ce47962a927d110ec55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSetup
-  defaultStage: {fileID: 11400000, guid: a72eadf698a242e9a1b2636c8b975d72, type: 2}
+  defaultStage: {fileID: 11400000, guid: 26b0a4b125664cd449bec688dcf753c6, type: 2}
 --- !u!1 &886333955
 GameObject:
   m_ObjectHideFlags: 0
@@ -9336,7 +9336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218342c9cf2beac4a9557661e218544f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHitFeedback
-  glow: {fileID: 118440797}
+  glow: {fileID: 0}
   color: {r: 1, g: 0.25, b: 0.25, a: 1}
   minAlpha: 0.15
   maxAlpha: 0.85
@@ -9685,7 +9685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1992241505
 Transform:
   m_ObjectHideFlags: 0

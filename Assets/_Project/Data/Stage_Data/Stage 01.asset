@@ -21,141 +21,193 @@ MonoBehaviour:
   - '> ERROR: 2,138 issues found'
   - '> attaching debugger : PLAYER_01'
   waves:
-  - label: "1\uD30C \uC0C1\uC2DC - semicolon"
+  - label: Early - DDoS Swarm A
     startAt: 0
-    duration: 60
-    enemy: {fileID: 11400000, guid: a77c3879a625c0a48a20afb8be590ed9, type: 2}
-    interval: 2.5
-    burst: 2
-    maxSpawns: 60
-    healthScale: 2
-    speedScale: 2
-    damageScale: 1
-    sizeScale: 0.6
+    duration: 45
+    enemy: {fileID: 11400000, guid: 88880030000000000000000000000030, type: 2}
+    interval: 1.5
+    burst: 3
+    maxSpawns: 0
+    healthScale: 1
+    speedScale: 0.9
+    damageScale: 0.75
+    sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 1
-  - label: "1\uD30C \uC0C1\uC2DC - no image"
-    startAt: 5
-    duration: 55
-    enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
-    interval: 5
-    burst: 2
-    maxSpawns: 60
-    healthScale: 5
-    speedScale: 1.2
-    damageScale: 1
-    sizeScale: 0.8
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: Item box
+  - label: Early - MemoryLeak Trickle
     startAt: 20
-    duration: 0
-    enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
-    interval: 20
+    duration: 70
+    enemy: {fileID: 11400000, guid: d1b2c3d4e5f64789a012345678901201, type: 2}
+    interval: 5
     burst: 1
     maxSpawns: 0
+    healthScale: 1
+    speedScale: 1
+    damageScale: 0.75
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 2
+  - label: Early - DATA_BOX
+    startAt: 30
+    duration: 60
+    enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
+    interval: 25
+    burst: 1
+    maxSpawns: 3
     healthScale: 1
     speedScale: 1
     damageScale: 1
     sizeScale: 1
     expOrb: {fileID: 0}
     expPerKill: 0
-  - label: "\uC624\uD0C0 - \uC791\uC740 prontf"
-    startAt: 15
-    duration: 150
-    enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
-    interval: 8
-    burst: 3
-    maxSpawns: 60
-    healthScale: 5
-    speedScale: 0.7
-    damageScale: 1
-    sizeScale: 0.8
+  - label: Early - DDoS Cluster B
+    startAt: 45
+    duration: 45
+    enemy: {fileID: 11400000, guid: 88880030000000000000000000000030, type: 2}
+    interval: 1.2
+    burst: 4
+    maxSpawns: 0
+    healthScale: 1.2
+    speedScale: 1
+    damageScale: 0.75
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
+  - label: Mid - DDoS Flood
+    startAt: 90
+    duration: 120
+    enemy: {fileID: 11400000, guid: 88880030000000000000000000000030, type: 2}
+    interval: 1
+    burst: 5
+    maxSpawns: 0
+    healthScale: 1.5
+    speedScale: 1.05
+    damageScale: 0.85
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
+  - label: Mid - MemoryLeak Steady
+    startAt: 90
+    duration: 120
+    enemy: {fileID: 11400000, guid: d1b2c3d4e5f64789a012345678901201, type: 2}
+    interval: 4
+    burst: 2
+    maxSpawns: 0
+    healthScale: 1.4
+    speedScale: 1
+    damageScale: 0.85
+    sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
     expPerKill: 2
-  - label: "1\uD30C \uBAB0\uB9BC A"
-    startAt: 22
-    duration: 10
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 1
-    burst: 6
-    maxSpawns: 50
-    healthScale: 5
-    speedScale: 2.3
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 0}
-    expPerKill: 0
-  - label: "1\uD30C \uBAB0\uB9BC B"
-    startAt: 45
-    duration: 10
-    enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
-    interval: 1.2
-    burst: 6
-    maxSpawns: 0
-    healthScale: 4
-    speedScale: 2.1
-    damageScale: 1
-    sizeScale: 0.4
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "2\uD30C \uC0C1\uC2DC - colon"
-    startAt: 60
-    duration: 0
-    enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
-    interval: 2.2
-    burst: 2
-    maxSpawns: 60
-    healthScale: 6
-    speedScale: 3
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "2\uD30C \uC0C1\uC2DC - sound note"
-    startAt: 60
-    duration: 15
-    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
-    interval: 3
-    burst: 2
-    maxSpawns: 0
-    healthScale: 4
-    speedScale: 2.7
-    damageScale: 1
-    sizeScale: 0.4
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "2\uD30C \uC6D0\uAC70\uB9AC - semicolon"
-    startAt: 65
-    duration: 115
-    enemy: {fileID: 11400000, guid: 0e1a499bd5f7447569db8d20299d9cb8, type: 2}
-    interval: 6
-    burst: 3
-    maxSpawns: 0
-    healthScale: 7
-    speedScale: 1.3
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 3
-  - label: "\uC790\uB780 warning"
-    startAt: 60
+  - label: Mid - DATA_BOX
+    startAt: 90
     duration: 120
-    enemy: {fileID: 11400000, guid: d188cf35eecd7c348ae0e8c4ee7c1a03, type: 2}
-    interval: 12
+    enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
+    interval: 25
     burst: 1
     maxSpawns: 5
-    healthScale: 17
-    speedScale: 2
+    healthScale: 1
+    speedScale: 1
     damageScale: 1
-    sizeScale: 3
+    sizeScale: 1
+    expOrb: {fileID: 0}
+    expPerKill: 0
+  - label: Mid Elite - DeadLock
+    startAt: 100
+    duration: 110
+    enemy: {fileID: 11400000, guid: 25a23036b96e55b4d8877e8db12bac04, type: 2}
+    interval: 25
+    burst: 1
+    maxSpawns: 5
+    healthScale: 1.2
+    speedScale: 1
+    damageScale: 0.85
+    sizeScale: 1
     expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
     expPerKill: 1
-  - label: Item box 2
-    startAt: 80
+  - label: Mid - Overheat Hazard
+    startAt: 105
+    duration: 105
+    enemy: {fileID: 11400000, guid: d1b2c3d4e5f64789a012345678901202, type: 2}
+    interval: 4.5
+    burst: 2
+    maxSpawns: 0
+    healthScale: 1.3
+    speedScale: 1
+    damageScale: 0.85
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1.5
+  - label: Mid Elite - Trojan
+    startAt: 115
+    duration: 95
+    enemy: {fileID: 11400000, guid: 77770030000000000000000000000030, type: 2}
+    interval: 28
+    burst: 1
+    maxSpawns: 4
+    healthScale: 1.2
+    speedScale: 1
+    damageScale: 0.85
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
+    expPerKill: 1
+  - label: Mid Elite - BlueScreen
+    startAt: 135
+    duration: 75
+    enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
+    interval: 35
+    burst: 1
+    maxSpawns: 3
+    healthScale: 1.1
+    speedScale: 1
+    damageScale: 0.85
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
+    expPerKill: 2
+  - label: Late - DDoS Surge
+    startAt: 210
+    duration: 0
+    enemy: {fileID: 11400000, guid: 88880030000000000000000000000030, type: 2}
+    interval: 0.75
+    burst: 8
+    maxSpawns: 0
+    healthScale: 2.2
+    speedScale: 1.15
+    damageScale: 1
+    sizeScale: 1
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 1
+  - label: Late - MemoryLeak Tide
+    startAt: 210
+    duration: 0
+    enemy: {fileID: 11400000, guid: d1b2c3d4e5f64789a012345678901201, type: 2}
+    interval: 3
+    burst: 3
+    maxSpawns: 0
+    healthScale: 2
+    speedScale: 1.1
+    damageScale: 1
+    sizeScale: 1.05
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 2
+  - label: Late - Overheat Barrage
+    startAt: 210
+    duration: 0
+    enemy: {fileID: 11400000, guid: d1b2c3d4e5f64789a012345678901202, type: 2}
+    interval: 3
+    burst: 3
+    maxSpawns: 0
+    healthScale: 1.8
+    speedScale: 1.1
+    damageScale: 1
+    sizeScale: 1.05
+    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
+    expPerKill: 2
+  - label: Late - DATA_BOX
+    startAt: 210
     duration: 0
     enemy: {fileID: 11400000, guid: f6d29f096f26c8a47b7e35751d1f3ef9, type: 2}
-    interval: 20
+    interval: 25
     burst: 1
     maxSpawns: 0
     healthScale: 1
@@ -164,172 +216,46 @@ MonoBehaviour:
     sizeScale: 1
     expOrb: {fileID: 0}
     expPerKill: 0
-  - label: "\uC624\uD0C0 - \uD070 prontf"
-    startAt: 70
+  - label: Late Elite - DeadLock Wall
+    startAt: 215
     duration: 0
-    enemy: {fileID: 11400000, guid: c8b6e9bd4a866454cb7cda08429c82c6, type: 2}
-    interval: 14
-    burst: 1
-    maxSpawns: 0
-    healthScale: 19
-    speedScale: 1.3
-    damageScale: 1
-    sizeScale: 2
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 2
-  - label: "2\uD30C \uBAB0\uB9BC D"
-    startAt: 102
-    duration: 12
-    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
-    interval: 1
-    burst: 8
-    maxSpawns: 0
-    healthScale: 7
-    speedScale: 3.1
-    damageScale: 1
-    sizeScale: 0.4
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "3\uD30C \uC0C1\uC2DC - semicolon"
-    startAt: 120
-    duration: 60
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 2
-    burst: 3
-    maxSpawns: 0
-    healthScale: 5
-    speedScale: 2.5
-    damageScale: 1
-    sizeScale: 1.3
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 2
-  - label: "3\uD30C \uC0C1\uC2DC - colon"
-    startAt: 120
-    duration: 60
-    enemy: {fileID: 11400000, guid: 3d503dee8120be3448a3b812ea55ae75, type: 2}
-    interval: 2.2
-    burst: 3
-    maxSpawns: 0
-    healthScale: 7
-    speedScale: 2
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 2
-  - label: "3\uD30C \uBAB0\uB9BC E"
-    startAt: 133
-    duration: 13
-    enemy: {fileID: 11400000, guid: 61cad9ff97698054d98a708a071b0630, type: 2}
-    interval: 1
-    burst: 10
-    maxSpawns: 0
-    healthScale: 7
-    speedScale: 2.3
-    damageScale: 1
-    sizeScale: 0.5
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "3\uD30C \uAC15\uD654 warning"
-    startAt: 140
-    duration: 0
-    enemy: {fileID: 11400000, guid: d188cf35eecd7c348ae0e8c4ee7c1a03, type: 2}
-    interval: 10
-    burst: 1
-    maxSpawns: 0
-    healthScale: 25
-    speedScale: 0.9
-    damageScale: 4
-    sizeScale: 3
-    expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
-    expPerKill: 1
-  - label: "3\uD30C \uCD5C\uC885 \uBAB0\uB9BC F"
-    startAt: 160
-    duration: 18
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 0.9
-    burst: 12
-    maxSpawns: 0
-    healthScale: 9
-    speedScale: 1.7
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: "2\uD30C \uBAB0\uB9BC C"
-    startAt: 75
-    duration: 12
-    enemy: {fileID: 11400000, guid: 5910de32be3236f4280402549be00da1, type: 2}
-    interval: 1
-    burst: 8
-    maxSpawns: 0
-    healthScale: 20
-    speedScale: 1.4
-    damageScale: 1
-    sizeScale: 1
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: DeadLock
-    startAt: 80
-    duration: 2
     enemy: {fileID: 11400000, guid: 25a23036b96e55b4d8877e8db12bac04, type: 2}
-    interval: 1
-    burst: 16
-    maxSpawns: 32
-    healthScale: 20
-    speedScale: 0.5
-    damageScale: 5
-    sizeScale: 1.5
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 3
-  - label: DeadLock 2
-    startAt: 150
-    duration: 2
-    enemy: {fileID: 11400000, guid: 25a23036b96e55b4d8877e8db12bac04, type: 2}
-    interval: 1
-    burst: 16
-    maxSpawns: 32
-    healthScale: 30
-    speedScale: 0.5
-    damageScale: 5
-    sizeScale: 1.5
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 3
-  - label: No image
-    startAt: 30
-    duration: 0
-    enemy: {fileID: 11400000, guid: 2e53dc0912a7d3741a0f1a05ae323a13, type: 2}
-    interval: 3
+    interval: 20
     burst: 2
     maxSpawns: 0
-    healthScale: 5
+    healthScale: 1.8
     speedScale: 1
-    damageScale: 2
-    sizeScale: 2
-    expOrb: {fileID: 4929590294121933457, guid: 55815e9048a59d7428de5b0b235d674b, type: 3}
-    expPerKill: 1
-  - label: DeadLock 3
-    startAt: 190
-    duration: 5
-    enemy: {fileID: 11400000, guid: 25a23036b96e55b4d8877e8db12bac04, type: 2}
-    interval: 5
-    burst: 16
-    maxSpawns: 32
-    healthScale: 40
-    speedScale: 0.5
-    damageScale: 5
-    sizeScale: 2
+    damageScale: 1
+    sizeScale: 1.15
     expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
-    expPerKill: 1
-  bosses:
-  - enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
-    nameOverride: Blue
-    atSeconds: 180
-    spawnDistance: 40
-    endsRun: 1
-    healthScale: 360
-    speedScale: 0.7
-    damageScale: 15
-    sizeScale: 4.5
+    expPerKill: 2
+  - label: Late Elite - Trojan Ambush
+    startAt: 225
+    duration: 0
+    enemy: {fileID: 11400000, guid: 77770030000000000000000000000030, type: 2}
+    interval: 22
+    burst: 2
+    maxSpawns: 0
+    healthScale: 1.6
+    speedScale: 1.05
+    damageScale: 1
+    sizeScale: 1.1
+    expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
+    expPerKill: 2
+  - label: Late Elite - BlueScreen
+    startAt: 210
+    duration: 0
+    enemy: {fileID: 11400000, guid: 0dd3652b83aa942e0bd7d6c689058f77, type: 2}
+    interval: 28
+    burst: 1
+    maxSpawns: 0
+    healthScale: 1.5
+    speedScale: 1.05
+    damageScale: 1
+    sizeScale: 1.15
+    expOrb: {fileID: 4929590294121933457, guid: 2090b89cc3e3ef34da55f73a6b2ae00c, type: 3}
+    expPerKill: 3
+  bosses: []
   augmentPool: {fileID: 11400000, guid: 14de165c4bff2634d9c9cf1b6bf1927e, type: 2}
   earlyPool: {fileID: 11400000, guid: 810f155434854e04885d306eec023c98, type: 2}
   earlyPoolUntilLevel: 5
