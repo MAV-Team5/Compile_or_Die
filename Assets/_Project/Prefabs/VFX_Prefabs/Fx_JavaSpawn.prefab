@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9037304019862028515}
   - component: {fileID: 6601677428197905063}
   - component: {fileID: 7427435353279399939}
+  - component: {fileID: 1990000000000000001}
   m_Layer: 0
   m_Name: Fx_JavaSpawn
   m_TagString: Untagged
@@ -130,3 +131,15 @@ MonoBehaviour:
   lifetime: 0.3
   fadeOut: 0
   fadeDuration: 0.15
+--- !u!114 &1990000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8782798745054600684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe97298aef9a2f45a09fe1d256a6969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeepOriginalColors

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3350167481860347987}
   - component: {fileID: 3698965264484359504}
   - component: {fileID: -8304121477596599542}
+  - component: {fileID: 1990000000000000001}
   m_Layer: 0
   m_Name: Bubble_Splash_f1
   m_TagString: Untagged
@@ -127,6 +128,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa8c8175376f46c8b3db1a1f5c7bdc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FxAutoDespawn
-  lifetime: 0.23
+  lifetime: 0.3
   fadeOut: 1
-  fadeDuration: 0.15
+  fadeDuration: 0.1
+--- !u!114 &1990000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797514428743403646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe97298aef9a2f45a09fe1d256a6969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeepOriginalColors

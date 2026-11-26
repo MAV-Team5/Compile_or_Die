@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7899424384895977524}
   - component: {fileID: 4106603368214801592}
   - component: {fileID: 5173920468215530912}
+  - component: {fileID: 1990000000000000001}
   m_Layer: 0
   m_Name: Proj_Bash
   m_TagString: Untagged
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 739e593a5ceb0b346beebe840b008c47, type: 3}
-  m_Color: {r: 0.30980393, g: 0.6666667, b: 0.14509805, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -194,3 +195,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NeonLook
   neonSprite: {fileID: 0}
   neonColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1990000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6824073935605403827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe97298aef9a2f45a09fe1d256a6969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeepOriginalColors
