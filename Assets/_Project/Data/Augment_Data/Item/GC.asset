@@ -17,7 +17,9 @@ MonoBehaviour:
   id: ITEM_GC
   displayName: Garbage Collecter
   category: 6
-  icon: {fileID: 0}
+  exclusiveTo: {fileID: 0}
+  tags: 
+  icon: {fileID: -8121395036891013853, guid: 3c3976facabf24a0ba7cb54e627bbcef, type: 3}
   descriptionTemplate: "Garbage Collecter\n\uD769\uC5B4\uC9C4 \uACBD\uD5D8\uCE58\uB97C
     \uC804\uBD80 \uC218\uAC70\uD55C\uB2E4."
   rootAugment: {fileID: 0}

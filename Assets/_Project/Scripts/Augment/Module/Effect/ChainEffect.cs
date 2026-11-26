@@ -26,6 +26,10 @@ public class ChainEffect : EffectModule
              "곱이 아니라 합이라서 깊어져도 계산이 터지지 않는다.")]
     public Scalable damagePerDepth = Scalable.Ratio(1f);
 
+    [Tooltip("켜면 겨냥한 목표에 맞았을 때만 번진다. 가는 길에 관통한 적에게선 안 번진다.\n" +
+             "투사체의 '목표까지 관통'과 같이 쓴다 — 끄면 관통할 때마다 새로 번져 투사체가 불어난다.")]
+    public bool onlyAimedHit = false;
+
     // ── 아래는 접어두는 중첩 파이프라인. 길어지므로 설정 밑에 둔다 ──
 
     [Header("단계마다 실행할 파이프라인")]
@@ -43,6 +47,7 @@ public class ChainEffect : EffectModule
     public override void Apply(AugmentContext ctx, HitInfo hit)
     {
         if (hit.Target == null) return;
+        if (onlyAimedHit && !hit.IsAimed) return;
 
         int limit = maxDepthOverride > 0 ? maxDepthOverride : ctx.Stat.depth;
         limit = Mathf.Min(limit, HardLimit);

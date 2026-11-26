@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   displayName: BlueScreen
   prefab: {fileID: 3469445803652378370, guid: a854c19adc38e4372895a2317f71c417, type: 3}
-  rank: 2
-  health: 1
-  speed: 1
-  contactDamage: 1
-  scale: 1
+  rank: 1
+  health: 85
+  speed: 1.4
+  contactDamage: 8
+  scale: 2.2
   animatorOverride: {fileID: 0}
   hitFlashDuration: 0.04
   flipToFace: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   deathClips: []
   deathVolume: 0.5
   deathInterval: 0
-  bits: 0
+  bits: 4
   countsAsKill: 1
   dropTable: []
   dropChance: 1

@@ -12,15 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 011 Bubble Sort
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: BUBBLE_SORT
   displayName: Bubble sort
   category: 1
   exclusiveTo: {fileID: 0}
-  tags: 
-  icon: {fileID: 0}
-  descriptionTemplate: 
+  tags: 00000000020000000b00000017000000
+  icon: {fileID: 7894876611382527228, guid: df16a621c268040bc8d49b71c6f11c7c, type: 3}
+  descriptionTemplate: "\uBB34\uC791\uC704 \uC801\uC5D0\uAC8C \uBC84\uBE14\uC744
+    \uB358\uC9C4\uB2E4.\n\uB5A8\uC5B4\uC9C4 \uC790\uB9AC\uC758 \uC801\uB4E4\uC740
+    \uD53C\uD574\uB97C \uC785\uACE0 \uD55C\uACF3\uC73C\uB85C \uBAA8\uC778\uB2E4.\n\uADF8\uC911
+    \uCCB4\uB825\uC774 \uAC00\uC7A5 \uB192\uC740 \uC801\uC774 \uD295\uACA8 \uB098\uAC00\uACE0,\n\uB5A8\uC5B4\uC9C8
+    \uB54C\uB9C8\uB2E4 \uC8FC\uBCC0 \uC801\uC744 \uBAA8\uC73C\uBA70 \uD53C\uD574\uB97C
+    \uC900\uB2E4.\n\uD53C\uD574\uB7C9 {damage} \n\uCFE8\uD0C0\uC784 {cooldown} \n\uBC94\uC704
+    {effectRange} \n\uD295\uAE40 \uD69F\uC218 {depth}"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
@@ -31,16 +37,76 @@ MonoBehaviour:
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
-  - damage: 0
+  - damage: 1
     effectDamage: 0
-    cooldown: 0
-    range: 0
-    effectRange: 0
+    cooldown: 9
+    range: 12
+    effectRange: 1.2
     count: 0
     pierce: 0
     duration: 0
     speed: 0
-    depth: 0
+    depth: 5
+  - damage: 1.5
+    effectDamage: 0
+    cooldown: 9
+    range: 13
+    effectRange: 1.2
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 5
+  - damage: 2
+    effectDamage: 0
+    cooldown: 9
+    range: 14
+    effectRange: 1.2
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 5
+  - damage: 3
+    effectDamage: 0
+    cooldown: 8
+    range: 15
+    effectRange: 1.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 6
+  - damage: 4
+    effectDamage: 0
+    cooldown: 8
+    range: 16
+    effectRange: 1.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 6
+  - damage: 5
+    effectDamage: 0
+    cooldown: 8
+    range: 17
+    effectRange: 1.5
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 6
+  - damage: 7
+    effectDamage: 0
+    cooldown: 7
+    range: 18
+    effectRange: 1.8
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 8
   trigger:
     rid: 4357681862757580882
   targeting:
@@ -82,12 +148,12 @@ MonoBehaviour:
       type: {class: LobDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
-        flightTime: 0.45
-        arcHeight: 1.5
-        fallbackRadius: 1.5
-        bodyPrefab: {fileID: 6824073935605403827, guid: 47a838b7c040b9d4cbc0311dbdde341e, type: 3}
+        flightTime: 0.6
+        arcHeight: 2.5
+        fallbackRadius: 5
+        bodyPrefab: {fileID: 6824073935605403827, guid: e2c41145f8690b24fba77c59b6134ebe, type: 3}
         landFx:
-          vfx: {fileID: 0}
+          vfx: {fileID: 8797514428743403646, guid: e41d82c74eb68d342ac361d0f8f82f10, type: 3}
           vfxScale: 1
           scaleWithRange: 1
           sfx: {fileID: 0}
@@ -105,6 +171,7 @@ MonoBehaviour:
         - rid: 4357681862757580887
         effects:
         - rid: 4357681862757580888
+        - rid: 4357681907096354973
     - rid: 4357681862757580886
       type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
       data:
@@ -123,7 +190,7 @@ MonoBehaviour:
           offset: 0
         halfAngle: 180
         includeCenterTarget: 1
-        bodyPrefab: {fileID: 0}
+        bodyPrefab: {fileID: 2975316040695626755, guid: a518dbe152f41214bb434a66dfadae60, type: 3}
         attachBodyToOwner: 0
         blastFx:
           vfx: {fileID: 0}
@@ -139,7 +206,9 @@ MonoBehaviour:
       data:
         distance: 1.5
         pull: 1
-        stunDuration: 0.2
+        gatherToCenter: 1
+        stunDuration: 0.5
+        affectsHeavy: 0
     - rid: 4357681862757580889
       type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -147,7 +216,7 @@ MonoBehaviour:
         targeting:
           rid: 4357681862757580890
         deliveries:
-        - rid: 4357681862757580891
+        - rid: 4357681907096354956
         effects:
         - rid: 4357681862757580892
     - rid: 4357681862757580890
@@ -159,80 +228,22 @@ MonoBehaviour:
           offset: 0
         includeOrigin: 1
         includeBosses: 0
-    - rid: 4357681862757580891
-      type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
-      data:
-        directionOffset: 0
-        pointSearchRadius: 1
-        hitFx:
-          vfx: {fileID: 0}
-          vfxScale: 1
-          scaleWithRange: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
-          attachToSource: 0
-          motionParameter: 
-          motionValue: 1
+        requireOthers: 0
     - rid: 4357681862757580892
       type: {class: TossEffect, ns: , asm: Assembly-CSharp}
       data:
         maxTossOverride: 0
-        distance: 3
-        falloff: 0.5
-        flightTime: 0.35
-        arcHeight: 1.2
-        keepHeading: 1
+        distance: 2
+        falloff: 0.8
+        flightTime: 0.6
+        arcHeight: 2.5
+        keepHeading: 0
         landEffects:
-        - rid: 4357681862757580893
-        - rid: 4357681862757580896
+        - rid: 4357681907096354957
         nextTargeting:
           rid: 4357681862757580897
         nextDeliveries:
         - rid: 4357681862757580898
-    - rid: 4357681862757580893
-      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
-      data:
-        inheritBonus: 1
-        targeting:
-          rid: 4357681862757580894
-        deliveries:
-        - rid: 4357681862757580895
-        effects: []
-    - rid: 4357681862757580894
-      type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
-      data:
-        rangeOverride:
-          value: 0
-          scale: 1
-          offset: 0
-        scatterRadius: 0
-    - rid: 4357681862757580895
-      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
-      data:
-        directionOffset: 0
-        blastRadius:
-          value: 0
-          scale: 1
-          offset: 0
-        halfAngle: 180
-        includeCenterTarget: 1
-        bodyPrefab: {fileID: 0}
-        attachBodyToOwner: 0
-        blastFx:
-          vfx: {fileID: 0}
-          vfxScale: 1
-          scaleWithRange: 1
-          sfx: {fileID: 0}
-          sfxVolume: 1
-          attachToSource: 0
-          motionParameter: 
-          motionValue: 1
-    - rid: 4357681862757580896
-      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
-      data:
-        distance: 1.5
-        pull: 1
-        stunDuration: 0.2
     - rid: 4357681862757580897
       type: {class: HighestHealthTargeting, ns: , asm: Assembly-CSharp}
       data:
@@ -242,6 +253,7 @@ MonoBehaviour:
           offset: 0
         includeOrigin: 1
         includeBosses: 0
+        requireOthers: 1
     - rid: 4357681862757580898
       type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
       data:
@@ -256,3 +268,85 @@ MonoBehaviour:
           attachToSource: 0
           motionParameter: 
           motionValue: 1
+    - rid: 4357681907096354956
+      type: {class: InstantDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        pointSearchRadius: 1
+        hitFx:
+          vfx: {fileID: 8797514428743403646, guid: e41d82c74eb68d342ac361d0f8f82f10, type: 3}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4357681907096354957
+      type: {class: SubPipelineEffect, ns: , asm: Assembly-CSharp}
+      data:
+        inheritBonus: 1
+        targeting:
+          rid: 4357681907096354958
+        deliveries:
+        - rid: 4357681907096354959
+        effects:
+        - rid: 4357681907096354963
+        - rid: 4357681907096354964
+    - rid: 4357681907096354958
+      type: {class: OwnerPointTargeting, ns: , asm: Assembly-CSharp}
+      data:
+        rangeOverride:
+          value: 0
+          scale: 1
+          offset: 0
+        scatterRadius: 0
+    - rid: 4357681907096354959
+      type: {class: AreaDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        directionOffset: 0
+        blastRadius:
+          value: 0
+          scale: 0.7
+          offset: 0
+        halfAngle: 180
+        includeCenterTarget: 0
+        bodyPrefab: {fileID: 2975316040695626755, guid: a518dbe152f41214bb434a66dfadae60, type: 3}
+        attachBodyToOwner: 0
+        blastFx:
+          vfx: {fileID: 8797514428743403646, guid: e41d82c74eb68d342ac361d0f8f82f10, type: 3}
+          vfxScale: 1
+          scaleWithRange: 1
+          sfx: {fileID: 0}
+          sfxVolume: 1
+          attachToSource: 0
+          motionParameter: 
+          motionValue: 1
+    - rid: 4357681907096354963
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+        accentText: 1
+        textStyle:
+          color: {r: 0.4, g: 0.9019608, b: 1, a: 1}
+          scale: 1
+          riseSpeed: 1.5
+          offset: {x: 0, y: 0}
+    - rid: 4357681907096354964
+      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 1.5
+        pull: 1
+        gatherToCenter: 1
+        stunDuration: 0.3
+        affectsHeavy: 0
+    - rid: 4357681907096354973
+      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageScale: 1
+        accentText: 1
+        textStyle:
+          color: {r: 0.4, g: 0.9019608, b: 1, a: 1}
+          scale: 1.5
+          riseSpeed: 1.5
+          offset: {x: 0, y: 0}

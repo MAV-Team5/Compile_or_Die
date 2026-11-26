@@ -22,7 +22,8 @@ public class AreaDelivery : DeliveryModule
     [Range(0f, 180f)] public float halfAngle = 180f;
 
     [Detail]
-    [Tooltip("중심에 있는 적도 포함할지. 끄면 주변만 맞는다.")]
+    [Tooltip("중심에 있는 적도 포함할지. 끄면 주변만 맞는다.\n" +
+             "하위 파이프라인에서는 원점(직전에 맞은 적)이 중심이다 — 켜면 그 적도 폭발에 맞는다.")]
     public bool includeCenterTarget = true;
 
     [Header("본체 (선택)")]
@@ -70,7 +71,8 @@ public class AreaDelivery : DeliveryModule
             // 판정 반경을 연출에도 넘긴다. 따라 커질지는 연출 쪽 체크가 정한다
             blastFx.PlayAt(center, heading, radius, ctx.Owner);
 
-            TargetQuery.OverlapInto(center, radius, ctx.Owner, hits);
+            // 하위 파이프라인에서 Owner 는 중심에 선 적이다. 중심 포함이면 그 적도 맞아야 한다
+            TargetQuery.OverlapInto(center, radius, includeCenterTarget ? null : ctx.Owner, hits);
 
             for (int i = 0; i < hits.Count; i++)
             {

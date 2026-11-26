@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
              "  회수(Recycle)는 자리만 옮기지 수를 줄이지 않으므로 상한이 따로 필요하다.\n\n" +
              "＊ 설치물(상자)은 이 상한을 안 센다 — 잡몹이 상한을 채우면\n" +
              "  상자가 영영 안 나오게 된다.")]
-    [Min(0)] [SerializeField] int maxAlive = 150;
+    [Min(0)] [SerializeField] int maxAlive = 75;
 
     [Tooltip("상한 때문에 못 나온 적을 콘솔에 몇 초마다 모아서 알릴지. 0이면 알리지 않는다.")]
     [Min(0f)] [SerializeField] float capLogInterval = 5f;
@@ -160,6 +160,12 @@ public class Spawner : MonoBehaviour
         capSkipped = new int[stage.waves.Count];
     }
 
+    /// <summary>
+    /// 웨이브 스폰을 멈춘다. 보스전처럼 무대가 따로 몬스터를 내보내는 동안 켠다.
+    /// 이미 나온 적·재배치는 그대로 돈다.
+    /// </summary>
+    public bool WavesPaused { get; set; }
+
     void Update()
     {
         if (!RunDirector.IsPlaying) return;
@@ -169,6 +175,8 @@ public class Spawner : MonoBehaviour
 
         Recycle(dt);
         TickCapLog(dt);
+
+        if (WavesPaused) return;
 
         for (int i = 0; i < stage.waves.Count; i++)
         {
@@ -194,11 +202,17 @@ public class Spawner : MonoBehaviour
 
         // 상한이 있으면 넘겨서 내보내지 않는다
         if (wave.maxSpawns > 0) count = Mathf.Min(count, wave.maxSpawns - wave.Spawned);
+        if (count <= 0) return;
 
-        for (int i = 0; i < count; i++) Release(wave, index);
+        // 무리 스폰이 켜졌으면 한 지점을 골라 그 주변에 흩뿌린다
+        Vector3? clusterOrigin = wave.clusterSpawn && wave.burst > 1 && !wave.enemy.stationary
+            ? PickPoint()
+            : (Vector3?)null;
+
+        for (int i = 0; i < count; i++) Release(wave, index, clusterOrigin);
     }
 
-    void Release(StageWave wave, int index)
+    void Release(StageWave wave, int index, Vector3? clusterOrigin = null)
     {
         // 상한에 걸리면 이번 마리는 그냥 건너뛴다. 웨이브 시계는 계속 돌아가므로
         // 자리가 나면 다음 주기에 알아서 다시 나온다
@@ -212,7 +226,12 @@ public class Spawner : MonoBehaviour
         if (go == null) return;
 
         // 설치물은 안 움직이므로 화면 밖 링에 두면 영영 못 본다. 눈에 보이는 자리에 놓는다
-        go.transform.position = wave.enemy.stationary ? PickNearPoint() : PickPoint();
+        if (wave.enemy.stationary)
+            go.transform.position = PickNearPoint();
+        else if (clusterOrigin.HasValue)
+            go.transform.position = clusterOrigin.Value + (Vector3)(Random.insideUnitCircle * wave.clusterRadius);
+        else
+            go.transform.position = PickPoint();
 
         // 물리 좌표는 다음 FixedUpdate 까지 transform 을 따라오지 않는다.
         // 그 사이에 증강이 사거리 검색을 하면 갓 스폰한 적이 원점에 있는 것으로 잡힌다
@@ -224,6 +243,67 @@ public class Spawner : MonoBehaviour
         alive.Add(go.transform);
 
         wave.Spawned++;
+    }
+
+    /// <summary>
+    /// 지금 나와 있는 일반 몬스터(움직이는 하수인)를 걷는다. 보스전 시작에 판을 비우는 용도.
+    /// 설치물과 보스는 남긴다. 경험치는 안 떨어진다 — 직전에 맵의 경험치를 몰아주므로.
+    /// </summary>
+    public void ClearMinions()
+    {
+        for (int i = alive.Count - 1; i >= 0; i--)
+        {
+            Transform t = alive[i];
+            if (t == null) { alive.RemoveAt(i); continue; }
+            if (!t.gameObject.activeInHierarchy) continue;
+            if (!t.TryGetComponent(out Enemy e) || !e.IsAlive || e.IsStationary || !e.IsMinion) continue;
+
+            t.gameObject.SetActive(false);
+            alive.RemoveAt(i);
+        }
+    }
+
+    /// <summary>
+    /// 한 자리에 무리를 지어 내보낸다(보스전 "버그 소환"). 동시 생존 상한은 무시한다 — 기믹이라 반드시 나와야 한다.
+    /// 어떤 적이 나올지는 지금 시각에 돌던(혹은 마지막으로 돌았던) 움직이는 웨이브 중에서 고른다.
+    /// 그 웨이브 번호로 새겨 두므로 잡으면 그 웨이브의 경험치가 떨어진다.
+    /// </summary>
+    /// <returns>실제로 내보낸 수.</returns>
+    public int SpawnSwarm(Vector2 center, float radius, int count)
+    {
+        if (stage == null || count <= 0 || GameManager.instance == null) return 0;
+
+        // 후보: 움직이는 적을 내는 웨이브. 지금 이미 시작한 것만(소개만 하고 안 나온 적이 튀어나오지 않게)
+        float now = RunDirector.RunTime;
+        var pool = new List<int>();
+        for (int i = 0; i < stage.waves.Count; i++)
+        {
+            StageWave w = stage.waves[i];
+            if (w == null || !w.IsValid || w.enemy.stationary) continue;
+            if (w.startAt > now) continue;
+            pool.Add(i);
+        }
+        if (pool.Count == 0) return 0;
+
+        int index = pool[Random.Range(0, pool.Count)];
+        StageWave wave = stage.waves[index];
+
+        int made = 0;
+        for (int i = 0; i < count; i++)
+        {
+            GameObject go = GameManager.instance.poolManager.Get(wave.enemy.prefab, PoolType.Enemy);
+            if (go == null) break;
+
+            go.transform.position = center + Random.insideUnitCircle * radius;
+            Physics2D.SyncTransforms();
+
+            if (go.TryGetComponent(out Enemy enemy)) enemy.Init(wave.enemy, wave.Scale, index);
+
+            alive.Add(go.transform);
+            made++;
+        }
+
+        return made;
     }
 
     /// <summary>

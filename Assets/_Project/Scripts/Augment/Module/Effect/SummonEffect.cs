@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 [System.Serializable]
 [ModuleInfo("적중 자리에 소환물을 놓는다", "소환물의 공격은 증강 에셋으로 따로 짠다")]
-public class SummonEffect : EffectModule
+public class SummonEffect : EffectModule, ILinksAugments
 {
     [Header("소환물")]
     [Required("아무것도 소환되지 않는다")]
@@ -34,7 +34,7 @@ public class SummonEffect : EffectModule
              "넘치면 가장 오래된 것부터 사라진다.")]
     public int maxAliveOverride = 0;
 
-    [Tooltip("켜면 적중한 적 위치에, 끄면 이 파이프라인의 원점에 놓는다.\n" +
+    [Tooltip("켜면 적중한 적 위치(PointDelivery 면 찍은 좌표)에, 끄면 이 파이프라인의 원점에 놓는다.\n" +
              "제자리에 터렛을 세우려면 꺼둘 것.")]
     public bool placeAtTarget = true;
 
@@ -49,6 +49,14 @@ public class SummonEffect : EffectModule
     [Fx("소환 연출", "소환된 자리")]
     public FxGroup summonFx = new();
 
+    public void CollectLinked(List<AugmentData> into)
+    {
+        if (behaviour != null) into.Add(behaviour);
+
+        foreach (AugmentData step in finale)
+            if (step != null) into.Add(step);
+    }
+
     public override void Apply(AugmentContext ctx, HitInfo hit)
     {
         if (summonPrefab == null || behaviour == null) return;
@@ -60,9 +68,10 @@ public class SummonEffect : EffectModule
             return;
         }
 
-        Vector3 at = placeAtTarget && hit.Target != null
-            ? hit.Target.position
-            : ctx.Owner.position;
+        // 적중한 적이 있으면 그 적 위치, 좌표 적중(PointDelivery — 대상이 시전자)이면 그 좌표
+        Vector3 at = !placeAtTarget ? ctx.Owner.position
+                   : hit.Target != null && hit.Target != ctx.Owner ? hit.Target.position
+                   : (Vector3)hit.Point;
 
         int maxAlive = maxAliveOverride > 0 ? maxAliveOverride : ctx.Stat.count;
 

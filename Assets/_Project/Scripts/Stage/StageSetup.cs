@@ -31,6 +31,8 @@ public class StageSetup : MonoBehaviour
     {
         if (Stage == null) return;
 
+        ApplyPlayerSpeed();
+
         if (Stage.backgroundPrefab != null)
             Instantiate(Stage.backgroundPrefab, Vector3.zero, Quaternion.identity);
 
@@ -39,5 +41,21 @@ public class StageSetup : MonoBehaviour
 
         for (int i = 0; i < Stage.bootLines.Length; i++)
             LogManager.Instance.NoneLog(Stage.bootLines[i]);
+    }
+
+    /// <summary>
+    /// 이 스테이지의 플레이어 이동속도 배율을 건다.
+    ///
+    /// PlayerSetup 이 Awake 에서 캐릭터 값을 새로 깔아두므로 여기서 곱해도 런마다 누적되지 않는다.
+    /// 키보드 보정(HardwareBonus.Start)과는 곱셈이라 둘의 Start 순서는 결과에 영향이 없다.
+    /// </summary>
+    void ApplyPlayerSpeed()
+    {
+        if (Mathf.Approximately(Stage.playerSpeedScale, 1f)) return;
+
+        Player player = GameManager.instance != null ? GameManager.instance.player : null;
+        if (player == null) return;
+
+        player.speed *= Stage.playerSpeedScale;
     }
 }

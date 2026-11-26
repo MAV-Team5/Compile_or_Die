@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ using UnityEngine;
 /// {damage:0}        14        C# 표준 서식
 /// {effectDamage:%}  30%       비율을 퍼센트로 (×100 + %)
 /// {effectDamage*100} 30       직접 곱하기 (÷ 도 된다)
+/// {JAVA_JVM.damage}  4        연결된 증강(소환물·피날레)의 수치. 같은 레벨 기준
 /// </code>
 ///
 /// 모르는 토큰은 <c>{이렇게}</c> 그대로 남는다 — 조용히 사라지면 오타를 못 찾는다.
@@ -20,7 +22,7 @@ public static class AugmentText
 {
     /// <summary>{이름}, {이름*2}, {이름:0.0} 을 한 번에 잡는다.</summary>
     static readonly Regex Token = new(
-        @"\{\s*([A-Za-z]+)\s*(?:([*/])\s*([0-9.]+))?\s*(?::\s*([^}]+?))?\s*\}",
+        @"\{\s*([A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z]+)?)\s*(?:([*/])\s*([0-9.]+))?\s*(?::\s*([^}]+?))?\s*\}",
         RegexOptions.Compiled);
 
     // ── 바깥에서 부르는 입구 ───────────────────────────────
@@ -60,8 +62,10 @@ public static class AugmentText
         AugmentLevelData prev = paired ? StatAt(data, from) : next;
 
         return Resolve(template,
-                       key => Lookup(key, data.displayName, to, next, 0f),
-                       paired ? key => Lookup(key, data.displayName, from, prev, 0f) : null);
+                       key => Lookup(key, data.displayName, to, next, 0f) ?? LookupLinked(data, key, to),
+                       paired
+                           ? key => Lookup(key, data.displayName, from, prev, 0f) ?? LookupLinked(data, key, from)
+                           : null);
     }
 
     /// <summary>적중 정보가 있는 시점용.</summary>
@@ -75,6 +79,7 @@ public static class AugmentText
             "index" => hit.Index,
             _ => Lookup(key, ctx.Instance.Data.displayName, ctx.Instance.Level,
                         ctx.Stat, ctx.BonusDamage)
+                 ?? LookupLinked(ctx.Instance.Data, key, ctx.Instance.Level)
         });
     }
 
@@ -84,7 +89,8 @@ public static class AugmentText
         if (string.IsNullOrEmpty(template) || ctx == null) return template;
 
         return Resolve(template, key => Lookup(key, ctx.Instance.Data.displayName,
-                                               ctx.Instance.Level, ctx.Stat, ctx.BonusDamage));
+                                               ctx.Instance.Level, ctx.Stat, ctx.BonusDamage)
+                                        ?? LookupLinked(ctx.Instance.Data, key, ctx.Instance.Level));
     }
 
     // ── 토큰 표 ───────────────────────────────────────────
@@ -112,6 +118,33 @@ public static class AugmentText
 
             _ => null
         };
+
+    static readonly List<AugmentData> linked = new();
+
+    /// <summary>
+    /// <c>{ID.열}</c> — 이 증강이 직접 연결한 에셋(최상위 효과의 소환물·피날레) 중 ID 가 같은 것의 수치.
+    /// 아무 증강이나 찾지 않는다. 오타가 엉뚱한 값으로 채워지면 못 찾는다.
+    /// </summary>
+    static object LookupLinked(AugmentData data, string key, int level)
+    {
+        int dot = key.IndexOf('.');
+        if (dot <= 0 || data == null || data.effects == null) return null;
+
+        string id = key[..dot];
+        string column = key[(dot + 1)..];
+
+        linked.Clear();
+        foreach (EffectModule effect in data.effects)
+            if (effect is ILinksAugments links) links.CollectLinked(linked);
+
+        foreach (AugmentData other in linked)
+        {
+            if (other.id != id) continue;
+            return Lookup(column, other.displayName, level, StatAt(other, level), 0f);
+        }
+
+        return null;
+    }
 
     /// <summary>레벨은 1부터. 표 밖으로 나가면 가장 가까운 칸을 쓴다.</summary>
     static AugmentLevelData StatAt(AugmentData data, int level)

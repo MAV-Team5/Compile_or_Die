@@ -189,6 +189,9 @@ public class SemicolonCaster : MonoBehaviour
 
     IEnumerator RunTelegraph()
     {
+        // 할로윈 스킨: 조준하는 동안 기모으기 자세
+        HalloweenSkin.SetCharging(this, true);
+
         SetIcon(true);
         SetText(string.Empty);
         yield return new WaitForSeconds(stageDuration);
@@ -242,6 +245,10 @@ public class SemicolonCaster : MonoBehaviour
 
     void Fire(Vector2 targetPosition)
     {
+        // 할로윈 스킨: 쏘는 순간이 공격 동작이다
+        HalloweenSkin.SetCharging(this, false);
+        HalloweenSkin.PlayAttack(this);
+
         if (projectilePrefab == null)
         {
             Debug.LogWarning($"[{name}] projectilePrefab 이 비어 있어 발사할 수 없다.", this);

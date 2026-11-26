@@ -12,17 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 010 Firewall
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
+  lockModules: 1
   lockStats: 1
   id: FIREWALL
   displayName: FireWall
   category: 4
-  tags:
-  - 2
-  - 11
-  - 23
-  - 31
-  icon: {fileID: 21300000, guid: b6795c96fef3b01439d1de6a75d33651, type: 3}
+  exclusiveTo: {fileID: 0}
+  tags: 020000000b000000170000001f000000
+  icon: {fileID: 4684117448244706805, guid: 59d65bea304ac40a585b42e8631256e9, type: 3}
   descriptionTemplate: "\uCFE8\uD0C0\uC784\uB9C8\uB2E4 \uC8FC\uC704\uC801\uC5D0\uAC8C
     \uB370\uBBF8\uC9C0\uB97C \uC8FC\uACE0 \uBC00\uC5B4\uB0B8\uB2E4.\n\uD53C\uD574\uB7C9\t:
     {damage}\n\uCFE8\uD0C0\uC784\t: {cooldown}\n\uBC94\uC704\t: {effectRange}"
@@ -50,7 +47,7 @@ MonoBehaviour:
     effectDamage: 0
     cooldown: 1.5
     range: 0
-    effectRange: 3.1
+    effectRange: 3.3
     count: 0
     pierce: 0
     duration: 0
@@ -60,27 +57,27 @@ MonoBehaviour:
     effectDamage: 0
     cooldown: 1.5
     range: 0
-    effectRange: 3.2
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 3.4
-    effectDamage: 0
-    cooldown: 1.3
-    range: 0
-    effectRange: 3.5
-    count: 0
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 4.2
-    effectDamage: 0
-    cooldown: 1.3
-    range: 0
     effectRange: 3.6
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 3
+    effectDamage: 0
+    cooldown: 1.3
+    range: 0
+    effectRange: 3.9
+    count: 0
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 4
+    effectDamage: 0
+    cooldown: 1.3
+    range: 0
+    effectRange: 4.2
     count: 0
     pierce: 0
     duration: 0
@@ -90,17 +87,17 @@ MonoBehaviour:
     effectDamage: 0
     cooldown: 1.3
     range: 0
-    effectRange: 3.7
+    effectRange: 4.5
     count: 0
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 6.5
+  - damage: 7
     effectDamage: 0
     cooldown: 1.1
     range: 0
-    effectRange: 4.1
+    effectRange: 5
     count: 0
     pierce: 0
     duration: 0
@@ -179,4 +176,6 @@ MonoBehaviour:
       data:
         distance: 0.6
         pull: 0
+        gatherToCenter: 0
         stunDuration: 0.2
+        affectsHeavy: 0

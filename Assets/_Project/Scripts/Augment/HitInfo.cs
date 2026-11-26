@@ -15,4 +15,7 @@ public struct HitInfo
     /// 방향을 알 수 없는 경우 zero.
     /// </summary>
     public Vector2 Direction;
+
+    /// <summary>겨냥해서 쏜 바로 그 대상에 맞았는가. 가는 길에 관통한 적은 false.</summary>
+    public bool IsAimed;
 }

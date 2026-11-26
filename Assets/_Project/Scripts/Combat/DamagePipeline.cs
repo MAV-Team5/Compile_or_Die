@@ -47,7 +47,10 @@ public static class DamagePipeline
 
         if (!dmg.HardwareApplied)
         {
-            multiplier = HardwareBonus.DamageMultiplier;
+            // 스테이지 보정도 여기서 함께 곱한다 — 같은 이유로 전이 피해에 두 번 먹으면 안 된다
+            StageData stage = StageContext.Active;
+            multiplier = HardwareBonus.DamageMultiplier
+                       * (stage != null ? stage.playerDamageScale : 1f);
             dmg.Amount *= multiplier;
             dmg.HardwareApplied = true;
         }

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 009 Iteration
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
+  lockModules: 1
   lockStats: 1
   id: ITERATION
   displayName: Iteration
   category: 5
   exclusiveTo: {fileID: 0}
   tags: 000000000a0000001a00000014000000
-  icon: {fileID: 21300000, guid: cf194120b78b1c14d899901db1f3d5cc, type: 3}
+  icon: {fileID: 5427537470727562019, guid: 4ff3d83f438a9402a871b79c6d6095aa, type: 3}
   descriptionTemplate: "\uCFE8\uD0C0\uC784\uB9C8\uB2E4 \" i \" \uD22C\uC0AC\uCCB4\uB97C
     \uBC18\uBCF5 \uD69F\uC218\uB9CC\uD07C \uC5F0\uC18D \uBC1C\uC0AC\uD55C\uB2E4.\n\uBC1C\uC0AC\uB41C
     \uD22C\uC0AC\uCCB4\uB294 \uC0AC\uAC70\uB9AC \uB0B4 \uCD5C\uADFC\uC811 \uB300\uC0C1\uC744
@@ -40,69 +40,69 @@ MonoBehaviour:
   - damage: 1
     effectDamage: 0
     cooldown: 4
-    range: 9
-    effectRange: 0
-    count: 4
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 1.6
-    effectDamage: 0
-    cooldown: 4
-    range: 10
-    effectRange: 0
-    count: 4
-    pierce: 0
-    duration: 0
-    speed: 0
-    depth: 0
-  - damage: 2.2
-    effectDamage: 0
-    cooldown: 4
     range: 11
     effectRange: 0
-    count: 4
+    count: 8
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 3
+  - damage: 1.5
     effectDamage: 0
-    cooldown: 3.7
+    cooldown: 4
+    range: 12
+    effectRange: 0
+    count: 8
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 2
+    effectDamage: 0
+    cooldown: 4
     range: 13
     effectRange: 0
-    count: 5
+    count: 8
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 4
+  - damage: 3.5
     effectDamage: 0
     cooldown: 3.7
     range: 14
     effectRange: 0
-    count: 5
+    count: 12
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 5
+  - damage: 4.5
     effectDamage: 0
     cooldown: 3.7
     range: 15
     effectRange: 0
-    count: 5
+    count: 12
     pierce: 0
     duration: 0
     speed: 0
     depth: 0
-  - damage: 6
+  - damage: 5.5
+    effectDamage: 0
+    cooldown: 3.7
+    range: 16
+    effectRange: 0
+    count: 12
+    pierce: 0
+    duration: 0
+    speed: 0
+    depth: 0
+  - damage: 8
     effectDamage: 0
     cooldown: 3.3
     range: 17
     effectRange: 0
-    count: 6
+    count: 16
     pierce: 0
     duration: 0
     speed: 0
@@ -173,10 +173,17 @@ MonoBehaviour:
         lifetime: 3
         oneHitPerTarget: 0
         dieWithOrigin: 1
+        pierceToTarget: 0
         homing:
           turnSpeed: 0
           seekRadius: 0
           retargetInterval: 0.15
+        wave:
+          amplitude: 0
+          frequency: 2.5
+          rampIn: 0.15
+          mirrorPerShot: 1
+          randomPhase: 0
         launchFx:
           vfx: {fileID: 0}
           vfxScale: 1

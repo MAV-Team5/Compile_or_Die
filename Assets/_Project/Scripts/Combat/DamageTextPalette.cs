@@ -40,10 +40,16 @@ public class DamageTextPalette : ScriptableObject
 
         if (dmg.SourceAugment != null && dmg.SourceAugment.Data != null)
         {
-            AugmentCategory category = dmg.SourceAugment.Data.category;
+            AugmentData data = dmg.SourceAugment.Data;
+            DamageTextStyle style = normal.Filled();
 
             for (int i = 0; i < byCategory.Length; i++)
-                if (byCategory[i].category == category) return byCategory[i].style.Filled();
+                if (byCategory[i].category == data.category) { style = byCategory[i].style.Filled(); break; }
+
+            // 숫자 색은 그 증강의 고유색 — 아이콘·투사체 꼬리·연쇄선과 같은 색이라 누가 때렸는지 보인다
+            if (AugmentPalette.TryGet(data, out Color own)) style.color = own;
+
+            return style;
         }
 
         return normal.Filled();

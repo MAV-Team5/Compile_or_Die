@@ -21,6 +21,10 @@ public class HighestHealthTargeting : TargetingModule
     [Tooltip("보스도 후보에 넣을지.")]
     public bool includeBosses = false;
 
+    [Tooltip("켜면 원점 말고 다른 적이 범위에 하나도 없을 때 아무도 고르지 않는다.\n" +
+             "혼자 남은 적을 계속 다시 고르는 반복(같은 적만 계속 튕김)을 끝내는 조건이다.")]
+    public bool requireOthers = true;
+
     readonly List<Transform> found = new();
 
     public override void Resolve(AugmentContext ctx)
@@ -30,6 +34,7 @@ public class HighestHealthTargeting : TargetingModule
         TargetQuery.OverlapInto(ctx.Owner.position, range, includeOrigin ? null : ctx.Owner, found);
 
         Enemy best = null;
+        bool hasOthers = false;
 
         for (int i = 0; i < found.Count; i++)
         {
@@ -39,9 +44,17 @@ public class HighestHealthTargeting : TargetingModule
             if (enemy == null || !enemy.IsAlive || enemy.IsStationary) continue;
             if (!includeBosses && enemy.TryGetComponent(out BossMarker _)) continue;
 
+            if (!IsOrigin(ctx, enemy)) hasOthers = true;
+
             if (best == null || enemy.Health > best.Health) best = enemy;
         }
 
+        // 주변에 비교할 상대가 없으면 정렬할 것도 없다
+        if (requireOthers && !hasOthers) return;
+
         if (best != null) ctx.Targets.Add(best.transform);
     }
+
+    static bool IsOrigin(AugmentContext ctx, Enemy enemy)
+        => ctx.Owner != null && (enemy.transform == ctx.Owner || ctx.Owner.IsChildOf(enemy.transform));
 }

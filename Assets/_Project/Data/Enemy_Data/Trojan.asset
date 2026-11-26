@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7092d516a938fb4f9af137f71768f05, type: 3}
+  m_Name: Trojan
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  displayName: Trojan
+  prefab: {fileID: 1000000001, guid: 77770031000000000000000000000031, type: 3}
+  rank: 1
+  health: 45
+  speed: 4.5
+  contactDamage: 9
+  scale: 1
+  personalSpace: 0.6
+  separationStrength: 1
+  animatorOverride: {fileID: 0}
+  hitFlashDuration: 0.07
+  flipToFace: 1
+  spawnMessage: 
+  killMessages:
+  - 'Trojan purged.'
+  - 'payload neutralized: {name}'
+  - 'malicious crate dismantled.'
+  killLog: 1
+  deathState: Trojan_death
+  deathDuration: 0.35
+  deathStyle: 0
+  deathFx:
+    vfx: {fileID: 0}
+    vfxScale: 1
+    scaleWithRange: 1
+    sfx: {fileID: 0}
+    sfxVolume: 1
+    attachToSource: 0
+    motionParameter: 
+    motionValue: 1
+  deathClips: []
+  deathVolume: 0.5
+  deathInterval: 0
+  bits: 5
+  countsAsKill: 1
+  dropTable: []
+  dropChance: 1
+  dropCount: 1
+  stationary: 1

@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     // 넉백 직후 스스로 못 움직이는 시간
     float moveSuppressRemain;
 
+    const float HitJoltDistance = 0.25f;
+    const float HitJoltDuration = 0.05f;
+
     private float speed;
     private float health;
     private float maxHealth;
@@ -195,6 +198,9 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
     public void Displace(Vector2 delta, float suppressDuration)
     {
+        // 보스는 밀리지 않는다 — 덩치 큰 결전 상대가 공격 한 방에 튕겨 나가면 무게가 안 실린다
+        if (source != null && source.rank == EnemyData.Rank.Boss) return;
+
         rigid.MovePosition(rigid.position + delta);
         moveSuppressRemain = Mathf.Max(moveSuppressRemain, suppressDuration);
     }
@@ -226,6 +232,8 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         // ★ 풀에서 재사용되므로 반드시 푼다. 안 그러면 지난번 잠금 상태로 살아나
         //   영영 안 죽고 안 움직이는 개체가 생긴다
         invulnerable = false;
+        externalInvulnCount = 0;
+        visual?.SetInvulnerableBadge(false);
         movementLocked = false;
     }
 
@@ -247,6 +255,17 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <summary>남은 체력 비율(0~1). 죽었으면 0.</summary>
     public float HealthRatio => isLive && maxHealth > 0f ? Mathf.Clamp01(health / maxHealth) : 0f;
 
+    /// <summary>연출용 무적(보스 페이즈 전환 컷인 등). 켜져 있으면 피해 진입점에서 통째로 막는다.</summary>
+    public bool Invulnerable { get; set; }
+
+    /// <summary>최대·현재 체력을 같은 배율로 늘린다 — 체력 비율은 그대로, 남은 체력만 커진다(보스 페이즈 전환용).</summary>
+    public void ScaleHealth(float factor)
+    {
+        if (!isLive || factor <= 0f) return;
+        maxHealth *= factor;
+        health *= factor;
+    }
+
     /// <summary>잡몹인가. 오래 산 적 정리는 잡몹만 한다 — 엘리트는 상자를 들고 있다.</summary>
     public bool IsMinion => source == null || source.rank == EnemyData.Rank.Minion;
 
@@ -256,6 +275,21 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// 콜라이더는 켜둔 채라 <b>몸으로 막고 닿으면 아프다</b> — 안 죽을 뿐이지 벽은 벽이다.
     /// </summary>
     [System.NonSerialized] public bool invulnerable;
+    [System.NonSerialized] int externalInvulnCount;
+
+    /// <summary>외부 오라(예: 잠긴 DeadLock)로 무적을 겹쳐 건다. 짝을 맞춰 <see cref="PopInvulnerable"/>로 푼다.</summary>
+    public void PushInvulnerable()
+    {
+        externalInvulnCount++;
+        visual?.SetInvulnerableBadge(externalInvulnCount > 0);
+    }
+
+    /// <summary>외부 오라 무적을 1겹 푼다.</summary>
+    public void PopInvulnerable()
+    {
+        externalInvulnCount = Mathf.Max(0, externalInvulnCount - 1);
+        visual?.SetInvulnerableBadge(externalInvulnCount > 0);
+    }
 
     /// <summary>
     /// 지금 스스로 못 움직이는가. 넉백(moveSuppressRemain)과 달리 <b>지속</b>이다.
@@ -271,12 +305,14 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// <b>마지막 일격에 얹히는 효과가 통째로 안 보이게 된다</b> —
     /// Bash:kill 처럼 "끝낸 대상에 한 번 더" 인 증강이 죽은 것처럼 보인다.
     /// </summary>
-    public bool AcceptsDamage => !invulnerable;
+    public bool AcceptsDamage => !invulnerable && externalInvulnCount <= 0;
 
     public void Init(EnemyData data, EnemyScale scale, int wave = -1)
     {
         // 풀에서 재사용되므로 항상 다시 정해야 한다. 안 그러면 지난 개체의 웨이브로 집계된다
         waveIndex = wave;
+        externalInvulnCount = 0;
+        visual?.SetInvulnerableBadge(false);
 
         if (data == null)
         {
@@ -311,9 +347,13 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
 
         // 풀에서 재사용되므로 항상 다시 정해야 한다. 안 그러면 직전 개체의 크기로 나온다
         transform.localScale = baseScale * Mathf.Max(0.01f, data.scale * scale.Size);
+        if (visual != null) visual.SetBaseScale(transform.localScale);
 
         // 뒤집기를 끈 적이 이전 개체의 반전 상태를 물려받지 않게
         if (spriter != null && !flipToFace) spriter.flipX = false;
+
+        // 할로윈 시연용 겉모습·목소리. 스킨이 없거나 꺼져 있으면 아무것도 안 한다
+        HalloweenSkin.ApplyEnemy(this, data, data.scale * scale.Size);
     }
     /// <summary>
     /// 피해 진입점. 피해량만 깎는다 —
@@ -322,18 +362,34 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     public void TakeDamage(float amount)
     {
         // 같은 프레임에 여러 발이 맞아도 Dead가 두 번 돌지 않게 막는다
-        if (!isLive || amount <= 0f)
+        if (!isLive || Invulnerable || amount <= 0f)
             return;
 
         health -= amount;
 
         if (health <= 0f)
+        {
             Dead();
+        }
+        else
+        {
+            HalloweenSkin.PlayHit(this);
+
+            if (IsAlive && !IsStationary && source != null && source.rank == EnemyData.Rank.Minion &&
+                !movementLocked && moveSuppressRemain <= 0f && target != null && rigid != null)
+            {
+                Vector2 away = rigid.position - target.position;
+                if (away.sqrMagnitude > 0.0001f)
+                    Displace(away.normalized * HitJoltDistance, HitJoltDuration);
+            }
+        }
     }
 
     void Dead()
     {
         isLive = false;
+        externalInvulnCount = 0;
+        visual?.SetInvulnerableBadge(false);
 
         // 판정을 먼저 끊는다. 죽음 연출이 도는 동안 증강이 시체를 계속 겨누거나,
         // 시체에 닿아서 피가 깎이면 안 된다
@@ -356,8 +412,8 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
             RunDirector.Current.AddBits(source.bits);
 
         // 소리도 적이 정한다. 잡몹과 보스가 같은 소리로 죽으면 무게가 안 실린다
-        if (source != null)
-            SfxPlayer.PlayAny(source.deathClips, source.deathVolume, source.deathInterval);
+        // 할로윈 스킨 목소리가 있으면 그걸, 없으면 EnemyData 의 원래 소리를 낸다
+        HalloweenSkin.PlayDeath(source);
 
         if (LogManager.Instance != null)
         {
@@ -380,7 +436,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     /// </summary>
     void Despawn()
     {
-        float wait = source != null ? source.DeathWait : 0f;
+        float wait = HalloweenSkin.DeathWaitOf(source);
 
         if (wait <= 0f)
         {
@@ -391,7 +447,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         if (anim != null && !string.IsNullOrEmpty(source.deathState))
             anim.Play(source.deathState, 0, 0f);
 
-        if (visual != null) visual.PlayDeath(source.deathStyle, wait);
+        if (visual != null) visual.PlayDeath(HalloweenSkin.DeathStyleOf(source), wait);
 
         StartCoroutine(DespawnAfter(wait));
     }

@@ -51,6 +51,15 @@ public class PlayerHealthBar : MonoBehaviour
     float remain;
     float appliedAlpha = -1f;
 
+    /// <summary>바 전체 길이(월드 유닛). 칸 수가 바뀌면 같이 바뀐다 — 대시 칸이 이 길이에 맞춘다.</summary>
+    public float Width { get; private set; }
+
+    /// <summary>지금 보이는 정도(0~1).</summary>
+    public float Alpha => appliedAlpha < 0f ? 0f : appliedAlpha;
+
+    /// <summary>바의 생김새. 대시 칸이 높이·간격을 맞추는 데 쓴다.</summary>
+    public Layout BarLayout => layout;
+
     public static PlayerHealthBar Create(PlayerHealth target, Layout layout)
     {
         var go = new GameObject("PlayerHealthBar");
@@ -69,6 +78,9 @@ public class PlayerHealthBar : MonoBehaviour
 
         // 런 시작에 한 번 띄운다 — 체력바가 어디 있는지는 알려주고 시작해야 한다
         OnChanged(health.Current, health.Max);
+
+        // 바로 밑에 대시 칸을 붙인다
+        PlayerDashBar.Attach(this, target.GetComponent<Player>());
     }
 
     // ── 조립 ──────────────────────────────────────────────
@@ -104,6 +116,7 @@ public class PlayerHealthBar : MonoBehaviour
         healthPerSegment = per;
 
         float step = layout.SegmentSize.x + layout.SegmentGap;
+        Width = count * layout.SegmentSize.x + (count - 1) * layout.SegmentGap;
         float start = -(count - 1) * 0.5f * step;
 
         for (int i = 0; i < count; i++)

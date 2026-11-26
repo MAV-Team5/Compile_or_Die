@@ -119,6 +119,9 @@ public class BlueScreenCaster : MonoBehaviour
             for (int stage = 0; stage < stageTexts.Length; stage++)
             {
                 CurrentStage = stage;
+
+                // 할로윈 스킨: 시전하는 동안 기모으기 자세
+                if (stage == 0) HalloweenSkin.SetCharging(this, true);
                 StageChanged?.Invoke(stage, stageTexts[stage]);
 
                 float elapsed = 0f;
@@ -137,6 +140,10 @@ public class BlueScreenCaster : MonoBehaviour
 
             // FAILED 까지 도달 = UI 번쩍임 신호만 보낸다. 게이지 자체는 시간 기반으로 따로 찬다
             BlueScreenGauge.Instance.NotifyCastCompleted();
+
+            // 할로윈 스킨: 시전이 끝난 순간이 공격 동작이다
+            HalloweenSkin.SetCharging(this, false);
+            HalloweenSkin.PlayAttack(this);
 
             ResetVisualOnly();
             CurrentStage = -1;
@@ -174,6 +181,7 @@ public class BlueScreenCaster : MonoBehaviour
     void ResetCast()
     {
         ResetVisualOnly();
+        HalloweenSkin.SetCharging(this, false);
         CurrentStage = -1;
     }
 

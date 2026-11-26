@@ -109,3 +109,4 @@ Assets/TextMesh Pro/Resources/Fonts & Materials/*.asset
 # Unity crash recovery scenes
 /[Aa]ssets/_Recovery/
 /[Aa]ssets/_Recovery.meta
+CardPreview_*.png

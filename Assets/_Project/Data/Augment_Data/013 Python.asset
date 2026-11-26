@@ -12,15 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7306255598c2904ebcbd11a3b04bdc1, type: 3}
   m_Name: 013 Python
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  lockModules: 0
-  lockStats: 0
+  lockModules: 1
+  lockStats: 1
   id: PYTHON
   displayName: Python
   category: 3
   exclusiveTo: {fileID: 0}
-  tags: 
-  icon: {fileID: 0}
-  descriptionTemplate: 
+  tags: 000000000b0000001400000015000000
+  icon: {fileID: 5881008699969158019, guid: 55a25fb7b4700477286f786ab292a0f2, type: 3}
+  descriptionTemplate: "\uD30C\uB780 \uBC40\uACFC \uB178\uB780 \uBC40\uC774 \uC11C\uB85C
+    \uAF2C\uC774\uBA70 \uC801\uC744 \uCAD3\uB294\uB2E4.\n\uBC40\uC740 \uC9C0\uB098\uCE58\uB294
+    \uBAA8\uB4E0 \uC801\uC744 \uAD00\uD1B5\uD558\uACE0,\n\uBB3C\uB9B0 \uC801\uC740
+    \uB3C5\uC5D0 \uAC78\uB824 \uC9C0\uC18D \uD53C\uD574\uB97C \uBC1B\uB294\uB2E4.\n\uD53C\uD574\uB7C9
+    {damage}\n\uB3C5 \uD53C\uD574 {effectDamage} / 0.5\uCD08\n\uB3C5 \uC9C0\uC18D
+    {duration} \n\uCFE8\uD0C0\uC784 {cooldown}\n\uBC40 {count}\uC30D"
   rootAugment: {fileID: 0}
   requiredRootLevel: 0
   extensionSlot: 
@@ -31,14 +36,74 @@ MonoBehaviour:
   deliveryPatch: 0
   effectPatch: 0
   levelStats:
-  - damage: 0
-    effectDamage: 0
-    cooldown: 0
-    range: 0
+  - damage: 2
+    effectDamage: 1
+    cooldown: 8
+    range: 18
     effectRange: 0
-    count: 0
+    count: 1
     pierce: 0
-    duration: 0
+    duration: 3
+    speed: 0
+    depth: 0
+  - damage: 3
+    effectDamage: 1
+    cooldown: 8
+    range: 19
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 3
+    speed: 0
+    depth: 0
+  - damage: 4
+    effectDamage: 2
+    cooldown: 8
+    range: 20
+    effectRange: 0
+    count: 1
+    pierce: 0
+    duration: 3
+    speed: 0
+    depth: 0
+  - damage: 5
+    effectDamage: 2
+    cooldown: 7
+    range: 21
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 4
+    speed: 0
+    depth: 0
+  - damage: 6
+    effectDamage: 2
+    cooldown: 7
+    range: 22
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 4
+    speed: 0
+    depth: 0
+  - damage: 7
+    effectDamage: 2
+    cooldown: 7
+    range: 23
+    effectRange: 0
+    count: 2
+    pierce: 0
+    duration: 4
+    speed: 0
+    depth: 0
+  - damage: 9
+    effectDamage: 3
+    cooldown: 6
+    range: 24
+    effectRange: 0
+    count: 3
+    pierce: 0
+    duration: 5
     speed: 0
     depth: 0
   trigger:
@@ -50,6 +115,7 @@ MonoBehaviour:
   effects:
   - rid: 4357681862757580916
   - rid: 4357681862757580917
+  - rid: 4357681907096354917
   instantEffect: 0
   instantValue: 0
   instantDuration: 0
@@ -81,39 +147,46 @@ MonoBehaviour:
       type: {class: ProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
         directionOffset: 0
-        projectilePrefab: {fileID: 0}
-        speed: 0
+        projectilePrefab: {fileID: 6824073935605403827, guid: 28fbf0bcbfb038547b475b09316e4149, type: 3}
+        speed: 6
         pierce:
-          value: 0
+          value: 99
           scale: 1
           offset: 0
         travelRange:
           value: 0
-          scale: 1.2
+          scale: 4
           offset: 0
-        lifetime: 3
+        lifetime: 10
         oneHitPerTarget: 0
         dieWithOrigin: 1
+        pierceToTarget: 0
         homing:
-          turnSpeed: 240
-          seekRadius: 6
+          turnSpeed: 360
+          seekRadius: 15
           retargetInterval: 0.2
+        wave:
+          amplitude: 0.3
+          frequency: 1.4
+          rampIn: 0.15
+          mirrorPerShot: 1
+          randomPhase: 0
         launchFx:
-          vfx: {fileID: 0}
+          vfx: {fileID: 4354405111321551884, guid: e5b683a0164121f4681ed9dcd8c9d326, type: 3}
           vfxScale: 1
           scaleWithRange: 1
           sfx: {fileID: 0}
           sfxVolume: 1
-          attachToSource: 0
+          attachToSource: 1
           motionParameter: 
           motionValue: 1
         multiShot:
           shotsPerTarget:
             value: 0
-            scale: 1
+            scale: 2
             offset: 0
           formation: 0
-          spacing: 0.4
+          spacing: 0
           spreadPerShot: 0
     - rid: 4357681862757580916
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
@@ -137,8 +210,14 @@ MonoBehaviour:
           scale: 1
           offset: 0
         status:
-          rid: 4357681862757580918
-    - rid: 4357681862757580918
+          rid: 4357681907096355011
+    - rid: 4357681907096354917
+      type: {class: VfxEffect, ns: , asm: Assembly-CSharp}
+      data:
+        vfxPrefab: {fileID: 4354405111321551884, guid: 85e4e13595e7a6e49a5a47b08f1610ae, type: 3}
+        anchor: 1
+        scale: 1
+    - rid: 4357681907096355011
       type: {class: DamageOverTimeStatus, ns: , asm: Assembly-CSharp}
       data:
         statusVfx: {fileID: 0}
@@ -146,7 +225,7 @@ MonoBehaviour:
         interval: 0.5
         damagePerTick: 0
         tickFx:
-          vfx: {fileID: 0}
+          vfx: {fileID: 4354405111321551884, guid: 85e4e13595e7a6e49a5a47b08f1610ae, type: 3}
           vfxScale: 1
           scaleWithRange: 1
           sfx: {fileID: 0}

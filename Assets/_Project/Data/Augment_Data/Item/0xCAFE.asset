@@ -17,7 +17,9 @@ MonoBehaviour:
   id: ITEM_0XCAFE
   displayName: 0xCAFE
   category: 6
-  icon: {fileID: 21300000, guid: 3d3dfad3b2ec241d2b7c870a2fd82f69, type: 3}
+  exclusiveTo: {fileID: 0}
+  tags: 
+  icon: {fileID: -2770293461332939680, guid: abb5f7ccf5b2a411e97f28da80172657, type: 3}
   descriptionTemplate: "\uCE74\uD398\uC778 \uC8FC\uC785. 10\uCD08 \uB3D9\uC548 \uC774\uB3D9\uC18D\uB3C4\uAC00
     20% \uC99D\uAC00\uD55C\uB2E4."
   rootAugment: {fileID: 0}

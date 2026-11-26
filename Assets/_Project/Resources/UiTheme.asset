@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UiTheme
   mono: {fileID: 11400000, guid: 5892d989ac6cc734cbdda122efecd17f, type: 2}
   background: {r: 0.039, g: 0.055, b: 0.078, a: 1}
-  surface: {r: 0.039215688, g: 0.05882353, b: 0.11764706, a: 1}
+  surface: {r: 0.05882353, g: 0.08627451, b: 0.14117648, a: 1}
   surfaceDim: {r: 0.101960786, g: 0.13725491, b: 0.2, a: 1}
   line: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
   text: {r: 0.784, g: 0.827, b: 0.878, a: 1}
