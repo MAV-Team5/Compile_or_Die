@@ -233,6 +233,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         //   영영 안 죽고 안 움직이는 개체가 생긴다
         invulnerable = false;
         externalInvulnCount = 0;
+        visual?.SetInvulnerableBadge(false);
         movementLocked = false;
     }
 
@@ -277,10 +278,18 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     [System.NonSerialized] int externalInvulnCount;
 
     /// <summary>외부 오라(예: 잠긴 DeadLock)로 무적을 겹쳐 건다. 짝을 맞춰 <see cref="PopInvulnerable"/>로 푼다.</summary>
-    public void PushInvulnerable() => externalInvulnCount++;
+    public void PushInvulnerable()
+    {
+        externalInvulnCount++;
+        visual?.SetInvulnerableBadge(externalInvulnCount > 0);
+    }
 
     /// <summary>외부 오라 무적을 1겹 푼다.</summary>
-    public void PopInvulnerable() => externalInvulnCount = Mathf.Max(0, externalInvulnCount - 1);
+    public void PopInvulnerable()
+    {
+        externalInvulnCount = Mathf.Max(0, externalInvulnCount - 1);
+        visual?.SetInvulnerableBadge(externalInvulnCount > 0);
+    }
 
     /// <summary>
     /// 지금 스스로 못 움직이는가. 넉백(moveSuppressRemain)과 달리 <b>지속</b>이다.
@@ -303,6 +312,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
         // 풀에서 재사용되므로 항상 다시 정해야 한다. 안 그러면 지난 개체의 웨이브로 집계된다
         waveIndex = wave;
         externalInvulnCount = 0;
+        visual?.SetInvulnerableBadge(false);
 
         if (data == null)
         {
@@ -379,6 +389,7 @@ public class Enemy : MonoBehaviour, IDamageReceiver, IDisplaceable
     {
         isLive = false;
         externalInvulnCount = 0;
+        visual?.SetInvulnerableBadge(false);
 
         // 판정을 먼저 끊는다. 죽음 연출이 도는 동안 증강이 시체를 계속 겨누거나,
         // 시체에 닿아서 피가 깎이면 안 된다

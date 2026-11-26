@@ -17,7 +17,7 @@ MonoBehaviour:
   rank: 1
   health: 60
   speed: 0.9
-  contactDamage: 7
+  contactDamage: 0
   scale: 1.5
   animatorOverride: {fileID: 0}
   flipToFace: 1

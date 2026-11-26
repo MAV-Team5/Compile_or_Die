@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa93fa7c4c82a3f46b7c296593d47a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeadlockCycle
-  lockedDuration: 2
+  lockedDuration: 3
   openDuration: 3
   startLocked: 1
   startJitter: 0.6
@@ -411,7 +411,7 @@ MonoBehaviour:
   openMass: 2
   lockParameter: IsLock
   barrierRing: {fileID: 2246381728393544900}
-  auraRadius: 4.2
+  auraRadius: 8.4
   enemyMask:
     serializedVersion: 2
     m_Bits: 64

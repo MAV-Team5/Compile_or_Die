@@ -30,12 +30,16 @@ public class EnemyVisual : MonoBehaviour
 
     const string FlashPath = "HitFlashMaterial";
     const string HitSparkPath = "Fx_Spark_Base";
+    const string ImmuneBadgePath = "DeadLock_ImmuneBadge";
 
     static Material flashMaterial;
     static bool flashSearched;
 
     static GameObject hitSparkPrefab;
     static bool hitSparkSearched;
+
+    static Sprite immuneBadgeSprite;
+    static bool immuneBadgeSearched;
     static float hitSparkWindowStart;
     static int hitSparkCount;
 
@@ -71,8 +75,21 @@ public class EnemyVisual : MonoBehaviour
         }
     }
 
+    static Sprite ImmuneBadgeSprite
+    {
+        get
+        {
+            if (immuneBadgeSearched) return immuneBadgeSprite;
+
+            immuneBadgeSearched = true;
+            immuneBadgeSprite = Resources.Load<Sprite>(ImmuneBadgePath);
+            return immuneBadgeSprite;
+        }
+    }
+
     SpriteRenderer body;
     SpriteRenderer eye;
+    SpriteRenderer immuneBadge;
     Material bodyOriginal;
     Material eyeOriginal;
     bool renderersSearched;
@@ -149,6 +166,52 @@ public class EnemyVisual : MonoBehaviour
         baseScale = scale;
         hasBaseScale = true;
         if (!punching && !dying) transform.localScale = baseScale;
+        if (immuneBadge != null && immuneBadge.enabled) UpdateImmuneBadgeTransform();
+    }
+
+    /// <summary>외부 무적 오라 등으로 보호받는 동안 머리 위에 IMMUNE 배지를 띄운다.</summary>
+    public void SetInvulnerableBadge(bool on)
+    {
+        if (!on)
+        {
+            if (immuneBadge != null) immuneBadge.enabled = false;
+            return;
+        }
+
+        if (!gameObject.activeInHierarchy) return;
+
+        Sprite badgeSprite = ImmuneBadgeSprite;
+        if (badgeSprite == null) return;
+
+        EnsureRenderers();
+
+        if (immuneBadge == null)
+        {
+            var go = new GameObject("ImmuneBadge");
+            go.layer = gameObject.layer;
+            go.transform.SetParent(transform, false);
+
+            immuneBadge = go.AddComponent<SpriteRenderer>();
+            immuneBadge.sprite = badgeSprite;
+            immuneBadge.sortingLayerName = "Effect";
+            immuneBadge.sortingOrder = 60;
+        }
+
+        UpdateImmuneBadgeTransform();
+        immuneBadge.enabled = true;
+    }
+
+    void UpdateImmuneBadgeTransform()
+    {
+        if (immuneBadge == null) return;
+
+        float localY = body != null && body.sprite != null ? body.sprite.bounds.max.y + 0.25f : 0.85f;
+        immuneBadge.transform.localPosition = new Vector3(0f, localY, 0f);
+
+        Vector3 parentScale = transform.localScale;
+        float px = Mathf.Abs(parentScale.x) > 0.0001f ? parentScale.x : 1f;
+        float py = Mathf.Abs(parentScale.y) > 0.0001f ? Mathf.Abs(parentScale.y) : 1f;
+        immuneBadge.transform.localScale = new Vector3(1f / px, 1f / py, 1f);
     }
 
     /// <summary>탐색 표식이 붙어 있는 동안 켠다. 같은 값이면 아무것도 안 한다.</summary>
@@ -206,6 +269,8 @@ public class EnemyVisual : MonoBehaviour
     /// </summary>
     public void PlayDeath(EnemyData.DeathStyle style, float seconds)
     {
+        if (immuneBadge != null) immuneBadge.enabled = false;
+
         if (style == EnemyData.DeathStyle.None || seconds <= 0f) return;
         if (!gameObject.activeInHierarchy) return;
 
@@ -279,6 +344,7 @@ public class EnemyVisual : MonoBehaviour
 
         flashing = false;
         nextFlashTime = 0f;
+        if (immuneBadge != null) immuneBadge.enabled = false;
         enabled = false;
 
         if (renderersSearched) Apply();
@@ -383,6 +449,8 @@ public class EnemyVisual : MonoBehaviour
     // 깜빡이거나 죽는 도중 비활성화돼도(풀 반납) 원본으로 돌려놓는다. 안 그러면 다음 개체가 이전 상태로 나온다
     void OnDisable()
     {
+        if (immuneBadge != null) immuneBadge.enabled = false;
+
         if (!flashing && !punching && !dying) return;
 
         flashing = false;
