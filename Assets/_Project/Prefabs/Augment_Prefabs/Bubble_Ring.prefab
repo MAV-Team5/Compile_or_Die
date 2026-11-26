@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3943968533964995371}
   - component: {fileID: 1430851000010420062}
   - component: {fileID: 8902102875761239088}
+  - component: {fileID: 1990000000000000001}
   m_Layer: 0
   m_Name: Bubble_Ring
   m_TagString: Untagged
@@ -145,3 +146,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1990000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2975316040695626755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe97298aef9a2f45a09fe1d256a6969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeepOriginalColors

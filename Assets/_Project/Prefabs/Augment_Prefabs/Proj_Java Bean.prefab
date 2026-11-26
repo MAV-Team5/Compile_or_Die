@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9018550990975583840}
   - component: {fileID: 7899424384895977524}
   - component: {fileID: 4106603368214801592}
+  - component: {fileID: 1990000000000000001}
   m_Layer: 0
   m_Name: Proj_Java Bean
   m_TagString: Untagged
@@ -179,3 +180,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1144b5420cf2f35439d963ffd40a6c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentProjectile
+--- !u!114 &1990000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6824073935605403827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe97298aef9a2f45a09fe1d256a6969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeepOriginalColors

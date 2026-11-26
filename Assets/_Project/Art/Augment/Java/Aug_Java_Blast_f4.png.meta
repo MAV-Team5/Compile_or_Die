@@ -1,22 +1,7 @@
 fileFormatVersion: 2
 guid: f7eb412f2bce7234290e788c839d57ef
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 1754801705123980585
-    second: Aug_Java_Blast_f4_0
-  - first:
-      213: -5573186033072494346
-    second: Aug_Java_Blast_f4_1
-  - first:
-      213: -8731166497725569960
-    second: Aug_Java_Blast_f4_2
-  - first:
-      213: 2806760669346091107
-    second: Aug_Java_Blast_f4_3
-  - first:
-      213: 6415840477122383877
-    second: Aug_Java_Blast_f4_4
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 12
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,117 +95,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Aug_Java_Blast_f4_0
-      rect:
-        serializedVersion: 2
-        x: 23
-        y: 23
-        width: 210
-        height: 210
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9252a2d7ade4a5810800000000000000
-      internalID: 1754801705123980585
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Aug_Java_Blast_f4_1
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 227
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6f8ab87b4d018a2b0800000000000000
-      internalID: -5573186033072494346
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Aug_Java_Blast_f4_2
-      rect:
-        serializedVersion: 2
-        x: 232
-        y: 141
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 854a64c745aa4d680800000000000000
-      internalID: -8731166497725569960
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Aug_Java_Blast_f4_3
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 102
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 36059e935fd93f620800000000000000
-      internalID: 2806760669346091107
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Aug_Java_Blast_f4_4
-      rect:
-        serializedVersion: 2
-        x: 83
-        y: 16
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 500d37edbe4a90950800000000000000
-      internalID: 6415840477122383877
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     customData: 
     physicsShape: []
@@ -234,12 +109,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Aug_Java_Blast_f4_0: 1754801705123980585
-      Aug_Java_Blast_f4_1: -5573186033072494346
-      Aug_Java_Blast_f4_2: -8731166497725569960
-      Aug_Java_Blast_f4_3: 2806760669346091107
-      Aug_Java_Blast_f4_4: 6415840477122383877
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

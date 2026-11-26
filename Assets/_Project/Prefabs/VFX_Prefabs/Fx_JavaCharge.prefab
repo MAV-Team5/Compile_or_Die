@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2502462570784736279}
   - component: {fileID: 4150304758203230124}
   - component: {fileID: 4638364592145619301}
+  - component: {fileID: 1990000000000000001}
   m_Layer: 0
   m_Name: Fx_JavaCharge
   m_TagString: Untagged
@@ -130,3 +131,15 @@ MonoBehaviour:
   lifetime: 0.4
   fadeOut: 1
   fadeDuration: 0.15
+--- !u!114 &1990000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107035735340072613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe97298aef9a2f45a09fe1d256a6969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeepOriginalColors
