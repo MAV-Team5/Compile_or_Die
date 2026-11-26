@@ -62,6 +62,12 @@ public class AugmentData : ScriptableObject
     [Tooltip("HUD 슬롯에 표시할 아이콘.")]
     public Sprite icon;
 
+    [Tooltip("네온 연출이 켜졌을 때 쓸 아이콘. 기본 아이콘이 비어 있으면 꺼져 있어도 이걸 쓴다.")]
+    public Sprite neonIcon;
+
+    /// <summary>화면에 보여줄 아이콘 — 네온 연출 상태에 따라 고른다.</summary>
+    public Sprite Icon => neonIcon != null && (PresentationSettings.Neon || icon == null) ? neonIcon : icon;
+
     [Header("설명")]
     [Tooltip("토큰이 현재 레벨 수치로 치환된다. 시트 열 이름을 그대로 쓴다.\n\n" +
              "  {damage} {effectDamage} {cooldown} {range} {effectRange}\n" +

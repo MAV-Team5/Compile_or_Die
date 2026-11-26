@@ -585,11 +585,11 @@ public class AugmentCardView : MonoBehaviour,
         Data = data;
         ApplyAdvice(data, owned);
 
-        bool hasIcon = data.icon != null;
+        bool hasIcon = data.Icon != null;
         icon.enabled = hasIcon;
         iconFallback.gameObject.SetActive(!hasIcon);
 
-        if (hasIcon) icon.sprite = data.icon;
+        if (hasIcon) icon.sprite = data.Icon;
         else iconFallback.text = string.IsNullOrEmpty(data.displayName)
                                     ? "?" : data.displayName[..1];
 

@@ -63,6 +63,7 @@ public static class NeonFlash
     /// <summary>앞 대상 → 다음 대상으로 한 번 번쩍인다. <paramref name="depth"/> 가 깊을수록 조금 더 밝다.</summary>
     public static void Hop(AugmentData data, Vector3 from, Vector3 to, int depth)
     {
+        if (!PresentationSettings.Neon) return;
         if (!ColorOf(data, out Color color)) return;
         if ((to - from).sqrMagnitude < 0.04f) return;
 

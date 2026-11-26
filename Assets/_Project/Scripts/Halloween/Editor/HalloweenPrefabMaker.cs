@@ -771,9 +771,9 @@ public static class HalloweenPrefabMaker
 
             var icon = AssetDatabase.LoadAssetAtPath<Sprite>($"{NeonIconDir}/Neon_{key}.png");
             if (icon == null) { missing.Add(data.name); continue; }
-            if (data.icon == icon) continue;
+            if (data.neonIcon == icon) continue;
 
-            data.icon = icon;
+            data.neonIcon = icon;
             EditorUtility.SetDirty(data);
             set++;
         }

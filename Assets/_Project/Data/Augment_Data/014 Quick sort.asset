@@ -19,7 +19,8 @@ MonoBehaviour:
   category: 1
   exclusiveTo: {fileID: 0}
   tags: 000000000b0000001400000020000000
-  icon: {fileID: 8812059922961389601, guid: f8f648a24c6a3417a9d66388331dfd74, type: 3}
+  icon: {fileID: 0}
+  neonIcon: {fileID: 8812059922961389601, guid: f8f648a24c6a3417a9d66388331dfd74, type: 3}
   descriptionTemplate: "\uAE30\uC900\uC810\uC744 \uB358\uC838 \uC8FC\uBCC0 \uC801\uC744
     \uB458\uB85C \uAC08\uB77C \uD769\uC5B4 \uB193\uB294\uB2E4.\n\uAC08\uB77C\uC9C4
     \uC801\uC740 \uB454\uD654\uB41C\uB2E4.\n\uD53C\uD574\uB7C9\t: {damage}\n\uCFE8\uD0C0\uC784\t:

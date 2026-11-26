@@ -53,8 +53,8 @@ public class AugmentHudSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         runner.BecameReady += OnBecameReady;
 
         AugmentData data = runner.Instance.Data;
-        icon.sprite  = data.icon;
-        icon.enabled = data.icon != null;
+        icon.sprite  = data.Icon;
+        icon.enabled = data.Icon != null;
 
         name = $"Slot_{data.name}";
     }

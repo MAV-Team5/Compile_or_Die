@@ -40,7 +40,7 @@ public static class AugmentPalette
     public static bool TryGet(AugmentData data, out Color color)
     {
         color = Color.white;
-        if (data == null) return false;
+        if (data == null || !PresentationSettings.Neon) return false;
 
         if (!string.IsNullOrEmpty(data.id) && table.TryGetValue(data.id.ToUpperInvariant(), out color)) return true;
         if (data.rootAugment != null && data.rootAugment != data) return TryGet(data.rootAugment, out color);

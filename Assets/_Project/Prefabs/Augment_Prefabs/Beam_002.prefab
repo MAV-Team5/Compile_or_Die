@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9018550990975583840}
   - component: {fileID: 7899424384895977524}
   - component: {fileID: 4411457278940566550}
+  - component: {fileID: 2648193057731846215}
   m_Layer: 0
   m_Name: Beam_002
   m_TagString: Untagged
@@ -84,8 +85,8 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a2a078eeaf2f447fa05c9dfa30812e1f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 36e3d37412f23024ab329f196f4235ed, type: 3}
+  m_Color: {r: 0.39607847, g: 0, b: 0.9960785, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -280,3 +281,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2648193057731846215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6824073935605403827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d6aef1a7c12441c803e7206c8ee860c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeonLook
+  neonSprite: {fileID: 21300000, guid: a2a078eeaf2f447fa05c9dfa30812e1f, type: 3}
+  neonColor: {r: 1, g: 1, b: 1, a: 1}
